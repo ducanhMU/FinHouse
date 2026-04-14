@@ -1,0 +1,30 @@
+use_default_settings: true
+
+server:
+  secret_key: "finhouse-searxng-secret-change-me"
+  bind_address: "0.0.0.0"
+  port: 8080
+
+search:
+  safe_search: 0
+  autocomplete: ""
+  formats:
+    - html
+    - json
+
+engines:
+  - name: google
+    engine: google
+    shortcut: g
+  - name: duckduckgo
+    engine: duckduckgo
+    shortcut: ddg
+  - name: bing
+    engine: bing
+    shortcut: b
+  - name: wikipedia
+    engine: wikipedia
+    shortcut: wp
+
+general:
+  enable_metrics: false
