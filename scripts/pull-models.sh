@@ -6,7 +6,7 @@
 
 set -e
 
-OLLAMA_HOST="${OLLAMA_HOST:-http://localhost:11434}"
+OLLAMA_HOST="${OLLAMA_HOST:-http://localhost:21434}"
 
 echo "⏳ Waiting for Ollama to be ready..."
 until curl -sf "$OLLAMA_HOST/" > /dev/null 2>&1; do
@@ -16,8 +16,23 @@ echo "✅ Ollama is ready"
 
 MODELS=("qwen2.5:14b" "llama3.1:8b")
 
+# Fetch the list of already-downloaded models once
+EXISTING=$(curl -s "$OLLAMA_HOST/api/tags")
+
 for model in "${MODELS[@]}"; do
     echo ""
+    already=$(echo "$EXISTING" | python3 -c "
+import sys, json
+data = json.load(sys.stdin)
+names = [m['name'] for m in data.get('models', [])]
+print('yes' if '$model' in names else 'no')
+" 2>/dev/null || echo "no")
+
+    if [ "$already" = "yes" ]; then
+        echo "✅ $model already present, skipping"
+        continue
+    fi
+
     echo "📦 Pulling $model ..."
     curl -s "$OLLAMA_HOST/api/pull" -d "{\"name\": \"$model\"}" | while read -r line; do
         status=$(echo "$line" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('status',''))" 2>/dev/null || echo "$line")

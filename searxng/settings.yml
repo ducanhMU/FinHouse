@@ -1,7 +1,7 @@
 use_default_settings: true
 
 server:
-  secret_key: "finhouse-searxng-secret-change-me"
+  secret_key: "RI9Hxghd/B+Oe4Ba1g+9ZeR83tiRHQEDbJCWTPPGIxM="
   bind_address: "0.0.0.0"
   port: 8080
 

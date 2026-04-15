@@ -16,7 +16,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - "5432:5432"
+      - "15432:5432"
     volumes:
       - pg-data:/var/lib/postgresql/data
       - ./api/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
@@ -38,8 +38,8 @@ services:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     ports:
-      - "9000:9000"
-      - "9001:9001"
+      - "19000:9000"
+      - "19001:9001"
     volumes:
       - minio-data:/data
     networks:
@@ -86,7 +86,7 @@ services:
     networks:
       - finhouse-net
     healthcheck:
-      test: ["CMD", "etcdctl", "endpoint", "health"]
+      test: ["CMD", "etcdctl", "--endpoints=http://localhost:2379", "endpoint", "health"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -104,7 +104,7 @@ services:
       MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD}
     ports:
       - "19530:19530"
-      - "9091:9091"
+      - "29091:9091"
     depends_on:
       finhouse-etcd:
         condition: service_healthy
@@ -126,7 +126,7 @@ services:
     container_name: finhouse-ollama
     restart: unless-stopped
     ports:
-      - "11434:11434"
+      - "21434:11434"
     volumes:
       - ollama-models:/root/.ollama
     networks:
@@ -144,19 +144,35 @@ services:
       timeout: 5s
       retries: 5
 
+  # Model puller (one-shot) ─────────────────────────────────
+  finhouse-model-puller:
+    image: ollama/ollama
+    container_name: finhouse-model-puller
+    restart: "no"
+    depends_on:
+      finhouse-ollama:
+        condition: service_healthy
+    entrypoint: ["/bin/bash", "/scripts/pull-models.sh"]
+    environment:
+      OLLAMA_HOST: http://finhouse-ollama:11434
+    volumes:
+      - ./scripts:/scripts:ro
+    networks:
+      - finhouse-net
+
   # ── SearXNG (Web Search) ──────────────────────────────────
   finhouse-searxng:
     image: searxng/searxng:latest
     container_name: finhouse-searxng
     restart: unless-stopped
     ports:
-      - "8080:8080"
+      - "18080:8080"
     volumes:
       - ./searxng:/etc/searxng:rw
     networks:
       - finhouse-net
     environment:
-      SEARXNG_BASE_URL: http://localhost:8080/
+      SEARXNG_BASE_URL: http://localhost:18080/
 
   # ── BGE-M3 Embedding Service ──────────────────────────────
   finhouse-bge-m3:
@@ -166,7 +182,7 @@ services:
     container_name: finhouse-bge-m3
     restart: unless-stopped
     ports:
-      - "8081:8081"
+      - "28081:8081"
     networks:
       - finhouse-net
     healthcheck:
@@ -183,7 +199,7 @@ services:
     container_name: finhouse-reranker
     restart: unless-stopped
     ports:
-      - "8082:8082"
+      - "28082:8082"
     networks:
       - finhouse-net
     healthcheck:
@@ -200,7 +216,12 @@ services:
     container_name: finhouse-api
     restart: unless-stopped
     ports:
-      - "8000:8000"
+      - "18000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     env_file:
       - .env
     environment:
@@ -216,6 +237,11 @@ services:
         condition: service_healthy
       finhouse-ollama:
         condition: service_healthy
+      finhouse-bge-m3:
+        condition: service_healthy
+      finhouse-reranker:
+        condition: service_healthy
+
     networks:
       - finhouse-net
 

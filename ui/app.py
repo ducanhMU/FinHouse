@@ -437,7 +437,7 @@ with st.sidebar:
     col_a, col_b = st.columns(2)
     with col_a:
         if st.button("📖 API Docs", use_container_width=True):
-            st.markdown("[Open Swagger UI](http://localhost:8000/docs)")
+            st.markdown("[Open Swagger UI](http://localhost:18000/docs)")
     with col_b:
         if st.session_state.authenticated:
             if st.button("🚪 Logout", use_container_width=True):
