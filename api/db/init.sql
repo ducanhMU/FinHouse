@@ -24,8 +24,12 @@ VALUES (0, 'guest', NULL)
 ON CONFLICT (user_id) DO NOTHING;
 
 -- Reset sequence so next real user starts at 1
-SELECT setval(pg_get_serial_sequence('"user"', 'user_id'),
-              GREATEST((SELECT MAX(user_id) FROM "user"), 0));
+-- Note: setval requires value >= 1. Use is_called=false so nextval() returns 1 first.
+SELECT setval(
+    pg_get_serial_sequence('"user"', 'user_id'),
+    GREATEST((SELECT COALESCE(MAX(user_id), 0) FROM "user"), 1),
+    (SELECT COALESCE(MAX(user_id), 0) FROM "user") > 0
+);
 
 -- ── Projects ────────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS project (

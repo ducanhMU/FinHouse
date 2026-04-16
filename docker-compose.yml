@@ -246,7 +246,7 @@ services:
       finhouse-milvus:
         condition: service_started
       finhouse-ollama:
-        condition: service_healthy
+        condition: service_started
       finhouse-bge-m3:
         condition: service_healthy
       finhouse-reranker:
