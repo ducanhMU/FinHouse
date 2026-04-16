@@ -46,9 +46,9 @@ services:
       - finhouse-net
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
+      interval: 30s
+      timeout: 20s
+      retries: 5
 
   # MinIO bucket init (one-shot)
   finhouse-minio-init:
@@ -140,8 +140,8 @@ services:
               capabilities: [gpu]
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:11434/"]
-      interval: 10s
-      timeout: 5s
+      interval: 30s
+      timeout: 20s
       retries: 5
 
   # Model puller (one-shot) ─────────────────────────────────
