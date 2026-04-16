@@ -2,30 +2,40 @@
 
 import json
 import asyncio
+import html as html_module
 from datetime import datetime, timezone
 from typing import Optional
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.responses import StreamingResponse
-from pydantic import BaseModel
-from sqlalchemy import select, func
+from pydantic import BaseModel, Field
+from sqlalchemy import select, func, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from database import get_db, async_session_factory
-from models import ChatSession, ChatEvent
+from models import ChatSession, ChatEvent, File
 from services.ollama import chat_stream, chat_sync, TOOL_CAPABLE_MODELS
 from tools.web_search import web_search, WEB_SEARCH_TOOL_SCHEMA
 from routers.auth import get_current_user
+from routers.sessions import authorize_session
 
 router = APIRouter(prefix="/chat", tags=["chat"])
 
-# Track active streams for cancellation
+# Max chars in a user message — prevents context bloat and Ollama OOM
+MAX_MESSAGE_LENGTH = 32_000
+
+# Max chars to store from a tool result (web search HTML etc.)
+MAX_TOOL_RESULT_LENGTH = 20_000
+
+# Track active streams for cancellation.
+# NOTE: this is in-memory per worker. Works fine for single-worker deploys.
+# For multi-worker: move to Redis pub/sub.
 _active_streams: dict[str, bool] = {}
 
 
 class SendRequest(BaseModel):
-    text: str
+    text: str = Field(..., min_length=1, max_length=MAX_MESSAGE_LENGTH)
 
 
 class EventOut(BaseModel):
@@ -41,41 +51,80 @@ class EventOut(BaseModel):
         from_attributes = True
 
 
-async def _get_next_order(session_id: UUID, db: AsyncSession) -> int:
-    """Get the next num_order for a session."""
-    result = await db.execute(
-        select(func.coalesce(func.max(ChatEvent.num_order), 0))
-        .where(ChatEvent.session_id == session_id)
-    )
-    return result.scalar() + 1
+def _sanitize_tool_result(raw: str, max_length: int = MAX_TOOL_RESULT_LENGTH) -> str:
+    """
+    Cap length and unescape HTML entities. Web search results often contain
+    huge blobs with HTML; we strip nothing structurally but bound the size
+    to avoid bloating chat context.
+    """
+    if not raw:
+        return ""
+    # Truncate first
+    truncated = raw[:max_length]
+    if len(raw) > max_length:
+        truncated += f"\n\n[... truncated {len(raw) - max_length} more chars]"
+    return truncated
 
 
-async def _insert_event(
+async def _insert_event_atomic(
     db: AsyncSession,
     session_id: UUID,
-    num_order: int,
     role: str,
-    text: str,
+    msg_text: str,
     event_type: str,
 ) -> ChatEvent:
-    """Insert a chat event."""
-    event = ChatEvent(
-        session_id=session_id,
-        num_order=num_order,
-        role=role,
-        text=text,
-        event_type=event_type,
+    """
+    Insert a chat event, computing num_order atomically server-side.
+    Uses SQL subquery to avoid read-then-write race condition.
+    """
+    # Cap text size defensively
+    capped_text = msg_text[:1_000_000]  # 1 MB hard ceiling
+
+    stmt = text(
+        """
+        INSERT INTO chat_event (session_id, num_order, role, text, event_type)
+        VALUES (
+            :session_id,
+            COALESCE(
+                (SELECT MAX(num_order) + 1 FROM chat_event WHERE session_id = :session_id),
+                1
+            ),
+            :role, :text, :event_type
+        )
+        RETURNING message_id, num_order
+        """
     )
-    db.add(event)
-    await db.flush()
-    return event
+    result = await db.execute(
+        stmt,
+        {
+            "session_id": str(session_id),
+            "role": role,
+            "text": capped_text,
+            "event_type": event_type,
+        },
+    )
+    row = result.fetchone()
+
+    # Reload via ORM so the caller gets a full ChatEvent object
+    obj_result = await db.execute(
+        select(ChatEvent).where(ChatEvent.message_id == row.message_id)
+    )
+    return obj_result.scalar_one()
+
+
+async def _project_has_files(db: AsyncSession, project_id: int) -> bool:
+    """Check if a project has any ready files — used to skip RAG when empty."""
+    result = await db.execute(
+        select(func.count(File.file_id)).where(
+            File.project_id == project_id,
+            File.process_status == "ready",
+        )
+    )
+    return (result.scalar() or 0) > 0
 
 
 async def _build_messages(session_id: UUID, db: AsyncSession) -> list[dict]:
-    """
-    Build Ollama message list from recent events.
-    Uses: latest checkpoint + recent summaries + last 6 messages.
-    """
+    """Build Ollama message list from recent events."""
     messages = []
 
     # 1. Latest checkpoint
@@ -149,26 +198,29 @@ async def _handle_tool_calls(
         tool_args = func_info.get("arguments", {})
 
         # Log tool call
-        order = await _get_next_order(session_id, db)
-        await _insert_event(
-            db, session_id, order, "assistant", 
-            json.dumps({"tool": tool_name, "args": tool_args}),
+        await _insert_event_atomic(
+            db, session_id, "assistant",
+            json.dumps({"tool": tool_name, "args": tool_args})[:MAX_TOOL_RESULT_LENGTH],
             "tool_call",
         )
 
         # Execute
         result_text = ""
         if tool_name == "web_search" and "web_search" in enabled_tools:
-            query = tool_args.get("query", "")
-            results = await web_search(query)
-            result_text = json.dumps(results, ensure_ascii=False)
+            query = tool_args.get("query", "")[:500]
+            try:
+                results = await web_search(query)
+                result_text = json.dumps(results, ensure_ascii=False)
+            except Exception as e:
+                result_text = json.dumps({"error": f"web_search failed: {e}"})
         else:
             result_text = json.dumps({"error": f"Tool '{tool_name}' not available"})
 
+        result_text = _sanitize_tool_result(result_text)
+
         # Log tool result
-        order = await _get_next_order(session_id, db)
-        await _insert_event(
-            db, session_id, order, "system", result_text, "tool_result",
+        await _insert_event_atomic(
+            db, session_id, "system", result_text, "tool_result",
         )
 
         tool_messages.append({
@@ -179,14 +231,53 @@ async def _handle_tool_calls(
     return tool_messages
 
 
+async def _generate_title_background(
+    session_id: UUID,
+    model_used: str,
+    user_text: str,
+    assistant_text: str,
+):
+    """Fire-and-forget title generation. Runs after response is done."""
+    try:
+        title_resp = await chat_sync(
+            model_used,
+            [
+                {"role": "system", "content": "Generate a very short title (max 6 words) for this conversation. Reply with ONLY the title, no quotes or punctuation."},
+                {"role": "user", "content": user_text[:1000]},
+                {"role": "assistant", "content": assistant_text[:200]},
+            ],
+        )
+        title = title_resp.get("message", {}).get("content", "").strip()[:100]
+        if not title:
+            return
+
+        async with async_session_factory() as db:
+            result = await db.execute(
+                select(ChatSession).where(ChatSession.session_id == session_id)
+            )
+            session = result.scalar_one_or_none()
+            if session and not session.session_title:
+                session.session_title = title
+                await db.commit()
+    except Exception:
+        pass  # title is nice-to-have, never blocks
+
+
 @router.post("/{session_id}/send")
 async def send_message(
     session_id: UUID,
     body: SendRequest,
-    request: Request,
     user_id: int = Depends(get_current_user),
 ):
     """Send a message and stream the assistant response via SSE."""
+
+    # Authorize upfront using a short-lived session.
+    # We'll open longer-lived sessions inside the generator for streaming.
+    async with async_session_factory() as authz_db:
+        session_obj = await authorize_session(authz_db, user_id, session_id)
+        session_project_id = session_obj.project_id
+        session_model = session_obj.model_used
+        session_tools = session_obj.tools_used or []
 
     stream_key = str(session_id)
     _active_streams[stream_key] = True
@@ -194,7 +285,7 @@ async def send_message(
     async def event_generator():
         async with async_session_factory() as db:
             try:
-                # Fetch session
+                # Re-load session to work with it in this db session
                 result = await db.execute(
                     select(ChatSession).where(ChatSession.session_id == session_id)
                 )
@@ -205,90 +296,83 @@ async def send_message(
 
                 enabled_tools = session.tools_used or []
 
-                # Insert user message
-                order = await _get_next_order(session_id, db)
-                await _insert_event(
-                    db, session_id, order, "user", body.text, "message"
+                # Insert user message (atomic num_order)
+                await _insert_event_atomic(
+                    db, session_id, "user", body.text, "message"
                 )
                 await db.commit()
 
                 # Build prompt
                 messages = await _build_messages(session_id, db)
 
-                # ── RAG Retrieval ────────────────────────────────
+                # ── RAG Retrieval (only if project has files) ────
                 rag_sources = []
-                try:
-                    from services.ingest import retrieve_context
-                    project_id = session.project_id
-                    # For incognito (negative project_id), also search default (0)
-                    search_project = project_id if project_id >= 0 else 0
-                    rag_chunks = await retrieve_context(
-                        query=body.text,
-                        project_id=search_project,
-                        top_k=20,
-                        top_n_rerank=5,
-                    )
-                    if rag_chunks:
-                        # Format as numbered sources
-                        source_lines = []
-                        for i, chunk in enumerate(rag_chunks, 1):
-                            source_lines.append(
-                                f"[{i}] (File: {chunk.get('file_name','unknown')}) "
-                                f"{chunk['text'][:800]}"
+                search_project = session_project_id if session_project_id >= 0 else 0
+                if await _project_has_files(db, search_project):
+                    try:
+                        from services.ingest import retrieve_context
+                        rag_chunks = await retrieve_context(
+                            query=body.text,
+                            project_id=search_project,
+                            top_k=20,
+                            top_n_rerank=5,
+                        )
+                        if rag_chunks:
+                            source_lines = []
+                            for i, chunk in enumerate(rag_chunks, 1):
+                                source_lines.append(
+                                    f"[{i}] (File: {chunk.get('file_name','unknown')}) "
+                                    f"{chunk['text'][:800]}"
+                                )
+                                rag_sources.append({
+                                    "index": i,
+                                    "file_name": chunk.get("file_name", ""),
+                                    "text": chunk["text"][:300],
+                                    "score": chunk.get("rerank_score", chunk.get("score", 0)),
+                                })
+                            rag_text = (
+                                "Use the following retrieved document excerpts to answer "
+                                "the user's question. Cite sources using [1], [2], etc.\n\n"
+                                + "\n\n".join(source_lines)
                             )
-                            rag_sources.append({
-                                "index": i,
-                                "file_name": chunk.get("file_name", ""),
-                                "text": chunk["text"][:300],
-                                "score": chunk.get("rerank_score", chunk.get("score", 0)),
-                            })
-                        rag_text = (
-                            "Use the following retrieved document excerpts to answer "
-                            "the user's question. Cite sources using [1], [2], etc.\n\n"
-                            + "\n\n".join(source_lines)
-                        )
-                        messages.insert(0, {"role": "system", "content": rag_text})
+                            messages.insert(0, {"role": "system", "content": rag_text})
 
-                        # Log rag_context event
-                        order = await _get_next_order(session_id, db)
-                        await _insert_event(
-                            db, session_id, order, "system",
-                            json.dumps(rag_sources, ensure_ascii=False),
-                            "rag_context",
+                            await _insert_event_atomic(
+                                db, session_id, "system",
+                                json.dumps(rag_sources, ensure_ascii=False)[:MAX_TOOL_RESULT_LENGTH],
+                                "rag_context",
+                            )
+                            await db.commit()
+                    except Exception as e:
+                        import logging
+                        logging.getLogger("finhouse.chat").warning(
+                            f"RAG retrieval skipped: {e}"
                         )
-                        await db.commit()
-                except Exception as e:
-                    import logging
-                    logging.getLogger("finhouse.chat").warning(f"RAG retrieval skipped: {e}")
 
-                # Notify UI about RAG sources
                 if rag_sources:
                     yield f"data: {json.dumps({'type': 'rag_sources', 'sources': rag_sources})}\n\n"
 
-                # Ensure the user message we just inserted is in the list
                 if not messages or messages[-1].get("content") != body.text:
                     messages.append({"role": "user", "content": body.text})
 
-                # Prepare tools if enabled
                 tools = []
                 if "web_search" in enabled_tools:
                     tools.append(WEB_SEARCH_TOOL_SCHEMA)
 
-                # Call Ollama with possible tool usage loop
+                # Tool-use loop
                 max_tool_rounds = 3
+                full_response = ""
                 for round_idx in range(max_tool_rounds + 1):
                     if not _active_streams.get(stream_key, False):
                         break
 
                     if tools and round_idx < max_tool_rounds:
-                        # Non-streaming call to check for tool calls
                         response = await chat_sync(
                             session.model_used, messages, tools=tools
                         )
                         msg = response.get("message", {})
 
                         if msg.get("tool_calls"):
-                            # Notify UI about tool usage
                             for tc in msg["tool_calls"]:
                                 fn = tc.get("function", {})
                                 yield f"data: {json.dumps({'type': 'tool_start', 'tool': fn.get('name',''), 'args': fn.get('arguments',{})})}\n\n"
@@ -301,7 +385,6 @@ async def send_message(
                             for tr in tool_results:
                                 yield f"data: {json.dumps({'type': 'tool_end', 'content': tr['content'][:500]})}\n\n"
 
-                            # Add assistant tool call + tool results to messages
                             messages.append({
                                 "role": "assistant",
                                 "content": msg.get("content", ""),
@@ -309,12 +392,8 @@ async def send_message(
                             })
                             messages.extend(tool_results)
                             continue
-                        else:
-                            # No tool calls — model wants to respond directly
-                            # Re-do as streaming for the final answer
-                            pass
 
-                    # Streaming final response (no tools)
+                    # Streaming final response
                     full_response = ""
                     async for chunk in chat_stream(
                         session.model_used, messages, tools=None
@@ -331,40 +410,30 @@ async def send_message(
                             break
 
                     # Save assistant response
-                    order = await _get_next_order(session_id, db)
-                    await _insert_event(
-                        db, session_id, order, "assistant", full_response, "message"
+                    await _insert_event_atomic(
+                        db, session_id, "assistant", full_response, "message"
                     )
 
-                    # Update session
                     session.turn_count += 1
                     session.update_at = datetime.now(timezone.utc)
                     await db.commit()
 
-                    # Auto-title after first turn if no title
+                    # Auto-title — FIRE AND FORGET (non-blocking)
                     if session.turn_count == 1 and not session.session_title:
-                        try:
-                            title_resp = await chat_sync(
+                        asyncio.create_task(
+                            _generate_title_background(
+                                session_id,
                                 session.model_used,
-                                [
-                                    {"role": "system", "content": "Generate a very short title (max 6 words) for this conversation. Reply with ONLY the title, no quotes or punctuation."},
-                                    {"role": "user", "content": body.text},
-                                    {"role": "assistant", "content": full_response[:200]},
-                                ],
+                                body.text,
+                                full_response,
                             )
-                            title = title_resp.get("message", {}).get("content", "").strip()[:100]
-                            if title:
-                                session.session_title = title
-                                await db.commit()
-                                yield f"data: {json.dumps({'type': 'title', 'content': title})}\n\n"
-                        except Exception:
-                            pass
+                        )
 
                     yield f"data: {json.dumps({'type': 'done'})}\n\n"
                     break
 
             except Exception as e:
-                yield f"data: {json.dumps({'type': 'error', 'content': str(e)})}\n\n"
+                yield f"data: {json.dumps({'type': 'error', 'content': str(e)[:500]})}\n\n"
             finally:
                 _active_streams.pop(stream_key, None)
 
@@ -380,8 +449,14 @@ async def send_message(
 
 
 @router.post("/{session_id}/stop")
-async def stop_stream(session_id: UUID):
+async def stop_stream(
+    session_id: UUID,
+    user_id: int = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
     """Cancel an active stream."""
+    # Require auth to stop — prevents random UUID guessers from canceling streams
+    await authorize_session(db, user_id, session_id)
     stream_key = str(session_id)
     if stream_key in _active_streams:
         _active_streams[stream_key] = False
@@ -392,12 +467,20 @@ async def stop_stream(session_id: UUID):
 @router.get("/{session_id}/events", response_model=list[EventOut])
 async def get_events(
     session_id: UUID,
+    limit: int = Query(200, ge=1, le=1000),
+    offset: int = Query(0, ge=0),
+    user_id: int = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """Get all events for a session, ordered by num_order."""
+    """Get paginated events for a session, ordered by num_order."""
+    # AUTHORIZE — this was the big hole previously
+    await authorize_session(db, user_id, session_id)
+
     result = await db.execute(
         select(ChatEvent)
         .where(ChatEvent.session_id == session_id)
         .order_by(ChatEvent.num_order.asc())
+        .offset(offset)
+        .limit(limit)
     )
     return result.scalars().all()

@@ -89,6 +89,18 @@ async def get_current_user(
 
 @router.post("/register", status_code=201)
 async def register(body: RegisterRequest, db: AsyncSession = Depends(get_db)):
+    # Validate input length
+    if len(body.user_name) < 3 or len(body.user_name) > 64:
+        raise HTTPException(
+            status_code=400,
+            detail="Username must be 3-64 characters",
+        )
+    if len(body.user_password) < 8 or len(body.user_password) > 256:
+        raise HTTPException(
+            status_code=400,
+            detail="Password must be 8-256 characters",
+        )
+
     # Check existing
     result = await db.execute(
         select(User).where(User.user_name == body.user_name)
@@ -96,18 +108,18 @@ async def register(body: RegisterRequest, db: AsyncSession = Depends(get_db)):
     if result.scalar_one_or_none():
         raise HTTPException(status_code=409, detail="Username already taken")
 
-    # Get next user_id
-    result = await db.execute(select(User.user_id).order_by(User.user_id.desc()).limit(1))
-    max_id = result.scalar_one_or_none() or 0
-    new_id = max(max_id + 1, 1)
-
+    # Let Postgres SERIAL assign user_id atomically — no race condition.
     user = User(
-        user_id=new_id,
         user_name=body.user_name,
         user_password=pwd_context.hash(body.user_password),
     )
     db.add(user)
-    await db.flush()
+    try:
+        await db.flush()
+    except Exception as e:
+        # Concurrent registrations with same username would hit UNIQUE constraint
+        await db.rollback()
+        raise HTTPException(status_code=409, detail="Username already taken") from e
     return {"user_id": user.user_id, "user_name": user.user_name}
 
 

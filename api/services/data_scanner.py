@@ -202,14 +202,19 @@ async def run_startup_scan():
     """
     Entry point called from FastAPI lifespan.
     Creates its own DB session for the scan.
+
+    This runs in the background — the API accepts requests immediately
+    instead of blocking until scan completes. Users can chat while data
+    is being indexed; RAG simply returns nothing for queries before
+    indexing finishes.
     """
     from database import async_session_factory
 
     # Wait for Milvus to be ready before scanning (Milvus takes 2-5 min to boot)
     logger.info("⏳ Waiting for Milvus to be ready...")
-    if not await _wait_for_milvus(max_wait_seconds=900):
+    if not await _wait_for_milvus(max_wait_seconds=600):
         logger.warning(
-            "⚠️  Milvus not ready after 15 minutes — skipping data folder scan. "
+            "⚠️  Milvus not ready after 10 minutes — skipping data folder scan. "
             "Files in ./data will not be auto-ingested. Restart the API container "
             "once Milvus is stable, or upload files via the UI."
         )
@@ -224,10 +229,20 @@ async def run_startup_scan():
             logger.error(f"Data scan failed: {e}", exc_info=True)
 
 
-async def _wait_for_milvus(max_wait_seconds: int = 900) -> bool:
+async def kick_off_background_scan():
+    """
+    Launch the scan as a background task without awaiting it.
+    Called from FastAPI lifespan to avoid blocking API startup.
+    """
+    import asyncio
+    asyncio.create_task(run_startup_scan())
+
+
+async def _wait_for_milvus(max_wait_seconds: int = 600) -> bool:
     """
     Poll Milvus healthz endpoint until ready, or timeout.
     Returns True if ready, False if timed out.
+    Uses a single httpx client across the whole polling loop.
     """
     import asyncio
     import httpx
@@ -236,20 +251,20 @@ async def _wait_for_milvus(max_wait_seconds: int = 900) -> bool:
     check_interval = 5  # seconds
     elapsed = 0
 
-    while elapsed < max_wait_seconds:
-        try:
-            async with httpx.AsyncClient(timeout=5.0) as client:
+    async with httpx.AsyncClient(timeout=5.0) as client:
+        while elapsed < max_wait_seconds:
+            try:
                 resp = await client.get(milvus_health_url)
                 if resp.status_code == 200:
                     logger.info(f"✅ Milvus ready after {elapsed}s")
                     return True
-        except Exception:
-            pass  # still booting
+            except Exception:
+                pass  # still booting
 
-        if elapsed % 30 == 0 and elapsed > 0:
-            logger.info(f"   still waiting for Milvus... ({elapsed}s elapsed)")
+            if elapsed % 30 == 0 and elapsed > 0:
+                logger.info(f"   still waiting for Milvus... ({elapsed}s elapsed)")
 
-        await asyncio.sleep(check_interval)
-        elapsed += check_interval
+            await asyncio.sleep(check_interval)
+            elapsed += check_interval
 
     return False

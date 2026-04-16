@@ -26,12 +26,12 @@ async def lifespan(app: FastAPI):
     print(f"   Milvus:     {settings.MILVUS_HOST}:{settings.MILVUS_PORT}")
     print(f"   Data dir:   {settings.DATA_DIR}")
 
-    # Scan ./data folder for files to ingest
+    # Kick off data folder scan in the background — doesn't block startup
     try:
-        from services.data_scanner import run_startup_scan
-        await run_startup_scan()
+        from services.data_scanner import kick_off_background_scan
+        await kick_off_background_scan()
     except Exception as e:
-        print(f"⚠️  Data scan error (non-fatal): {e}")
+        print(f"⚠️  Data scan kick-off error (non-fatal): {e}")
 
     yield
 
@@ -52,14 +52,26 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# CORS — restricted to configured origins (never "*" with credentials=True)
+# credentials=True requires an explicit origin list per CORS spec.
+_cors_origins = settings.cors_origins
+if "*" in _cors_origins:
+    # Wildcard mode — must disable credentials (browser would reject anyway)
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=False,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+else:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=_cors_origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
 # Routers
 app.include_router(auth.router)

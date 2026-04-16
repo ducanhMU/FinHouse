@@ -5,7 +5,10 @@ from datetime import datetime, timezone
 from typing import Optional
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, File as FastAPIFile, Form, BackgroundTasks
+from fastapi import (
+    APIRouter, Depends, HTTPException, UploadFile,
+    File as FastAPIFile, Form, BackgroundTasks,
+)
 from pydantic import BaseModel
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -13,6 +16,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from database import get_db, async_session_factory
 from models import File
 from routers.auth import get_current_user
+from routers.sessions import _can_user_access_project
 from config import get_settings
 from services.ingest import (
     SUPPORTED_EXTENSIONS,
@@ -20,10 +24,13 @@ from services.ingest import (
     upload_to_minio,
     delete_file_chunks,
     download_from_minio,
+    MAX_FILE_SIZE_MB,
 )
 
 router = APIRouter(prefix="/files", tags=["files"])
 settings = get_settings()
+
+MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
 
 
 class FileOut(BaseModel):
@@ -41,12 +48,27 @@ class FileOut(BaseModel):
         from_attributes = True
 
 
+async def _authorize_file(
+    db: AsyncSession, user_id: int, file_id: UUID
+) -> File:
+    """Load file and verify the user can access its project."""
+    result = await db.execute(select(File).where(File.file_id == file_id))
+    f = result.scalar_one_or_none()
+    if not f:
+        raise HTTPException(status_code=404, detail="File not found")
+    if not await _can_user_access_project(db, user_id, f.project_id):
+        raise HTTPException(status_code=403, detail="Access denied")
+    # Guests cannot see arbitrary project-0 files
+    if user_id == 0 and f.project_id == 0:
+        raise HTTPException(status_code=403, detail="Access denied")
+    return f
+
+
 # ── Background ingest task ──────────────────────────────────
 
 async def _run_ingest_background(
     file_id: str, content: bytes, file_name: str, file_type: str, project_id: int
 ):
-    """Background task: run full ingest pipeline then update DB status."""
     async with async_session_factory() as db:
         try:
             result = await db.execute(
@@ -102,9 +124,40 @@ async def upload_file(
     db: AsyncSession = Depends(get_db),
 ):
     """Upload a file. Supported types are ingested for RAG; others → failed."""
-    ext = file.filename.rsplit(".", 1)[-1].lower() if "." in file.filename else ""
+    # Validate filename
+    if not file.filename or len(file.filename) > 512:
+        raise HTTPException(status_code=400, detail="Invalid filename")
 
-    content = await file.read()
+    # Project access check
+    if not await _can_user_access_project(db, user_id, project_id):
+        raise HTTPException(status_code=403, detail="Access denied")
+
+    # Size check BEFORE reading content.
+    # UploadFile.size is set when Content-Length was provided.
+    if file.size is not None and file.size > MAX_FILE_SIZE_BYTES:
+        raise HTTPException(
+            status_code=413,
+            detail=f"File too large (max {MAX_FILE_SIZE_MB} MB)",
+        )
+
+    # Streaming read with running size check (protects against missing CL header)
+    content_parts = []
+    total = 0
+    CHUNK = 1024 * 1024  # 1 MB
+    while True:
+        chunk = await file.read(CHUNK)
+        if not chunk:
+            break
+        total += len(chunk)
+        if total > MAX_FILE_SIZE_BYTES:
+            raise HTTPException(
+                status_code=413,
+                detail=f"File too large (max {MAX_FILE_SIZE_MB} MB)",
+            )
+        content_parts.append(chunk)
+    content = b"".join(content_parts)
+
+    ext = file.filename.rsplit(".", 1)[-1].lower() if "." in file.filename else ""
     file_hash = hashlib.sha256(content).hexdigest()
 
     # Dedup
@@ -119,15 +172,20 @@ async def upload_file(
     if existing:
         return existing
 
-    # MinIO path
+    # Build object name (prevent path traversal via filename)
+    safe_filename = file.filename.replace("/", "_").replace("\\", "_")[:512]
     sid = UUID(session_id) if session_id else None
     if project_id < 0:
-        object_name = f"incognito/{sid or 'no_session'}/{file_hash}_{file.filename}"
+        object_name = f"incognito/{sid or 'no_session'}/{file_hash}_{safe_filename}"
     else:
-        object_name = f"user_{user_id}/project_{project_id}/{file_hash}_{file.filename}"
+        object_name = f"user_{user_id}/project_{project_id}/{file_hash}_{safe_filename}"
 
     try:
-        upload_to_minio(content, object_name, file.content_type or "application/octet-stream")
+        upload_to_minio(
+            content,
+            object_name,
+            file.content_type or "application/octet-stream",
+        )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to store file: {e}")
 
@@ -138,7 +196,7 @@ async def upload_file(
         project_id=project_id,
         session_id=sid,
         file_hash=file_hash,
-        file_name=file.filename,
+        file_name=safe_filename,
         file_type=ext or "unknown",
         process_status=initial_status,
         file_dir=f"{settings.MINIO_BUCKET}/{object_name}",
@@ -153,7 +211,7 @@ async def upload_file(
     if initial_status == "pending":
         background_tasks.add_task(
             _run_ingest_background,
-            str(file_record.file_id), content, file.filename, ext, project_id,
+            str(file_record.file_id), content, safe_filename, ext, project_id,
         )
 
     return file_record
@@ -165,22 +223,32 @@ async def list_files(
     user_id: int = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    query = select(File).where(File.process_status != "deleted")
     if project_id is not None:
-        query = query.where(File.project_id == project_id)
-    elif user_id != 0:
-        query = query.where(File.user_id == user_id)
+        if not await _can_user_access_project(db, user_id, project_id):
+            raise HTTPException(status_code=403, detail="Access denied")
+        query = select(File).where(
+            File.project_id == project_id,
+            File.process_status != "deleted",
+        )
+    elif user_id == 0:
+        return []
+    else:
+        query = select(File).where(
+            File.user_id == user_id,
+            File.process_status != "deleted",
+        )
     result = await db.execute(query.order_by(File.file_name))
     return result.scalars().all()
 
 
 @router.get("/status/{file_id}", response_model=FileOut)
-async def file_status(file_id: UUID, db: AsyncSession = Depends(get_db)):
-    result = await db.execute(select(File).where(File.file_id == file_id))
-    f = result.scalar_one_or_none()
-    if not f:
-        raise HTTPException(status_code=404, detail="File not found")
-    return f
+async def file_status(
+    file_id: UUID,
+    user_id: int = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Get file processing status. Authorized by project ownership."""
+    return await _authorize_file(db, user_id, file_id)
 
 
 @router.post("/reprocess/{file_id}", response_model=FileOut)
@@ -191,12 +259,12 @@ async def reprocess_file(
     db: AsyncSession = Depends(get_db),
 ):
     """Re-process a failed file. Only works for supported formats."""
-    result = await db.execute(select(File).where(File.file_id == file_id))
-    f = result.scalar_one_or_none()
-    if not f:
-        raise HTTPException(status_code=404, detail="File not found")
+    f = await _authorize_file(db, user_id, file_id)
+
     if f.file_type not in SUPPORTED_EXTENSIONS:
-        raise HTTPException(status_code=400, detail=f"Unsupported type: {f.file_type}")
+        raise HTTPException(
+            status_code=400, detail=f"Unsupported type: {f.file_type}"
+        )
 
     object_name = f.file_dir.replace(f"{settings.MINIO_BUCKET}/", "", 1)
     try:
@@ -226,10 +294,7 @@ async def delete_file(
     user_id: int = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    result = await db.execute(select(File).where(File.file_id == file_id))
-    f = result.scalar_one_or_none()
-    if not f:
-        raise HTTPException(status_code=404, detail="File not found")
+    f = await _authorize_file(db, user_id, file_id)
     try:
         delete_file_chunks(str(file_id))
     except Exception:
