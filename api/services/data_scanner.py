@@ -205,6 +205,16 @@ async def run_startup_scan():
     """
     from database import async_session_factory
 
+    # Wait for Milvus to be ready before scanning (Milvus takes 2-5 min to boot)
+    logger.info("⏳ Waiting for Milvus to be ready...")
+    if not await _wait_for_milvus(max_wait_seconds=900):
+        logger.warning(
+            "⚠️  Milvus not ready after 15 minutes — skipping data folder scan. "
+            "Files in ./data will not be auto-ingested. Restart the API container "
+            "once Milvus is stable, or upload files via the UI."
+        )
+        return
+
     logger.info(f"🔍 Starting data folder scan: {DATA_DIR}")
 
     async with async_session_factory() as db:
@@ -212,3 +222,34 @@ async def run_startup_scan():
             await scan_data_folder(db)
         except Exception as e:
             logger.error(f"Data scan failed: {e}", exc_info=True)
+
+
+async def _wait_for_milvus(max_wait_seconds: int = 900) -> bool:
+    """
+    Poll Milvus healthz endpoint until ready, or timeout.
+    Returns True if ready, False if timed out.
+    """
+    import asyncio
+    import httpx
+
+    milvus_health_url = f"http://{settings.MILVUS_HOST}:9091/healthz"
+    check_interval = 5  # seconds
+    elapsed = 0
+
+    while elapsed < max_wait_seconds:
+        try:
+            async with httpx.AsyncClient(timeout=5.0) as client:
+                resp = await client.get(milvus_health_url)
+                if resp.status_code == 200:
+                    logger.info(f"✅ Milvus ready after {elapsed}s")
+                    return True
+        except Exception:
+            pass  # still booting
+
+        if elapsed % 30 == 0 and elapsed > 0:
+            logger.info(f"   still waiting for Milvus... ({elapsed}s elapsed)")
+
+        await asyncio.sleep(check_interval)
+        elapsed += check_interval
+
+    return False

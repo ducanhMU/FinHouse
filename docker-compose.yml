@@ -126,12 +126,6 @@ services:
       - ./volumes/milvus:/var/lib/milvus
     networks:
       - finhouse-net
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:9091/healthz || exit 1"]
-      interval: 30s
-      timeout: 20s
-      retries: 20
-      start_period: 180s
 
   # ── Ollama (GPU if available — see note below) ───────────
   finhouse-ollama:
@@ -250,7 +244,7 @@ services:
       finhouse-minio:
         condition: service_healthy
       finhouse-milvus:
-        condition: service_healthy
+        condition: service_started
       finhouse-ollama:
         condition: service_healthy
       finhouse-bge-m3:
