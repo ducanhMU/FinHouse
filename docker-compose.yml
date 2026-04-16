@@ -130,8 +130,8 @@ services:
       test: ["CMD-SHELL", "curl -f http://localhost:9091/healthz || exit 1"]
       interval: 30s
       timeout: 20s
-      retries: 10
-      start_period: 90s
+      retries: 20
+      start_period: 180s
 
   # ── Ollama (GPU if available — see note below) ───────────
   finhouse-ollama:
