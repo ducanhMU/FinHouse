@@ -14,3 +14,5 @@ apscheduler==3.10.4
 python-docx==1.1.2
 pdfplumber==0.11.4
 pypdf==5.1.0
+marshmallow==3.21.3
+environs==11.0.0
