@@ -10,7 +10,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
         --timeout 600 \
         --retries 10 \
         --resume-retries 10 \
-        --index-url https://download.pytorch.org/whl/cpu \
+        --index-url https://download.pytorch.org/whl/cu121 \
         --extra-index-url https://pypi.org/simple \
         torch==2.5.1
 

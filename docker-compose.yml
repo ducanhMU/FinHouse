@@ -195,11 +195,20 @@ services:
       - "28081:8081"
     networks:
       - finhouse-net
+    # GPU if available. If host has no NVIDIA runtime, comment out this block.
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
       interval: 15s
       timeout: 10s
       retries: 5
+      start_period: 120s
 
   # ── BGE-M3 Reranker Service ───────────────────────────────
   finhouse-reranker:
@@ -212,11 +221,20 @@ services:
       - "28082:8082"
     networks:
       - finhouse-net
+    # GPU if available. If host has no NVIDIA runtime, comment out this block.
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8082/health"]
       interval: 15s
       timeout: 10s
       retries: 5
+      start_period: 120s
 
   # ── FastAPI Backend ───────────────────────────────────────
   finhouse-api:
@@ -246,7 +264,7 @@ services:
       finhouse-milvus:
         condition: service_started
       finhouse-ollama:
-        condition: service_started
+        condition: service_healthy
       finhouse-bge-m3:
         condition: service_healthy
       finhouse-reranker:
