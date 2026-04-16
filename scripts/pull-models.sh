@@ -1,52 +1,56 @@
-#!/bin/bash
+#!/bin/sh
 # ============================================================
 # Pull default Ollama models
-# Run after: docker compose up -d finhouse-ollama
+# Designed to run inside the ollama/ollama container.
+# Uses only the `ollama` CLI — no curl, no python3, no bash-isms.
 # ============================================================
 
 set -e
 
-OLLAMA_HOST="${OLLAMA_HOST:-http://localhost:21434}"
+OLLAMA_HOST="${OLLAMA_HOST:-http://finhouse-ollama:11434}"
 
-echo "⏳ Waiting for Ollama to be ready..."
-until curl -sf "$OLLAMA_HOST/" > /dev/null 2>&1; do
-    sleep 2
+echo "=== FinHouse model puller ==="
+echo "OLLAMA_HOST: $OLLAMA_HOST"
+
+# Wait for Ollama server to respond to `ollama list`
+echo "Waiting for Ollama server..."
+MAX_WAIT=300
+ELAPSED=0
+until ollama list >/dev/null 2>&1; do
+    if [ "$ELAPSED" -ge "$MAX_WAIT" ]; then
+        echo "ERROR: Ollama did not become ready after ${MAX_WAIT}s"
+        exit 1
+    fi
+    sleep 5
+    ELAPSED=$((ELAPSED + 5))
+    if [ $((ELAPSED % 30)) -eq 0 ]; then
+        echo "  ...still waiting (${ELAPSED}s)"
+    fi
 done
-echo "✅ Ollama is ready"
+echo "Ollama server is ready."
 
-MODELS=("qwen2.5:14b" "llama3.1:8b")
+# Models to pull
+MODELS="qwen2.5:14b llama3.1:8b"
 
-# Fetch the list of already-downloaded models once
-EXISTING=$(curl -s "$OLLAMA_HOST/api/tags")
-
-for model in "${MODELS[@]}"; do
+for model in $MODELS; do
     echo ""
-    already=$(echo "$EXISTING" | python3 -c "
-import sys, json
-data = json.load(sys.stdin)
-names = [m['name'] for m in data.get('models', [])]
-print('yes' if '$model' in names else 'no')
-" 2>/dev/null || echo "no")
+    echo "=== Pulling $model ==="
 
-    if [ "$already" = "yes" ]; then
-        echo "✅ $model already present, skipping"
+    # Skip if already present
+    if ollama list | awk '{print $1}' | grep -qx "$model"; then
+        echo "  already present, skipping"
         continue
     fi
 
-    echo "📦 Pulling $model ..."
-    curl -s "$OLLAMA_HOST/api/pull" -d "{\"name\": \"$model\"}" | while read -r line; do
-        status=$(echo "$line" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('status',''))" 2>/dev/null || echo "$line")
-        echo "   $status"
-    done
-    echo "✅ $model pulled"
+    # ollama pull streams progress to stderr automatically
+    if ollama pull "$model"; then
+        echo "  ✓ $model pulled successfully"
+    else
+        echo "  ✗ Failed to pull $model (will continue with other models)"
+    fi
 done
 
 echo ""
-echo "🎉 All models ready!"
+echo "=== All pull operations complete ==="
 echo "Available models:"
-curl -s "$OLLAMA_HOST/api/tags" | python3 -c "
-import sys, json
-data = json.load(sys.stdin)
-for m in data.get('models', []):
-    print(f\"  - {m['name']} ({m.get('size',0)//1024//1024//1024}GB)\")
-"
+ollama list

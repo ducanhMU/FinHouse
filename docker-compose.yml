@@ -154,15 +154,15 @@ services:
       retries: 10
       start_period: 120s
 
-  # Model puller (one-shot)
+  # Model puller (one-shot) — uses `ollama` CLI against the server
   finhouse-model-puller:
     image: ollama/ollama
     container_name: finhouse-model-puller
     restart: "no"
     depends_on:
       finhouse-ollama:
-        condition: service_healthy
-    entrypoint: ["/bin/bash", "/scripts/pull-models.sh"]
+        condition: service_started
+    entrypoint: ["/bin/sh", "/scripts/pull-models.sh"]
     environment:
       OLLAMA_HOST: http://finhouse-ollama:11434
     volumes:
