@@ -35,8 +35,8 @@ logger = logging.getLogger("finhouse.ingest")
 SUPPORTED_EXTENSIONS = {"pdf", "md", "txt", "docx"}
 
 # ── Limits ──────────────────────────────────────────────────
-MAX_FILE_SIZE_MB = 150          # reject files larger than this
-MAX_CHUNKS_PER_FILE = 2500      # safety cap
+MAX_FILE_SIZE_MB = 100          # reject files larger than this
+MAX_CHUNKS_PER_FILE = 2000      # safety cap
 
 # ── Chunking config ─────────────────────────────────────────
 CHUNK_CHARS = 1500              # ~512 tokens per chunk
@@ -289,6 +289,54 @@ def chunk_text(
 # Embedding Client (calls BGE-M3 service)
 # ════════════════════════════════════════════════════════════
 
+# Singleton HTTP clients — keep TCP connection pool alive across calls.
+# Reduces latency significantly when ingesting many files (avoids
+# repeated TCP handshake + SSL setup per batch).
+_embed_client: Optional[httpx.AsyncClient] = None
+_rerank_client: Optional[httpx.AsyncClient] = None
+
+
+def get_embed_client() -> httpx.AsyncClient:
+    """Return a reusable httpx client for the embed service."""
+    global _embed_client
+    if _embed_client is None or _embed_client.is_closed:
+        _embed_client = httpx.AsyncClient(
+            timeout=httpx.Timeout(180.0, connect=15.0),
+            limits=httpx.Limits(
+                max_keepalive_connections=10,
+                max_connections=20,
+                keepalive_expiry=30.0,
+            ),
+        )
+    return _embed_client
+
+
+def get_rerank_client() -> httpx.AsyncClient:
+    """Return a reusable httpx client for the rerank service."""
+    global _rerank_client
+    if _rerank_client is None or _rerank_client.is_closed:
+        _rerank_client = httpx.AsyncClient(
+            timeout=httpx.Timeout(60.0, connect=10.0),
+            limits=httpx.Limits(
+                max_keepalive_connections=5,
+                max_connections=10,
+                keepalive_expiry=30.0,
+            ),
+        )
+    return _rerank_client
+
+
+async def close_http_clients():
+    """Close singleton clients cleanly on app shutdown."""
+    global _embed_client, _rerank_client
+    if _embed_client is not None and not _embed_client.is_closed:
+        await _embed_client.aclose()
+        _embed_client = None
+    if _rerank_client is not None and not _rerank_client.is_closed:
+        await _rerank_client.aclose()
+        _rerank_client = None
+
+
 async def embed_texts(
     texts: list[str],
     batch_size: int = 32,
@@ -296,58 +344,57 @@ async def embed_texts(
 ) -> list[list[float]]:
     """
     Call BGE-M3 embedding service in batches.
-    Single httpx client for connection reuse. Exponential-backoff retry.
+    Uses singleton httpx client for connection reuse across the whole app.
     """
     if not texts:
         return []
 
     all_embeddings = []
+    client = get_embed_client()
 
-    async with httpx.AsyncClient(
-        timeout=httpx.Timeout(180.0, connect=15.0),
-    ) as client:
-        for batch_idx, i in enumerate(range(0, len(texts), batch_size)):
-            batch = texts[i : i + batch_size]
+    for batch_idx, i in enumerate(range(0, len(texts), batch_size)):
+        batch = texts[i : i + batch_size]
 
-            last_err = None
-            for attempt in range(max_retries + 1):
-                try:
-                    resp = await client.post(
-                        f"{settings.EMBED_HOST}/embed",
-                        json={"texts": batch},
+        last_err = None
+        for attempt in range(max_retries + 1):
+            try:
+                resp = await client.post(
+                    f"{settings.EMBED_HOST}/embed",
+                    json={"texts": batch},
+                )
+                resp.raise_for_status()
+                data = resp.json()
+
+                batch_embs = data.get("embeddings", [])
+                if len(batch_embs) != len(batch):
+                    raise ValueError(
+                        f"Embedding count mismatch: sent {len(batch)}, "
+                        f"got {len(batch_embs)}"
                     )
-                    resp.raise_for_status()
-                    data = resp.json()
+                all_embeddings.extend(batch_embs)
+                break  # success
 
-                    batch_embs = data.get("embeddings", [])
-                    if len(batch_embs) != len(batch):
-                        raise ValueError(
-                            f"Embedding count mismatch: sent {len(batch)}, "
-                            f"got {len(batch_embs)}"
-                        )
-                    all_embeddings.extend(batch_embs)
-                    break  # success
-
-                except (
-                    httpx.HTTPStatusError,
-                    httpx.ConnectError,
-                    httpx.ReadTimeout,
-                    ValueError,
-                ) as e:
-                    last_err = e
-                    if attempt < max_retries:
-                        import asyncio
-                        wait = 2 ** attempt
-                        logger.warning(
-                            f"Embed batch {batch_idx} attempt {attempt+1} "
-                            f"failed: {e}, retrying in {wait}s"
-                        )
-                        await asyncio.sleep(wait)
-                    else:
-                        raise RuntimeError(
-                            f"Embedding failed after {max_retries+1} attempts "
-                            f"on batch {batch_idx}: {last_err}"
-                        ) from last_err
+            except (
+                httpx.HTTPStatusError,
+                httpx.ConnectError,
+                httpx.ReadTimeout,
+                httpx.RemoteProtocolError,
+                ValueError,
+            ) as e:
+                last_err = e
+                if attempt < max_retries:
+                    import asyncio
+                    wait = 2 ** attempt
+                    logger.warning(
+                        f"Embed batch {batch_idx} attempt {attempt+1} "
+                        f"failed: {e}, retrying in {wait}s"
+                    )
+                    await asyncio.sleep(wait)
+                else:
+                    raise RuntimeError(
+                        f"Embedding failed after {max_retries+1} attempts "
+                        f"on batch {batch_idx}: {last_err}"
+                    ) from last_err
 
     return all_embeddings
 
@@ -544,17 +591,17 @@ async def rerank_chunks(
     documents = [c["text"][:2000] for c in valid_chunks]
 
     try:
-        async with httpx.AsyncClient(timeout=60.0) as client:
-            resp = await client.post(
-                f"{settings.RERANK_HOST}/rerank",
-                json={
-                    "query": query,
-                    "documents": documents,
-                    "top_n": top_n,
-                },
-            )
-            resp.raise_for_status()
-            data = resp.json()
+        client = get_rerank_client()
+        resp = await client.post(
+            f"{settings.RERANK_HOST}/rerank",
+            json={
+                "query": query,
+                "documents": documents,
+                "top_n": top_n,
+            },
+        )
+        resp.raise_for_status()
+        data = resp.json()
 
         reranked = []
         for r in data.get("results", []):

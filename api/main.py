@@ -34,6 +34,14 @@ async def lifespan(app: FastAPI):
         print(f"⚠️  Data scan error (non-fatal): {e}")
 
     yield
+
+    # Shutdown: close singleton httpx clients cleanly
+    try:
+        from services.ingest import close_http_clients
+        await close_http_clients()
+    except Exception as e:
+        print(f"⚠️  Error closing HTTP clients: {e}")
+
     print("👋 FinHouse API shutting down")
 
 
