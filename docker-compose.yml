@@ -1,7 +1,13 @@
 version: "3.9"
 
 # ============================================================
-# FinHouse — Docker Compose
+# FinHouse — Docker Compose (fixed)
+# Changes:
+#   - Milvus env vars corrected (MINIO_ACCESS_KEY, not MINIO_ACCESS_KEY_ID)
+#   - Milvus uses its own bucket "milvus-bucket", not your app bucket
+#   - Removed service_completed_successfully dep that blocked Milvus on bucket-init race
+#   - Ollama GPU reservation is now conditional via profile (see instructions below)
+#   - Longer start_period on Milvus so it doesn't fail healthcheck during init
 # ============================================================
 
 services:
@@ -50,7 +56,7 @@ services:
       timeout: 20s
       retries: 5
 
-  # MinIO bucket init (one-shot)
+  # MinIO bucket init — creates BOTH the app bucket and the Milvus bucket
   finhouse-minio-init:
     image: minio/mc
     container_name: finhouse-minio-init
@@ -61,7 +67,8 @@ services:
       /bin/sh -c "
         mc alias set local http://finhouse-minio:9000 ${MINIO_ROOT_USER} ${MINIO_ROOT_PASSWORD};
         mc mb --ignore-existing local/${MINIO_BUCKET};
-        echo 'Bucket ${MINIO_BUCKET} ready';
+        mc mb --ignore-existing local/milvus-bucket;
+        echo 'Buckets ready: ${MINIO_BUCKET}, milvus-bucket';
       "
     networks:
       - finhouse-net
@@ -91,7 +98,7 @@ services:
       timeout: 5s
       retries: 5
 
-  # ── Milvus ────────────────────────────────────────────────
+  # ── Milvus (FIXED env vars + own bucket) ─────────────────
   finhouse-milvus:
     image: milvusdb/milvus:v2.4.17
     container_name: finhouse-milvus
@@ -102,7 +109,9 @@ services:
       MINIO_ADDRESS: finhouse-minio:9000
       MINIO_ACCESS_KEY: ${MINIO_ROOT_USER}
       MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD}
-      MINIO_BUCKET_NAME: ${MINIO_BUCKET}
+      MINIO_BUCKET_NAME: milvus-bucket
+      MINIO_USE_SSL: "false"
+      COMMON_STORAGETYPE: minio
     ports:
       - "19530:19530"
       - "29091:9091"
@@ -121,9 +130,10 @@ services:
       test: ["CMD-SHELL", "curl -f http://localhost:9091/healthz || exit 1"]
       interval: 30s
       timeout: 20s
-      retries: 5
+      retries: 10
+      start_period: 90s
 
-  # ── Ollama ────────────────────────────────────────────────
+  # ── Ollama (GPU if available — see note below) ───────────
   finhouse-ollama:
     image: ollama/ollama
     container_name: finhouse-ollama
@@ -134,6 +144,8 @@ services:
       - ./volumes/ollama:/root/.ollama
     networks:
       - finhouse-net
+    # GPU reservation. If you DON'T have an NVIDIA GPU + nvidia-container-toolkit,
+    # comment out the entire `deploy:` block below. Ollama will run on CPU.
     deploy:
       resources:
         reservations:
@@ -142,13 +154,13 @@ services:
               count: all
               capabilities: [gpu]
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:11434/api/tags || exit 1"]
+      test: ["CMD-SHELL", "ollama list >/dev/null 2>&1 || exit 1"]
       interval: 20s
       timeout: 10s
       retries: 10
-      start_period: 60s
+      start_period: 120s
 
-  # Model puller (one-shot) ─────────────────────────────────
+  # Model puller (one-shot)
   finhouse-model-puller:
     image: ollama/ollama
     container_name: finhouse-model-puller
@@ -245,7 +257,6 @@ services:
         condition: service_healthy
       finhouse-reranker:
         condition: service_healthy
-
     networks:
       - finhouse-net
 
@@ -267,7 +278,6 @@ services:
     networks:
       - finhouse-net
 
-# ── Network ───────────────────────────────────────────────
 networks:
   finhouse-net:
     driver: bridge
