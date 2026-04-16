@@ -18,7 +18,7 @@ services:
     ports:
       - "15432:5432"
     volumes:
-      - pg-data:/var/lib/postgresql/data
+      - ./volumes/postgres:/var/lib/postgresql/data
       - ./api/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     networks:
       - finhouse-net
@@ -41,7 +41,7 @@ services:
       - "19000:9000"
       - "19001:9001"
     volumes:
-      - minio-data:/data
+      - ./volumes/minio:/data
     networks:
       - finhouse-net
     healthcheck:
@@ -82,7 +82,7 @@ services:
       --listen-client-urls=http://0.0.0.0:2379
       --data-dir=/etcd
     volumes:
-      - etcd-data:/etcd
+      - ./volumes/etcd:/etcd
     networks:
       - finhouse-net
     healthcheck:
@@ -111,7 +111,7 @@ services:
       finhouse-minio:
         condition: service_healthy
     volumes:
-      - milvus-data:/var/lib/milvus
+      - ./volumes/milvus:/var/lib/milvus
     networks:
       - finhouse-net
     healthcheck:
@@ -128,7 +128,7 @@ services:
     ports:
       - "21434:11434"
     volumes:
-      - ollama-models:/root/.ollama
+      - ./volumes/ollama:/root/.ollama
     networks:
       - finhouse-net
     deploy:
@@ -262,14 +262,6 @@ services:
       - finhouse-api
     networks:
       - finhouse-net
-
-# ── Volumes ───────────────────────────────────────────────
-volumes:
-  pg-data:
-  minio-data:
-  etcd-data:
-  milvus-data:
-  ollama-models:
 
 # ── Network ───────────────────────────────────────────────
 networks:

@@ -10,3 +10,6 @@ wheels/
 .venv
 data/
 .env
+
+# Persistent volume data (bind mounts — SCP these to migrate)
+volumes/
