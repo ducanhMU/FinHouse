@@ -102,6 +102,7 @@ services:
       MINIO_ADDRESS: finhouse-minio:9000
       MINIO_ACCESS_KEY: ${MINIO_ROOT_USER}
       MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD}
+      MINIO_BUCKET_NAME: ${MINIO_BUCKET}
     ports:
       - "19530:19530"
       - "29091:9091"
@@ -110,12 +111,14 @@ services:
         condition: service_healthy
       finhouse-minio:
         condition: service_healthy
+      finhouse-minio-init:
+        condition: service_completed_successfully
     volumes:
       - ./volumes/milvus:/var/lib/milvus
     networks:
       - finhouse-net
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9091/healthz"]
+      test: ["CMD-SHELL", "curl -f http://localhost:9091/healthz || exit 1"]
       interval: 30s
       timeout: 20s
       retries: 5
@@ -139,9 +142,9 @@ services:
               count: all
               capabilities: [gpu]
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:11434/"]
-      interval: 30s
-      timeout: 20s
+      test: ["CMD-SHELL", "curl -f http://localhost:11434/api/tags || exit 1"]
+      interval: 20s
+      timeout: 10s
       retries: 10
       start_period: 60s
 
