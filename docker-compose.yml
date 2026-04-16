@@ -1,11 +1,11 @@
 version: "3.9"
 
 # ============================================================
-# FinHouse — Docker Compose (fixed)
+# FinHouse — Docker Compose
 # Changes:
-#   - Milvus env vars corrected (MINIO_ACCESS_KEY, not MINIO_ACCESS_KEY_ID)
+#   - Milvus env vars: MINIO_ACCESS_KEY_ID + MINIO_SECRET_ACCESS_KEY
+#     (these are the correct names per Milvus v2.4.17 milvus.yaml config)
 #   - Milvus uses its own bucket "milvus-bucket", not your app bucket
-#   - Removed service_completed_successfully dep that blocked Milvus on bucket-init race
 #   - Ollama GPU reservation is now conditional via profile (see instructions below)
 #   - Longer start_period on Milvus so it doesn't fail healthcheck during init
 # ============================================================
@@ -98,7 +98,7 @@ services:
       timeout: 5s
       retries: 5
 
-  # ── Milvus (FIXED env vars + own bucket) ─────────────────
+  # ── Milvus (v2.4.17 — correct env var names) ─────────────
   finhouse-milvus:
     image: milvusdb/milvus:v2.4.17
     container_name: finhouse-milvus
@@ -107,8 +107,8 @@ services:
     environment:
       ETCD_ENDPOINTS: finhouse-etcd:2379
       MINIO_ADDRESS: finhouse-minio:9000
-      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER}
-      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD}
+      MINIO_ACCESS_KEY_ID: ${MINIO_ROOT_USER}
+      MINIO_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD}
       MINIO_BUCKET_NAME: milvus-bucket
       MINIO_USE_SSL: "false"
       COMMON_STORAGETYPE: minio
