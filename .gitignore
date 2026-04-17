@@ -13,3 +13,5 @@ data/
 
 # Persistent volume data (bind mounts — SCP these to migrate)
 volumes/
+*.tar.gz
+presets/

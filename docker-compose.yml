@@ -127,11 +127,16 @@ services:
     networks:
       - finhouse-net
 
-  # ── Ollama (GPU if available — see note below) ───────────
+  # ── Ollama (LOCAL mode) ──────────────────────────────────
+  # To use a REMOTE Ollama server instead:
+  #   1. Comment out this whole service + finhouse-model-puller
+  #   2. Set OLLAMA_HOST=http://your-server:11434 in .env
+  #   3. Remove finhouse-ollama from finhouse-api's depends_on
   finhouse-ollama:
     image: ollama/ollama
     container_name: finhouse-ollama
     restart: unless-stopped
+    profiles: ["local-llm"]
     ports:
       - "21434:11434"
     volumes:
@@ -159,6 +164,7 @@ services:
     image: ollama/ollama
     container_name: finhouse-model-puller
     restart: "no"
+    profiles: ["local-llm"]
     depends_on:
       finhouse-ollama:
         condition: service_started
@@ -184,13 +190,18 @@ services:
     environment:
       SEARXNG_BASE_URL: http://localhost:18080/
 
-  # ── BGE-M3 Embedding Service ──────────────────────────────
+  # ── BGE-M3 Embedding Service (LOCAL mode) ────────────────
+  # To use a REMOTE embed service or managed API only:
+  #   - Omit "local-embed" from COMPOSE_PROFILES
+  #   - Set EMBED_HOST=http://your-server:8081 in .env (remote service), OR
+  #     leave EMBED_HOST empty and set EMBED_API_URL/KEY for managed API
   finhouse-bge-m3:
     build:
       context: ./embed
       dockerfile: Dockerfile
     container_name: finhouse-bge-m3
     restart: unless-stopped
+    profiles: ["local-embed"]
     ports:
       - "28081:8081"
     networks:
@@ -210,18 +221,21 @@ services:
       retries: 5
       start_period: 120s
 
-  # ── BGE-M3 Reranker Service ───────────────────────────────
+  # ── BGE-M3 Reranker Service (LOCAL mode) ─────────────────
+  # To use a REMOTE reranker or managed API only:
+  #   - Omit "local-rerank" from COMPOSE_PROFILES
+  #   - Set RERANK_HOST=http://your-server:8082 or RERANK_API_URL/KEY
   finhouse-reranker:
     build:
       context: ./rerank
       dockerfile: Dockerfile
     container_name: finhouse-reranker
     restart: unless-stopped
+    profiles: ["local-rerank"]
     ports:
       - "28082:8082"
     networks:
       - finhouse-net
-    # GPU if available. If host has no NVIDIA runtime, comment out this block.
     deploy:
       resources:
         reservations:
@@ -263,12 +277,18 @@ services:
         condition: service_healthy
       finhouse-milvus:
         condition: service_started
+      # Optional local services — only depended on if their profile is active.
+      # If you run Ollama/embed/rerank remotely, remove these lines.
+      # Profile-excluded services become no-ops in depends_on automatically.
       finhouse-ollama:
-        condition: service_healthy
+        condition: service_started
+        required: false
       finhouse-bge-m3:
-        condition: service_healthy
+        condition: service_started
+        required: false
       finhouse-reranker:
-        condition: service_healthy
+        condition: service_started
+        required: false
     networks:
       - finhouse-net
 

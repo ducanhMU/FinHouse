@@ -37,9 +37,24 @@ class Settings(BaseSettings):
     OLLAMA_HOST: str = "http://finhouse-ollama:11434"
     DEFAULT_MODEL: str = "qwen2.5:14b"
 
-    # Embedding / Reranker
+    # Embedding / Reranker — local services
     EMBED_HOST: str = "http://finhouse-bge-m3:8081"
     RERANK_HOST: str = "http://finhouse-reranker:8082"
+
+    # Managed API fallback — used when local services fail.
+    # Leave empty to disable fallback entirely. OpenAI-compatible endpoints
+    # work (FPT Cloud, OpenAI, Together, etc.).
+    EMBED_API_URL: str = ""            # e.g. https://mkp-api.fptcloud.com/v1
+    EMBED_API_KEY: str = ""
+    EMBED_API_MODEL: str = "Vietnamese_Embedding"
+    EMBED_API_DIMENSIONS: int = 1024
+
+    RERANK_API_URL: str = ""           # e.g. https://mkp-api.fptcloud.com/v1
+    RERANK_API_KEY: str = ""
+    RERANK_API_MODEL: str = "bge-reranker-v2-m3"
+
+    # Number of consecutive local failures before switching to API for this session
+    LOCAL_FAILURE_THRESHOLD: int = 2
 
     # Milvus
     MILVUS_HOST: str = "finhouse-milvus"

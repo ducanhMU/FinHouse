@@ -286,14 +286,27 @@ def chunk_text(
 
 
 # ════════════════════════════════════════════════════════════
-# Embedding Client (calls BGE-M3 service)
+# Embedding Client — Local service with Managed API fallback
+# ════════════════════════════════════════════════════════════
+#
+# Primary:   POST to settings.EMBED_HOST (local BGE-M3 microservice)
+# Fallback:  POST to settings.EMBED_API_URL (OpenAI-compatible managed API)
+#
+# Auto-switch behavior: after LOCAL_FAILURE_THRESHOLD consecutive failures
+# against the local service, we flip to the API for the rest of this process
+# lifetime. The counter resets on the next successful local call.
+# If no API URL is configured, we never switch — local errors propagate.
 # ════════════════════════════════════════════════════════════
 
 # Singleton HTTP clients — keep TCP connection pool alive across calls.
-# Reduces latency significantly when ingesting many files (avoids
-# repeated TCP handshake + SSL setup per batch).
 _embed_client: Optional[httpx.AsyncClient] = None
 _rerank_client: Optional[httpx.AsyncClient] = None
+
+# Failure tracking for auto-fallback
+_local_embed_failures = 0
+_local_rerank_failures = 0
+_use_embed_api = False   # sticky: once switched, stay on API
+_use_rerank_api = False
 
 
 def get_embed_client() -> httpx.AsyncClient:
@@ -337,18 +350,24 @@ async def close_http_clients():
         _rerank_client = None
 
 
-async def embed_texts(
-    texts: list[str],
-    batch_size: int = 32,
-    max_retries: int = 2,
-) -> list[list[float]]:
-    """
-    Call BGE-M3 embedding service in batches.
-    Uses singleton httpx client for connection reuse across the whole app.
-    """
-    if not texts:
-        return []
+def _should_use_embed_api() -> bool:
+    """Decide whether to use the managed API for embedding."""
+    if not settings.EMBED_API_URL or not settings.EMBED_API_KEY:
+        return False  # API not configured
+    return _use_embed_api
 
+
+def _should_use_rerank_api() -> bool:
+    """Decide whether to use the managed API for reranking."""
+    if not settings.RERANK_API_URL or not settings.RERANK_API_KEY:
+        return False
+    return _use_rerank_api
+
+
+async def _embed_via_local(
+    texts: list[str], batch_size: int = 32, max_retries: int = 2,
+) -> list[list[float]]:
+    """Call the local BGE-M3 microservice."""
     all_embeddings = []
     client = get_embed_client()
 
@@ -368,35 +387,146 @@ async def embed_texts(
                 batch_embs = data.get("embeddings", [])
                 if len(batch_embs) != len(batch):
                     raise ValueError(
-                        f"Embedding count mismatch: sent {len(batch)}, "
-                        f"got {len(batch_embs)}"
+                        f"count mismatch: sent {len(batch)}, got {len(batch_embs)}"
                     )
                 all_embeddings.extend(batch_embs)
-                break  # success
+                break
 
             except (
-                httpx.HTTPStatusError,
-                httpx.ConnectError,
-                httpx.ReadTimeout,
-                httpx.RemoteProtocolError,
-                ValueError,
+                httpx.HTTPStatusError, httpx.ConnectError,
+                httpx.ReadTimeout, httpx.RemoteProtocolError, ValueError,
             ) as e:
                 last_err = e
                 if attempt < max_retries:
                     import asyncio
-                    wait = 2 ** attempt
-                    logger.warning(
-                        f"Embed batch {batch_idx} attempt {attempt+1} "
-                        f"failed: {e}, retrying in {wait}s"
-                    )
-                    await asyncio.sleep(wait)
+                    await asyncio.sleep(2 ** attempt)
                 else:
                     raise RuntimeError(
-                        f"Embedding failed after {max_retries+1} attempts "
+                        f"Local embed failed after {max_retries+1} attempts "
                         f"on batch {batch_idx}: {last_err}"
                     ) from last_err
 
     return all_embeddings
+
+
+async def _embed_via_api(
+    texts: list[str], batch_size: int = 32,
+) -> list[list[float]]:
+    """
+    Call OpenAI-compatible managed embedding API.
+    FPT Cloud format — passes dimensions, input_text_truncate, input_type.
+    """
+    all_embeddings = []
+    client = get_embed_client()
+
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {settings.EMBED_API_KEY}",
+    }
+    url = f"{settings.EMBED_API_URL.rstrip('/')}/embeddings"
+
+    for i in range(0, len(texts), batch_size):
+        batch = texts[i : i + batch_size]
+
+        payload = {
+            "model": settings.EMBED_API_MODEL,
+            "input": batch,
+            "dimensions": settings.EMBED_API_DIMENSIONS,
+            "encoding_format": "float",
+            "input_text_truncate": "none",
+            "input_type": "passage",
+        }
+
+        resp = await client.post(url, json=payload, headers=headers)
+        resp.raise_for_status()
+        data = resp.json()
+
+        # OpenAI-compatible response: data[{index, embedding}]
+        items = sorted(data.get("data", []), key=lambda x: x.get("index", 0))
+        embs = [it["embedding"] for it in items]
+        if len(embs) != len(batch):
+            raise ValueError(
+                f"API returned {len(embs)} embeddings for {len(batch)} inputs"
+            )
+        all_embeddings.extend(embs)
+
+    return all_embeddings
+
+
+async def embed_texts(
+    texts: list[str],
+    batch_size: int = 32,
+    max_retries: int = 2,
+) -> list[list[float]]:
+    """
+    Embed texts with auto-fallback from local service to managed API.
+
+    Flow:
+      0. If EMBED_HOST is empty → go straight to API (no local).
+      1. Try local first (unless sticky flag says "use API").
+      2. On local failure, increment counter. If over threshold AND API is
+         configured, flip to API for this call and all future calls.
+      3. If API is not configured, re-raise the local error.
+    """
+    global _local_embed_failures, _use_embed_api
+
+    if not texts:
+        return []
+
+    api_configured = bool(settings.EMBED_API_URL and settings.EMBED_API_KEY)
+
+    # Explicit API-only mode: EMBED_HOST empty AND API configured
+    if not settings.EMBED_HOST or settings.EMBED_HOST.strip() == "":
+        if not api_configured:
+            raise RuntimeError(
+                "No embed provider configured. Set EMBED_HOST (local/remote "
+                "service) or EMBED_API_URL + EMBED_API_KEY (managed API)."
+            )
+        return await _embed_via_api(texts, batch_size=batch_size)
+
+    # Sticky API mode (after repeated local failures)
+    if _should_use_embed_api():
+        return await _embed_via_api(texts, batch_size=batch_size)
+
+    # Try local first
+    try:
+        result = await _embed_via_local(texts, batch_size, max_retries)
+        if _local_embed_failures > 0:
+            logger.info("Local embed recovered, resetting failure counter")
+            _local_embed_failures = 0
+        return result
+
+    except Exception as local_err:
+        _local_embed_failures += 1
+        logger.warning(
+            f"Local embed failed ({_local_embed_failures}/"
+            f"{settings.LOCAL_FAILURE_THRESHOLD}): {local_err}"
+        )
+
+        over_threshold = _local_embed_failures >= settings.LOCAL_FAILURE_THRESHOLD
+
+        if api_configured and over_threshold:
+            logger.warning(
+                "🔀 Switching to managed embed API (local service unhealthy). "
+                f"API: {settings.EMBED_API_URL}"
+            )
+            _use_embed_api = True
+            try:
+                return await _embed_via_api(texts, batch_size=batch_size)
+            except Exception as api_err:
+                raise RuntimeError(
+                    f"Both embed services failed. "
+                    f"Local: {local_err}. API: {api_err}"
+                ) from api_err
+
+        if api_configured:
+            try:
+                logger.info("Retrying this request via API (below threshold)")
+                return await _embed_via_api(texts, batch_size=batch_size)
+            except Exception:
+                pass
+
+        raise
 
 
 async def embed_query(query: str) -> list[float]:
@@ -575,45 +705,146 @@ async def search_chunks(
 # Reranker Client
 # ════════════════════════════════════════════════════════════
 
+# ════════════════════════════════════════════════════════════
+# Reranker Client — Local service with Managed API fallback
+# ════════════════════════════════════════════════════════════
+
+async def _rerank_via_local(
+    query: str, documents: list[str], top_n: int,
+) -> list[dict]:
+    """Call local BGE reranker microservice. Returns [{index, score}]."""
+    client = get_rerank_client()
+    resp = await client.post(
+        f"{settings.RERANK_HOST}/rerank",
+        json={"query": query, "documents": documents, "top_n": top_n},
+    )
+    resp.raise_for_status()
+    data = resp.json()
+    return [
+        {"index": r["index"], "score": float(r["score"])}
+        for r in data.get("results", [])
+    ]
+
+
+async def _rerank_via_api(
+    query: str, documents: list[str], top_n: int,
+) -> list[dict]:
+    """
+    Call managed rerank API (FPT Cloud style).
+    Response has {results: [{index, relevance_score}]}.
+    """
+    client = get_rerank_client()
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {settings.RERANK_API_KEY}",
+    }
+    url = f"{settings.RERANK_API_URL.rstrip('/')}/rerank"
+
+    payload = {
+        "model": settings.RERANK_API_MODEL,
+        "query": query,
+        "documents": documents,
+        "top_n": top_n,
+    }
+
+    resp = await client.post(url, json=payload, headers=headers)
+    resp.raise_for_status()
+    data = resp.json()
+    return [
+        {"index": r["index"], "score": float(r.get("relevance_score", r.get("score", 0)))}
+        for r in data.get("results", [])
+    ]
+
+
 async def rerank_chunks(
     query: str, chunks: list[dict], top_n: int = 5,
 ) -> list[dict]:
-    """Rerank chunks via BGE reranker. Filters empty texts, caps doc length."""
+    """
+    Rerank with auto-fallback from local service to managed API.
+    Graceful degradation: if both fail, returns chunks in original order.
+    """
+    global _local_rerank_failures, _use_rerank_api
+
     if not chunks:
         return []
 
-    # Drop chunks with empty text (would break reranker)
     valid_chunks = [c for c in chunks if c.get("text", "").strip()]
     if not valid_chunks:
         return []
 
-    # Cap per-document length to avoid reranker OOM
     documents = [c["text"][:2000] for c in valid_chunks]
 
-    try:
-        client = get_rerank_client()
-        resp = await client.post(
-            f"{settings.RERANK_HOST}/rerank",
-            json={
-                "query": query,
-                "documents": documents,
-                "top_n": top_n,
-            },
-        )
-        resp.raise_for_status()
-        data = resp.json()
-
+    async def _attach_scores(rerank_results: list[dict]) -> list[dict]:
         reranked = []
-        for r in data.get("results", []):
+        for r in rerank_results:
             idx = r["index"]
             if 0 <= idx < len(valid_chunks):
                 chunk = valid_chunks[idx].copy()
-                chunk["rerank_score"] = float(r["score"])
+                chunk["rerank_score"] = r["score"]
                 reranked.append(chunk)
         return reranked
 
-    except Exception as e:
-        logger.warning(f"Reranker failed, falling back to raw order: {e}")
+    api_configured = bool(settings.RERANK_API_URL and settings.RERANK_API_KEY)
+
+    # Explicit API-only mode: RERANK_HOST empty
+    if not settings.RERANK_HOST or settings.RERANK_HOST.strip() == "":
+        if not api_configured:
+            # No provider at all — degrade to raw order
+            logger.info("No rerank provider configured, returning raw order")
+            return valid_chunks[:top_n]
+        try:
+            return await _attach_scores(
+                await _rerank_via_api(query, documents, top_n)
+            )
+        except Exception as e:
+            logger.warning(f"API rerank failed, falling back to raw order: {e}")
+            return valid_chunks[:top_n]
+
+    # Sticky API mode (after repeated local failures)
+    if _should_use_rerank_api():
+        try:
+            return await _attach_scores(
+                await _rerank_via_api(query, documents, top_n)
+            )
+        except Exception as e:
+            logger.warning(f"API rerank failed, falling back to raw order: {e}")
+            return valid_chunks[:top_n]
+
+    # Try local first
+    try:
+        results = await _rerank_via_local(query, documents, top_n)
+        if _local_rerank_failures > 0:
+            logger.info("Local rerank recovered, resetting failure counter")
+            _local_rerank_failures = 0
+        return await _attach_scores(results)
+
+    except Exception as local_err:
+        _local_rerank_failures += 1
+        logger.warning(
+            f"Local rerank failed ({_local_rerank_failures}/"
+            f"{settings.LOCAL_FAILURE_THRESHOLD}): {local_err}"
+        )
+
+        over_threshold = _local_rerank_failures >= settings.LOCAL_FAILURE_THRESHOLD
+
+        if api_configured:
+            if over_threshold:
+                logger.warning(
+                    "🔀 Switching to managed rerank API (local service unhealthy)."
+                )
+                _use_rerank_api = True
+            try:
+                return await _attach_scores(
+                    await _rerank_via_api(query, documents, top_n)
+                )
+            except Exception as api_err:
+                logger.warning(
+                    f"API rerank also failed: {api_err}. Using raw order."
+                )
+                return valid_chunks[:top_n]
+
+        # No API configured — graceful fallback
+        logger.info("No rerank API configured, returning raw order")
         return valid_chunks[:top_n]
 
 
