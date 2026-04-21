@@ -38,6 +38,9 @@ PRESIGN_EXPIRY = 3600  # 1 hour
 # MinIO object prefix for chart images
 CHART_PREFIX = "charts/"
 
+matplotlib.rcParams['font.sans-serif'] = ['Noto Sans', 'DejaVu Sans']
+matplotlib.rcParams['axes.unicode_minus'] = False
+
 
 def _get_minio_client():
     """
