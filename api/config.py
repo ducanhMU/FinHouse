@@ -41,9 +41,15 @@ class Settings(BaseSettings):
     EMBED_HOST: str = "http://finhouse-bge-m3:8081"
     RERANK_HOST: str = "http://finhouse-reranker:8082"
 
-    # Managed API fallback — used when local services fail.
-    # Leave empty to disable fallback entirely. OpenAI-compatible endpoints
-    # work (FPT Cloud, OpenAI, Together, etc.).
+    # Service mode selector — controls which backend is used per call.
+    #   "local"  → call the EMBED_HOST / RERANK_HOST service (default)
+    #   "backup" → call managed API directly (skip local entirely)
+    #   "auto"   → try local first, auto-fallback to API after failures
+    EMBED_MODE: str = "local"
+    RERANK_MODE: str = "local"
+
+    # Managed API credentials (used when mode is "backup" or "auto")
+    # OpenAI-compatible endpoints (FPT Cloud, OpenAI, Together, etc.)
     EMBED_API_URL: str = ""            # e.g. https://mkp-api.fptcloud.com/v1
     EMBED_API_KEY: str = ""
     EMBED_API_MODEL: str = "Vietnamese_Embedding"
@@ -53,7 +59,8 @@ class Settings(BaseSettings):
     RERANK_API_KEY: str = ""
     RERANK_API_MODEL: str = "bge-reranker-v2-m3"
 
-    # Number of consecutive local failures before switching to API for this session
+    # In "auto" mode: number of consecutive local failures before
+    # switching over to the API for the rest of the process lifetime.
     LOCAL_FAILURE_THRESHOLD: int = 2
 
     # Milvus
@@ -62,6 +69,20 @@ class Settings(BaseSettings):
 
     # SearXNG
     SEARXNG_HOST: str = "http://finhouse-searxng:8080"
+
+    # ClickHouse (OLAP database for database_query tool)
+    # Empty host → database_query tool is disabled
+    CLICKHOUSE_HOST: str = ""
+    CLICKHOUSE_PORT: int = 8123
+    CLICKHOUSE_USER: str = "finhouse"
+    CLICKHOUSE_PASSWORD: str = "changeme_clickhouse"
+    CLICKHOUSE_DB: str = "olap"
+
+    # Maximum rows the database_query tool may return in one call
+    DATABASE_QUERY_MAX_ROWS: int = 1000
+
+    # Maximum characters in a single LLM-generated SQL query
+    DATABASE_QUERY_MAX_SQL_LEN: int = 4000
 
     # Data folder (auto-scanned on startup)
     DATA_DIR: str = "/app/data"
@@ -105,6 +126,17 @@ class Settings(BaseSettings):
     def _check_jwt_length(cls, v: str) -> str:
         if len(v) < 32:
             raise ValueError("JWT_SECRET must be at least 32 characters long")
+        return v
+
+    @field_validator("EMBED_MODE", "RERANK_MODE")
+    @classmethod
+    def _check_mode(cls, v: str, info) -> str:
+        v = v.lower().strip()
+        valid = {"local", "backup", "auto"}
+        if v not in valid:
+            raise ValueError(
+                f"{info.field_name} must be one of {valid}, got: {v!r}"
+            )
         return v
 
     @property

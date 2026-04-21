@@ -33,14 +33,37 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         print(f"⚠️  Data scan kick-off error (non-fatal): {e}")
 
+    # Start the cleanup worker (purges soft-deleted files, GC incognito)
+    cleanup_task = None
+    try:
+        from services.cleanup import start_cleanup_task
+        cleanup_task = start_cleanup_task()
+        print(f"🧹 Cleanup worker started (interval: {settings.CLEANUP_INTERVAL_MINUTES}m)")
+    except Exception as e:
+        print(f"⚠️  Cleanup worker start failed (non-fatal): {e}")
+
     yield
 
-    # Shutdown: close singleton httpx clients cleanly
+    # Shutdown: cancel cleanup worker
+    if cleanup_task and not cleanup_task.done():
+        cleanup_task.cancel()
+        try:
+            await cleanup_task
+        except Exception:
+            pass
+
+    # Close singleton httpx clients cleanly
     try:
         from services.ingest import close_http_clients
         await close_http_clients()
     except Exception as e:
         print(f"⚠️  Error closing HTTP clients: {e}")
+
+    try:
+        from tools.database_query import close_client as close_ch_client
+        await close_ch_client()
+    except Exception as e:
+        print(f"⚠️  Error closing ClickHouse client: {e}")
 
     print("👋 FinHouse API shutting down")
 

@@ -16,3 +16,4 @@ pdfplumber==0.11.4
 pypdf==5.1.0
 marshmallow==3.21.3
 environs==9.5.0
+matplotlib==3.9.2

@@ -1,0 +1,63 @@
+# ════════════════════════════════════════════════════════════
+# FinHouse — OLLAMA stack
+# ════════════════════════════════════════════════════════════
+# Services: Ollama LLM server + one-shot model puller.
+#
+# Exposed port: 21434 (Ollama HTTP API)
+#
+# Usage:
+#   ./start.sh ollama            # up
+#   ./start.sh ollama down       # tear down
+#
+# Can run on same host as other stacks OR dedicated GPU host.
+# Other components reach it via $OLLAMA_HOST from their .env.
+# ════════════════════════════════════════════════════════════
+
+services:
+
+  finhouse-ollama:
+    image: ollama/ollama
+    container_name: finhouse-ollama
+    restart: unless-stopped
+    ports:
+      - "21434:11434"
+    volumes:
+      - ./volumes/ollama:/root/.ollama
+    networks:
+      - finhouse-net
+    # Comment out deploy.resources if no NVIDIA GPU + container toolkit
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD-SHELL", "ollama list >/dev/null 2>&1 || exit 1"]
+      interval: 20s
+      timeout: 10s
+      retries: 10
+      start_period: 120s
+
+  finhouse-model-puller:
+    image: ollama/ollama
+    container_name: finhouse-model-puller
+    restart: "no"
+    depends_on:
+      finhouse-ollama:
+        condition: service_started
+    entrypoint: ["/bin/sh", "/scripts/pull-models.sh"]
+    environment:
+      OLLAMA_HOST: http://finhouse-ollama:11434
+    volumes:
+      - ./scripts:/scripts:ro
+    networks:
+      - finhouse-net
+
+networks:
+  finhouse-net:
+    name: finhouse-net
+    driver: bridge
+    # external: true if you want to attach to the system stack's network
+    # when running on the same host. Default: standalone network.

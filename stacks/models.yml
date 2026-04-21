@@ -1,0 +1,70 @@
+# ════════════════════════════════════════════════════════════
+# FinHouse — MODELS stack (embed + rerank)
+# ════════════════════════════════════════════════════════════
+# Services: BGE-M3 embedding server + BGE reranker server
+#
+# Exposed ports: 28081 (embed), 28082 (rerank)
+#
+# Usage:
+#   ./start.sh models            # up
+#   ./start.sh models down       # tear down
+#
+# Can run on same host as other stacks OR dedicated GPU host.
+# Other components reach it via $EMBED_HOST and $RERANK_HOST.
+# ════════════════════════════════════════════════════════════
+
+services:
+
+  finhouse-bge-m3:
+    build:
+      context: ./embed
+      dockerfile: Dockerfile
+    container_name: finhouse-bge-m3
+    restart: unless-stopped
+    ports:
+      - "28081:8081"
+    networks:
+      - finhouse-net
+    # Comment out deploy.resources if no NVIDIA GPU
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+
+  finhouse-reranker:
+    build:
+      context: ./rerank
+      dockerfile: Dockerfile
+    container_name: finhouse-reranker
+    restart: unless-stopped
+    ports:
+      - "28082:8082"
+    networks:
+      - finhouse-net
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8082/health"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+
+networks:
+  finhouse-net:
+    name: finhouse-net
+    driver: bridge

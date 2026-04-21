@@ -102,6 +102,19 @@ def download_from_minio(object_name: str) -> bytes:
             resp.release_conn()
 
 
+def delete_file_object(bucket: str, object_name: str):
+    """Remove an object from MinIO. Idempotent — missing objects don't raise."""
+    client = get_minio_client()
+    try:
+        client.remove_object(bucket, object_name)
+    except Exception as e:
+        # minio-py raises S3Error on missing object; we tolerate that
+        err_code = getattr(e, "code", None)
+        if err_code in ("NoSuchKey", "NoSuchBucket"):
+            return
+        raise
+
+
 # ════════════════════════════════════════════════════════════
 # Document Parsing
 # ════════════════════════════════════════════════════════════
@@ -350,20 +363,6 @@ async def close_http_clients():
         _rerank_client = None
 
 
-def _should_use_embed_api() -> bool:
-    """Decide whether to use the managed API for embedding."""
-    if not settings.EMBED_API_URL or not settings.EMBED_API_KEY:
-        return False  # API not configured
-    return _use_embed_api
-
-
-def _should_use_rerank_api() -> bool:
-    """Decide whether to use the managed API for reranking."""
-    if not settings.RERANK_API_URL or not settings.RERANK_API_KEY:
-        return False
-    return _use_rerank_api
-
-
 async def _embed_via_local(
     texts: list[str], batch_size: int = 32, max_retries: int = 2,
 ) -> list[list[float]]:
@@ -459,43 +458,44 @@ async def embed_texts(
     max_retries: int = 2,
 ) -> list[list[float]]:
     """
-    Embed texts with auto-fallback from local service to managed API.
-
-    Flow:
-      0. If EMBED_HOST is empty → go straight to API (no local).
-      1. Try local first (unless sticky flag says "use API").
-      2. On local failure, increment counter. If over threshold AND API is
-         configured, flip to API for this call and all future calls.
-      3. If API is not configured, re-raise the local error.
+    Embed texts. Routes based on settings.EMBED_MODE:
+      "local"  → local service only; errors propagate
+      "backup" → managed API only; errors propagate
+      "auto"   → try local first; after LOCAL_FAILURE_THRESHOLD failures
+                 in a row, sticky-switch to API for the rest of this process
     """
     global _local_embed_failures, _use_embed_api
 
     if not texts:
         return []
 
+    mode = settings.EMBED_MODE.lower().strip()
     api_configured = bool(settings.EMBED_API_URL and settings.EMBED_API_KEY)
 
-    # Explicit API-only mode: EMBED_HOST empty AND API configured
-    if not settings.EMBED_HOST or settings.EMBED_HOST.strip() == "":
+    # ── Mode: backup — go straight to API ──
+    if mode == "backup":
         if not api_configured:
             raise RuntimeError(
-                "No embed provider configured. Set EMBED_HOST (local/remote "
-                "service) or EMBED_API_URL + EMBED_API_KEY (managed API)."
+                "EMBED_MODE=backup but EMBED_API_URL / EMBED_API_KEY not set"
             )
         return await _embed_via_api(texts, batch_size=batch_size)
 
-    # Sticky API mode (after repeated local failures)
-    if _should_use_embed_api():
+    # ── Mode: local — local only, no fallback ──
+    if mode == "local":
+        return await _embed_via_local(texts, batch_size, max_retries)
+
+    # ── Mode: auto — local with sticky fallback ──
+    # Already in sticky API mode?
+    if _use_embed_api and api_configured:
         return await _embed_via_api(texts, batch_size=batch_size)
 
-    # Try local first
+    # Try local
     try:
         result = await _embed_via_local(texts, batch_size, max_retries)
         if _local_embed_failures > 0:
             logger.info("Local embed recovered, resetting failure counter")
             _local_embed_failures = 0
         return result
-
     except Exception as local_err:
         _local_embed_failures += 1
         logger.warning(
@@ -503,30 +503,23 @@ async def embed_texts(
             f"{settings.LOCAL_FAILURE_THRESHOLD}): {local_err}"
         )
 
-        over_threshold = _local_embed_failures >= settings.LOCAL_FAILURE_THRESHOLD
+        if not api_configured:
+            raise  # no fallback to use
 
-        if api_configured and over_threshold:
+        over_threshold = _local_embed_failures >= settings.LOCAL_FAILURE_THRESHOLD
+        if over_threshold:
             logger.warning(
-                "🔀 Switching to managed embed API (local service unhealthy). "
-                f"API: {settings.EMBED_API_URL}"
+                f"🔀 Sticky-switch to managed embed API: {settings.EMBED_API_URL}"
             )
             _use_embed_api = True
-            try:
-                return await _embed_via_api(texts, batch_size=batch_size)
-            except Exception as api_err:
-                raise RuntimeError(
-                    f"Both embed services failed. "
-                    f"Local: {local_err}. API: {api_err}"
-                ) from api_err
 
-        if api_configured:
-            try:
-                logger.info("Retrying this request via API (below threshold)")
-                return await _embed_via_api(texts, batch_size=batch_size)
-            except Exception:
-                pass
-
-        raise
+        # Retry this request via API
+        try:
+            return await _embed_via_api(texts, batch_size=batch_size)
+        except Exception as api_err:
+            raise RuntimeError(
+                f"Both embed providers failed. Local: {local_err}. API: {api_err}"
+            ) from api_err
 
 
 async def embed_query(query: str) -> list[float]:
@@ -784,33 +777,44 @@ async def rerank_chunks(
                 reranked.append(chunk)
         return reranked
 
+    mode = settings.RERANK_MODE.lower().strip()
     api_configured = bool(settings.RERANK_API_URL and settings.RERANK_API_KEY)
 
-    # Explicit API-only mode: RERANK_HOST empty
-    if not settings.RERANK_HOST or settings.RERANK_HOST.strip() == "":
+    # Rerank is non-critical — graceful fallback to raw order on error
+    def _raw_order_fallback(why: str) -> list[dict]:
+        logger.info(f"Returning raw order: {why}")
+        return valid_chunks[:top_n]
+
+    # ── Mode: backup — API only ──
+    if mode == "backup":
         if not api_configured:
-            # No provider at all — degrade to raw order
-            logger.info("No rerank provider configured, returning raw order")
-            return valid_chunks[:top_n]
+            return _raw_order_fallback("RERANK_MODE=backup but API not configured")
         try:
             return await _attach_scores(
                 await _rerank_via_api(query, documents, top_n)
             )
         except Exception as e:
-            logger.warning(f"API rerank failed, falling back to raw order: {e}")
-            return valid_chunks[:top_n]
+            return _raw_order_fallback(f"API rerank failed: {e}")
 
-    # Sticky API mode (after repeated local failures)
-    if _should_use_rerank_api():
+    # ── Mode: local — local only ──
+    if mode == "local":
+        try:
+            return await _attach_scores(
+                await _rerank_via_local(query, documents, top_n)
+            )
+        except Exception as e:
+            return _raw_order_fallback(f"Local rerank failed: {e}")
+
+    # ── Mode: auto ──
+    if _use_rerank_api and api_configured:
         try:
             return await _attach_scores(
                 await _rerank_via_api(query, documents, top_n)
             )
         except Exception as e:
-            logger.warning(f"API rerank failed, falling back to raw order: {e}")
-            return valid_chunks[:top_n]
+            return _raw_order_fallback(f"Sticky API rerank failed: {e}")
 
-    # Try local first
+    # Try local
     try:
         results = await _rerank_via_local(query, documents, top_n)
         if _local_rerank_failures > 0:
@@ -825,27 +829,22 @@ async def rerank_chunks(
             f"{settings.LOCAL_FAILURE_THRESHOLD}): {local_err}"
         )
 
+        if not api_configured:
+            return _raw_order_fallback("No API configured")
+
         over_threshold = _local_rerank_failures >= settings.LOCAL_FAILURE_THRESHOLD
+        if over_threshold:
+            logger.warning("🔀 Sticky-switch to managed rerank API")
+            _use_rerank_api = True
 
-        if api_configured:
-            if over_threshold:
-                logger.warning(
-                    "🔀 Switching to managed rerank API (local service unhealthy)."
-                )
-                _use_rerank_api = True
-            try:
-                return await _attach_scores(
-                    await _rerank_via_api(query, documents, top_n)
-                )
-            except Exception as api_err:
-                logger.warning(
-                    f"API rerank also failed: {api_err}. Using raw order."
-                )
-                return valid_chunks[:top_n]
-
-        # No API configured — graceful fallback
-        logger.info("No rerank API configured, returning raw order")
-        return valid_chunks[:top_n]
+        try:
+            return await _attach_scores(
+                await _rerank_via_api(query, documents, top_n)
+            )
+        except Exception as api_err:
+            return _raw_order_fallback(
+                f"Both rerank providers failed. Local: {local_err}. API: {api_err}"
+            )
 
 
 # ════════════════════════════════════════════════════════════

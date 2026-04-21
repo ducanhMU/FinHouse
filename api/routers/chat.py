@@ -17,6 +17,11 @@ from database import get_db, async_session_factory
 from models import ChatSession, ChatEvent, File
 from services.ollama import chat_stream, chat_sync, TOOL_CAPABLE_MODELS
 from tools.web_search import web_search, WEB_SEARCH_TOOL_SCHEMA
+from tools.database_query import (
+    run_sql, is_enabled as db_enabled,
+    DATABASE_QUERY_TOOL_SCHEMA,
+)
+from tools.visualize import build_chart, VISUALIZE_TOOL_SCHEMA
 from routers.auth import get_current_user
 from routers.sessions import authorize_session
 
@@ -213,6 +218,26 @@ async def _handle_tool_calls(
                 result_text = json.dumps(results, ensure_ascii=False)
             except Exception as e:
                 result_text = json.dumps({"error": f"web_search failed: {e}"})
+        elif tool_name == "database_query" and "database_query" in enabled_tools:
+            sql = tool_args.get("sql", "")
+            try:
+                result = await run_sql(sql)
+                result_text = json.dumps(result, ensure_ascii=False, default=str)
+            except Exception as e:
+                result_text = json.dumps({"error": f"database_query failed: {e}"})
+        elif tool_name == "visualize" and "visualize" in enabled_tools:
+            try:
+                result = await build_chart(
+                    data_rows=tool_args.get("data_rows", []),
+                    mark=tool_args.get("mark", "bar"),
+                    x_field=tool_args.get("x_field", ""),
+                    y_field=tool_args.get("y_field", ""),
+                    color_field=tool_args.get("color_field"),
+                    title=tool_args.get("title"),
+                )
+                result_text = json.dumps(result, ensure_ascii=False, default=str)
+            except Exception as e:
+                result_text = json.dumps({"error": f"visualize failed: {e}"})
         else:
             result_text = json.dumps({"error": f"Tool '{tool_name}' not available"})
 
@@ -358,6 +383,10 @@ async def send_message(
                 tools = []
                 if "web_search" in enabled_tools:
                     tools.append(WEB_SEARCH_TOOL_SCHEMA)
+                if "database_query" in enabled_tools and db_enabled():
+                    tools.append(DATABASE_QUERY_TOOL_SCHEMA)
+                if "visualize" in enabled_tools:
+                    tools.append(VISUALIZE_TOOL_SCHEMA)
 
                 # Tool-use loop
                 max_tool_rounds = 3
