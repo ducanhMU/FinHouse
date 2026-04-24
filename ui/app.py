@@ -738,50 +738,32 @@ _no_session = not st.session_state.current_session_id and not st.session_state.m
 with st.expander("⚙️ Tools", expanded=_no_session):
     tool_col1, tool_col2, tool_col3 = st.columns(3)
 
-    # Check if current model supports tools (affects runtime behavior only)
-    current_model = st.session_state.selected_model or ""
-    model_info = next((m for m in st.session_state.models if m["name"] == current_model), {})
-    tool_capable = model_info.get("tool_capable", False)
     has_msgs = len(st.session_state.messages) > 0
-
-    # Checkboxes are editable UNTIL the user sends the first message.
-    # We intentionally don't gate on `tool_capable` — the user should be
-    # able to toggle tools before picking/loading a model. If the final
-    # model doesn't support tools, the backend silently skips them.
     tools_locked = has_msgs
-
-    tool_hint = None
-    if not tool_capable and current_model:
-        tool_hint = f"⚠️ Model `{current_model}` không hỗ trợ function calling — tool sẽ không được kích hoạt runtime."
-    elif tools_locked:
-        tool_hint = "🔒 Đã khóa sau khi gửi câu hỏi đầu tiên."
 
     with tool_col1:
         ws_enabled = st.checkbox(
             "🔍 Web Search",
             value="web_search" in st.session_state.tools_enabled,
             disabled=tools_locked,
-            help="SearXNG-based web search (bật mặc định)",
         )
     with tool_col2:
         dbq_enabled = st.checkbox(
             "🗄️ Database Query",
             value="database_query" in st.session_state.tools_enabled,
             disabled=tools_locked,
-            help="Truy vấn ClickHouse OLAP (yêu cầu CLICKHOUSE_HOST)",
         )
     with tool_col3:
         viz_enabled = st.checkbox(
             "📊 Visualize",
             value="visualize" in st.session_state.tools_enabled,
             disabled=tools_locked,
-            help="Vẽ biểu đồ từ dữ liệu bảng",
         )
 
-    if tool_hint:
-        st.caption(tool_hint)
+    if tools_locked:
+        st.caption("🔒 Đã khóa sau khi gửi câu hỏi đầu tiên.")
 
-    # Update tool list only before first message (tools lock after chat starts)
+    # Update tool list only before first message
     if not tools_locked:
         new_tools = []
         if ws_enabled:
@@ -791,10 +773,6 @@ with st.expander("⚙️ Tools", expanded=_no_session):
         if viz_enabled:
             new_tools.append("visualize")
         st.session_state.tools_enabled = new_tools
-
-    st.caption(
-        "📁 File management đã chuyển sang trang riêng — click **Files** ở sidebar."
-    )
 
 
 # ════════════════════════════════════════════════════════════
@@ -915,9 +893,12 @@ else:
             response_area = st.empty()
             tool_container = st.container()
             source_container = st.container()
+            footer_container = st.container()   # for end-of-response status banners
             full_response = ""
             tool_events = []
             rag_sources = []
+            failed_tools = []    # tool names that returned error at runtime
+            called_tools = set() # tool names the LLM actually invoked this turn
             st.session_state.is_streaming = True
 
             try:
@@ -970,10 +951,13 @@ else:
 
                     elif etype == "tool_start":
                         tool_events.append({"type": "tool_call", **event})
+                        tn = event.get("tool", "")
+                        if tn:
+                            called_tools.add(tn)
                         with tool_container:
                             st.markdown(
                                 f'<div class="tool-card">'
-                                f'<div class="tool-card-header">🔧 {event.get("tool","")}</div>'
+                                f'<div class="tool-card-header">🔧 {tn}</div>'
                                 f'<code>{json.dumps(event.get("args",{}), ensure_ascii=False)[:200]}</code>'
                                 f'</div>',
                                 unsafe_allow_html=True,
@@ -981,6 +965,9 @@ else:
 
                     elif etype == "tool_end":
                         tool_events.append({"type": "tool_result", "content": event.get("content", "")})
+                        tool_name = event.get("tool", "")
+                        if event.get("error") and tool_name:
+                            failed_tools.append(tool_name)
                         with tool_container:
                             with st.expander("📋 Search results", expanded=False):
                                 try:
@@ -998,6 +985,29 @@ else:
                             st.session_state.session_meta["session_title"] = event.get("content", "")
 
                     elif etype == "done":
+                        # Banner 1: tools that failed at runtime
+                        if failed_tools:
+                            unique_fails = sorted(set(failed_tools))
+                            with footer_container:
+                                st.warning(
+                                    "⚠️ Tool chạy không thành công: "
+                                    + ", ".join(f"`{t}`" for t in unique_fails)
+                                )
+
+                        # Banner 2: tools user enabled but LLM didn't invoke.
+                        # Reasons could be: model can't do function calling,
+                        # LLM judged the question didn't need them, etc.
+                        # We only show this once tools_enabled is non-empty.
+                        enabled = set(st.session_state.tools_enabled or [])
+                        skipped = enabled - called_tools
+                        if skipped:
+                            with footer_container:
+                                st.info(
+                                    "ℹ️ Tool bạn đã bật nhưng không được gọi trong lượt này: "
+                                    + ", ".join(f"`{t}`" for t in sorted(skipped))
+                                    + ". Có thể model không hỗ trợ function calling, "
+                                    + "hoặc câu hỏi không cần dùng tool đó."
+                                )
                         break
 
                     elif etype == "error":

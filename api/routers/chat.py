@@ -371,6 +371,15 @@ async def _handle_tool_calls(
 
         result_text = _sanitize_tool_result(result_text)
 
+        # Detect tool failure for UI indicator
+        has_error = False
+        try:
+            parsed = json.loads(result_text)
+            if isinstance(parsed, dict) and "error" in parsed:
+                has_error = True
+        except Exception:
+            pass
+
         # Log tool result
         await _insert_event_atomic(
             db, session_id, "system", result_text, "tool_result",
@@ -379,6 +388,11 @@ async def _handle_tool_calls(
         tool_messages.append({
             "role": "tool",
             "content": result_text,
+            # Extra metadata — consumed by the SSE yield below, not by the LLM.
+            # The LLM message format only includes role + content; these extra
+            # keys are stripped before forwarding to Ollama.
+            "_tool_name": tool_name,
+            "_error": has_error,
         })
 
     return tool_messages
@@ -685,14 +699,27 @@ async def send_message(
                             await db.commit()
 
                             for tr in tool_results:
-                                yield f"data: {json.dumps({'type': 'tool_end', 'content': tr['content'][:500]})}\n\n"
+                                yield (
+                                    f"data: "
+                                    + json.dumps({
+                                        "type": "tool_end",
+                                        "tool": tr.get("_tool_name", ""),
+                                        "error": tr.get("_error", False),
+                                        "content": tr["content"][:500],
+                                    }, ensure_ascii=False)
+                                    + "\n\n"
+                                )
 
                             messages.append({
                                 "role": "assistant",
                                 "content": msg.get("content", ""),
                                 "tool_calls": msg["tool_calls"],
                             })
-                            messages.extend(tool_results)
+                            # Strip UI-only metadata before forwarding to LLM
+                            messages.extend(
+                                {"role": tr["role"], "content": tr["content"]}
+                                for tr in tool_results
+                            )
                             continue
 
                     # Streaming final response
