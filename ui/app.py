@@ -478,8 +478,14 @@ with st.sidebar:
 
     col_a, col_b = st.columns(2)
     with col_a:
-        if st.button("📖 API Docs", use_container_width=True):
-            st.markdown("[Open Swagger UI](http://localhost:8000/docs)")
+        # Build public Swagger URL from HOST_API + HOST_PORT (.env) so that
+        # users clicking the link hit the right host (the server's public IP,
+        # not localhost when accessed remotely).
+        import os as _os
+        _host = _os.getenv("HOST_API", "localhost")
+        _port = _os.getenv("HOST_PORT", "18000")
+        docs_url = f"http://{_host}:{_port}/docs"
+        st.link_button("📖 API Docs", docs_url, use_container_width=True)
     with col_b:
         if st.session_state.authenticated:
             if st.button("🚪 Logout", use_container_width=True):
@@ -732,42 +738,57 @@ _no_session = not st.session_state.current_session_id and not st.session_state.m
 with st.expander("⚙️ Tools", expanded=_no_session):
     tool_col1, tool_col2, tool_col3 = st.columns(3)
 
-    # Check if current model supports tools
+    # Check if current model supports tools (affects runtime behavior only)
     current_model = st.session_state.selected_model or ""
     model_info = next((m for m in st.session_state.models if m["name"] == current_model), {})
     tool_capable = model_info.get("tool_capable", False)
     has_msgs = len(st.session_state.messages) > 0
 
+    # Checkboxes are editable UNTIL the user sends the first message.
+    # We intentionally don't gate on `tool_capable` — the user should be
+    # able to toggle tools before picking/loading a model. If the final
+    # model doesn't support tools, the backend silently skips them.
+    tools_locked = has_msgs
+
+    tool_hint = None
+    if not tool_capable and current_model:
+        tool_hint = f"⚠️ Model `{current_model}` không hỗ trợ function calling — tool sẽ không được kích hoạt runtime."
+    elif tools_locked:
+        tool_hint = "🔒 Đã khóa sau khi gửi câu hỏi đầu tiên."
+
     with tool_col1:
         ws_enabled = st.checkbox(
             "🔍 Web Search",
             value="web_search" in st.session_state.tools_enabled,
-            disabled=not tool_capable or has_msgs,
-            help="SearXNG-based web search (bật mặc định)" if tool_capable else "Model không support tools",
+            disabled=tools_locked,
+            help="SearXNG-based web search (bật mặc định)",
         )
     with tool_col2:
         dbq_enabled = st.checkbox(
             "🗄️ Database Query",
             value="database_query" in st.session_state.tools_enabled,
-            disabled=not tool_capable or has_msgs,
+            disabled=tools_locked,
             help="Truy vấn ClickHouse OLAP (yêu cầu CLICKHOUSE_HOST)",
         )
     with tool_col3:
         viz_enabled = st.checkbox(
             "📊 Visualize",
             value="visualize" in st.session_state.tools_enabled,
-            disabled=not tool_capable or has_msgs,
+            disabled=tools_locked,
             help="Vẽ biểu đồ từ dữ liệu bảng",
         )
 
+    if tool_hint:
+        st.caption(tool_hint)
+
     # Update tool list only before first message (tools lock after chat starts)
-    if not has_msgs:
+    if not tools_locked:
         new_tools = []
-        if ws_enabled and tool_capable:
+        if ws_enabled:
             new_tools.append("web_search")
-        if dbq_enabled and tool_capable:
+        if dbq_enabled:
             new_tools.append("database_query")
-        if viz_enabled and tool_capable:
+        if viz_enabled:
             new_tools.append("visualize")
         st.session_state.tools_enabled = new_tools
 

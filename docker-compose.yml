@@ -305,6 +305,8 @@ services:
       - .env
     environment:
       API_BASE_URL: http://finhouse-api:8000
+      HOST_API: ${HOST_API:-localhost}
+      HOST_PORT: ${HOST_PORT:-18000}
     depends_on:
       - finhouse-api
     networks:
