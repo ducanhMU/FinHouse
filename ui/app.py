@@ -780,20 +780,48 @@ if not st.session_state.current_session_id and not st.session_state.messages:
         st.markdown("Your private, self-hosted AI assistant powered by Ollama.")
         st.markdown("")
 
-        # Suggested prompts
+        # Short checklist of what user should do before chatting
+        st.markdown("### Bắt đầu như thế nào")
+        st.markdown(
+            "1. Chọn **model** và **tools** ở sidebar bên trái.\n"
+            "2. (Tùy chọn) Upload tài liệu ở trang **Files** nếu muốn hỏi về nội dung riêng.\n"
+            "3. Gõ câu hỏi vào ô chat bên dưới."
+        )
+        st.markdown("")
+
+        # Suggested prompts — READ-ONLY hints, user must type themselves
+        st.markdown("### Gợi ý câu hỏi (chỉ để tham khảo)")
+        st.caption(
+            "Bạn copy hoặc tự gõ câu hỏi vào ô chat, sau đó ấn Enter để gửi. "
+            "Session sẽ tự tạo khi bạn gửi câu đầu tiên."
+        )
+
         prompts = [
-            ("💬 Just chat", "Hello! What can you help me with?"),
-            ("🔍 Search the web", "What are the latest developments in AI?"),
-            ("📄 Summarize a doc", "I'd like to upload a document for analysis"),
-            ("📊 Data insights", "Show me trends in our quarterly data"),
+            ("💬 Trò chuyện chung", "Xin chào, bạn có thể giúp gì cho tôi?"),
+            ("🔍 Tra cứu web",       "Cập nhật mới nhất về thị trường chứng khoán Việt Nam?"),
+            ("📄 Phân tích tài liệu", "Tóm tắt nội dung chính của tài liệu tôi đã upload."),
+            ("📊 Dữ liệu OLAP",      "Top 5 cổ phiếu có ROE cao nhất theo báo cáo gần nhất?"),
         ]
-        cols = st.columns(2)
-        for i, (label, prompt) in enumerate(prompts):
-            with cols[i % 2]:
-                if st.button(label, key=f"welcome_{i}", use_container_width=True):
-                    create_new_session()
-                    st.session_state["_pending_prompt"] = prompt
-                    st.rerun()
+        for label, prompt in prompts:
+            st.markdown(
+                f'<div class="welcome-card">'
+                f'<strong>{label}</strong><br/>'
+                f'<code style="font-size: 0.85em;">{prompt}</code>'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
+
+    # Chat input at bottom — session created ONLY when user sends a message
+    user_input = st.chat_input(
+        "Incognito — không lưu lịch sử. Nhập câu hỏi..." if st.session_state.incognito
+        else "Nhập câu hỏi cho FinHouse...",
+        disabled=st.session_state.is_streaming,
+    )
+    if user_input:
+        # Create session only now, on first real user message
+        create_new_session()
+        st.session_state["_pending_prompt"] = user_input
+        st.rerun()
 
 else:
     # ── Render existing messages ────────────────────────────
