@@ -519,6 +519,7 @@ with top_col1:
 with top_col2:
     # Context badge
     meta = st.session_state.session_meta
+    has_msgs = len(st.session_state.messages) > 0
     if meta:
         tc = meta.get("turn_count", 0)
         sc = meta.get("summary_count", 0)
@@ -532,6 +533,13 @@ with top_col2:
         display_title = title[:50] if title else "New conversation"
         st.markdown(
             f"**{display_title}** &nbsp; <span class='ctx-badge'>{badge}</span>",
+            unsafe_allow_html=True,
+        )
+    elif not has_msgs:
+        # Welcome state placeholder — keep visual parity with active-session header
+        st.markdown(
+            "**New conversation** &nbsp; "
+            "<span class='ctx-badge'>🟢 Chưa có lịch sử — chọn model & tools bên dưới</span>",
             unsafe_allow_html=True,
         )
 
@@ -719,7 +727,9 @@ if st.session_state.view == "files":
 # Chat view: compact tools panel (no file management here)
 # ════════════════════════════════════════════════════════════
 
-with st.expander("⚙️ Tools", expanded=False):
+# Tools panel — expanded by default when no chat yet so user can configure
+_no_session = not st.session_state.current_session_id and not st.session_state.messages
+with st.expander("⚙️ Tools", expanded=_no_session):
     tool_col1, tool_col2, tool_col3 = st.columns(3)
 
     # Check if current model supports tools
@@ -773,34 +783,23 @@ with st.expander("⚙️ Tools", expanded=False):
 # Welcome state (no session)
 if not st.session_state.current_session_id and not st.session_state.messages:
     st.markdown("")
-    st.markdown("")
     col_w1, col_w2, col_w3 = st.columns([1, 2, 1])
     with col_w2:
-        st.markdown("## 🏠 Welcome to FinHouse")
-        st.markdown("Your private, self-hosted AI assistant powered by Ollama.")
-        st.markdown("")
-
-        # Short checklist of what user should do before chatting
-        st.markdown("### Bắt đầu như thế nào")
-        st.markdown(
-            "1. Chọn **model** và **tools** ở sidebar bên trái.\n"
-            "2. (Tùy chọn) Upload tài liệu ở trang **Files** nếu muốn hỏi về nội dung riêng.\n"
-            "3. Gõ câu hỏi vào ô chat bên dưới."
+        st.markdown("### 🏠 Chào mừng đến FinHouse")
+        st.caption(
+            "Chọn **model** và **tools** ở phía trên, rồi gõ câu hỏi vào ô chat bên dưới. "
+            "Session sẽ tự tạo khi bạn gửi câu đầu tiên. Sau đó model và tools sẽ bị khóa cho session này."
         )
         st.markdown("")
 
         # Suggested prompts — READ-ONLY hints, user must type themselves
-        st.markdown("### Gợi ý câu hỏi (chỉ để tham khảo)")
-        st.caption(
-            "Bạn copy hoặc tự gõ câu hỏi vào ô chat, sau đó ấn Enter để gửi. "
-            "Session sẽ tự tạo khi bạn gửi câu đầu tiên."
-        )
+        st.markdown("**Gợi ý câu hỏi** (tham khảo — tự gõ vào ô chat):")
 
         prompts = [
-            ("💬 Trò chuyện chung", "Xin chào, bạn có thể giúp gì cho tôi?"),
-            ("🔍 Tra cứu web",       "Cập nhật mới nhất về thị trường chứng khoán Việt Nam?"),
-            ("📄 Phân tích tài liệu", "Tóm tắt nội dung chính của tài liệu tôi đã upload."),
-            ("📊 Dữ liệu OLAP",      "Top 5 cổ phiếu có ROE cao nhất theo báo cáo gần nhất?"),
+            ("💬 Trò chuyện chung",   "Xin chào, bạn có thể giúp gì cho tôi?"),
+            ("🔍 Tra cứu web",         "Cập nhật mới nhất về thị trường chứng khoán Việt Nam?"),
+            ("📄 Phân tích tài liệu",  "Tóm tắt nội dung chính của tài liệu tôi đã upload."),
+            ("📊 Dữ liệu OLAP",        "Top 5 cổ phiếu có ROE cao nhất theo báo cáo gần nhất?"),
         ]
         for label, prompt in prompts:
             st.markdown(
