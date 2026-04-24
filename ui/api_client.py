@@ -17,6 +17,39 @@ def _headers(token: Optional[str] = None) -> dict:
     return h
 
 
+class APIError(Exception):
+    """Raised when the API returns a non-2xx response. .detail has server message."""
+    def __init__(self, status_code: int, detail: str):
+        self.status_code = status_code
+        self.detail = detail
+        super().__init__(f"HTTP {status_code}: {detail}")
+
+
+def _extract_error(r: httpx.Response) -> str:
+    """Extract human-readable error message from FastAPI error response."""
+    try:
+        data = r.json()
+        if isinstance(data, dict):
+            detail = data.get("detail")
+            if isinstance(detail, str):
+                return detail
+            if isinstance(detail, list) and detail:
+                # Pydantic validation errors → [{loc, msg, type}, ...]
+                msgs = [d.get("msg", str(d)) for d in detail]
+                return "; ".join(msgs)
+            if detail:
+                return str(detail)
+        return r.text[:200]
+    except Exception:
+        return f"HTTP {r.status_code}: {r.text[:200]}"
+
+
+def _raise_for_status(r: httpx.Response):
+    if r.is_success:
+        return
+    raise APIError(r.status_code, _extract_error(r))
+
+
 # ── Auth ────────────────────────────────────────────────────
 
 def register(username: str, password: str) -> dict:
@@ -25,7 +58,7 @@ def register(username: str, password: str) -> dict:
         json={"user_name": username, "user_password": password},
         timeout=TIMEOUT,
     )
-    r.raise_for_status()
+    _raise_for_status(r)
     return r.json()
 
 
@@ -35,7 +68,7 @@ def login(username: str, password: str) -> dict:
         json={"user_name": username, "user_password": password},
         timeout=TIMEOUT,
     )
-    r.raise_for_status()
+    _raise_for_status(r)
     return r.json()
 
 
@@ -45,7 +78,7 @@ def refresh_token(refresh_tok: str) -> dict:
         json={"refresh_token": refresh_tok},
         timeout=TIMEOUT,
     )
-    r.raise_for_status()
+    _raise_for_status(r)
     return r.json()
 
 
