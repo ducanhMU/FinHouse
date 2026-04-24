@@ -37,6 +37,16 @@ class Settings(BaseSettings):
     OLLAMA_HOST: str = "http://finhouse-ollama:11434"
     DEFAULT_MODEL: str = "qwen2.5:14b"
 
+    # ── Query Rewriter (RAG pre-processing) ──
+    # Empty → falls back to DEFAULT_MODEL for rewriting.
+    # Set a smaller/faster model here if latency matters (e.g. llama3.1:8b)
+    # or leave blank to reuse the main model.
+    REWRITER_MODEL: str = ""
+
+    # If False, skip rewriting entirely (chat uses original message for RAG).
+    # Useful to A/B test or disable if API quota is tight.
+    REWRITER_ENABLED: bool = True
+
     # Embedding / Reranker — local services
     EMBED_HOST: str = "http://finhouse-bge-m3:8081"
     RERANK_HOST: str = "http://finhouse-reranker:8082"

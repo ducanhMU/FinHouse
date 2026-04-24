@@ -96,6 +96,36 @@ else:
         allow_headers=["*"],
     )
 
+
+# ── Request logging middleware ──────────────────────────────
+# Log every request with timing + status so you can see what's happening
+# when the UI "freezes" — most likely a slow downstream call (Ollama, embed).
+@app.middleware("http")
+async def log_requests(request, call_next):
+    import time
+    import logging
+    log = logging.getLogger("finhouse.http")
+
+    start = time.monotonic()
+    path = request.url.path
+    method = request.method
+
+    # Don't spam logs for health checks
+    if path != "/health":
+        log.info(f"→ {method} {path}")
+
+    try:
+        response = await call_next(request)
+        elapsed_ms = int((time.monotonic() - start) * 1000)
+        if path != "/health":
+            status = response.status_code
+            log.info(f"← {method} {path} {status} ({elapsed_ms}ms)")
+        return response
+    except Exception as e:
+        elapsed_ms = int((time.monotonic() - start) * 1000)
+        log.error(f"✗ {method} {path} EXCEPTION ({elapsed_ms}ms): {e}", exc_info=True)
+        raise
+
 # Routers
 app.include_router(auth.router)
 app.include_router(projects.router)

@@ -176,8 +176,14 @@ async def upload_file(
     safe_filename = file.filename.replace("/", "_").replace("\\", "_")[:512]
     sid = UUID(session_id) if session_id else None
     if project_id < 0:
+        # Incognito — ephemeral, tied to session UUID
         object_name = f"incognito/{sid or 'no_session'}/{file_hash}_{safe_filename}"
+    elif project_id == 0:
+        # Base knowledge — shared across all users. Path scoped per uploader
+        # so we can track who contributed what, but everyone can READ from project 0.
+        object_name = f"base/user_{user_id}/{file_hash}_{safe_filename}"
     else:
+        # Personal project
         object_name = f"user_{user_id}/project_{project_id}/{file_hash}_{safe_filename}"
 
     try:

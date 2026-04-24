@@ -148,10 +148,21 @@ async def create_session(
         if not await _can_user_access_project(db, user_id, project_id):
             raise HTTPException(status_code=403, detail="Access denied")
 
+    # Default tool set — web_search always on unless user explicitly disables it.
+    # RAG (file retrieval) is always on when files exist; not a toggleable "tool".
+    default_tools = ["web_search"]
+    # Enable OLAP tools only if ClickHouse is configured in this deployment
+    from config import get_settings
+    _s = get_settings()
+    if _s.CLICKHOUSE_HOST:
+        default_tools.extend(["database_query", "visualize"])
+
+    tools = body.tools_used if body.tools_used is not None else default_tools
+
     session = ChatSession(
         project_id=project_id,
         model_used=body.model_used,
-        tools_used=body.tools_used,
+        tools_used=tools,
     )
     db.add(session)
     await db.flush()

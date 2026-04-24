@@ -71,8 +71,19 @@ async def chat_sync(
     model: str,
     messages: list[dict],
     tools: Optional[list[dict]] = None,
+    timeout: Optional[float] = None,
+    options: Optional[dict] = None,
 ) -> dict:
-    """Non-streaming chat completion from Ollama."""
+    """
+    Non-streaming chat completion from Ollama.
+
+    Args:
+        model: Ollama model tag (e.g. "qwen2.5:14b")
+        messages: OpenAI-style message list
+        tools: optional tool definitions (function calling)
+        timeout: total request timeout in seconds; defaults to 300s
+        options: Ollama options dict (temperature, num_predict, etc.)
+    """
     payload = {
         "model": model,
         "messages": messages,
@@ -80,8 +91,14 @@ async def chat_sync(
     }
     if tools:
         payload["tools"] = tools
+    if options:
+        payload["options"] = options
 
-    async with httpx.AsyncClient(timeout=httpx.Timeout(300.0, connect=10.0)) as client:
+    total_timeout = timeout if timeout is not None else 300.0
+
+    async with httpx.AsyncClient(
+        timeout=httpx.Timeout(total_timeout, connect=10.0)
+    ) as client:
         resp = await client.post(
             f"{settings.OLLAMA_HOST}/api/chat",
             json=payload,

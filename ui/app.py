@@ -149,10 +149,11 @@ DEFAULTS = {
     "messages": [],           # [{role, content, tool_events?}]
     "models": [],
     "selected_model": None,
-    "tools_enabled": [],
+    "tools_enabled": ["web_search"],   # web_search bật mặc định
     "is_streaming": False,
     "show_auth": "login",     # "login" or "register"
     "session_meta": None,     # current session metadata
+    "view": "chat",           # "chat" | "files"
 }
 for k, v in DEFAULTS.items():
     if k not in st.session_state:
@@ -302,8 +303,13 @@ with st.sidebar:
                         st.session_state.access_token = data["access_token"]
                         st.session_state.refresh_token = data["refresh_token"]
                         st.rerun()
+                    except api.APIError as e:
+                        if e.status_code == 401:
+                            st.error("Sai tên đăng nhập hoặc mật khẩu")
+                        else:
+                            st.error(f"Lỗi đăng nhập: {e.detail}")
                     except Exception as e:
-                        st.error("Invalid credentials")
+                        st.error(f"Không kết nối được máy chủ: {e}")
 
         with tab_register:
             with st.form("register_form"):
@@ -313,15 +319,26 @@ with st.sidebar:
                 submitted = st.form_submit_button("Create Account", use_container_width=True)
                 if submitted:
                     if not ru or not rp:
-                        st.error("All fields required")
+                        st.error("Vui lòng nhập đầy đủ thông tin")
                     elif rp != rp2:
-                        st.error("Passwords don't match")
+                        st.error("Mật khẩu xác nhận không khớp")
+                    elif len(ru) < 3:
+                        st.error("Username phải có ít nhất 3 ký tự")
+                    elif len(rp) < 8:
+                        st.error("Mật khẩu phải có ít nhất 8 ký tự")
                     else:
                         try:
                             api.register(ru, rp)
-                            st.success("Account created! Please sign in.")
+                            st.success("Tạo tài khoản thành công! Vui lòng đăng nhập.")
+                        except api.APIError as e:
+                            if e.status_code == 409:
+                                st.error("Username đã tồn tại, vui lòng chọn tên khác")
+                            elif e.status_code == 400:
+                                st.error(f"Dữ liệu không hợp lệ: {e.detail}")
+                            else:
+                                st.error(f"Lỗi đăng ký ({e.status_code}): {e.detail}")
                         except Exception as e:
-                            st.error("Username already taken")
+                            st.error(f"Không kết nối được máy chủ: {e}")
 
         st.divider()
         st.caption("Or continue as guest — no history saved")
@@ -329,6 +346,31 @@ with st.sidebar:
     # ── New Chat button ─────────────────────────────────────
     if st.button("➕ New Chat", use_container_width=True, type="primary"):
         create_new_session()
+        st.session_state.view = "chat"
+        st.rerun()
+
+    # ── View switcher (Chat / Files) ────────────────────────
+    nav_col1, nav_col2 = st.columns(2)
+    with nav_col1:
+        chat_clicked = st.button(
+            "💬 Chat",
+            use_container_width=True,
+            type="secondary" if st.session_state.view == "files" else "primary",
+            key="nav_chat",
+        )
+    with nav_col2:
+        files_clicked = st.button(
+            "📁 Files",
+            use_container_width=True,
+            type="secondary" if st.session_state.view == "chat" else "primary",
+            key="nav_files",
+        )
+
+    if chat_clicked and st.session_state.view != "chat":
+        st.session_state.view = "chat"
+        st.rerun()
+    if files_clicked and st.session_state.view != "files":
+        st.session_state.view = "files"
         st.rerun()
 
     # ── Projects & History (authenticated only) ─────────────
@@ -437,7 +479,7 @@ with st.sidebar:
     col_a, col_b = st.columns(2)
     with col_a:
         if st.button("📖 API Docs", use_container_width=True):
-            st.markdown("[Open Swagger UI](http://localhost:18000/docs)")
+            st.markdown("[Open Swagger UI](http://localhost:8000/docs)")
     with col_b:
         if st.session_state.authenticated:
             if st.button("🚪 Logout", use_container_width=True):
@@ -522,7 +564,162 @@ if st.session_state.incognito:
 # Tool Toggles & File Upload (expandable)
 # ════════════════════════════════════════════════════════════
 
-with st.expander("⚙️ Tools & Files", expanded=False):
+# ════════════════════════════════════════════════════════════
+# FILES PAGE — full-screen file manager (view = "files")
+# ════════════════════════════════════════════════════════════
+
+if st.session_state.view == "files":
+    st.markdown("## 📁 Files & Documents")
+    st.caption(
+        "Tất cả file ở project 0 (Inbox) = kho kiến thức chung, mọi user "
+        "truy cập được. File ở project khác là riêng của bạn."
+    )
+
+    # Upload area
+    st.markdown("### Upload")
+    uploaded = st.file_uploader(
+        "Chọn file để upload",
+        type=["pdf", "md", "txt", "docx", "csv", "json", "xlsx", "jpg", "png"],
+        accept_multiple_files=True,
+        help="Hỗ trợ RAG: PDF, MD, TXT, DOCX. Định dạng khác sẽ lưu nhưng không search được.",
+    )
+
+    if uploaded:
+        up_project_id = st.session_state.current_project_id
+        if up_project_id is None or is_guest():
+            up_project_id = 0
+
+        for f in uploaded:
+            up_key = f"uploaded_{f.name}_{f.size}"
+            if up_key not in st.session_state:
+                try:
+                    result = api.upload_file(
+                        token=get_token(),
+                        file_bytes=f.read(),
+                        file_name=f.name,
+                        project_id=up_project_id,
+                        session_id=None,
+                    )
+                    st.session_state[up_key] = result
+                    status = result.get("process_status", "unknown")
+                    if status == "ready":
+                        st.success(f"✅ **{f.name}** — đã có sẵn (trùng file)")
+                    elif status == "failed":
+                        st.warning(f"⚠️ **{f.name}** — định dạng không hỗ trợ")
+                    else:
+                        st.info(f"📄 **{f.name}** — đã upload, đang xử lý...")
+                except Exception as e:
+                    st.error(f"Upload thất bại — {f.name}: {e}")
+
+    # File list with filter
+    st.divider()
+    st.markdown("### Danh sách file")
+
+    filter_col1, filter_col2, filter_col3 = st.columns([2, 2, 1])
+    with filter_col1:
+        filter_scope = st.selectbox(
+            "Phạm vi",
+            ["Tất cả", "Kiến thức chung (base)", "Project hiện tại"],
+            index=0,
+        )
+    with filter_col2:
+        filter_status = st.selectbox(
+            "Trạng thái",
+            ["Tất cả", "ready", "processing", "pending", "failed"],
+            index=0,
+        )
+    with filter_col3:
+        if st.button("🔄 Reload", use_container_width=True):
+            st.rerun()
+
+    # Fetch files according to filter
+    try:
+        if filter_scope == "Kiến thức chung (base)":
+            files_list = api.list_files(token=get_token(), project_id=0)
+        elif filter_scope == "Project hiện tại":
+            pid = st.session_state.current_project_id
+            if pid is None:
+                pid = 0
+            files_list = api.list_files(token=get_token(), project_id=pid)
+        else:
+            # Tất cả — merge base + user files
+            base_files = api.list_files(token=get_token(), project_id=0)
+            try:
+                user_files = api.list_files(token=get_token())   # no project_id = all user's
+            except Exception:
+                user_files = []
+            # Dedup by file_id
+            seen = set()
+            files_list = []
+            for f in base_files + user_files:
+                fid = f.get("file_id")
+                if fid and fid not in seen:
+                    seen.add(fid)
+                    files_list.append(f)
+    except Exception as e:
+        st.error(f"Không tải được danh sách file: {e}")
+        files_list = []
+
+    if filter_status != "Tất cả":
+        files_list = [f for f in files_list if f.get("process_status") == filter_status]
+
+    if not files_list:
+        st.info("Chưa có file nào. Upload ở trên để bắt đầu.")
+    else:
+        st.caption(f"Tổng: {len(files_list)} file")
+        for finfo in files_list:
+            fname = finfo.get("file_name", "?")
+            fstatus = finfo.get("process_status", "?")
+            fid = finfo.get("file_id", "")
+            ftype = finfo.get("file_type", "")
+            fproject = finfo.get("project_id", 0)
+
+            status_icon = {
+                "ready": "✅", "pending": "⏳",
+                "processing": "🔄", "failed": "❌",
+            }.get(fstatus, "❓")
+
+            scope_tag = "🌐 base" if fproject == 0 else f"🔒 p{fproject}" if fproject > 0 else "🕵️ incog"
+
+            fcol1, fcol2, fcol3, fcol4 = st.columns([4, 2, 2, 2])
+            with fcol1:
+                st.markdown(f"{status_icon} **{fname}**")
+            with fcol2:
+                st.caption(f".{ftype} · {scope_tag}")
+            with fcol3:
+                st.caption(fstatus)
+            with fcol4:
+                bc1, bc2 = st.columns(2)
+                with bc1:
+                    if fstatus == "failed" and ftype in ("pdf", "md", "txt", "docx"):
+                        if st.button("🔄", key=f"retry_{fid}", help="Retry"):
+                            try:
+                                api.reprocess_file(get_token(), fid)
+                                st.rerun()
+                            except Exception as e:
+                                st.error(str(e))
+                with bc2:
+                    if st.button("🗑", key=f"fdel_{fid}", help="Xóa"):
+                        try:
+                            api.delete_file(get_token(), fid)
+                            st.rerun()
+                        except Exception as e:
+                            st.error(str(e))
+
+    st.divider()
+    st.caption(
+        "💡 File trong thư mục `./data` của server tự động scan lúc startup. "
+        "File xóa sẽ vào thùng rác, xóa vĩnh viễn sau 1 giờ."
+    )
+    # Stop here — don't render chat area when viewing files
+    st.stop()
+
+
+# ════════════════════════════════════════════════════════════
+# Chat view: compact tools panel (no file management here)
+# ════════════════════════════════════════════════════════════
+
+with st.expander("⚙️ Tools", expanded=False):
     tool_col1, tool_col2, tool_col3 = st.columns(3)
 
     # Check if current model supports tools
@@ -536,130 +733,36 @@ with st.expander("⚙️ Tools & Files", expanded=False):
             "🔍 Web Search",
             value="web_search" in st.session_state.tools_enabled,
             disabled=not tool_capable or has_msgs,
-            help="Search the web via SearXNG" if tool_capable else "Model doesn't support tools",
+            help="SearXNG-based web search (bật mặc định)" if tool_capable else "Model không support tools",
         )
     with tool_col2:
-        db_enabled = st.checkbox(
+        dbq_enabled = st.checkbox(
             "🗄️ Database Query",
             value="database_query" in st.session_state.tools_enabled,
-            disabled=True,
-            help="Coming soon — Query your OLAP database",
+            disabled=not tool_capable or has_msgs,
+            help="Truy vấn ClickHouse OLAP (yêu cầu CLICKHOUSE_HOST)",
         )
-        if db_enabled:
-            st.toast("🚧 Database Query tool is coming soon!", icon="🔔")
     with tool_col3:
         viz_enabled = st.checkbox(
             "📊 Visualize",
             value="visualize" in st.session_state.tools_enabled,
-            disabled=True,
-            help="Coming soon — Generate charts & graphs from data",
+            disabled=not tool_capable or has_msgs,
+            help="Vẽ biểu đồ từ dữ liệu bảng",
         )
-        if viz_enabled:
-            st.toast("🚧 Visualize tool is coming soon!", icon="🔔")
 
-    # Update tools
-    new_tools = []
-    if ws_enabled and tool_capable:
-        new_tools.append("web_search")
+    # Update tool list only before first message (tools lock after chat starts)
     if not has_msgs:
+        new_tools = []
+        if ws_enabled and tool_capable:
+            new_tools.append("web_search")
+        if dbq_enabled and tool_capable:
+            new_tools.append("database_query")
+        if viz_enabled and tool_capable:
+            new_tools.append("visualize")
         st.session_state.tools_enabled = new_tools
 
-    # ── File Upload ─────────────────────────────────────────
-    st.markdown("---")
-    st.markdown("**📁 Documents**")
-
-    uploaded = st.file_uploader(
-        "Upload documents for RAG retrieval",
-        type=["pdf", "md", "txt", "docx", "csv", "json", "xlsx", "jpg", "png"],
-        accept_multiple_files=True,
-        help="Supported for RAG: PDF, MD, TXT, DOCX. Other formats will be stored but marked as unsupported.",
-        label_visibility="collapsed",
-    )
-
-    if uploaded:
-        # Determine which project to upload to
-        upload_project_id = st.session_state.current_project_id
-        if upload_project_id is None or is_guest():
-            upload_project_id = 0  # default inbox
-
-        for f in uploaded:
-            # Deduplicate by name within this Streamlit session
-            up_key = f"uploaded_{f.name}_{f.size}"
-            if up_key not in st.session_state:
-                try:
-                    result = api.upload_file(
-                        token=get_token(),
-                        file_bytes=f.read(),
-                        file_name=f.name,
-                        project_id=upload_project_id,
-                        session_id=st.session_state.current_session_id,
-                    )
-                    st.session_state[up_key] = result
-                    status = result.get("process_status", "unknown")
-                    if status == "ready":
-                        st.success(f"📄 **{f.name}** — already indexed (duplicate)")
-                    elif status == "failed":
-                        st.warning(f"📄 **{f.name}** — unsupported format, marked as failed")
-                    else:
-                        st.info(f"📄 **{f.name}** — uploaded, processing...")
-                except Exception as e:
-                    st.error(f"Upload failed for {f.name}: {e}")
-
-    # ── Show existing files for current project ─────────────
-    try:
-        show_project = st.session_state.current_project_id
-        if show_project is None:
-            show_project = 0
-        files_list = api.list_files(token=get_token(), project_id=show_project)
-    except Exception:
-        files_list = []
-
-    if files_list:
-        st.caption(f"{len(files_list)} file(s) in project")
-        for finfo in files_list:
-            fname = finfo.get("file_name", "?")
-            fstatus = finfo.get("process_status", "?")
-            fid = finfo.get("file_id", "")
-            ftype = finfo.get("file_type", "")
-
-            # Status icon
-            status_icon = {
-                "ready": "✅",
-                "pending": "⏳",
-                "processing": "🔄",
-                "failed": "❌",
-            }.get(fstatus, "❓")
-
-            incog_tag = " 🕵️" if st.session_state.incognito else ""
-
-            fcol1, fcol2, fcol3 = st.columns([5, 2, 1])
-            with fcol1:
-                st.markdown(f"{status_icon} **{fname}**{incog_tag}")
-            with fcol2:
-                st.caption(f"{fstatus} · .{ftype}")
-            with fcol3:
-                if fstatus in ("failed",) and ftype in ("pdf", "md", "txt", "docx"):
-                    if st.button("🔄", key=f"retry_{fid}", help="Retry processing"):
-                        try:
-                            api.reprocess_file(get_token(), fid)
-                            st.rerun()
-                        except Exception as e:
-                            st.error(str(e))
-                if st.button("🗑", key=f"fdel_{fid}", help="Delete"):
-                    try:
-                        api.delete_file(get_token(), fid)
-                        st.rerun()
-                    except Exception as e:
-                        st.error(str(e))
-    else:
-        st.caption("No files uploaded yet. Upload documents above or place them in the `./data` folder.")
-
-    # ── Data folder info ────────────────────────────────────
-    st.markdown("---")
     st.caption(
-        "💡 **Auto-scan:** Files placed in the `./data` folder are automatically "
-        "detected and processed on system startup. Unsupported formats are "
-        "marked as failed."
+        "📁 File management đã chuyển sang trang riêng — click **Files** ở sidebar."
     )
 
 
@@ -791,6 +894,31 @@ else:
                                     f'</div>',
                                     unsafe_allow_html=True,
                                 )
+
+                    elif etype == "query_rewrite":
+                        # Show rewrite info for transparency
+                        rewritten = event.get("rewritten", "")
+                        entities = event.get("entities", [])
+                        timeframe = event.get("timeframe", "")
+                        with tool_container:
+                            with st.expander("🔎 Câu hỏi đã rewrite", expanded=False):
+                                st.markdown(f"**Rewritten:** {rewritten}")
+                                if entities:
+                                    st.caption(f"Entities: {', '.join(entities)}")
+                                if timeframe:
+                                    st.caption(f"Timeframe: {timeframe}")
+
+                    elif etype == "clarification":
+                        # Rewriter asked for clarification — just log a small
+                        # note; the actual text comes as `token` events after
+                        clar_text = event.get("content", "")
+                        with tool_container:
+                            st.markdown(
+                                f'<div class="tool-card">'
+                                f'<div class="tool-card-header">❓ Cần làm rõ thêm</div>'
+                                f'</div>',
+                                unsafe_allow_html=True,
+                            )
 
                     elif etype == "tool_start":
                         tool_events.append({"type": "tool_call", **event})

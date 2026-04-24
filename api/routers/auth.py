@@ -89,51 +89,75 @@ async def get_current_user(
 
 @router.post("/register", status_code=201)
 async def register(body: RegisterRequest, db: AsyncSession = Depends(get_db)):
-    # Validate input length
-    if len(body.user_name) < 3 or len(body.user_name) > 64:
+    import logging
+    log = logging.getLogger("finhouse.auth")
+
+    # Normalize: strip whitespace + lowercase for case-insensitive uniqueness
+    username = (body.user_name or "").strip().lower()
+    password = body.user_password or ""
+
+    log.info(f"register attempt: username={username!r} len={len(username)}")
+
+    if len(username) < 3 or len(username) > 64:
         raise HTTPException(
             status_code=400,
-            detail="Username must be 3-64 characters",
+            detail="Username must be 3-64 characters (after trim)",
         )
-    if len(body.user_password) < 8 or len(body.user_password) > 256:
+    if len(password) < 8 or len(password) > 256:
         raise HTTPException(
             status_code=400,
             detail="Password must be 8-256 characters",
         )
 
-    # Check existing
+    # Check existing (case-insensitive via lowercased username)
     result = await db.execute(
-        select(User).where(User.user_name == body.user_name)
+        select(User).where(User.user_name == username)
     )
-    if result.scalar_one_or_none():
+    existing = result.scalar_one_or_none()
+    if existing:
+        log.warning(
+            f"register rejected — username already exists "
+            f"(existing user_id={existing.user_id}, requested={username!r})"
+        )
         raise HTTPException(status_code=409, detail="Username already taken")
 
     # Let Postgres SERIAL assign user_id atomically — no race condition.
     user = User(
-        user_name=body.user_name,
-        user_password=pwd_context.hash(body.user_password),
+        user_name=username,
+        user_password=pwd_context.hash(password),
     )
     db.add(user)
     try:
         await db.flush()
+        log.info(f"register success: user_id={user.user_id} username={username!r}")
     except Exception as e:
         # Concurrent registrations with same username would hit UNIQUE constraint
         await db.rollback()
+        log.error(f"register db error for {username!r}: {e}")
         raise HTTPException(status_code=409, detail="Username already taken") from e
     return {"user_id": user.user_id, "user_name": user.user_name}
 
 
 @router.post("/login", response_model=TokenResponse)
 async def login(body: LoginRequest, db: AsyncSession = Depends(get_db)):
+    import logging
+    log = logging.getLogger("finhouse.auth")
+
+    username = (body.user_name or "").strip().lower()
+    log.info(f"login attempt: username={username!r}")
+
     result = await db.execute(
-        select(User).where(User.user_name == body.user_name)
+        select(User).where(User.user_name == username)
     )
     user = result.scalar_one_or_none()
     if not user or not user.user_password:
+        log.warning(f"login rejected — user not found: {username!r}")
         raise HTTPException(status_code=401, detail="Invalid credentials")
-    if not pwd_context.verify(body.user_password, user.user_password):
+    if not pwd_context.verify(body.user_password or "", user.user_password):
+        log.warning(f"login rejected — wrong password for user_id={user.user_id}")
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
+    log.info(f"login success: user_id={user.user_id} username={user.user_name!r}")
     return TokenResponse(
         access_token=create_token(user.user_id, "access"),
         refresh_token=create_token(user.user_id, "refresh"),

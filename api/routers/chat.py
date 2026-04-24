@@ -3,6 +3,9 @@
 import json
 import asyncio
 import html as html_module
+import logging
+import re
+import time
 from datetime import datetime, timezone
 from typing import Optional
 from uuid import UUID
@@ -22,10 +25,12 @@ from tools.database_query import (
     DATABASE_QUERY_TOOL_SCHEMA,
 )
 from tools.visualize import build_chart, VISUALIZE_TOOL_SCHEMA
+from prompts import get_system_prompt
 from routers.auth import get_current_user
 from routers.sessions import authorize_session
 
 router = APIRouter(prefix="/chat", tags=["chat"])
+log = logging.getLogger("finhouse.chat")
 
 # Max chars in a user message — prevents context bloat and Ollama OOM
 MAX_MESSAGE_LENGTH = 32_000
@@ -37,6 +42,64 @@ MAX_TOOL_RESULT_LENGTH = 20_000
 # NOTE: this is in-memory per worker. Works fine for single-worker deploys.
 # For multi-worker: move to Redis pub/sub.
 _active_streams: dict[str, bool] = {}
+
+
+# ════════════════════════════════════════════════════════════
+# System prompt is loaded from api/prompts/system.md
+# Edit that file to change the AI persona. Restart API to reload
+# (or call reload_system_prompt() programmatically).
+# ════════════════════════════════════════════════════════════
+
+
+def _detect_intent_change(prev_user_msgs: list[str], new_msg: str) -> bool:
+    """
+    Phát hiện user đổi chủ đề.
+
+    Heuristic: so sánh set content words (>3 chars, bỏ stopwords) giữa
+    tin nhắn mới và 3 tin user gần nhất. Nếu overlap < 25% → intent changed.
+
+    Tuned cho chat tiếng Việt về tài chính — thêm stopwords Vietnamese
+    để tránh false negative (common words như "công ty", "có", "là"
+    che mất proper noun thực sự là chủ đề).
+    """
+    if not prev_user_msgs:
+        return False
+
+    # Stopwords — những từ xuất hiện nhiều không phải chủ đề
+    _VI_STOP = {
+        "công", "ty", "doanh", "nghiệp", "tôi", "bạn", "của", "cho",
+        "với", "như", "thế", "nào", "thế", "gì", "sao", "khi", "trong",
+        "một", "các", "những", "nhất", "hiện", "được", "đang", "hãy",
+        "cho", "biết", "giúp", "tôi", "mình", "đây", "này", "kia",
+        "năm", "tháng", "quý", "ngày",
+    }
+    _EN_STOP = {
+        "what", "how", "why", "when", "where", "which", "that", "this",
+        "with", "from", "have", "been", "were", "will", "would", "could",
+        "should", "please", "tell", "about", "some", "many", "much",
+    }
+    _STOP = _VI_STOP | _EN_STOP
+
+    def tokenize(s: str) -> set[str]:
+        # Lấy từ có ít nhất 3 ký tự, lowercase, bỏ stopwords
+        words = re.findall(r"[a-zA-Z\u00C0-\u1EF9]+", s.lower())
+        return {w for w in words if len(w) > 3 and w not in _STOP}
+
+    new_tokens = tokenize(new_msg)
+    if len(new_tokens) < 2:
+        # Câu quá ngắn/ít thông tin → không reliable, giữ context cũ
+        return False
+
+    recent_tokens: set[str] = set()
+    for m in prev_user_msgs[-3:]:
+        recent_tokens.update(tokenize(m))
+
+    if not recent_tokens:
+        return False
+
+    overlap = new_tokens & recent_tokens
+    overlap_ratio = len(overlap) / max(1, len(new_tokens))
+    return overlap_ratio < 0.25
 
 
 class SendRequest(BaseModel):
@@ -118,22 +181,90 @@ async def _insert_event_atomic(
 
 
 async def _project_has_files(db: AsyncSession, project_id: int) -> bool:
-    """Check if a project has any ready files — used to skip RAG when empty."""
+    """
+    Check if RAG retrieval has anything to work with.
+
+    Rule:
+      - Incognito (project_id < 0): only check that project.
+      - Any positive project_id: check base (0) OR that project.
+    """
+    if project_id < 0:
+        result = await db.execute(
+            select(func.count(File.file_id)).where(
+                File.project_id == project_id,
+                File.process_status == "ready",
+            )
+        )
+        return (result.scalar() or 0) > 0
+
+    # Normal or base search — check base OR the specific project
     result = await db.execute(
         select(func.count(File.file_id)).where(
-            File.project_id == project_id,
+            File.project_id.in_([0, project_id]),
             File.process_status == "ready",
         )
     )
     return (result.scalar() or 0) > 0
 
 
-async def _build_messages(session_id: UUID, db: AsyncSession) -> list[dict]:
-    """Build Ollama message list from recent events."""
-    messages = []
+async def _build_messages(
+    session_id: UUID,
+    db: AsyncSession,
+    current_user_text: str,
+) -> list[dict]:
+    """
+    Build Ollama message list. Rules:
+
+    1. ALWAYS start with the Vietnamese finance system prompt.
+    2. If user's new message changes topic sharply (intent drift),
+       drop summaries/checkpoints — they bias the model to the old topic.
+    3. Otherwise: checkpoint + recent summaries + last 6 messages.
+    """
+    messages: list[dict] = [{"role": "system", "content": get_system_prompt()}]
+
+    # ── Collect recent user messages to detect intent change ──
+    res = await db.execute(
+        select(ChatEvent)
+        .where(
+            ChatEvent.session_id == session_id,
+            ChatEvent.event_type == "message",
+            ChatEvent.role == "user",
+        )
+        .order_by(ChatEvent.num_order.desc())
+        .limit(4)       # last 4 user turns (current + 3 prev)
+    )
+    recent_user_events = list(res.scalars().all())
+    # Exclude the one we just wrote (current text) if present
+    prev_user_msgs = [
+        e.text for e in recent_user_events if e.text != current_user_text
+    ][:3]
+
+    intent_changed = _detect_intent_change(prev_user_msgs, current_user_text)
+
+    if intent_changed and prev_user_msgs:
+        log.info(
+            f"[session={session_id}] intent change detected — "
+            f"trimming context to recent messages only"
+        )
+        # Skip checkpoints + summaries. Just include the last 2 messages
+        # as minimal continuity.
+        res = await db.execute(
+            select(ChatEvent)
+            .where(
+                ChatEvent.session_id == session_id,
+                ChatEvent.event_type == "message",
+            )
+            .order_by(ChatEvent.num_order.desc())
+            .limit(2)
+        )
+        for msg in reversed(res.scalars().all()):
+            messages.append({"role": msg.role, "content": msg.text})
+        return messages
+
+    # ── Normal path — include compaction + full recent history ──
 
     # 1. Latest checkpoint
-    result = await db.execute(
+    res = await db.execute(
         select(ChatEvent)
         .where(
             ChatEvent.session_id == session_id,
@@ -142,16 +273,16 @@ async def _build_messages(session_id: UUID, db: AsyncSession) -> list[dict]:
         .order_by(ChatEvent.num_order.desc())
         .limit(1)
     )
-    checkpoint = result.scalar_one_or_none()
+    checkpoint = res.scalar_one_or_none()
     if checkpoint:
         messages.append({
             "role": "system",
-            "content": f"[Conversation checkpoint]\n{checkpoint.text}",
+            "content": f"[Tóm tắt dài — chỉ dùng làm bối cảnh, ưu tiên câu hỏi hiện tại]\n{checkpoint.text}",
         })
 
     # 2. Recent summaries since last checkpoint (up to 3)
     checkpoint_order = checkpoint.num_order if checkpoint else 0
-    result = await db.execute(
+    res = await db.execute(
         select(ChatEvent)
         .where(
             ChatEvent.session_id == session_id,
@@ -161,15 +292,15 @@ async def _build_messages(session_id: UUID, db: AsyncSession) -> list[dict]:
         .order_by(ChatEvent.num_order.desc())
         .limit(3)
     )
-    summaries = result.scalars().all()
+    summaries = res.scalars().all()
     for s in reversed(summaries):
         messages.append({
             "role": "system",
-            "content": f"[Summary of earlier conversation]\n{s.text}",
+            "content": f"[Tóm tắt đoạn chat trước]\n{s.text}",
         })
 
     # 3. Last 6 message events (3 turns of user+assistant)
-    result = await db.execute(
+    res = await db.execute(
         select(ChatEvent)
         .where(
             ChatEvent.session_id == session_id,
@@ -178,12 +309,9 @@ async def _build_messages(session_id: UUID, db: AsyncSession) -> list[dict]:
         .order_by(ChatEvent.num_order.desc())
         .limit(6)
     )
-    recent_msgs = list(reversed(result.scalars().all()))
+    recent_msgs = list(reversed(res.scalars().all()))
     for msg in recent_msgs:
-        messages.append({
-            "role": msg.role,
-            "content": msg.text,
-        })
+        messages.append({"role": msg.role, "content": msg.text})
 
     return messages
 
@@ -306,8 +434,14 @@ async def send_message(
 
     stream_key = str(session_id)
     _active_streams[stream_key] = True
+    log.info(
+        f"[session={session_id}] chat request user={user_id} "
+        f"project={session_project_id} model={session_model} "
+        f"tools={session_tools} text_len={len(body.text)}"
+    )
 
     async def event_generator():
+        t0 = time.perf_counter()
         async with async_session_factory() as db:
             try:
                 # Re-load session to work with it in this db session
@@ -327,20 +461,112 @@ async def send_message(
                 )
                 await db.commit()
 
-                # Build prompt
-                messages = await _build_messages(session_id, db)
+                # Build prompt (passes current text so intent detection works)
+                t_build = time.perf_counter()
+                messages = await _build_messages(session_id, db, body.text)
+                log.info(
+                    f"[session={session_id}] built {len(messages)} messages "
+                    f"in {(time.perf_counter() - t_build)*1000:.0f}ms"
+                )
+
+                # ── Query Rewriter (resolve references, expand context) ──
+                # Goal: turn "Nó lãi bao nhiêu?" into a self-contained question
+                # based on prior turns, so RAG retrieval gets a clean query.
+                from config import get_settings as _gs
+                _settings = _gs()
+
+                # Build chat-only history for rewriter (strip system/tool events)
+                rewriter_history = [
+                    {"role": m["role"], "content": m.get("content") or ""}
+                    for m in messages
+                    if m.get("role") in ("user", "assistant") and m.get("content")
+                ]
+                # Exclude the current user message itself (we don't have it
+                # in `messages` at position 0 — it'll be appended later — but
+                # _build_messages may have included it as the last turn).
+                if rewriter_history and rewriter_history[-1].get("content") == body.text:
+                    rewriter_history = rewriter_history[:-1]
+
+                rewrite_result = None
+                embed_query_text = body.text   # default: embed original
+                if _settings.REWRITER_ENABLED:
+                    t_rw = time.perf_counter()
+                    try:
+                        from services.rewriter import rewrite_query
+                        rewriter_model = _settings.REWRITER_MODEL or session.model_used
+                        rewrite_result = await rewrite_query(
+                            user_message=body.text,
+                            history=rewriter_history,
+                            model=rewriter_model,
+                        )
+                        log.info(
+                            f"[session={session_id}] rewriter done in "
+                            f"{(time.perf_counter() - t_rw)*1000:.0f}ms "
+                            f"needs_clarification={rewrite_result.needs_clarification}"
+                        )
+                    except Exception as e:
+                        log.warning(
+                            f"[session={session_id}] rewriter error (ignoring): {e}",
+                            exc_info=True,
+                        )
+                        rewrite_result = None
+
+                # If rewriter asked for clarification, short-circuit:
+                # send clarification as assistant reply, save it, and exit.
+                # No RAG, no main LLM call.
+                if rewrite_result and rewrite_result.needs_clarification:
+                    clarif = rewrite_result.clarification
+                    log.info(
+                        f"[session={session_id}] clarification requested: {clarif!r}"
+                    )
+                    yield f"data: {json.dumps({'type': 'clarification', 'content': clarif}, ensure_ascii=False)}\n\n"
+                    # Stream the text so UI renders it in-place
+                    yield f"data: {json.dumps({'type': 'token', 'content': clarif}, ensure_ascii=False)}\n\n"
+
+                    await _insert_event_atomic(
+                        db, session_id, "assistant", clarif, "message"
+                    )
+                    await db.commit()
+
+                    yield f"data: {json.dumps({'type': 'done'})}\n\n"
+                    _active_streams.pop(stream_key, None)
+                    return
+
+                # Otherwise, use rewritten query for RAG embedding if available
+                if rewrite_result and rewrite_result.rewritten:
+                    embed_query_text = rewrite_result.embed_query
+                    # Emit event so UI can show "searching as: <rewritten>"
+                    if embed_query_text != body.text:
+                        yield (
+                            "data: "
+                            + json.dumps({
+                                "type": "query_rewrite",
+                                "original": body.text,
+                                "rewritten": rewrite_result.rewritten,
+                                "entities": rewrite_result.preserved_entities,
+                                "timeframe": rewrite_result.preserved_timeframe,
+                            }, ensure_ascii=False)
+                            + "\n\n"
+                        )
 
                 # ── RAG Retrieval (only if project has files) ────
                 rag_sources = []
                 search_project = session_project_id if session_project_id >= 0 else 0
+                t_rag = time.perf_counter()
                 if await _project_has_files(db, search_project):
                     try:
                         from services.ingest import retrieve_context
                         rag_chunks = await retrieve_context(
-                            query=body.text,
+                            query=embed_query_text,
                             project_id=search_project,
                             top_k=20,
                             top_n_rerank=5,
+                        )
+                        log.info(
+                            f"[session={session_id}] RAG retrieved "
+                            f"{len(rag_chunks) if rag_chunks else 0} chunks "
+                            f"for query={embed_query_text[:80]!r} "
+                            f"in {(time.perf_counter() - t_rag)*1000:.0f}ms"
                         )
                         if rag_chunks:
                             source_lines = []
@@ -356,11 +582,13 @@ async def send_message(
                                     "score": chunk.get("rerank_score", chunk.get("score", 0)),
                                 })
                             rag_text = (
-                                "Use the following retrieved document excerpts to answer "
-                                "the user's question. Cite sources using [1], [2], etc.\n\n"
+                                "Các đoạn trích từ tài liệu hệ thống "
+                                "(dùng để trả lời câu hỏi; trích dẫn [1], [2]...):\n\n"
                                 + "\n\n".join(source_lines)
                             )
-                            messages.insert(0, {"role": "system", "content": rag_text})
+                            # Insert RAG context right after the system prompt (position 1)
+                            insert_at = 1 if messages and messages[0].get("role") == "system" else 0
+                            messages.insert(insert_at, {"role": "system", "content": rag_text})
 
                             await _insert_event_atomic(
                                 db, session_id, "system",
@@ -369,13 +597,38 @@ async def send_message(
                             )
                             await db.commit()
                     except Exception as e:
-                        import logging
-                        logging.getLogger("finhouse.chat").warning(
-                            f"RAG retrieval skipped: {e}"
+                        log.warning(
+                            f"[session={session_id}] RAG retrieval skipped: {e}",
+                            exc_info=True,
                         )
+                else:
+                    log.info(f"[session={session_id}] no files in project, skip RAG")
 
                 if rag_sources:
                     yield f"data: {json.dumps({'type': 'rag_sources', 'sources': rag_sources})}\n\n"
+
+                # Give the main LLM a hint about the resolved question so it
+                # doesn't have to re-infer references. Small but meaningful.
+                if (
+                    rewrite_result
+                    and rewrite_result.rewritten
+                    and rewrite_result.rewritten != body.text
+                ):
+                    hint_parts = [
+                        f"Ý định đã resolve của user: {rewrite_result.rewritten}"
+                    ]
+                    if rewrite_result.preserved_entities:
+                        hint_parts.append(
+                            "Các thực thể cần tập trung: "
+                            + ", ".join(rewrite_result.preserved_entities)
+                        )
+                    if rewrite_result.preserved_timeframe:
+                        hint_parts.append(
+                            f"Mốc thời gian: {rewrite_result.preserved_timeframe}"
+                        )
+                    hint_text = " | ".join(hint_parts)
+                    insert_at = 1 if messages and messages[0].get("role") == "system" else 0
+                    messages.insert(insert_at, {"role": "system", "content": hint_text})
 
                 if not messages or messages[-1].get("content") != body.text:
                     messages.append({"role": "user", "content": body.text})
@@ -388,26 +641,46 @@ async def send_message(
                 if "visualize" in enabled_tools:
                     tools.append(VISUALIZE_TOOL_SCHEMA)
 
+                log.info(
+                    f"[session={session_id}] tools enabled: "
+                    f"{[t['function']['name'] for t in tools] if tools else []}"
+                )
+
                 # Tool-use loop
                 max_tool_rounds = 3
                 full_response = ""
                 for round_idx in range(max_tool_rounds + 1):
                     if not _active_streams.get(stream_key, False):
+                        log.info(f"[session={session_id}] cancelled at round {round_idx}")
                         break
 
                     if tools and round_idx < max_tool_rounds:
+                        t_llm = time.perf_counter()
                         response = await chat_sync(
                             session.model_used, messages, tools=tools
+                        )
+                        log.info(
+                            f"[session={session_id}] LLM round {round_idx} took "
+                            f"{(time.perf_counter() - t_llm)*1000:.0f}ms"
                         )
                         msg = response.get("message", {})
 
                         if msg.get("tool_calls"):
                             for tc in msg["tool_calls"]:
                                 fn = tc.get("function", {})
+                                log.info(
+                                    f"[session={session_id}] tool call: "
+                                    f"{fn.get('name')} args={str(fn.get('arguments'))[:200]}"
+                                )
                                 yield f"data: {json.dumps({'type': 'tool_start', 'tool': fn.get('name',''), 'args': fn.get('arguments',{})})}\n\n"
 
+                            t_tool = time.perf_counter()
                             tool_results = await _handle_tool_calls(
                                 session_id, msg["tool_calls"], db, enabled_tools,
+                            )
+                            log.info(
+                                f"[session={session_id}] tools executed in "
+                                f"{(time.perf_counter() - t_tool)*1000:.0f}ms"
                             )
                             await db.commit()
 

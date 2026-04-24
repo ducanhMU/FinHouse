@@ -35,8 +35,8 @@ logger = logging.getLogger("finhouse.ingest")
 SUPPORTED_EXTENSIONS = {"pdf", "md", "txt", "docx"}
 
 # ── Limits ──────────────────────────────────────────────────
-MAX_FILE_SIZE_MB = 100          # reject files larger than this
-MAX_CHUNKS_PER_FILE = 2000      # safety cap
+MAX_FILE_SIZE_MB = 150          # reject files larger than this
+MAX_CHUNKS_PER_FILE = 2500      # safety cap
 
 # ── Chunking config ─────────────────────────────────────────
 CHUNK_CHARS = 1500              # ~512 tokens per chunk
@@ -471,6 +471,7 @@ async def embed_texts(
 
     mode = settings.EMBED_MODE.lower().strip()
     api_configured = bool(settings.EMBED_API_URL and settings.EMBED_API_KEY)
+    local_configured = bool(settings.EMBED_HOST and settings.EMBED_HOST.strip())
 
     # ── Mode: backup — go straight to API ──
     if mode == "backup":
@@ -482,6 +483,18 @@ async def embed_texts(
 
     # ── Mode: local — local only, no fallback ──
     if mode == "local":
+        if not local_configured:
+            # Misconfiguration guard: user set mode=local but no EMBED_HOST.
+            # If API is configured, fall through to API instead of crashing.
+            if api_configured:
+                logger.warning(
+                    "EMBED_MODE=local but EMBED_HOST empty — routing to API. "
+                    "Set EMBED_MODE=backup explicitly to silence this warning."
+                )
+                return await _embed_via_api(texts, batch_size=batch_size)
+            raise RuntimeError(
+                "EMBED_MODE=local but EMBED_HOST is empty and no API configured"
+            )
         return await _embed_via_local(texts, batch_size, max_retries)
 
     # ── Mode: auto — local with sticky fallback ──
@@ -660,7 +673,15 @@ async def search_chunks(
     project_id: int,
     top_k: int = 20,
 ) -> list[dict]:
-    """Search Milvus for similar chunks scoped to a project."""
+    """
+    Search Milvus for similar chunks.
+
+    Scope rules:
+      • project_id == 0 (Inbox) is BASE KNOWLEDGE — files there are accessible
+        to every authenticated user. Always included.
+      • Any other project_id: that project + base (0).
+      • Negative project_id (incognito): only that project, not base.
+    """
     from pymilvus import Collection
 
     _get_milvus_connection()
@@ -671,13 +692,24 @@ async def search_chunks(
     except Exception as e:
         logger.debug(f"collection.load() note (may already be loaded): {e}")
 
+    # Build filter expression
+    if project_id < 0:
+        # Incognito — isolated namespace
+        expr = f"project_id == {project_id}"
+    elif project_id == 0:
+        # Searching directly in base knowledge
+        expr = "project_id == 0"
+    else:
+        # Personal project — also search base
+        expr = f"project_id in [0, {project_id}]"
+
     results = collection.search(
         data=[query_embedding],
         anns_field="embedding",
         param={"metric_type": "COSINE", "params": {"nprobe": 16}},
         limit=top_k,
-        expr=f"project_id == {project_id}",
-        output_fields=["file_id", "file_name", "chunk_index", "text"],
+        expr=expr,
+        output_fields=["file_id", "file_name", "chunk_index", "text", "project_id"],
     )
 
     hits = []
@@ -690,7 +722,12 @@ async def search_chunks(
                 "file_name": hit.entity.get("file_name"),
                 "chunk_index": hit.entity.get("chunk_index"),
                 "text": hit.entity.get("text"),
+                "project_id": hit.entity.get("project_id"),
             })
+    logger.info(
+        f"Milvus search: query_project={project_id} filter={expr} "
+        f"→ {len(hits)} hits"
+    )
     return hits
 
 
@@ -779,6 +816,7 @@ async def rerank_chunks(
 
     mode = settings.RERANK_MODE.lower().strip()
     api_configured = bool(settings.RERANK_API_URL and settings.RERANK_API_KEY)
+    local_configured = bool(settings.RERANK_HOST and settings.RERANK_HOST.strip())
 
     # Rerank is non-critical — graceful fallback to raw order on error
     def _raw_order_fallback(why: str) -> list[dict]:
@@ -798,6 +836,19 @@ async def rerank_chunks(
 
     # ── Mode: local — local only ──
     if mode == "local":
+        if not local_configured:
+            # Misconfiguration guard: silently route to API if available
+            if api_configured:
+                logger.warning(
+                    "RERANK_MODE=local but RERANK_HOST empty — routing to API"
+                )
+                try:
+                    return await _attach_scores(
+                        await _rerank_via_api(query, documents, top_n)
+                    )
+                except Exception as e:
+                    return _raw_order_fallback(f"API rerank failed: {e}")
+            return _raw_order_fallback("No rerank provider configured")
         try:
             return await _attach_scores(
                 await _rerank_via_local(query, documents, top_n)
