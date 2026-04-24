@@ -27,11 +27,11 @@ async def lifespan(app: FastAPI):
     print(f"   Data dir:   {settings.DATA_DIR}")
 
     # Kick off data folder scan in the background — doesn't block startup
-    try:
-        from services.data_scanner import kick_off_background_scan
-        await kick_off_background_scan()
-    except Exception as e:
-        print(f"⚠️  Data scan kick-off error (non-fatal): {e}")
+    # try:
+    #     from services.data_scanner import kick_off_background_scan
+    #     await kick_off_background_scan()
+    # except Exception as e:
+    #     print(f"⚠️  Data scan kick-off error (non-fatal): {e}")
 
     # Start the cleanup worker (purges soft-deleted files, GC incognito)
     cleanup_task = None

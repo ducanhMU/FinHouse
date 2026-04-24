@@ -61,11 +61,18 @@ async def scan_data_folder(db: AsyncSession):
         data_path.mkdir(parents=True, exist_ok=True)
         return
 
+    # Folders to skip entirely. These contain data for other pipelines
+    # (OLAP ingestion to ClickHouse) and shouldn't be embedded as RAG chunks.
+    SKIP_DIRS = {"OLAP", "checkpoint", "_ingestion_log", "logs", "tmp"}
+
     # Collect all files (recursive)
     all_files = []
     for root, dirs, files in os.walk(data_path):
-        # Skip hidden directories
-        dirs[:] = [d for d in dirs if not d.startswith(".")]
+        # Skip hidden directories + well-known non-RAG dirs
+        dirs[:] = [
+            d for d in dirs
+            if not d.startswith(".") and d not in SKIP_DIRS
+        ]
         for fname in files:
             if fname.startswith("."):
                 continue
@@ -74,10 +81,13 @@ async def scan_data_folder(db: AsyncSession):
             all_files.append((full_path, rel_path, fname))
 
     if not all_files:
-        logger.info(f"No files found in {DATA_DIR}")
+        logger.info(f"No files found in {DATA_DIR} (excluding {SKIP_DIRS})")
         return
 
-    logger.info(f"📂 Found {len(all_files)} files in {DATA_DIR}")
+    logger.info(
+        f"📂 Found {len(all_files)} files in {DATA_DIR} "
+        f"(skipped dirs: {SKIP_DIRS})"
+    )
 
     processed = 0
     skipped = 0
