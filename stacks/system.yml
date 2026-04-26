@@ -25,8 +25,8 @@ services:
     ports:
       - "15432:5432"
     volumes:
-      - ./volumes/postgres:/var/lib/postgresql/data
-      - ./api/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ../volumes/postgres:/var/lib/postgresql/data
+      - ../api/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     networks:
       - finhouse-net
     healthcheck:
@@ -47,7 +47,7 @@ services:
       - "19000:9000"
       - "19001:9001"
     volumes:
-      - ./volumes/minio:/data
+      - ../volumes/minio:/data
     networks:
       - finhouse-net
     healthcheck:
@@ -87,7 +87,7 @@ services:
       --listen-client-urls=http://0.0.0.0:2379
       --data-dir=/etcd
     volumes:
-      - ./volumes/etcd:/etcd
+      - ../volumes/etcd:/etcd
     networks:
       - finhouse-net
     healthcheck:
@@ -120,7 +120,7 @@ services:
       finhouse-minio-init:
         condition: service_completed_successfully
     volumes:
-      - ./volumes/milvus:/var/lib/milvus
+      - ../volumes/milvus:/var/lib/milvus
     networks:
       - finhouse-net
 
@@ -131,7 +131,7 @@ services:
     ports:
       - "18080:8080"
     volumes:
-      - ./searxng:/etc/searxng:rw
+      - ../searxng:/etc/searxng:rw
     networks:
       - finhouse-net
     environment:
@@ -139,7 +139,7 @@ services:
 
   finhouse-api:
     build:
-      context: ./api
+      context: ../api
       dockerfile: Dockerfile
     container_name: finhouse-api
     restart: unless-stopped
@@ -155,7 +155,7 @@ services:
     environment:
       DATA_DIR: /app/data
     volumes:
-      - ./data:/app/data:ro
+      - ../data:/app/data:ro
     depends_on:
       finhouse-postgres:
         condition: service_healthy
@@ -168,14 +168,14 @@ services:
 
   finhouse-ui:
     build:
-      context: ./ui
+      context: ../ui
       dockerfile: Dockerfile
     container_name: finhouse-ui
     restart: unless-stopped
     ports:
       - "8501:8501"
     env_file:
-      - .env
+      - ../.env
     environment:
       API_BASE_URL: http://finhouse-api:8000
     depends_on:

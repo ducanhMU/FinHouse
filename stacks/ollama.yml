@@ -22,7 +22,7 @@ services:
     ports:
       - "21434:11434"
     volumes:
-      - ./volumes/ollama:/root/.ollama
+      - ../volumes/ollama:/root/.ollama
     networks:
       - finhouse-net
     # Comment out deploy.resources if no NVIDIA GPU + container toolkit
@@ -51,7 +51,7 @@ services:
     environment:
       OLLAMA_HOST: http://finhouse-ollama:11434
     volumes:
-      - ./scripts:/scripts:ro
+      - ../scripts:/scripts:ro
     networks:
       - finhouse-net
 

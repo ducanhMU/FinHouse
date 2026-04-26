@@ -17,7 +17,7 @@ services:
 
   finhouse-bge-m3:
     build:
-      context: ./embed
+      context: ../embed
       dockerfile: Dockerfile
     container_name: finhouse-bge-m3
     restart: unless-stopped
@@ -42,7 +42,7 @@ services:
 
   finhouse-reranker:
     build:
-      context: ./rerank
+      context: ../rerank
       dockerfile: Dockerfile
     container_name: finhouse-reranker
     restart: unless-stopped

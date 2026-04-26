@@ -1,157 +1,60 @@
-# ════════════════════════════════════════════════════════════
-# FinHouse — PIPELINE stack (OLAP data ingestion)
-# ════════════════════════════════════════════════════════════
-# Services:
-#   • Apache NiFi            — watches /data/OLAP, batches 15-min windows,
-#                              calls Airflow REST API on each batch
-#   • Apache Airflow         — orchestrates Spark jobs with retry logic
-#     - airflow-postgres     - metadata DB for Airflow
-#     - airflow-scheduler    - DAG scheduler
-#     - airflow-webserver    - UI at :8091
-#     - airflow-init         - one-shot migrations + admin user
-#   • Apache Spark           — master + worker, job submitted by Airflow
-#   • ClickHouse             — OLAP database (queried by database_query tool)
-#
-# Flow:
-#   /data/OLAP/*.db
-#        │ (file dropped / modified)
-#        ▼
-#   NiFi ListSFTP (poll every 15min)
-#        │
-#        ▼
-#   NiFi MergeContent (bin-pack FlowFiles from the 15-min window)
-#        │
-#        ▼
-#   NiFi InvokeHTTP → POST http://airflow-webserver:8080/api/v1/dags/.../dagRuns
-#        │
-#        ▼
-#   Airflow DAG (retry_count=3, exp backoff)
-#        │
-#        ▼
-#   SparkSubmitOperator → Spark cluster → upsert to ClickHouse
-#
-# Exposed ports:
-#   8090   NiFi UI
-#   8091   Airflow UI
-#   8080   Spark master UI
-#   28123  ClickHouse HTTP API
-#   29000  ClickHouse native protocol
-# ════════════════════════════════════════════════════════════
-
 x-airflow-common: &airflow-common
-  image: apache/airflow:2.10.4-python3.11
-  environment: &airflow-env
-    AIRFLOW__CORE__EXECUTOR: LocalExecutor
-    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:${AIRFLOW_DB_PASSWORD:-airflow}@finhouse-airflow-postgres:5432/airflow
-    AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY:-}
-    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "false"
-    AIRFLOW__CORE__LOAD_EXAMPLES: "false"
-    AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth"
-    AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "false"
-    AIRFLOW__WEBSERVER__WORKERS: "2"
-    # Spark connection — consumed by SparkSubmitOperator
-    AIRFLOW_CONN_SPARK_DEFAULT: spark://finhouse-spark-master:7077
-    # ClickHouse creds exposed to the DAG
-    CLICKHOUSE_HOST: finhouse-clickhouse
-    CLICKHOUSE_PORT: "8123"
-    CLICKHOUSE_USER: ${CLICKHOUSE_USER:-finhouse}
-    CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:-changeme_clickhouse}
-    CLICKHOUSE_DB: ${CLICKHOUSE_DB:-olap}
-    # Extra pip deps installed at container startup
-    _PIP_ADDITIONAL_REQUIREMENTS: "apache-airflow-providers-apache-spark==4.11.3"
-  volumes:
-    - ./pipeline/airflow/dags:/opt/airflow/dags
-    - ./pipeline/airflow/logs:/opt/airflow/logs
-    - ./pipeline/airflow/plugins:/opt/airflow/plugins
-    - ./pipeline/spark:/opt/pipeline:ro
-    - ./data/OLAP:/data/OLAP:ro
+  build:
+    context: ../pipeline/airflow
+    dockerfile: Dockerfile
   user: "${AIRFLOW_UID:-50000}:0"
+  environment:
+    &airflow-common-env
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:${AIRFLOW_DB_PASSWORD}@finhouse-airflow-db:5432/airflow
+    AIRFLOW__CORE__FERNET_KEY: "${AIRFLOW_FERNET_KEY:-VKgYkKkKI8G5bxqJd2aTVvGgugpNElZkIhF0ZVwMPs0=}"
+    AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+    AIRFLOW__WEBSERVER__DEFAULT_UI_TIMEZONE: "Asia/Ho_Chi_Minh"
+    AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session"
+    # Spark client config — SparkSubmitOperator and spark-submit both use these
+    SPARK_HOME: /opt/spark
+    JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+    AIRFLOW_CONN_SPARK_DEFAULT: "spark://finhouse-spark-master:7077"
+    # ClickHouse — passed to ingest_job.py via subprocess env inheritance
+    CLICKHOUSE_HOST: finhouse-clickhouse
+    CLICKHOUSE_PORT: "${CLICKHOUSE_PORT:-8123}"
+    CLICKHOUSE_USER: "${CLICKHOUSE_USER}"
+    CLICKHOUSE_PASSWORD: "${CLICKHOUSE_PASSWORD}"
+    CLICKHOUSE_DB: "${CLICKHOUSE_DB}"
+  volumes:
+    - ../pipeline/airflow/dags:/opt/airflow/dags
+    - ../pipeline/airflow/plugins:/opt/airflow/plugins
+    - ../pipeline/airflow/logs:/opt/airflow/logs
+    # Spark job script available to spark-submit running inside the Airflow container
+    - ../pipeline/spark/ingest_job.py:/opt/airflow/spark/ingest_job.py:ro
+    # Shared data folder — same host path mounted at the same container path across all services
+    - ../data:/opt/finhouse/data
   networks:
     - finhouse-net
-  depends_on: &airflow-common-deps
-    finhouse-airflow-postgres:
+  depends_on:
+    finhouse-airflow-db:
       condition: service_healthy
 
 
 services:
-
-  # ── ClickHouse ──────────────────────────────────────────────
-  finhouse-clickhouse:
-    image: clickhouse/clickhouse-server:24.8-alpine
-    container_name: finhouse-clickhouse
-    restart: unless-stopped
+  # ── POSTGRES (for Airflow) ─────────────────────────────────────
+  finhouse-airflow-db:
+    image: postgres:14
+    container_name: finhouse-airflow-db
     environment:
-      CLICKHOUSE_DB: ${CLICKHOUSE_DB:-olap}
-      CLICKHOUSE_USER: ${CLICKHOUSE_USER:-finhouse}
-      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:-changeme_clickhouse}
-      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: "1"
-    ports:
-      - "28123:8123"
-      - "29000:9000"
+      POSTGRES_DB: airflow
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: ${AIRFLOW_DB_PASSWORD}
     volumes:
-      - ./volumes/clickhouse:/var/lib/clickhouse
-      - ./pipeline/clickhouse/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
-    ulimits:
-      nofile:
-        soft: 262144
-        hard: 262144
+      - ../volumes/airflow-postgres:/var/lib/postgresql/data
     networks:
       - finhouse-net
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8123/ping"]
+      test: ["CMD-SHELL", "pg_isready -U airflow -d airflow"]
       interval: 10s
       timeout: 5s
-      retries: 10
-      start_period: 30s
+      retries: 5
 
-  # ── NiFi ────────────────────────────────────────────────────
-  finhouse-nifi:
-    image: apache/nifi:1.27.0
-    container_name: finhouse-nifi
-    restart: unless-stopped
-    environment:
-      NIFI_WEB_HTTP_PORT: "8080"
-      NIFI_WEB_HTTPS_PORT: ""
-      NIFI_WEB_PROXY_HOST: "${NIFI_PROXY_HOST:-localhost:8090}"
-      SINGLE_USER_CREDENTIALS_USERNAME: ${NIFI_USER:-admin}
-      SINGLE_USER_CREDENTIALS_PASSWORD: ${NIFI_PASSWORD:-changeme_nifi_12chars_min}
-    ports:
-      - "8090:8080"
-    volumes:
-      - ./volumes/nifi/conf:/opt/nifi/nifi-current/conf
-      - ./volumes/nifi/state:/opt/nifi/nifi-current/state
-      - ./volumes/nifi/logs:/opt/nifi/nifi-current/logs
-      - ./data/OLAP:/data/OLAP:ro
-      - ./pipeline/nifi/templates:/opt/nifi/nifi-current/conf/templates:ro
-    networks:
-      - finhouse-net
-    healthcheck:
-      test: ["CMD-SHELL", "curl -sf http://localhost:8080/nifi-api/system-diagnostics || exit 1"]
-      interval: 20s
-      timeout: 10s
-      retries: 10
-      start_period: 180s
-
-  # ── Airflow metadata DB ─────────────────────────────────────
-  finhouse-airflow-postgres:
-    image: postgres:16
-    container_name: finhouse-airflow-postgres
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: airflow
-      POSTGRES_PASSWORD: ${AIRFLOW_DB_PASSWORD:-airflow}
-      POSTGRES_DB: airflow
-    volumes:
-      - ./volumes/airflow-postgres:/var/lib/postgresql/data
-    networks:
-      - finhouse-net
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "airflow"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-
-  # ── Airflow init (one-shot: migrate + admin user) ───────────
   finhouse-airflow-init:
     <<: *airflow-common
     container_name: finhouse-airflow-init
@@ -159,94 +62,125 @@ services:
     command:
       - -c
       - |
-        airflow db migrate && \
-        airflow users create \
-          --username "${AIRFLOW_USER:-admin}" \
-          --firstname Admin \
-          --lastname User \
-          --role Admin \
-          --email admin@finhouse.local \
-          --password "${AIRFLOW_PASSWORD:-changeme_airflow_12c_min}" || true
-    restart: "no"
+        airflow db init
+        airflow users create --username ${AIRFLOW_USER} --password ${AIRFLOW_PASSWORD} \
+          --firstname Admin --lastname User --role Admin --email admin@example.com
     depends_on:
-      finhouse-airflow-postgres:
+      finhouse-airflow-db:
         condition: service_healthy
 
-  # ── Airflow scheduler ───────────────────────────────────────
-  finhouse-airflow-scheduler:
-    <<: *airflow-common
-    container_name: finhouse-airflow-scheduler
-    command: scheduler
-    restart: unless-stopped
-    depends_on:
-      <<: *airflow-common-deps
-      finhouse-airflow-init:
-        condition: service_completed_successfully
-    healthcheck:
-      test: ["CMD", "curl", "--fail", "http://localhost:8974/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 60s
-
-  # ── Airflow webserver (UI + REST API at :8091) ──────────────
   finhouse-airflow-webserver:
     <<: *airflow-common
     container_name: finhouse-airflow-webserver
-    command: webserver
-    restart: unless-stopped
+    restart: always
     ports:
       - "8091:8080"
+    command: webserver
     depends_on:
-      <<: *airflow-common-deps
       finhouse-airflow-init:
         condition: service_completed_successfully
-    healthcheck:
-      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 60s
 
-  # ── Spark standalone cluster ────────────────────────────────
-  finhouse-spark-master:
-    image: bitnami/spark:3.5
-    container_name: finhouse-spark-master
+  finhouse-airflow-scheduler:
+    <<: *airflow-common
+    container_name: finhouse-airflow-scheduler
+    restart: always
+    command: scheduler
+    depends_on:
+      finhouse-airflow-init:
+        condition: service_completed_successfully
+
+  # ── NIFI ───────────────────────────────────────────────────────
+  finhouse-nifi:
+    image: apache/nifi:1.15.3
+    container_name: finhouse-nifi
     restart: unless-stopped
     environment:
-      SPARK_MODE: master
-      SPARK_RPC_AUTHENTICATION_ENABLED: "no"
-      SPARK_RPC_ENCRYPTION_ENABLED: "no"
-      SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED: "no"
-      SPARK_SSL_ENABLED: "no"
+      - NIFI_WEB_HTTP_PORT=8080
+      - NIFI_WEB_HTTP_HOST=0.0.0.0
+      - TZ=Asia/Ho_Chi_Minh
+      - SINGLE_USER_CREDENTIALS_USERNAME=${NIFI_USER}
+      - SINGLE_USER_CREDENTIALS_PASSWORD=${NIFI_PASSWORD}
     ports:
-      - "8080:8080"
-      - "7077:7077"
+      - "8090:8080"
     volumes:
-      - ./data/OLAP:/data/OLAP:ro
-      - ./pipeline/spark:/opt/pipeline:ro
+      - ../volumes/nifi/conf:/opt/nifi/nifi-current/conf
+      - ../volumes/nifi/database_repository:/opt/nifi/nifi-current/database_repository
+      - ../volumes/nifi/flowfile_repository:/opt/nifi/nifi-current/flowfile_repository
+      - ../volumes/nifi/content_repository:/opt/nifi/nifi-current/content_repository
+      - ../volumes/nifi/provenance_repository:/opt/nifi/nifi-current/provenance_repository
+      - ../volumes/nifi/state:/opt/nifi/nifi-current/state
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      # Shared data folder at the same path as all other pipeline services
+      - ../data:/opt/finhouse/data
     networks:
       - finhouse-net
 
-  finhouse-spark-worker:
-    image: bitnami/spark:3.5
-    container_name: finhouse-spark-worker
-    restart: unless-stopped
+  # ── SPARK MASTER ───────────────────────────────────────────────
+  finhouse-spark-master:
+    build:
+      context: ../pipeline/spark
+      dockerfile: Dockerfile
+    container_name: finhouse-spark-master
     environment:
-      SPARK_MODE: worker
-      SPARK_MASTER_URL: spark://finhouse-spark-master:7077
-      SPARK_WORKER_MEMORY: ${SPARK_WORKER_MEMORY:-2G}
-      SPARK_WORKER_CORES: ${SPARK_WORKER_CORES:-2}
-      SPARK_RPC_AUTHENTICATION_ENABLED: "no"
+      - SPARK_MODE=master
+    ports:
+      - "7077:7077"   # cluster submission port
+      - "8081:8080"   # Spark Web UI
+      - "6066:6066"   # REST submission API
+    volumes:
+      - ../pipeline/spark/conf/spark-defaults.conf:/opt/spark/conf/spark-defaults.conf
+      - ../pipeline/spark/ingest_job.py:/opt/spark/jobs/ingest_job.py:ro
+      - ../data:/opt/finhouse/data
+    networks:
+      - finhouse-net
+
+  # ── SPARK WORKER ───────────────────────────────────────────────
+  finhouse-spark-worker:
+    build:
+      context: ../pipeline/spark
+      dockerfile: Dockerfile
+    container_name: finhouse-spark-worker
     depends_on:
       - finhouse-spark-master
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://finhouse-spark-master:7077
+      - SPARK_WORKER_MEMORY=${SPARK_WORKER_MEMORY}
+      - SPARK_WORKER_CORES=${SPARK_WORKER_CORES}
     volumes:
-      - ./data/OLAP:/data/OLAP:ro
-      - ./pipeline/spark:/opt/pipeline:ro
+      - ../pipeline/spark/conf/spark-defaults.conf:/opt/spark/conf/spark-defaults.conf
+      - ../pipeline/spark/ingest_job.py:/opt/spark/jobs/ingest_job.py:ro
+      - ../data:/opt/finhouse/data
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     networks:
       - finhouse-net
+
+  # ── CLICKHOUSE ─────────────────────────────────────────────────
+  finhouse-clickhouse:
+    image: clickhouse/clickhouse-server:23.8
+    container_name: finhouse-clickhouse
+    ports:
+      - "${CLICKHOUSE_PORT}:8123"
+      - "39000:9000"
+    environment:
+      - CLICKHOUSE_DB=${CLICKHOUSE_DB}
+      - CLICKHOUSE_USER=${CLICKHOUSE_USER}
+      - CLICKHOUSE_PASSWORD=${CLICKHOUSE_PASSWORD}
+    volumes:
+      - ../volumes/clickhouse:/var/lib/clickhouse
+      - ../data:/var/lib/clickhouse/user_files
+      - ../pipeline/clickhouse/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - finhouse-net
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+
 
 networks:
   finhouse-net:
-    name: finhouse-net
-    driver: bridge
+    name: finhouse_finhouse-net
+    external: true
