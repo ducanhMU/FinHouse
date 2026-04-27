@@ -2,10 +2,10 @@ FROM apache/airflow:2.10.5
 
 USER root
 
-RUN apt-get update && apt-get install -y openjdk-11-jre-headless curl && \
+RUN apt-get update && apt-get install -y openjdk-17-jre-headless curl && \
     rm -rf /var/lib/apt/lists/*
 
-ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 ENV SPARK_VERSION=3.3.2
 ENV HADOOP_VERSION=3
 ENV SPARK_HOME=/opt/spark

@@ -14,7 +14,7 @@ x-airflow-common: &airflow-common
     AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session"
     # Spark client config — SparkSubmitOperator and spark-submit both use these
     SPARK_HOME: /opt/spark
-    JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+    JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
     AIRFLOW_CONN_SPARK_DEFAULT: "spark://finhouse-spark-master:7077"
     # ClickHouse — passed to ingest_job.py via subprocess env inheritance
     CLICKHOUSE_HOST: finhouse-clickhouse
