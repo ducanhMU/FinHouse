@@ -2,6 +2,7 @@ x-airflow-common: &airflow-common
   build:
     context: ../pipeline/airflow
     dockerfile: Dockerfile
+  env_file: ../.env
   user: "${AIRFLOW_UID:-50000}:0"
   environment:
     &airflow-common-env
@@ -41,6 +42,7 @@ services:
   finhouse-airflow-db:
     image: postgres:14
     container_name: finhouse-airflow-db
+    env_file: ../.env
     environment:
       POSTGRES_DB: airflow
       POSTGRES_USER: airflow
@@ -94,6 +96,7 @@ services:
     image: apache/nifi:1.15.3
     container_name: finhouse-nifi
     restart: unless-stopped
+    env_file: ../.env
     environment:
       - NIFI_WEB_HTTP_PORT=8080
       - NIFI_WEB_HTTP_HOST=0.0.0.0
@@ -143,6 +146,7 @@ services:
     container_name: finhouse-spark-worker
     depends_on:
       - finhouse-spark-master
+    env_file: ../.env
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://finhouse-spark-master:7077
@@ -161,6 +165,7 @@ services:
   finhouse-clickhouse:
     image: clickhouse/clickhouse-server:23.8
     container_name: finhouse-clickhouse
+    env_file: ../.env
     ports:
       - "${CLICKHOUSE_PORT}:8123"
       - "39000:9000"
