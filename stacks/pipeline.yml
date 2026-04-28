@@ -6,6 +6,8 @@ x-airflow-common: &airflow-common
   user: "${AIRFLOW_UID:-50000}:0"
   environment:
     &airflow-common-env
+    USER: "airflow"
+    AIRFLOW_UID: "${AIRFLOW_UID:-50000}"
     AIRFLOW__CORE__EXECUTOR: LocalExecutor
     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:${AIRFLOW_DB_PASSWORD}@finhouse-airflow-db:5432/airflow
     AIRFLOW__CORE__FERNET_KEY: "${AIRFLOW_FERNET_KEY:-VKgYkKkKI8G5bxqJd2aTVvGgugpNElZkIhF0ZVwMPs0=}"
@@ -56,7 +58,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
+  
   finhouse-airflow-init:
     <<: *airflow-common
     container_name: finhouse-airflow-init
@@ -64,12 +66,18 @@ services:
     command:
       - -c
       - |
-        airflow db init
-        airflow users create --username ${AIRFLOW_USER} --password ${AIRFLOW_PASSWORD} \
-          --firstname Admin --lastname User --role Admin --email admin@example.com
-    depends_on:
-      finhouse-airflow-db:
-        condition: service_healthy
+        # 1. Sử dụng db migrate thay vì db init (theo log khuyến nghị)
+        airflow db migrate
+        
+        # 2. Tạo user nhưng thêm || true để tránh crash nếu user đã tồn tại
+        # Thêm USER=airflow ngay trước lệnh để bypass lỗi KeyError
+        USER=airflow airflow users create \
+          --username "${AIRFLOW_USER}" \
+          --password "${AIRFLOW_PASSWORD}" \
+          --firstname Admin \
+          --lastname User \
+          --role Admin \
+          --email admin@example.com || true
 
   finhouse-airflow-webserver:
     <<: *airflow-common
@@ -106,15 +114,19 @@ services:
     ports:
       - "8090:8080"
     volumes:
-      - ../volumes/nifi/conf:/opt/nifi/nifi-current/conf
-      - ../volumes/nifi/database_repository:/opt/nifi/nifi-current/database_repository
-      - ../volumes/nifi/flowfile_repository:/opt/nifi/nifi-current/flowfile_repository
-      - ../volumes/nifi/content_repository:/opt/nifi/nifi-current/content_repository
-      - ../volumes/nifi/provenance_repository:/opt/nifi/nifi-current/provenance_repository
-      - ../volumes/nifi/state:/opt/nifi/nifi-current/state
+      # Sử dụng Named Volumes để lưu trạng thái bền vững và tránh lỗi Permission
+      - nifi-conf:/opt/nifi/nifi-current/conf
+      - nifi-database:/opt/nifi/nifi-current/database_repository
+      - nifi-flowfile:/opt/nifi/nifi-current/flowfile_repository
+      - nifi-content:/opt/nifi/nifi-current/content_repository
+      - nifi-provenance:/opt/nifi/nifi-current/provenance_repository
+      - nifi-state:/opt/nifi/nifi-current/state
+      
+      # Đồng bộ thời gian với host
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
-      # Shared data folder at the same path as all other pipeline services
+      
+      # Giữ bind mount này để làm việc với dữ liệu thực tế
       - ../data:/opt/finhouse/data
     networks:
       - finhouse-net
@@ -184,6 +196,13 @@ services:
         soft: 262144
         hard: 262144
 
+volumes:
+  nifi-conf:
+  nifi-database:
+  nifi-flowfile:
+  nifi-content:
+  nifi-provenance:
+  nifi-state:
 
 networks:
   finhouse-net:
