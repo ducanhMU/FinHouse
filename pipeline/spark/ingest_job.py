@@ -109,6 +109,17 @@ PARTITION_TABLES = {
 PARTITION_COUNT = 8
 
 
+# Non-nullable ClickHouse columns that SQLite stores as NULLable.
+# Values match the DEFAULT expressions in init.sql.
+NON_NULLABLE_DEFAULTS: dict[str, dict] = {
+    "balance_sheet":       {"quarter": 0},
+    "cash_flow_statement": {"quarter": 0},
+    "income_statement":    {"quarter": 0},
+    "financial_ratios":    {"quarter": 0},
+    "financial_reports":   {"quarter": 0},
+}
+
+
 def cast_date_columns(df, table: str):
     """Cast SQLite text-typed date/datetime columns to proper Spark types."""
     casts = DATE_COLUMNS.get(table, {})
@@ -118,6 +129,14 @@ def cast_date_columns(df, table: str):
                 df = df.withColumn(col_name, to_date(col(col_name)))
             else:
                 df = df.withColumn(col_name, to_timestamp(col(col_name)))
+    return df
+
+
+def apply_non_nullable_defaults(df, table: str):
+    """Fill NULLs in columns that are non-nullable in ClickHouse with their DEFAULT values."""
+    defaults = {k: v for k, v in NON_NULLABLE_DEFAULTS.get(table, {}).items() if k in df.columns}
+    if defaults:
+        df = df.fillna(defaults)
     return df
 
 
@@ -225,6 +244,7 @@ def ingest_file(spark: SparkSession, file_info: dict, args) -> tuple[int, list[s
             df = read_sqlite_table(spark, db_path, tbl)
             df = sanitize_columns(df)
             df = cast_date_columns(df, tbl)
+            df = apply_non_nullable_defaults(df, tbl)
             if tbl in DROP_ID_TABLES and "id" in df.columns:
                 df = df.drop("id")
 
