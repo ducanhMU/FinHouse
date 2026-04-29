@@ -162,18 +162,23 @@ def apply_non_nullable_defaults(df, table: str):
 
 
 def read_sqlite_table(spark: SparkSession, db_path: str, table: str):
-    # date_class=text passed as a JDBC connection property (not URL param).
-    # URL query params are ignored by the SQLite JDBC executor; Properties entries are not.
-    # With date_class=text the driver returns DATE/DATETIME/TIMESTAMP columns as raw text
-    # strings instead of trying to parse them — avoids ParseException on date-only values
-    # like "2018-05-07". cast_date_columns() handles the String → Date/Timestamp conversion.
+    # Force date/datetime columns to STRING via customSchema so the SQLite JDBC
+    # driver doesn't call getDate()/getTimestamp() — that path uses a fixed
+    # `yyyy-MM-dd HH:mm:ss.SSS` regex and throws on date-only values like
+    # "2024-11-05". cast_date_columns() then parses the strings in Spark, with
+    # fallbacks for both `yyyy-MM-dd` and `yyyy-MM-dd HH:mm:ss`.
     base = (
         spark.read
         .format("jdbc")
         .option("url", f"jdbc:sqlite:{db_path}")
         .option("driver", "org.sqlite.JDBC")
-        .option("date_class", "text")
     )
+    date_cols = DATE_COLUMNS.get(table, {})
+    if date_cols:
+        base = base.option(
+            "customSchema",
+            ", ".join(f"`{c}` STRING" for c in date_cols),
+        )
 
     if table in PARTITION_TABLES:
         part_col = PARTITION_TABLES[table]
