@@ -21,7 +21,7 @@ import os
 import sqlite3
 import sys
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, to_date, to_timestamp
+from pyspark.sql.functions import coalesce, col, lit, to_date, to_timestamp
 from pyspark.sql.types import StringType
 
 
@@ -121,14 +121,35 @@ NON_NULLABLE_DEFAULTS: dict[str, dict] = {
 
 
 def cast_date_columns(df, table: str):
-    """Cast SQLite text-typed date/datetime columns to proper Spark types."""
+    """Convert SQLite string date/time columns to proper Spark Date/Timestamp types.
+
+    Parsing order for datetime columns:
+      1. Full "yyyy-MM-dd HH:mm:ss"
+      2. Date-only "yyyy-MM-dd"  → fills HH:mm:ss with 00:00:00
+      3. Fallback literal 1970-01-01 00:00:00 for completely unparseable values
+
+    Parsing order for date columns:
+      1. "yyyy-MM-dd"
+      2. Fallback literal 1970-01-01
+    """
     casts = DATE_COLUMNS.get(table, {})
     for col_name, kind in casts.items():
-        if col_name in df.columns and isinstance(df.schema[col_name].dataType, StringType):
-            if kind == "date":
-                df = df.withColumn(col_name, to_date(col(col_name)))
-            else:
-                df = df.withColumn(col_name, to_timestamp(col(col_name)))
+        if col_name not in df.columns:
+            continue
+        if not isinstance(df.schema[col_name].dataType, StringType):
+            continue
+        c = col(col_name)
+        if kind == "date":
+            df = df.withColumn(col_name, coalesce(
+                to_date(c, "yyyy-MM-dd"),
+                lit("1970-01-01").cast("date"),
+            ))
+        else:
+            df = df.withColumn(col_name, coalesce(
+                to_timestamp(c, "yyyy-MM-dd HH:mm:ss"),
+                to_timestamp(c, "yyyy-MM-dd"),          # missing time → 00:00:00
+                lit("1970-01-01 00:00:00").cast("timestamp"),
+            ))
     return df
 
 
@@ -141,15 +162,17 @@ def apply_non_nullable_defaults(df, table: str):
 
 
 def read_sqlite_table(spark: SparkSession, db_path: str, table: str):
-    # date_class=text: tell SQLite JDBC to return DATE/DATETIME/TIMESTAMP columns
-    # as plain strings — avoids "Error parsing date" when values lack a time component.
-    # Our cast_date_columns() handles the String → Date/Timestamp conversion downstream.
-    sqlite_url = f"jdbc:sqlite:{db_path}?date_class=text"
+    # date_class=text passed as a JDBC connection property (not URL param).
+    # URL query params are ignored by the SQLite JDBC executor; Properties entries are not.
+    # With date_class=text the driver returns DATE/DATETIME/TIMESTAMP columns as raw text
+    # strings instead of trying to parse them — avoids ParseException on date-only values
+    # like "2018-05-07". cast_date_columns() handles the String → Date/Timestamp conversion.
     base = (
         spark.read
         .format("jdbc")
-        .option("url", sqlite_url)
+        .option("url", f"jdbc:sqlite:{db_path}")
         .option("driver", "org.sqlite.JDBC")
+        .option("date_class", "text")
     )
 
     if table in PARTITION_TABLES:
@@ -308,16 +331,23 @@ def main():
         all_failed: list[str] = []
 
         for file_info in files:
-            rows, failed = ingest_file(spark, file_info, args)
-            grand_total += rows
-            all_failed.extend(failed)
+            try:
+                rows, failed = ingest_file(spark, file_info, args)
+                grand_total += rows
+                all_failed.extend(failed)
+            except Exception as exc:
+                print(f"ERROR ingest_file {file_info.get('file_path', '?')}: {exc}", file=sys.stderr)
+                all_failed.append(f"<file:{file_info.get('file_path', '?')}>")
 
         if all_failed:
-            print(f"WARN skipped tables (logged to _ingestion_log): {all_failed}", file=sys.stderr)
+            print(f"WARN skipped (logged to _ingestion_log): {all_failed}", file=sys.stderr)
 
-        print(f"OK — batch_id={args.batch_id}, rows ingested: {grand_total}, skipped tables: {len(all_failed)}")
+        print(f"OK — batch_id={args.batch_id}, rows ingested: {grand_total}, skipped: {len(all_failed)}")
     finally:
-        spark.stop()
+        try:
+            spark.stop()
+        except Exception as e:
+            print(f"WARN spark.stop(): {e}", file=sys.stderr)
 
 
 if __name__ == "__main__":
