@@ -3,8 +3,10 @@ FROM apache/airflow:2.10.5
 USER root
 
 # 1. Cài đặt Java và công cụ
+# procps cung cấp `ps`, cần cho load-spark-env.sh khi chạy spark-submit ở client mode
 RUN apt-get update && apt-get install -y --no-install-recommends \
     openjdk-17-jre-headless \
+    procps \
     curl \
     ca-certificates \
     && apt-get clean \
@@ -12,7 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # 2. Thiết lập biến môi trường
 ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-ENV SPARK_VERSION=3.3.2
+ENV SPARK_VERSION=3.5.3
 ENV HADOOP_VERSION=3
 ENV SPARK_HOME=/opt/spark
 ENV PATH="${SPARK_HOME}/bin:${PATH}"

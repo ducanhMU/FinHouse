@@ -18,6 +18,10 @@ x-airflow-common: &airflow-common
     SPARK_HOME: /opt/spark
     JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
     AIRFLOW_CONN_SPARK_DEFAULT: "spark://finhouse-spark-master:7077"
+    # Pin Python interpreter for the PySpark driver (client mode runs driver in this container)
+    # and for executors — keep both sides on the same Python so cloudpickle stays compatible.
+    PYSPARK_PYTHON: python3
+    PYSPARK_DRIVER_PYTHON: python3
     # ClickHouse — passed to ingest_job.py via subprocess env inheritance
     CLICKHOUSE_HOST: finhouse-clickhouse
     CLICKHOUSE_PORT: "${CLICKHOUSE_PORT:-8123}"

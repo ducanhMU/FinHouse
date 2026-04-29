@@ -73,6 +73,25 @@ def list_sqlite_tables(path: str) -> list[str]:
         conn.close()
 
 
+def detect_date_typed_columns(db_path: str, table: str) -> set[str]:
+    # sqlite-jdbc gọi getDate()/getTimestamp() cho mọi cột khai DATE/TIME/TIMESTAMP,
+    # rồi parse bằng FastDateFormat strict `yyyy-MM-dd HH:mm:ss.SSS` → fail với
+    # date-only như "2018-05-07". Cách duy nhất né là khai cột đó STRING trong
+    # Spark customSchema để Spark gọi getString() thay vì getDate().
+    conn = sqlite3.connect(db_path)
+    try:
+        cur = conn.cursor()
+        cur.execute(f"PRAGMA table_info({table})")
+        out: set[str] = set()
+        for row in cur.fetchall():
+            name, ctype = row[1], (row[2] or "").upper()
+            if "DATE" in ctype or "TIME" in ctype:
+                out.add(name)
+        return out
+    finally:
+        conn.close()
+
+
 # ClickHouse Date/DateTime columns that come back as StringType from SQLite JDBC.
 # Map: table -> {column: "date" | "datetime"}
 DATE_COLUMNS: dict[str, dict[str, str]] = {
@@ -167,17 +186,28 @@ def read_sqlite_table(spark: SparkSession, db_path: str, table: str):
     # `yyyy-MM-dd HH:mm:ss.SSS` regex and throws on date-only values like
     # "2024-11-05". cast_date_columns() then parses the strings in Spark, with
     # fallbacks for both `yyyy-MM-dd` and `yyyy-MM-dd HH:mm:ss`.
+    #
+    # `open_mode=1` opens the SQLite file READ-ONLY, eliminating any chance the
+    # JDBC driver attempts a write (rollback journal, hot journal recovery, etc.)
+    # while 8 partitions read in parallel.
     base = (
         spark.read
         .format("jdbc")
-        .option("url", f"jdbc:sqlite:{db_path}")
+        .option("url", f"jdbc:sqlite:{db_path}?open_mode=1")
         .option("driver", "org.sqlite.JDBC")
     )
-    date_cols = DATE_COLUMNS.get(table, {})
-    if date_cols:
+
+    # Merge hard-coded mapping with columns SQLite itself declares as DATE/TIME-like.
+    # Hard-coded list drives downstream casting in cast_date_columns(); PRAGMA-
+    # detected extras stay STRING and are written as text — ClickHouse's Date/
+    # DateTime columns accept ISO-8601 strings natively.
+    known_date_cols = set(DATE_COLUMNS.get(table, {}).keys())
+    pragma_date_cols = detect_date_typed_columns(db_path, table)
+    all_date_cols = known_date_cols | pragma_date_cols
+    if all_date_cols:
         base = base.option(
             "customSchema",
-            ", ".join(f"`{c}` STRING" for c in date_cols),
+            ", ".join(f"`{c}` STRING" for c in all_date_cols),
         )
 
     if table in PARTITION_TABLES:
