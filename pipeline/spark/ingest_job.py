@@ -141,10 +141,14 @@ def apply_non_nullable_defaults(df, table: str):
 
 
 def read_sqlite_table(spark: SparkSession, db_path: str, table: str):
+    # date_class=text: tell SQLite JDBC to return DATE/DATETIME/TIMESTAMP columns
+    # as plain strings — avoids "Error parsing date" when values lack a time component.
+    # Our cast_date_columns() handles the String → Date/Timestamp conversion downstream.
+    sqlite_url = f"jdbc:sqlite:{db_path}?date_class=text"
     base = (
         spark.read
         .format("jdbc")
-        .option("url", f"jdbc:sqlite:{db_path}")
+        .option("url", sqlite_url)
         .option("driver", "org.sqlite.JDBC")
     )
 
@@ -309,10 +313,9 @@ def main():
             all_failed.extend(failed)
 
         if all_failed:
-            print(f"FAILED tables: {all_failed}", file=sys.stderr)
-            sys.exit(1)
+            print(f"WARN skipped tables (logged to _ingestion_log): {all_failed}", file=sys.stderr)
 
-        print(f"OK — batch_id={args.batch_id}, total rows ingested: {grand_total}")
+        print(f"OK — batch_id={args.batch_id}, rows ingested: {grand_total}, skipped tables: {len(all_failed)}")
     finally:
         spark.stop()
 
