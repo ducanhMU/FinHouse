@@ -99,8 +99,8 @@ with DAG(
             "--master", SPARK_MASTER,
             "--deploy-mode", "client",
             "--jars", SPARK_JARS,
-            "--executor-memory", "1g",
-            "--driver-memory", "512m",
+            "--executor-memory", "2g",
+            "--driver-memory", "1g",
             "--name", f"finhouse_olap_{batch['batch_id']}",
             SPARK_JOB_PATH,
             "--files-json", json.dumps(batch["files"]),
@@ -115,7 +115,13 @@ with DAG(
         print(f"[run_spark_ingest] submitting batch_id={batch['batch_id']} "
               f"with {len(batch['files'])} file(s)")
 
-        subprocess.run(cmd, check=True)
+        result = subprocess.run(cmd, text=True, capture_output=True)
+        if result.stdout:
+            print(result.stdout)
+        if result.stderr:
+            print(result.stderr, file=sys.stderr)
+        if result.returncode != 0:
+            raise subprocess.CalledProcessError(result.returncode, cmd)
 
     batch = validate_conf()
     run_spark_ingest(batch)

@@ -21,6 +21,8 @@ import os
 import sqlite3
 import sys
 from pyspark.sql import SparkSession
+from pyspark.sql.functions import col, to_date, to_timestamp
+from pyspark.sql.types import StringType
 
 
 KNOWN_TABLES = {
@@ -71,15 +73,86 @@ def list_sqlite_tables(path: str) -> list[str]:
         conn.close()
 
 
+# ClickHouse Date/DateTime columns that come back as StringType from SQLite JDBC.
+# Map: table -> {column: "date" | "datetime"}
+DATE_COLUMNS: dict[str, dict[str, str]] = {
+    "stock_price_history": {"time": "date", "created_at": "datetime"},
+    "stock_intraday":      {"time": "datetime"},
+    "update_log":          {"update_time": "datetime"},
+    "stocks":              {"created_at": "datetime", "updated_at": "datetime"},
+    "balance_sheet":       {"created_at": "datetime", "updated_at": "datetime"},
+    "cash_flow_statement": {"created_at": "datetime", "updated_at": "datetime"},
+    "income_statement":    {"created_at": "datetime", "updated_at": "datetime"},
+    "financial_ratios":    {"created_at": "datetime", "updated_at": "datetime"},
+    "financial_reports":   {"created_at": "datetime", "updated_at": "datetime"},
+    "company_overview":    {"created_at": "datetime", "updated_at": "datetime"},
+    "exchanges":           {"created_at": "datetime"},
+    "indices":             {"created_at": "datetime"},
+    "industries":          {"created_at": "datetime"},
+    "events":              {"created_at": "datetime"},
+    "news":                {"created_at": "datetime"},
+    "officers":            {"created_at": "datetime"},
+    "shareholders":        {"created_at": "datetime"},
+    "subsidiaries":        {"created_at": "datetime"},
+}
+
+# Tables large enough to benefit from JDBC range-partitioned reads.
+# key = table name, value = column to partition on.
+PARTITION_TABLES = {
+    "stock_price_history": "id",
+    "balance_sheet":       "id",
+    "cash_flow_statement": "id",
+    "income_statement":    "id",
+    "financial_ratios":    "id",
+    "financial_reports":   "id",
+}
+PARTITION_COUNT = 8
+
+
+def cast_date_columns(df, table: str):
+    """Cast SQLite text-typed date/datetime columns to proper Spark types."""
+    casts = DATE_COLUMNS.get(table, {})
+    for col_name, kind in casts.items():
+        if col_name in df.columns and isinstance(df.schema[col_name].dataType, StringType):
+            if kind == "date":
+                df = df.withColumn(col_name, to_date(col(col_name)))
+            else:
+                df = df.withColumn(col_name, to_timestamp(col(col_name)))
+    return df
+
+
 def read_sqlite_table(spark: SparkSession, db_path: str, table: str):
-    return (
+    base = (
         spark.read
         .format("jdbc")
         .option("url", f"jdbc:sqlite:{db_path}")
         .option("driver", "org.sqlite.JDBC")
-        .option("dbtable", table)
-        .load()
     )
+
+    if table in PARTITION_TABLES:
+        part_col = PARTITION_TABLES[table]
+        conn = sqlite3.connect(db_path)
+        try:
+            cur = conn.cursor()
+            cur.execute(f"SELECT MIN({part_col}), MAX({part_col}) FROM {table}")
+            lo, hi = cur.fetchone()
+        finally:
+            conn.close()
+
+        if lo is None or hi is None or lo == hi:
+            return base.option("dbtable", table).load()
+
+        return (
+            base
+            .option("dbtable", table)
+            .option("partitionColumn", part_col)
+            .option("lowerBound", str(lo))
+            .option("upperBound", str(hi))
+            .option("numPartitions", str(PARTITION_COUNT))
+            .load()
+        )
+
+    return base.option("dbtable", table).load()
 
 
 def write_clickhouse(df, ch_url: str, ch_user: str, ch_password: str, table: str) -> None:
@@ -151,6 +224,7 @@ def ingest_file(spark: SparkSession, file_info: dict, args) -> tuple[int, list[s
         try:
             df = read_sqlite_table(spark, db_path, tbl)
             df = sanitize_columns(df)
+            df = cast_date_columns(df, tbl)
             if tbl in DROP_ID_TABLES and "id" in df.columns:
                 df = df.drop("id")
 
