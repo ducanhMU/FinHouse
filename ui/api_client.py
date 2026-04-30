@@ -156,7 +156,9 @@ def create_session(
     body = {"model_used": model_used}
     if project_id is not None:
         body["project_id"] = project_id
-    if tools_used:
+    # Pass tools_used even when it's an empty list — that means "no tools".
+    # Truthy check ([] is falsy) would silently fall back to backend defaults.
+    if tools_used is not None:
         body["tools_used"] = tools_used
     r = httpx.post(
         f"{API_BASE}/sessions",

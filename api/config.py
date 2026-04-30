@@ -37,6 +37,13 @@ class Settings(BaseSettings):
     OLLAMA_HOST: str = "http://finhouse-ollama:11434"
     DEFAULT_MODEL: str = "qwen2.5:14b"
 
+    # Max number of tool-calling rounds before forcing the model to answer.
+    # Each round = 1 sync LLM call + tool exec. Higher = more chance to
+    # finish a multi-step plan (schema → query → analyze) but worst-case
+    # latency = MAX_TOOL_ROUNDS * (slowest LLM round). 6 fits a typical
+    # OLAP workflow: SHOW TABLES → DESCRIBE → DESCRIBE → SELECT → followup.
+    MAX_TOOL_ROUNDS: int = 10
+
     # ── Query Rewriter (RAG pre-processing) ──
     # Empty → falls back to DEFAULT_MODEL for rewriting.
     # Set a smaller/faster model here if latency matters (e.g. llama3.1:8b)

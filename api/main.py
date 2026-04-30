@@ -136,51 +136,53 @@ app.include_router(files.router)
 
 # ── Health Check ────────────────────────────────────────────
 
-@app.get("/health", tags=["system"])
-async def health_check():
-    """Check connectivity to all backend services."""
-    status = {}
-
-    # PostgreSQL
+async def _check_postgres() -> str:
     try:
         from database import engine
         from sqlalchemy import text
         async with engine.connect() as conn:
             await conn.execute(text("SELECT 1"))
-        status["postgres"] = "ok"
+        return "ok"
     except Exception as e:
-        status["postgres"] = f"error: {e}"
+        return f"error: {e}"
 
-    # Ollama
-    status["ollama"] = "ok" if await ollama_health() else "error: unreachable"
 
-    # MinIO
+async def _check_ollama() -> str:
+    return "ok" if await ollama_health() else "error: unreachable"
+
+
+async def _check_http(name: str, url: str, ok_codes: tuple[int, ...] = (200,)) -> str:
     try:
         async with httpx.AsyncClient(timeout=5.0) as client:
-            r = await client.get(
-                f"http://{settings.MINIO_HOST}:{settings.MINIO_PORT}/minio/health/live"
-            )
-            status["minio"] = "ok" if r.status_code == 200 else f"error: {r.status_code}"
+            r = await client.get(url)
+            return "ok" if r.status_code in ok_codes else f"error: {r.status_code}"
     except Exception as e:
-        status["minio"] = f"error: {e}"
+        return f"error: {e}"
 
-    # Milvus
-    try:
-        async with httpx.AsyncClient(timeout=5.0) as client:
-            r = await client.get(
-                f"http://{settings.MILVUS_HOST}:9091/healthz"
-            )
-            status["milvus"] = "ok" if r.status_code == 200 else f"error: {r.status_code}"
-    except Exception as e:
-        status["milvus"] = f"error: {e}"
 
-    # SearXNG
-    try:
-        async with httpx.AsyncClient(timeout=5.0) as client:
-            r = await client.get(f"{settings.SEARXNG_HOST}/")
-            status["searxng"] = "ok" if r.status_code == 200 else f"error: {r.status_code}"
-    except Exception as e:
-        status["searxng"] = f"error: {e}"
+@app.get("/health", tags=["system"])
+async def health_check():
+    """Check connectivity to all backend services concurrently."""
+    import asyncio
+
+    minio_url = f"http://{settings.MINIO_HOST}:{settings.MINIO_PORT}/minio/health/live"
+    milvus_url = f"http://{settings.MILVUS_HOST}:9091/healthz"
+    searxng_url = f"{settings.SEARXNG_HOST}/"
+
+    pg, ol, mn, mv, sx = await asyncio.gather(
+        _check_postgres(),
+        _check_ollama(),
+        _check_http("minio", minio_url),
+        _check_http("milvus", milvus_url),
+        _check_http("searxng", searxng_url),
+    )
+    status = {
+        "postgres": pg,
+        "ollama": ol,
+        "minio": mn,
+        "milvus": mv,
+        "searxng": sx,
+    }
 
     all_ok = all(v == "ok" for v in status.values())
     return {

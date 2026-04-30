@@ -257,6 +257,12 @@ def load_session_events(session_id: str):
 # ════════════════════════════════════════════════════════════
 
 def create_new_session():
+    """
+    Create a backend session NOW. Use only when we're about to send a
+    message — creating eagerly (e.g. on a "New Chat" button click)
+    locks in tools_used/model before the user has a chance to change
+    them in the UI.
+    """
     token = get_token()
     project_id = st.session_state.current_project_id
     if is_guest():
@@ -266,11 +272,21 @@ def create_new_session():
         token=token,
         model_used=st.session_state.selected_model or "qwen2.5:14b",
         project_id=project_id,
-        tools_used=st.session_state.tools_enabled or None,
+        tools_used=list(st.session_state.tools_enabled or []),
     )
     st.session_state.current_session_id = session["session_id"]
     st.session_state.messages = []
     st.session_state.session_meta = session
+    st.session_state.is_streaming = False
+
+
+def reset_to_welcome():
+    """Drop the current session reference and return UI to welcome state.
+    Backend session is created lazily on the first user message, so the
+    user can still tweak model / tools after clicking 'New Chat'."""
+    st.session_state.current_session_id = None
+    st.session_state.messages = []
+    st.session_state.session_meta = None
     st.session_state.is_streaming = False
 
 
@@ -345,7 +361,7 @@ with st.sidebar:
 
     # ── New Chat button ─────────────────────────────────────
     if st.button("➕ New Chat", use_container_width=True, type="primary"):
-        create_new_session()
+        reset_to_welcome()
         st.session_state.view = "chat"
         st.rerun()
 
@@ -456,13 +472,18 @@ with st.sidebar:
     # ── Sidebar Footer ──────────────────────────────────────
     st.divider()
 
-    # Health check
-    try:
-        h = api.health()
-        all_ok = h.get("status") == "ok"
-    except Exception:
-        all_ok = False
-        h = {"services": {}}
+    # Health check — cache 15s. Streamlit reruns the whole script on every
+    # widget interaction, so without caching every keystroke triggers a
+    # cross-service ping fan-out and clutters the API logs.
+    @st.cache_data(ttl=15, show_spinner=False)
+    def _cached_health() -> dict:
+        try:
+            return api.health()
+        except Exception:
+            return {"status": "error", "services": {}}
+
+    h = _cached_health()
+    all_ok = h.get("status") == "ok"
 
     dot = "health-ok" if all_ok else "health-err"
     services_summary = ", ".join(
@@ -823,9 +844,25 @@ if not st.session_state.current_session_id and not st.session_state.messages:
 
 else:
     # ── Render existing messages ────────────────────────────
+    # Order: response → RAG sources → tool activity. Matches the live
+    # streaming layout so loading an old session and watching a new
+    # response feel consistent.
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]):
-            # Tool activity (shown above assistant response)
+            st.markdown(msg["content"])
+
+            if msg.get("rag_sources") and msg["role"] == "assistant":
+                with st.expander(f"📚 Sources ({len(msg['rag_sources'])})", expanded=False):
+                    for src in msg["rag_sources"]:
+                        idx = src.get("index", "?")
+                        fname = src.get("file_name", "unknown")
+                        text_preview = src.get("text", "")[:200]
+                        score = src.get("score", 0)
+                        st.markdown(
+                            f"**[{idx}]** `{fname}` (score: {score:.3f})"
+                        )
+                        st.caption(text_preview)
+
             if msg.get("tool_events"):
                 for tev in msg["tool_events"]:
                     if tev["type"] == "tool_call":
@@ -854,21 +891,6 @@ else:
                             except Exception:
                                 st.text(tev["content"][:500])
 
-            st.markdown(msg["content"])
-
-            # RAG Sources (shown below assistant response)
-            if msg.get("rag_sources") and msg["role"] == "assistant":
-                with st.expander(f"📚 Sources ({len(msg['rag_sources'])})", expanded=False):
-                    for src in msg["rag_sources"]:
-                        idx = src.get("index", "?")
-                        fname = src.get("file_name", "unknown")
-                        text_preview = src.get("text", "")[:200]
-                        score = src.get("score", 0)
-                        st.markdown(
-                            f"**[{idx}]** `{fname}` (score: {score:.3f})"
-                        )
-                        st.caption(text_preview)
-
     # ── Chat input ──────────────────────────────────────────
     pending = st.session_state.pop("_pending_prompt", None)
     user_input = st.chat_input(
@@ -891,12 +913,18 @@ else:
         # Stream assistant response
         with st.chat_message("assistant"):
             response_area = st.empty()
-            tool_container = st.container()
+            # Order matters: source_container ABOVE tool_container so RAG
+            # sources land right under the response, not buried below tool
+            # cards. The expander itself is rendered on the rag_sources
+            # event so the user can drill in while the LLM is still
+            # generating tokens.
             source_container = st.container()
+            tool_container = st.container()
             footer_container = st.container()   # for end-of-response status banners
             full_response = ""
             tool_events = []
             rag_sources = []
+            rag_rendered = False
             failed_tools = []    # tool names that returned error at runtime
             called_tools = set() # tool names the LLM actually invoked this turn
             st.session_state.is_streaming = True
@@ -915,14 +943,23 @@ else:
 
                     elif etype == "rag_sources":
                         rag_sources = event.get("sources", [])
-                        if rag_sources:
-                            with tool_container:
-                                st.markdown(
-                                    f'<div class="tool-card">'
-                                    f'<div class="tool-card-header">📚 Retrieved {len(rag_sources)} source(s)</div>'
-                                    f'</div>',
-                                    unsafe_allow_html=True,
-                                )
+                        if rag_sources and not rag_rendered:
+                            with source_container:
+                                with st.expander(
+                                    f"📚 Sources ({len(rag_sources)})",
+                                    expanded=False,
+                                ):
+                                    for src in rag_sources:
+                                        idx = src.get("index", "?")
+                                        fname = src.get("file_name", "unknown")
+                                        text_preview = src.get("text", "")[:200]
+                                        score = src.get("score", 0)
+                                        st.markdown(
+                                            f"**[{idx}]** `{fname}` "
+                                            f"(score: {score:.3f})"
+                                        )
+                                        st.caption(text_preview)
+                            rag_rendered = True
 
                     elif etype == "query_rewrite":
                         # Show rewrite info for transparency
@@ -1021,20 +1058,6 @@ else:
             # Finalize
             response_area.markdown(full_response)
             st.session_state.is_streaming = False
-
-            # Show RAG sources below response
-            if rag_sources:
-                with source_container:
-                    with st.expander(f"📚 Sources ({len(rag_sources)})", expanded=False):
-                        for src in rag_sources:
-                            idx = src.get("index", "?")
-                            fname = src.get("file_name", "unknown")
-                            text_preview = src.get("text", "")[:200]
-                            score = src.get("score", 0)
-                            st.markdown(
-                                f"**[{idx}]** `{fname}` (score: {score:.3f})"
-                            )
-                            st.caption(text_preview)
 
             assistant_msg = {"role": "assistant", "content": full_response}
             if tool_events:

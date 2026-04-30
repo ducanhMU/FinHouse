@@ -47,8 +47,12 @@ REWRITE_CONTEXT_TURNS = 4
 # Max chars per message when building history context
 REWRITE_HISTORY_MSG_CAP = 1500
 
-# Timeout for the rewriter LLM call (seconds)
-REWRITE_TIMEOUT_SEC = 30
+# Timeout for the rewriter LLM call (seconds).
+# Kept tight: rewriter runs synchronously before RAG, so any wait here is
+# pure latency in front of the user. If the local model can't return in
+# this window, fall back to passthrough — RAG with the original message
+# is far better than blocking the whole turn.
+REWRITE_TIMEOUT_SEC = 8
 
 
 @dataclass

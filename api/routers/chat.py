@@ -503,7 +503,11 @@ async def send_message(
 
                 rewrite_result = None
                 embed_query_text = body.text   # default: embed original
-                if _settings.REWRITER_ENABLED:
+                # Skip rewriter on the very first turn (no history) — there's
+                # nothing to resolve and the user is waiting on a synchronous
+                # LLM call before RAG even begins. Saves ~rewriter_timeout_sec
+                # on cold turns.
+                if _settings.REWRITER_ENABLED and rewriter_history:
                     t_rw = time.perf_counter()
                     try:
                         from services.rewriter import rewrite_query
@@ -661,12 +665,31 @@ async def send_message(
                 )
 
                 # Tool-use loop
-                max_tool_rounds = 3
+                max_tool_rounds = _settings.MAX_TOOL_ROUNDS
                 full_response = ""
                 for round_idx in range(max_tool_rounds + 1):
                     if not _active_streams.get(stream_key, False):
                         log.info(f"[session={session_id}] cancelled at round {round_idx}")
                         break
+
+                    # Final round: out of tool budget. Tell the model to stop
+                    # calling tools and synthesize an answer from what it
+                    # already gathered. Without this hint, models that were
+                    # mid-plan (e.g. schema discovery → still need a SELECT)
+                    # tend to emit an unfulfilled tool_call and stream empty
+                    # content — leaving the user with a blank reply.
+                    if tools and round_idx == max_tool_rounds:
+                        messages.append({
+                            "role": "system",
+                            "content": (
+                                "Bạn đã hết lượt gọi tool. KHÔNG được gọi "
+                                "thêm tool nào nữa. Hãy dựa trên dữ liệu đã "
+                                "thu thập từ các tool trước để trả lời "
+                                "trực tiếp cho user bằng tiếng Việt. Nếu dữ "
+                                "liệu còn thiếu, nói rõ phần nào thiếu và "
+                                "đề xuất câu hỏi tiếp theo."
+                            ),
+                        })
 
                     if tools and round_idx < max_tool_rounds:
                         t_llm = time.perf_counter()
@@ -724,19 +747,68 @@ async def send_message(
 
                     # Streaming final response
                     full_response = ""
+                    t_stream = time.perf_counter()
+                    saw_tool_call_attempt = False
+                    chunk_count = 0
                     async for chunk in chat_stream(
                         session.model_used, messages, tools=None
                     ):
+                        chunk_count += 1
                         if not _active_streams.get(stream_key, False):
                             full_response += " [cancelled]"
                             break
-                        content = chunk.get("message", {}).get("content", "")
+                        chunk_msg = chunk.get("message", {}) or {}
+                        content = chunk_msg.get("content", "") or ""
+                        # Some models (gpt-oss family) put intermediate text
+                        # in `thinking` and leave `content` empty. Surface
+                        # that to the user instead of streaming nothing.
+                        if not content:
+                            content = chunk_msg.get("thinking", "") or ""
+                        if chunk_msg.get("tool_calls"):
+                            saw_tool_call_attempt = True
                         if content:
                             full_response += content
                             yield f"data: {json.dumps({'type': 'token', 'content': content})}\n\n"
 
                         if chunk.get("done"):
                             break
+
+                    log.info(
+                        f"[session={session_id}] stream done in "
+                        f"{(time.perf_counter() - t_stream)*1000:.0f}ms "
+                        f"chunks={chunk_count} content_len={len(full_response)} "
+                        f"tool_attempt_in_final_round={saw_tool_call_attempt}"
+                    )
+
+                    # Empty-response guardrail. Most common cause: model
+                    # wanted to call another tool but tools were disabled
+                    # for the final round, so it emitted only tool_calls
+                    # with empty content. Tell the user something useful
+                    # rather than letting the UI render a blank message.
+                    if not full_response.strip():
+                        if saw_tool_call_attempt:
+                            full_response = (
+                                "Model còn muốn gọi thêm tool để hoàn tất "
+                                "câu trả lời nhưng đã hết lượt tool "
+                                f"({max_tool_rounds} lượt). Hãy hỏi lại "
+                                "với câu hỏi cụ thể hơn, hoặc tăng "
+                                "MAX_TOOL_ROUNDS trong cấu hình."
+                            )
+                        else:
+                            full_response = (
+                                "Model trả về phản hồi rỗng. Có thể model "
+                                "này không hỗ trợ tool-use tốt cho prompt "
+                                "vừa rồi — thử model khác hoặc tắt bớt "
+                                "tool xem sao."
+                            )
+                        yield (
+                            f"data: "
+                            + json.dumps(
+                                {"type": "token", "content": full_response},
+                                ensure_ascii=False,
+                            )
+                            + "\n\n"
+                        )
 
                     # Save assistant response
                     await _insert_event_atomic(
