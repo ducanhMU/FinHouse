@@ -127,6 +127,17 @@ PARTITION_TABLES = {
 }
 PARTITION_COUNT = 8
 
+# ClickHouse tables PARTITION BY toYYYYMM(<col>). Reading by `id` scatters months
+# across Spark partitions, so each writer ends up creating a part in ~every
+# monthly partition → ClickHouse hits max_partitions_per_insert_block and throws
+# TOO_MANY_PARTS. Range-partition + sort by the time column before write so each
+# writer only touches a small contiguous time range.
+WRITE_RANGE_PARTITION: dict[str, str] = {
+    "stock_price_history": "time",
+    "stock_intraday":      "time",
+}
+WRITE_PARTITIONS = 8
+
 
 # Non-nullable ClickHouse columns that SQLite stores as NULLable.
 # Values match the DEFAULT expressions in init.sql.
@@ -237,6 +248,13 @@ def read_sqlite_table(spark: SparkSession, db_path: str, table: str):
 
 
 def write_clickhouse(df, ch_url: str, ch_user: str, ch_password: str, table: str) -> None:
+    sort_col = WRITE_RANGE_PARTITION.get(table)
+    if sort_col and sort_col in df.columns:
+        df = df.repartitionByRange(WRITE_PARTITIONS, col(sort_col)).sortWithinPartitions(sort_col)
+        batchsize = "100000"
+    else:
+        batchsize = "10000"
+
     (
         df.write
         .format("jdbc")
@@ -245,7 +263,7 @@ def write_clickhouse(df, ch_url: str, ch_user: str, ch_password: str, table: str
         .option("dbtable", table)
         .option("user", ch_user)
         .option("password", ch_password)
-        .option("batchsize", "10000")
+        .option("batchsize", batchsize)
         .mode("append")
         .save()
     )
