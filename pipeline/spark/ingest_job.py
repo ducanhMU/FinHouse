@@ -130,13 +130,13 @@ PARTITION_COUNT = 8
 # ClickHouse tables PARTITION BY toYYYYMM(<col>). Reading by `id` scatters months
 # across Spark partitions, so each writer ends up creating a part in ~every
 # monthly partition → ClickHouse hits max_partitions_per_insert_block and throws
-# TOO_MANY_PARTS. Range-partition + sort by the time column before write so each
-# writer only touches a small contiguous time range.
+# TOO_MANY_PARTS. Funnel writes through a single ordered stream (sorted by the
+# time column) so JDBC batches stay clustered into a few monthly parts at a time.
 WRITE_RANGE_PARTITION: dict[str, str] = {
     "stock_price_history": "time",
     "stock_intraday":      "time",
 }
-WRITE_PARTITIONS = 8
+WRITE_PARTITIONS = 1
 
 
 # Non-nullable ClickHouse columns that SQLite stores as NULLable.
