@@ -248,9 +248,19 @@ def read_sqlite_table(spark: SparkSession, db_path: str, table: str):
 
 
 def write_clickhouse(df, ch_url: str, ch_user: str, ch_password: str, table: str) -> None:
-    sort_col = WRITE_RANGE_PARTITION.get(table)
-    if sort_col and sort_col in df.columns:
-        df = df.repartitionByRange(WRITE_PARTITIONS, col(sort_col)).sortWithinPartitions(sort_col)
+    target_col = WRITE_RANGE_PARTITION.get(table)
+    if target_col:
+        # JDBC may preserve original DB casing; match column case-insensitively.
+        actual_col = next(
+            (c for c in df.columns if c.lower() == target_col.lower()),
+            None,
+        )
+        if actual_col:
+            print(f"[{table}] coalesce(1) + sort by '{actual_col}' before write")
+            df = df.coalesce(1).sortWithinPartitions(actual_col)
+        else:
+            print(f"[{table}] WARN: '{target_col}' not in {df.columns}; coalesce(1) without sort")
+            df = df.coalesce(1)
         batchsize = "100000"
     else:
         batchsize = "10000"
