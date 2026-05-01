@@ -37,11 +37,12 @@ class Settings(BaseSettings):
     OLLAMA_HOST: str = "http://finhouse-ollama:11434"
     DEFAULT_MODEL: str = "qwen2.5:14b"
 
-    # Max number of tool-calling rounds before forcing the model to answer.
-    # Each round = 1 sync LLM call + tool exec. Higher = more chance to
-    # finish a multi-step plan (schema → query → analyze) but worst-case
-    # latency = MAX_TOOL_ROUNDS * (slowest LLM round). 6 fits a typical
-    # OLAP workflow: SHOW TABLES → DESCRIBE → DESCRIBE → SELECT → followup.
+    # Soft ceiling on tool-calling rounds. The LLM decides when it has
+    # enough data and stops emitting tool_calls — most queries finish in
+    # 2–4 rounds. If we hit this ceiling, the system stops calling tools
+    # and asks the user a clarifying follow-up instead of grinding more
+    # (the question is probably underspecified at that point).
+    # Each round = 1 sync LLM call + tool exec.
     MAX_TOOL_ROUNDS: int = 10
 
     # ── Query Rewriter (RAG pre-processing) ──
@@ -50,8 +51,10 @@ class Settings(BaseSettings):
     # or leave blank to reuse the main model.
     REWRITER_MODEL: str = ""
 
-    # If False, skip rewriting entirely (chat uses original message for RAG).
-    # Useful to A/B test or disable if API quota is tight.
+    # DEPRECATED — no longer read. Rewriter now runs on every turn
+    # because it's the only place we resolve scope / time / metrics
+    # before RAG and tools. Kept here so existing .env files don't
+    # error. To disable rewriting, edit api/services/rewriter.py.
     REWRITER_ENABLED: bool = True
 
     # Embedding / Reranker — local services

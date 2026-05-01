@@ -3,22 +3,34 @@ FinHouse — Query Rewriter
 
 Takes the latest user message + recent chat history, asks an LLM to
 produce a self-contained rewritten query that can be embedded for RAG
-retrieval. Handles:
+retrieval. The rewriter extracts the three pillars of any finance Q&A:
 
-  • Pronoun/reference resolution ("nó", "công ty đó" → specific entity)
-  • Topic inheritance ("Còn lợi nhuận?" → "Lợi nhuận của <prev_entity> thì sao?")
-  • Topic switch ("Còn FPT thì sao?" → keep metric, swap entity)
-  • Preserving critical details (timeframes, tickers, numbers)
-  • Flagging ambiguous queries for clarification
+    • SCOPE   — company / sector / macro / general
+    • TIME    — point (Q1/2026, năm 2025) or range (2023–2025, Q1/2024–Q3/2025)
+    • METRICS — doanh thu, ROE, GDP, …
 
-The rewriter returns structured output:
+Decision policy (mirrors the prompt):
+    • If SCOPE cannot be resolved → set needs_clarification=true and
+      ask the user a short, specific question.
+    • Otherwise → rewrite the query as self-contained, applying
+      defaults for missing pieces (especially TIME → "năm 2025") and
+      reporting them in `applied_defaults`.
+
+The rewriter uses the Ollama model the user picked for the session
+(see `model` argument). Settings.REWRITER_MODEL is only an explicit
+override; if blank, the caller should pass session.model_used.
+
+Result:
 
     RewriteResult(
         rewritten="<self-contained question>",
         needs_clarification=False,
         clarification="",
+        scope_type="company",
         preserved_entities=["VNM", "Vinamilk"],
-        preserved_timeframe="Q2 2024",
+        preserved_timeframe="Q2/2024",
+        preserved_metrics=["biên lợi nhuận gộp"],
+        applied_defaults=[],
         original="<original user text>",
     )
 
@@ -31,6 +43,7 @@ import json
 import logging
 import re
 from dataclasses import dataclass, field
+from datetime import date
 from typing import Optional
 
 from config import get_settings
@@ -52,7 +65,15 @@ REWRITE_HISTORY_MSG_CAP = 1500
 # pure latency in front of the user. If the local model can't return in
 # this window, fall back to passthrough — RAG with the original message
 # is far better than blocking the whole turn.
-REWRITE_TIMEOUT_SEC = 8
+REWRITE_TIMEOUT_SEC = 12
+
+_VALID_SCOPE_TYPES = {"company", "sector", "macro", "general", ""}
+
+# Whitelist for entity strings we'll splice into ClickHouse SQL.
+# Vietnamese diacritics + ASCII letters/digits + a few punctuation marks.
+_ENTITY_OK_RE = re.compile(r"^[\w \-\.&,/À-ỹ]+$", re.UNICODE)
+_MAX_ENTITY_LEN = 100
+_MAX_VERIFY_ENTITIES = 10
 
 
 @dataclass
@@ -60,8 +81,11 @@ class RewriteResult:
     rewritten: str
     needs_clarification: bool = False
     clarification: str = ""
+    scope_type: str = ""
     preserved_entities: list[str] = field(default_factory=list)
     preserved_timeframe: str = ""
+    preserved_metrics: list[str] = field(default_factory=list)
+    applied_defaults: list[str] = field(default_factory=list)
     original: str = ""
 
     @property
@@ -77,9 +101,48 @@ def _passthrough(original: str) -> RewriteResult:
     return RewriteResult(rewritten=original, original=original)
 
 
+def _now_context_block() -> str:
+    """
+    Build a fresh date/time anchor for the rewriter user message.
+
+    The prompt body itself is static (loaded from disk + cached), so we
+    inject the moving "today" reference here at call time. This keeps
+    "năm hiện tại / năm tài chính gần nhất hoàn chỉnh" accurate without
+    requiring the prompt file to be edited every year.
+
+    "Năm tài chính gần nhất hoàn chỉnh" = current_year - 1, on the
+    assumption that annual filings for year N-1 are available by mid-N.
+    Most VN-listed companies file Q4/full-year reports by end of Q1.
+    """
+    today = date.today()
+    year = today.year
+    month = today.month
+    quarter = (month - 1) // 3 + 1
+
+    if quarter == 1:
+        last_full_quarter = 4
+        last_full_quarter_year = year - 1
+    else:
+        last_full_quarter = quarter - 1
+        last_full_quarter_year = year
+
+    # In Q1 of a calendar year, year-2 reports may still be the "latest
+    # full year" for some filers. Past Q1 we trust year-1 is complete.
+    last_full_year = year - 1 if month >= 4 else year - 2
+
+    return (
+        "── BỐI CẢNH THỜI GIAN HIỆN TẠI ──\n"
+        f"NGÀY HIỆN TẠI: {today.isoformat()}\n"
+        f"NĂM HIỆN TẠI: {year}\n"
+        f"QUÝ HIỆN TẠI: Q{quarter}/{year}\n"
+        f"QUÝ GẦN NHẤT HOÀN CHỈNH: Q{last_full_quarter}/{last_full_quarter_year}\n"
+        f"NĂM TÀI CHÍNH GẦN NHẤT HOÀN CHỈNH: {last_full_year}\n"
+        "── HẾT BỐI CẢNH THỜI GIAN ──\n"
+    )
+
+
 def _build_history_block(history: list[dict]) -> str:
     """Format recent turns as a plain-text transcript for the rewriter."""
-    # Take the last N turns (N user + N assistant pairs = 2N messages)
     msgs = history[-(REWRITE_CONTEXT_TURNS * 2):]
     lines = []
     for m in msgs:
@@ -101,14 +164,12 @@ def _extract_json(raw: str) -> Optional[dict]:
     if not raw:
         return None
 
-    # Try raw parse first (if LLM obeyed instruction perfectly)
     stripped = raw.strip()
     try:
         return json.loads(stripped)
     except Exception:
         pass
 
-    # Strip common code fences
     for fence in ("```json", "```JSON", "```"):
         if fence in stripped:
             parts = stripped.split(fence)
@@ -120,16 +181,28 @@ def _extract_json(raw: str) -> Optional[dict]:
                     except Exception:
                         continue
 
-    # Regex for first {...} block (greedy to match nested)
     m = re.search(r"\{.*\}", stripped, re.DOTALL)
     if m:
-        candidate = m.group(0)
         try:
-            return json.loads(candidate)
+            return json.loads(m.group(0))
         except Exception:
             return None
 
     return None
+
+
+def _coerce_str_list(raw, cap: int = 10) -> list[str]:
+    """Best-effort convert LLM output to a list[str], dropping empties."""
+    if not raw:
+        return []
+    if isinstance(raw, str):
+        # Some models emit a comma-separated string instead of a list
+        items = [p.strip() for p in raw.split(",")]
+    elif isinstance(raw, list):
+        items = [str(x).strip() for x in raw]
+    else:
+        return []
+    return [x for x in items if x][:cap]
 
 
 async def rewrite_query(
@@ -141,20 +214,19 @@ async def rewrite_query(
     Rewrite a user query using conversation history. Never throws —
     on any error or malformed output, returns passthrough.
 
-    Per design decision: we rewrite EVERY user message, including the
-    first one in a session. This catches ambiguous first messages like
-    "Nó lãi bao nhiêu?" (no prior entity → clarification) and also
-    normalizes self-contained messages like "ROE của HPG 2024?" by
-    expanding to canonical form ("ROE của Hoà Phát (HPG) năm 2024").
-
-    The rewriter prompt is explicit about handling empty history via
-    the `needs_clarification` output field.
+    Per design decision: we rewrite EVERY user message including the
+    first one. The rewriter is the place where we decide whether the
+    main agent should answer immediately or ask the user a clarifying
+    question first. This avoids the previous behaviour of jumping into
+    an answer with under-specified context.
 
     Args:
         user_message: the raw latest user message
         history: list of prior messages in the conversation
                  (each dict has {"role": "user"|"assistant", "content": str})
-        model: Ollama model name to use for rewriting
+        model: Ollama model name to use for rewriting. Pass the session
+               model so the rewriter speaks the same dialect / tokenizer
+               family as the main answer agent.
 
     Returns:
         RewriteResult with resolved query or clarification request.
@@ -163,9 +235,13 @@ async def rewrite_query(
     history_block = _build_history_block(history) if history else "(chưa có)"
 
     user_content = (
+        f"{_now_context_block()}\n"
         f"LỊCH SỬ HỘI THOẠI:\n{history_block}\n\n"
-        f"CÂU HỎI MỚI NHẤT CẦN REWRITE:\n{user_message}\n\n"
-        "Output JSON theo format đã quy định."
+        f"CÂU HỎI MỚI NHẤT CẦN PHÂN TÍCH & REWRITE:\n{user_message}\n\n"
+        "Output DUY NHẤT một JSON object đúng schema (không markdown fence, "
+        "không giải thích). Nhớ: chỉ set needs_clarification=true khi "
+        "không xác định được scope; nếu chỉ thiếu thời gian → áp default "
+        "= NĂM TÀI CHÍNH GẦN NHẤT HOÀN CHỈNH ở khối bối cảnh phía trên."
     )
 
     messages = [
@@ -179,8 +255,10 @@ async def rewrite_query(
             messages=messages,
             tools=None,
             timeout=REWRITE_TIMEOUT_SEC,
-            # Lower temperature for more deterministic rewriting
-            options={"temperature": 0.1, "num_predict": 500},
+            # Lower temperature for more deterministic rewriting.
+            # num_predict bumped to fit the larger JSON schema (scope,
+            # metrics, applied_defaults).
+            options={"temperature": 0.1, "num_predict": 800},
         )
     except Exception as e:
         log.warning(f"rewriter LLM call failed: {e}; using passthrough")
@@ -195,27 +273,32 @@ async def rewrite_query(
         return _passthrough(user_message)
 
     try:
+        scope_type = str(parsed.get("scope_type", "") or "").strip().lower()
+        if scope_type not in _VALID_SCOPE_TYPES:
+            scope_type = ""
+
         result = RewriteResult(
             rewritten=str(parsed.get("rewritten", "") or "").strip(),
             needs_clarification=bool(parsed.get("needs_clarification", False)),
             clarification=str(parsed.get("clarification", "") or "").strip(),
-            preserved_entities=[
-                str(x) for x in (parsed.get("preserved_entities") or [])
-                if x
-            ][:10],
+            scope_type=scope_type,
+            preserved_entities=_coerce_str_list(parsed.get("preserved_entities")),
             preserved_timeframe=str(parsed.get("preserved_timeframe", "") or "").strip(),
+            preserved_metrics=_coerce_str_list(parsed.get("preserved_metrics")),
+            applied_defaults=_coerce_str_list(parsed.get("applied_defaults")),
             original=user_message,
         )
     except Exception as e:
         log.warning(f"rewriter result construction failed: {e}; passthrough")
         return _passthrough(user_message)
 
-    # Sanity checks
+    # ── Sanity / consistency repairs ─────────────────────────
     if result.needs_clarification and not result.clarification:
         # Rewriter flagged ambiguous but didn't provide a clarification.
-        # Fallback to a generic question.
+        # Use a generic but still actionable fallback.
         result.clarification = (
-            "Bạn có thể nói rõ hơn bạn đang hỏi về đối tượng/công ty/chỉ số nào không?"
+            "Bạn có thể nói rõ hơn về đối tượng (công ty, ngành hay vĩ mô) "
+            "mà bạn đang muốn hỏi không ạ?"
         )
 
     if not result.needs_clarification and not result.rewritten:
@@ -223,15 +306,161 @@ async def rewrite_query(
         log.info("rewriter returned empty rewritten text, using original")
         result.rewritten = user_message
 
+    # If rewriter forgot scope_type but produced a rewrite, infer a
+    # conservative fallback so downstream code can branch on it.
+    if not result.needs_clarification and result.rewritten and not result.scope_type:
+        if result.preserved_entities:
+            result.scope_type = "company"
+        else:
+            result.scope_type = "general"
+
     # Truncate overly long rewritten queries (defense)
     if len(result.rewritten) > 2000:
         result.rewritten = result.rewritten[:2000]
+    if len(result.clarification) > 600:
+        result.clarification = result.clarification[:600]
 
     log.info(
         f"rewrite: orig={user_message[:80]!r} → "
         f"rewritten={result.rewritten[:80]!r} "
         f"clarify={result.needs_clarification} "
+        f"scope={result.scope_type} "
         f"entities={result.preserved_entities} "
-        f"timeframe={result.preserved_timeframe!r}"
+        f"timeframe={result.preserved_timeframe!r} "
+        f"metrics={result.preserved_metrics} "
+        f"defaults={result.applied_defaults}"
     )
     return result
+
+
+# ── Company scope verification ──────────────────────────────
+#
+# The rewriter LLM only does string extraction — it can confidently
+# spit out a ticker or company name that doesn't actually exist in the
+# OLAP database. We resolve that here by hitting `stocks` +
+# `company_overview` directly. The contract:
+#
+#   verify_company_entities(["VNM", "Vinamilk"]) →
+#       (resolved=[{symbol, organ_name, icb_name3, icb_name2}],
+#        unresolved=[],
+#        ch_available=True)
+#
+# Caller logic:
+#   • ch_available=False → ClickHouse not configured; skip the check
+#     entirely (don't punish the user for ops gap).
+#   • resolved=[] AND ch_available=True → none of the entities exist;
+#     flip the rewrite into a clarification ("which company did you
+#     mean?") so the agent never answers about a non-existent ticker.
+#   • resolved=[…] → enrich the agent's hint with canonical names.
+
+def _ch_quote(s: str) -> str:
+    """Escape a string literal for ClickHouse single-quoted form."""
+    return "'" + s.replace("\\", "\\\\").replace("'", "''") + "'"
+
+
+def _sanitize_entities(entities: list[str]) -> list[str]:
+    """Drop entities that don't fit the whitelist or are too long."""
+    cleaned = []
+    seen = set()
+    for raw in entities or []:
+        e = (raw or "").strip()
+        if not e or len(e) > _MAX_ENTITY_LEN:
+            continue
+        if not _ENTITY_OK_RE.match(e):
+            continue
+        key = e.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        cleaned.append(e)
+        if len(cleaned) >= _MAX_VERIFY_ENTITIES:
+            break
+    return cleaned
+
+
+async def verify_company_entities(
+    entities: list[str],
+) -> tuple[list[dict], list[str], bool]:
+    """
+    Resolve LLM-extracted entity strings against `stocks` +
+    `company_overview` in ClickHouse.
+
+    Match rules (per entity):
+      • exact ticker match (case-insensitive on `stocks.ticker`), OR
+      • case-insensitive substring match on `stocks.organ_name`.
+
+    Returns:
+        (resolved, unresolved, ch_available)
+        resolved      — list of {symbol, organ_name, icb_name3, icb_name2}
+        unresolved    — input strings that did not match anything
+        ch_available  — False when ClickHouse isn't configured or query
+                        failed; in that case caller should treat the
+                        scope as "couldn't verify, assume valid" to
+                        avoid blocking the user on infra gaps.
+    """
+    from tools.database_query import is_enabled, run_sql
+
+    if not entities:
+        return [], [], True
+
+    if not is_enabled():
+        return [], list(entities), False
+
+    cleaned = _sanitize_entities(entities)
+    if not cleaned:
+        # Nothing parseable to send to SQL; mark all as unresolved.
+        return [], list(entities), True
+
+    or_clauses = []
+    for e in cleaned:
+        q = _ch_quote(e)
+        or_clauses.append(
+            f"(upper(s.ticker) = upper({q}) OR "
+            f"positionCaseInsensitive(coalesce(s.organ_name,''), {q}) > 0)"
+        )
+    where_clause = " OR ".join(or_clauses)
+
+    sql = (
+        "SELECT s.ticker AS symbol, "
+        "       coalesce(s.organ_name,'') AS organ_name, "
+        "       coalesce(co.icb_name3,'') AS icb_name3, "
+        "       coalesce(co.icb_name2,'') AS icb_name2 "
+        "FROM stocks s "
+        "LEFT JOIN company_overview co ON s.ticker = co.symbol "
+        f"WHERE {where_clause} "
+        "LIMIT 20"
+    )
+
+    try:
+        result = await run_sql(sql)
+    except Exception as e:
+        log.warning(f"company verify query crashed: {e}; treating as unavailable")
+        return [], list(entities), False
+
+    if isinstance(result, dict) and result.get("error"):
+        log.warning(f"company verify SQL rejected: {result.get('error')}")
+        return [], list(entities), False
+
+    columns = result.get("columns", []) if isinstance(result, dict) else []
+    rows = result.get("rows", []) if isinstance(result, dict) else []
+    resolved: list[dict] = [dict(zip(columns, r)) for r in rows]
+
+    # Map each input entity → matched? An entity is matched if a
+    # resolved row's ticker equals its uppercase form OR its lowercased
+    # form is a substring (or contains a substring of) any resolved
+    # organ_name. This catches both ticker queries ("VNM") and name
+    # queries ("Vinamilk", "Vinamilk Việt Nam").
+    resolved_tickers = {(row.get("symbol") or "").upper() for row in resolved}
+    resolved_names = [(row.get("organ_name") or "").lower() for row in resolved]
+
+    unresolved: list[str] = []
+    for e in cleaned:
+        e_upper = e.upper()
+        e_lower = e.lower()
+        if e_upper in resolved_tickers:
+            continue
+        if any(n and (e_lower in n or n in e_lower) for n in resolved_names):
+            continue
+        unresolved.append(e)
+
+    return resolved, unresolved, True

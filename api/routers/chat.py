@@ -502,32 +502,84 @@ async def send_message(
                     rewriter_history = rewriter_history[:-1]
 
                 rewrite_result = None
+                resolved_companies: list[dict] = []
                 embed_query_text = body.text   # default: embed original
-                # Skip rewriter on the very first turn (no history) — there's
-                # nothing to resolve and the user is waiting on a synchronous
-                # LLM call before RAG even begins. Saves ~rewriter_timeout_sec
-                # on cold turns.
-                if _settings.REWRITER_ENABLED and rewriter_history:
-                    t_rw = time.perf_counter()
-                    try:
-                        from services.rewriter import rewrite_query
-                        rewriter_model = _settings.REWRITER_MODEL or session.model_used
-                        rewrite_result = await rewrite_query(
-                            user_message=body.text,
-                            history=rewriter_history,
-                            model=rewriter_model,
-                        )
-                        log.info(
-                            f"[session={session_id}] rewriter done in "
-                            f"{(time.perf_counter() - t_rw)*1000:.0f}ms "
-                            f"needs_clarification={rewrite_result.needs_clarification}"
-                        )
-                    except Exception as e:
-                        log.warning(
-                            f"[session={session_id}] rewriter error (ignoring): {e}",
-                            exc_info=True,
-                        )
-                        rewrite_result = None
+                # Rewriter runs on EVERY turn — non-optional. Each user
+                # input must be made explicit about scope/time/metrics
+                # before the agent answers. The previous behaviour of
+                # skipping cold-start turns and jumping straight into
+                # an answer was the failure mode we're closing here.
+                t_rw = time.perf_counter()
+                try:
+                    from services.rewriter import (
+                        rewrite_query,
+                        verify_company_entities,
+                    )
+                    # Rewriter speaks the session's chosen Ollama model so
+                    # it shares the same tokenizer family as the answer
+                    # agent. REWRITER_MODEL is only an explicit override.
+                    rewriter_model = _settings.REWRITER_MODEL or session.model_used
+                    rewrite_result = await rewrite_query(
+                        user_message=body.text,
+                        history=rewriter_history,
+                        model=rewriter_model,
+                    )
+                    log.info(
+                        f"[session={session_id}] rewriter done in "
+                        f"{(time.perf_counter() - t_rw)*1000:.0f}ms "
+                        f"clarify={rewrite_result.needs_clarification} "
+                        f"scope={rewrite_result.scope_type} "
+                        f"defaults={rewrite_result.applied_defaults}"
+                    )
+
+                    # ── Company verification ─────────────────
+                    # If the rewriter says the question is about a
+                    # specific company, confirm the entity actually
+                    # exists in the OLAP database. We'd rather ask the
+                    # user back than answer about a fictional ticker.
+                    if (
+                        rewrite_result
+                        and not rewrite_result.needs_clarification
+                        and rewrite_result.scope_type == "company"
+                        and rewrite_result.preserved_entities
+                    ):
+                        t_verify = time.perf_counter()
+                        try:
+                            resolved, unresolved, ch_available = (
+                                await verify_company_entities(
+                                    rewrite_result.preserved_entities
+                                )
+                            )
+                            resolved_companies = resolved
+                            log.info(
+                                f"[session={session_id}] company verify "
+                                f"in {(time.perf_counter() - t_verify)*1000:.0f}ms "
+                                f"ch_available={ch_available} "
+                                f"resolved={len(resolved)} unresolved={unresolved}"
+                            )
+                            if ch_available and not resolved:
+                                # None of the entities matched the OLAP
+                                # company tables. Flip into clarification.
+                                missing = ", ".join(unresolved or rewrite_result.preserved_entities)
+                                rewrite_result.needs_clarification = True
+                                rewrite_result.clarification = (
+                                    f"Mình chưa tìm thấy công ty/mã chứng khoán "
+                                    f"khớp với '{missing}' trong dữ liệu nội bộ. "
+                                    "Bạn có thể xác nhận lại tên hoặc mã ticker "
+                                    "(ví dụ: VNM, FPT, HPG, MWG...) không ạ?"
+                                )
+                        except Exception as e:
+                            log.warning(
+                                f"[session={session_id}] company verify error "
+                                f"(treating as unavailable): {e}",
+                                exc_info=True,
+                            )
+                except Exception as e:
+                    log.warning(
+                        f"[session={session_id}] rewriter error (ignoring): {e}",
+                        exc_info=True,
+                    )
+                    rewrite_result = None
 
                 # If rewriter asked for clarification, short-circuit:
                 # send clarification as assistant reply, save it, and exit.
@@ -561,8 +613,11 @@ async def send_message(
                                 "type": "query_rewrite",
                                 "original": body.text,
                                 "rewritten": rewrite_result.rewritten,
+                                "scope_type": rewrite_result.scope_type,
                                 "entities": rewrite_result.preserved_entities,
                                 "timeframe": rewrite_result.preserved_timeframe,
+                                "metrics": rewrite_result.preserved_metrics,
+                                "applied_defaults": rewrite_result.applied_defaults,
                             }, ensure_ascii=False)
                             + "\n\n"
                         )
@@ -626,7 +681,9 @@ async def send_message(
                     yield f"data: {json.dumps({'type': 'rag_sources', 'sources': rag_sources})}\n\n"
 
                 # Give the main LLM a hint about the resolved question so it
-                # doesn't have to re-infer references. Small but meaningful.
+                # doesn't have to re-infer scope/time/metrics. Surface any
+                # defaults the rewriter applied so the agent can either honor
+                # them silently or call out the assumption to the user.
                 if (
                     rewrite_result
                     and rewrite_result.rewritten
@@ -635,14 +692,43 @@ async def send_message(
                     hint_parts = [
                         f"Ý định đã resolve của user: {rewrite_result.rewritten}"
                     ]
+                    if rewrite_result.scope_type:
+                        hint_parts.append(f"Scope: {rewrite_result.scope_type}")
                     if rewrite_result.preserved_entities:
                         hint_parts.append(
-                            "Các thực thể cần tập trung: "
-                            + ", ".join(rewrite_result.preserved_entities)
+                            "Thực thể: " + ", ".join(rewrite_result.preserved_entities)
                         )
                     if rewrite_result.preserved_timeframe:
                         hint_parts.append(
                             f"Mốc thời gian: {rewrite_result.preserved_timeframe}"
+                        )
+                    if rewrite_result.preserved_metrics:
+                        hint_parts.append(
+                            "Chỉ số: " + ", ".join(rewrite_result.preserved_metrics)
+                        )
+                    if rewrite_result.applied_defaults:
+                        hint_parts.append(
+                            "Default đã áp (user chưa nói rõ — nêu giả định "
+                            "ngắn trong câu trả lời nếu cần): "
+                            + ", ".join(rewrite_result.applied_defaults)
+                        )
+                    if resolved_companies:
+                        # Give the agent canonical {ticker, name, ICB}
+                        # tuples so it doesn't have to re-discover them
+                        # via SHOW TABLES → SELECT.
+                        canon = []
+                        for c in resolved_companies[:5]:
+                            sym = c.get("symbol", "")
+                            name = c.get("organ_name", "")
+                            icb = c.get("icb_name3") or c.get("icb_name2") or ""
+                            piece = sym
+                            if name:
+                                piece += f" ({name})"
+                            if icb:
+                                piece += f" — ngành {icb}"
+                            canon.append(piece)
+                        hint_parts.append(
+                            "Đã xác minh trong DB: " + "; ".join(canon)
                         )
                     hint_text = " | ".join(hint_parts)
                     insert_at = 1 if messages and messages[0].get("role") == "system" else 0
@@ -664,7 +750,13 @@ async def send_message(
                     f"{[t['function']['name'] for t in tools] if tools else []}"
                 )
 
-                # Tool-use loop
+                # Tool-use loop. The LLM decides each round whether to
+                # keep calling tools or stop and answer — there is no
+                # hard cap on tool calls per se. MAX_TOOL_ROUNDS is a
+                # SOFT CEILING: if the model is still calling tools at
+                # that point, the question is probably underspecified,
+                # so we stop and ask the user a clarifying follow-up
+                # instead of grinding through more lookups.
                 max_tool_rounds = _settings.MAX_TOOL_ROUNDS
                 full_response = ""
                 for round_idx in range(max_tool_rounds + 1):
@@ -672,22 +764,26 @@ async def send_message(
                         log.info(f"[session={session_id}] cancelled at round {round_idx}")
                         break
 
-                    # Final round: out of tool budget. Tell the model to stop
-                    # calling tools and synthesize an answer from what it
-                    # already gathered. Without this hint, models that were
-                    # mid-plan (e.g. schema discovery → still need a SELECT)
-                    # tend to emit an unfulfilled tool_call and stream empty
-                    # content — leaving the user with a blank reply.
+                    # Soft ceiling: model has been thrashing on tools
+                    # without converging. Tell it to stop and either
+                    # answer with what it has, or — if the data is
+                    # genuinely insufficient — ask the user for a more
+                    # specific scope/time/metric.
                     if tools and round_idx == max_tool_rounds:
                         messages.append({
                             "role": "system",
                             "content": (
-                                "Bạn đã hết lượt gọi tool. KHÔNG được gọi "
-                                "thêm tool nào nữa. Hãy dựa trên dữ liệu đã "
-                                "thu thập từ các tool trước để trả lời "
-                                "trực tiếp cho user bằng tiếng Việt. Nếu dữ "
-                                "liệu còn thiếu, nói rõ phần nào thiếu và "
-                                "đề xuất câu hỏi tiếp theo."
+                                f"Bạn đã gọi tool {max_tool_rounds} lượt mà "
+                                "vẫn chưa có đủ dữ liệu rõ ràng. KHÔNG được "
+                                "gọi thêm tool. Hãy chọn 1 trong 2: "
+                                "(a) Nếu dữ liệu đã đủ để trả lời câu hỏi "
+                                "ban đầu của user → trả lời trực tiếp bằng "
+                                "tiếng Việt, có trích dẫn nguồn nếu có. "
+                                "(b) Nếu dữ liệu còn thiếu hoặc câu hỏi "
+                                "user vẫn chưa rõ về scope (công ty/ngành/"
+                                "vĩ mô) hoặc time hoặc metric → hỏi lại "
+                                "user một câu ngắn, cụ thể về cái đang "
+                                "thiếu. KHÔNG bịa số liệu."
                             ),
                         })
 
@@ -788,11 +884,11 @@ async def send_message(
                     if not full_response.strip():
                         if saw_tool_call_attempt:
                             full_response = (
-                                "Model còn muốn gọi thêm tool để hoàn tất "
-                                "câu trả lời nhưng đã hết lượt tool "
-                                f"({max_tool_rounds} lượt). Hãy hỏi lại "
-                                "với câu hỏi cụ thể hơn, hoặc tăng "
-                                "MAX_TOOL_ROUNDS trong cấu hình."
+                                "Mình đã thử tra cứu nhiều lần nhưng chưa "
+                                "thu thập đủ dữ liệu rõ ràng. Bạn có thể "
+                                "nói rõ hơn về công ty/ngành, mốc thời gian "
+                                "(năm/quý), hoặc chỉ số tài chính cụ thể "
+                                "đang quan tâm không ạ?"
                             )
                         else:
                             full_response = (
