@@ -1,10 +1,13 @@
 """FinHouse — Ollama LLM Client."""
 
 import json
+import logging
 from typing import AsyncGenerator, Optional
 
 import httpx
 from config import get_settings
+
+log = logging.getLogger("finhouse.ollama")
 
 settings = get_settings()
 
@@ -57,6 +60,9 @@ async def chat_stream(
             f"{settings.OLLAMA_HOST}/api/chat",
             json=payload,
         ) as resp:
+            if resp.status_code >= 400:
+                body = await resp.aread()
+                log.error("Ollama chat_stream %s: %s", resp.status_code, body.decode()[:500])
             resp.raise_for_status()
             async for line in resp.aiter_lines():
                 if line.strip():
@@ -103,6 +109,8 @@ async def chat_sync(
             f"{settings.OLLAMA_HOST}/api/chat",
             json=payload,
         )
+        if resp.status_code >= 400:
+            log.error("Ollama chat_sync %s: %s", resp.status_code, resp.text[:500])
         resp.raise_for_status()
         return resp.json()
 
