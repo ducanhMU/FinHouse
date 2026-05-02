@@ -3,7 +3,46 @@
 # Chỉ inject vào messages khi tool `database_query` được bật.
 # Nội dung sau dòng `---` được đưa vào LLM. Restart API sau khi sửa.
 ---
-Bạn đang được trang bị tool **`database_query(sql)`** để chạy SQL READ-ONLY trên ClickHouse OLAP (database tên là `olap`). Hãy đọc kỹ phần mô tả schema dưới đây TRƯỚC KHI viết SQL — không cần `SHOW TABLES` / `DESCRIBE TABLE` lại trừ khi bạn nghi ngờ schema đã thay đổi.
+Bạn đang được trang bị tool **`database_query(sql)`** để chạy SQL READ-ONLY trên ClickHouse OLAP (database tên là `olap`). Toàn bộ schema bạn cần đã có ngay trong file này — đọc một lượt rồi đi thẳng vào `SELECT`.
+
+## ⛔ BẮT BUỘC ĐỌC TRƯỚC KHI GỌI TOOL
+
+**KHÔNG được làm:**
+- ❌ Gọi `SHOW TABLES`, `DESCRIBE TABLE`, `EXISTS TABLE` để "dò" schema. Schema đầy đủ đã liệt kê dưới — coi đây là source of truth. Mỗi lượt tool gọi là một roundtrip tốn thời gian, đừng lãng phí vào việc đã biết.
+- ❌ Bịa tên bảng/cột ngoài danh sách. Sai lầm thường gặp:
+  - `financial_data`, `company_financials`, `stock_data` → **không tồn tại**. Báo cáo tài chính nằm ở `income_statement` / `balance_sheet` / `cash_flow_statement` / `financial_ratios`.
+  - `company = 'HDB'` → **sai cột**. Bảng tài chính dùng `symbol`, bảng `stocks` dùng `ticker`.
+  - `name`, `company_name` → không có. Tên công ty ở `stocks.organ_name` hoặc `company_overview` (qua `symbol`).
+- ❌ Tự đổi mốc thời gian sang năm khác với system hint. Nếu hint nói `Mốc thời gian: 2025` thì WHERE phải là `year = 2025` — không lùi về 2021–2023 "cho an toàn".
+- ❌ Quên `FINAL` trên bảng ReplacingMergeTree (mọi bảng tài chính + master data trừ append-only) → trả về row cũ.
+
+**PHẢI làm:**
+- ✅ Đọc system hint (`Mốc thời gian: ...`, `Thực thể: ...`, `Đã xác minh trong DB: ...`) và ÁP THẲNG vào WHERE clause.
+- ✅ Một lượt tool = một câu `SELECT` có kết quả dùng được, không phải một bước thăm dò.
+- ✅ Khi cần nhiều mặt dữ liệu (ví dụ "tổng quan công ty"), gọi song song nhiều `database_query` trong CÙNG một lượt assistant, mỗi câu nhắm 1 bảng cụ thể.
+
+## 🗺️ BẢN ĐỒ CÂU HỎI → BẢNG (đọc kỹ — đây là phần hay sai)
+
+| Loại thông tin user hỏi | Bảng cần query | Cột định danh | Ghi chú |
+|---|---|---|---|
+| Hồ sơ / mô tả công ty, vốn điều lệ, ngành ICB | `company_overview` FINAL | `symbol` | có `company_profile`, `history`, `icb_name2/3/4`, `charter_capital` |
+| Ban lãnh đạo (CEO, Chủ tịch…) | `officers` FINAL | `symbol` | lọc `status='working'` để lấy người đương nhiệm |
+| Cổ đông lớn, cơ cấu sở hữu | `shareholders` FINAL | `symbol` | `share_own_percent` đã ở dạng % (0–100) |
+| Công ty con / liên kết | `subsidiaries` FINAL | `symbol` | |
+| Doanh thu, lợi nhuận, EPS, biên lợi nhuận thô | `income_statement` FINAL | `symbol`, `year`, `quarter` | đơn vị **VND nguyên** |
+| Tài sản, nợ, vốn chủ sở hữu | `balance_sheet` FINAL | `symbol`, `year`, `quarter` | đơn vị **VND nguyên** |
+| Dòng tiền (CFO/CFI/CFF) | `cash_flow_statement` FINAL | `symbol`, `year`, `quarter` | đơn vị **VND nguyên** |
+| ROE, ROA, P/E, P/B, D/E, market cap, EBITDA, biên lợi nhuận | `financial_ratios` FINAL | `symbol`, `year`, `quarter` | tỷ số ở dạng decimal (×100 để ra %); `market_cap_billions` đã là tỷ đồng |
+| Cổ tức tiền mặt | `cash_dividend` FINAL | `symbol` | |
+| Cổ tức bằng cổ phiếu, chia tách | `stock_dividend` FINAL | `symbol` | |
+| Sự kiện DN (ĐHCĐ, phát hành, chia tách…) | `events` FINAL | `symbol` | các cột `*_date` là String, không phải Date |
+| Tin tức | `news` | `symbol` | append-only, KHÔNG `FINAL`; `public_date` là epoch ms |
+| Giá đóng cửa lịch sử (OHLCV theo ngày) | `stock_price_history` | `symbol`, `time` (Date) | append-only, KHÔNG `FINAL` |
+| Tick trong phiên | `stock_intraday` | `symbol`, `time` (DateTime) | append-only |
+| Danh mục mã, tên đầy đủ, sàn niêm yết | `stocks` FINAL | `ticker` (KHÔNG `symbol`) | join với `company_overview` qua `stocks.ticker = company_overview.symbol` |
+| Ngành ICB chi tiết của 1 mã | `stock_industry` FINAL | `ticker` | có `icb_name2/3/4` (3 cấp) |
+
+> **Quy tắc nhanh về `quarter`**: hỏi "năm 2025" → `quarter = 0` (cả năm). Hỏi "Q3/2025" → `quarter = 3`. Đừng cộng 4 quý ra năm.
 
 ## NGUYÊN TẮC CHUNG
 
@@ -168,3 +207,26 @@ LIMIT 10
 - Câu hỏi định nghĩa khái niệm thuần ("EBITDA là gì?") — trả lời từ kiến thức, không cần SQL.
 - Tin tức / sự kiện sau ngày cutoff training và không có trong bảng `news` / `events` — dùng `web_search` thay thế.
 - Câu hỏi về tài liệu nội bộ đã có trong RAG context — ưu tiên trích dẫn [1], [2] từ context, không SQL lại.
+
+## KHI QUERY TRẢ VỀ 0 ROWS (PHẢI ĐỌC)
+
+Tuyệt đối **không** im lặng đổi sang năm/quý/công ty khác rồi trả lời như thật. Đi theo bậc thang:
+
+1. **Kiểm tra entity có tồn tại không** — chạy 1 câu nhỏ:
+   ```sql
+   SELECT symbol FROM olap.company_overview FINAL WHERE symbol = '<TICKER>' LIMIT 1
+   ```
+   Nếu rỗng → entity không có trong DB. Báo user kiểm tra lại ticker/tên, KHÔNG đoán mã khác.
+
+2. **Entity có nhưng không có timeframe user hỏi** — liệt kê các mốc sẵn có để user chọn:
+   ```sql
+   SELECT DISTINCT year, quarter FROM olap.income_statement FINAL
+   WHERE symbol = '<TICKER>' ORDER BY year DESC, quarter DESC LIMIT 12
+   ```
+   Sau đó nói thẳng với user: *"Hệ thống có dữ liệu \<TICKER\> các năm/quý: …. Bạn muốn xem mốc nào?"* và **chờ user trả lời**, không tự chọn.
+
+3. **Cả entity + timeframe đều có nhưng cột cụ thể NULL** (ví dụ `eps` null cho 1 năm cũ) — báo rõ "Trường \<X\> không có dữ liệu cho \<timeframe\>", liệt kê các trường còn lại đã lấy được.
+
+4. **DB hoàn toàn không phù hợp với câu hỏi** (ví dụ user hỏi tin tức mới sau cutoff) → chuyển `web_search`, KHÔNG cố ép vào DB.
+
+Nguyên tắc lõi: **trả lời đúng entity + đúng timeframe user yêu cầu, hoặc nói thẳng là không có rồi nhường quyết định cho user**. Đừng tự ý "fallback ngầm" sang dữ liệu năm khác.

@@ -24,7 +24,7 @@ Bạn có tool **`web_search(query)`** chạy qua SearXNG, trả về list `{tit
 ### Phải làm
 
 1. **Bao gồm đối tượng cụ thể**: ticker hoặc tên công ty đầy đủ. Ví dụ: `"Vinamilk VNM tin tức Q1 2026"` thay vì `"sữa Việt Nam"`.
-2. **Mốc thời gian**: thêm năm/quý vào query để lọc tin cũ. Ví dụ: `"FPT báo cáo Q3 2025"`.
+2. **Mốc thời gian phải khớp với system hint**: nếu hint `Mốc thời gian: 2025` thì query là `"... 2025"`, KHÔNG tự lùi về `"2023"` hay `"latest"`. Chỉ đổi mốc khi user hỏi rõ năm khác.
 3. **Tiếng Việt cho công ty Việt** — vẫn nên thử cả query tiếng Việt và tiếng Anh nếu kết quả tiếng Việt nghèo nàn (ngược lại: cho chỉ số vĩ mô quốc tế, ưu tiên tiếng Anh).
 4. **Từ khoá phụ trợ định hướng nguồn**: `"site:cafef.vn"`, `"site:vneconomy.vn"`, `"site:nguoicap.org"`, `"site:vietstock.vn"` — SearXNG không bảo đảm respect 100% nhưng tăng tỉ lệ hit nguồn tài chính uy tín VN.
 5. **Một query 1 ý** — không nhồi nhiều câu hỏi. Nếu cần 2 chủ đề khác nhau → gọi tool 2 lần.
@@ -41,7 +41,7 @@ Bạn có tool **`web_search(query)`** chạy qua SearXNG, trả về list `{tit
 - Tool trả tối đa 5 result. **Luôn đọc snippet trước**, chỉ dựa vào URL khi snippet rõ ràng có thông tin cần.
 - Đánh số nguồn `[1]`, `[2]`... khi cite trong câu trả lời, mỗi nguồn kèm 1 dòng URL ở cuối.
 - Nếu kết quả không liên quan / nghèo, thử lại với query khác (đổi keyword, đổi ngôn ngữ) — tối đa 2 lần.
-- Nếu vẫn không có thông tin → nói rõ với user là "Tôi không tìm được thông tin cập nhật về …", **không bịa**.
+- Nếu vẫn không có thông tin → nói thẳng với user: *"Tôi không tìm được thông tin về \<entity\> cho \<timeframe\> ở cả database lẫn nguồn web."* **Không bịa, không thay bằng năm/entity khác để có cái mà nói.** Sau đó để user quyết: gợi ý họ kiểm tra lại entity/timeframe, hoặc đề xuất mở rộng phạm vi (nếu DB có sẵn năm khác thì liệt kê các mốc đó từ kết quả `database_query` trước đó).
 
 ## VÍ DỤ
 
