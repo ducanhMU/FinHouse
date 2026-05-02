@@ -16,6 +16,7 @@ Changelog (enhanced):
 
 import io
 import os
+import re
 import hashlib
 import logging
 import threading
@@ -668,10 +669,40 @@ def delete_file_chunks(file_id: str):
         logger.warning(f"delete_file_chunks({file_id}) failed (non-fatal): {e}")
 
 
+# Whitelist for ticker-style filename prefixes. VN tickers are
+# alphanumeric uppercase, ≤ 8 chars. Anything outside is dropped.
+_PREFIX_OK_RE = re.compile(r"^[A-Za-z0-9]+_?$")
+
+# Multiplier applied to a chunk's vector score when its file name
+# starts with a known ticker prefix (e.g. "ACB_"). Boost is
+# intentionally modest: it nudges the ranking toward
+# convention-named files but never drowns out a strongly relevant
+# user-uploaded file that doesn't follow the convention.
+FILENAME_BOOST_MULT = 1.20
+
+
+def _normalize_prefixes(prefixes: list[str]) -> list[str]:
+    """Uppercase, dedupe, and ensure each prefix ends with `_`."""
+    out = []
+    seen = set()
+    for p in prefixes or []:
+        p = (p or "").strip().upper()
+        if not p or len(p) > 32 or not _PREFIX_OK_RE.match(p):
+            continue
+        if not p.endswith("_"):
+            p = p + "_"
+        if p in seen:
+            continue
+        seen.add(p)
+        out.append(p)
+    return out
+
+
 async def search_chunks(
     query_embedding: list[float],
     project_id: int,
     top_k: int = 20,
+    file_name_prefixes: Optional[list[str]] = None,
 ) -> list[dict]:
     """
     Search Milvus for similar chunks.
@@ -681,6 +712,17 @@ async def search_chunks(
         to every authenticated user. Always included.
       • Any other project_id: that project + base (0).
       • Negative project_id (incognito): only that project, not base.
+
+    file_name_prefixes:
+      Optional list of ticker-style prefixes (e.g. ["ACB", "VNM"]).
+      Files in `data/` (auto-scanned at startup) follow the
+      `<TICKER>_*` convention, but user-uploaded files do not. So we
+      use the prefix as a **score boost**, not a hard filter — chunks
+      from matching files get a small multiplier; chunks from
+      non-matching files with high vector similarity still come
+      through. To avoid losing relevant matching files that ranked
+      below top_k by raw similarity, we widen the candidate pool when
+      a prefix is supplied and re-trim after boosting.
     """
     from pymilvus import Collection
 
@@ -692,22 +734,24 @@ async def search_chunks(
     except Exception as e:
         logger.debug(f"collection.load() note (may already be loaded): {e}")
 
-    # Build filter expression
+    # Project-scope expression (no filename filter — that's a boost now)
     if project_id < 0:
-        # Incognito — isolated namespace
         expr = f"project_id == {project_id}"
     elif project_id == 0:
-        # Searching directly in base knowledge
         expr = "project_id == 0"
     else:
-        # Personal project — also search base
         expr = f"project_id in [0, {project_id}]"
+
+    safe_prefixes = _normalize_prefixes(file_name_prefixes or [])
+    # Widen the pool when boosting so strong-but-not-top filename
+    # matches still have a chance to surface.
+    effective_limit = top_k * 2 if safe_prefixes else top_k
 
     results = collection.search(
         data=[query_embedding],
         anns_field="embedding",
         param={"metric_type": "COSINE", "params": {"nprobe": 16}},
-        limit=top_k,
+        limit=effective_limit,
         expr=expr,
         output_fields=["file_id", "file_name", "chunk_index", "text", "project_id"],
     )
@@ -715,18 +759,37 @@ async def search_chunks(
     hits = []
     for hit_list in results:
         for hit in hit_list:
+            fname = hit.entity.get("file_name") or ""
+            raw_score = float(hit.score)
+            score = raw_score
+            boosted = False
+            if safe_prefixes:
+                fname_upper = fname.upper()
+                if any(fname_upper.startswith(p) for p in safe_prefixes):
+                    score = raw_score * FILENAME_BOOST_MULT
+                    boosted = True
             hits.append({
                 "id": hit.id,
-                "score": float(hit.score),
+                "score": score,
+                "raw_score": raw_score,
+                "filename_boosted": boosted,
                 "file_id": hit.entity.get("file_id"),
-                "file_name": hit.entity.get("file_name"),
+                "file_name": fname,
                 "chunk_index": hit.entity.get("chunk_index"),
                 "text": hit.entity.get("text"),
                 "project_id": hit.entity.get("project_id"),
             })
+
+    # Re-rank by boosted score and trim to the requested top_k.
+    if safe_prefixes:
+        hits.sort(key=lambda h: h["score"], reverse=True)
+        hits = hits[:top_k]
+
+    boosted_count = sum(1 for h in hits if h.get("filename_boosted"))
     logger.info(
         f"Milvus search: query_project={project_id} filter={expr} "
-        f"→ {len(hits)} hits"
+        f"prefixes={safe_prefixes or '-'} → {len(hits)} hits "
+        f"({boosted_count} boosted by filename)"
     )
     return hits
 
@@ -999,17 +1062,29 @@ async def retrieve_context(
     project_id: int,
     top_k: int = 20,
     top_n_rerank: int = 5,
+    file_name_prefixes: Optional[list[str]] = None,
 ) -> list[dict]:
     """
     Full RAG retrieval: embed query → Milvus search → rerank → top chunks.
     Pre-filters below MIN_RELEVANCE_SCORE to avoid polluting context.
+
+    file_name_prefixes:
+        Optional list like ["ACB", "VNM"]. Files in `data/` follow the
+        `<TICKER>_*` naming convention; user-uploaded files don't. So
+        this acts as a **score boost**, not a filter — matching files
+        get a small ranking nudge but high-relevance non-matching files
+        still surface. See `search_chunks` for details.
     """
     try:
         query_emb = await embed_query(query)
         if not query_emb:
             return []
 
-        candidates = await search_chunks(query_emb, project_id, top_k=top_k)
+        candidates = await search_chunks(
+            query_emb, project_id, top_k=top_k,
+            file_name_prefixes=file_name_prefixes,
+        )
+
         if not candidates:
             return []
 

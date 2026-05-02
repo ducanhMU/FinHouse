@@ -33,9 +33,25 @@ class Settings(BaseSettings):
     JWT_ACCESS_EXPIRE_MINUTES: int = 30
     JWT_REFRESH_EXPIRE_DAYS: int = 7
 
-    # Ollama
+    # Ollama (local) and OpenAI-compatible backup API
     OLLAMA_HOST: str = "http://finhouse-ollama:11434"
     DEFAULT_MODEL: str = "qwen2.5:14b"
+
+    # Mode selector — same semantics as EMBED_MODE / RERANK_MODE:
+    #   "local"  → call local Ollama only; errors propagate
+    #   "backup" → call managed API only; errors propagate
+    #   "auto"   → try local first; sticky-switch to API after
+    #              LOCAL_FAILURE_THRESHOLD consecutive failures
+    OLLAMA_MODE: str = "local"
+
+    # OpenAI-compatible chat completions endpoint (FPT Cloud, Together, etc.).
+    # Empty → API backup unavailable.
+    OLLAMA_API_URL: str = ""           # e.g. https://mkp-api.fptcloud.com/v1
+    OLLAMA_API_KEY: str = ""
+    # If set, overrides session.model_used when calling the API. Use this
+    # when local model tags (e.g. "qwen2.5:14b") don't match what the
+    # managed provider exposes (e.g. "Qwen3-32B").
+    OLLAMA_API_MODEL: str = ""
 
     # Soft ceiling on tool-calling rounds. The LLM decides when it has
     # enough data and stops emitting tool_calls — most queries finish in
@@ -148,7 +164,7 @@ class Settings(BaseSettings):
             raise ValueError("JWT_SECRET must be at least 32 characters long")
         return v
 
-    @field_validator("EMBED_MODE", "RERANK_MODE")
+    @field_validator("EMBED_MODE", "RERANK_MODE", "OLLAMA_MODE")
     @classmethod
     def _check_mode(cls, v: str, info) -> str:
         v = v.lower().strip()

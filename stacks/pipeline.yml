@@ -34,6 +34,7 @@ x-airflow-common: &airflow-common
     - ../pipeline/airflow/logs:/opt/airflow/logs
     # Spark job script available to spark-submit running inside the Airflow container
     - ../pipeline/spark/ingest_job.py:/opt/airflow/spark/ingest_job.py:ro
+    - ../pipeline/spark/csv_ingest_job.py:/opt/airflow/spark/csv_ingest_job.py:ro
     # Shared data folder — same host path mounted at the same container path across all services
     - ../data:/opt/finhouse/data
   networks:
@@ -150,6 +151,7 @@ services:
     volumes:
       - ../pipeline/spark/conf/spark-defaults.conf:/opt/spark/conf/spark-defaults.conf
       - ../pipeline/spark/ingest_job.py:/opt/spark/jobs/ingest_job.py:ro
+      - ../pipeline/spark/csv_ingest_job.py:/opt/spark/jobs/csv_ingest_job.py:ro
       - ../data:/opt/finhouse/data
     networks:
       - finhouse-net
@@ -171,6 +173,7 @@ services:
     volumes:
       - ../pipeline/spark/conf/spark-defaults.conf:/opt/spark/conf/spark-defaults.conf
       - ../pipeline/spark/ingest_job.py:/opt/spark/jobs/ingest_job.py:ro
+      - ../pipeline/spark/csv_ingest_job.py:/opt/spark/jobs/csv_ingest_job.py:ro
       - ../data:/opt/finhouse/data
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro

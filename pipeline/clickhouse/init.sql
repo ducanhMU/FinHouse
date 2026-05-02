@@ -462,3 +462,32 @@ CREATE TABLE IF NOT EXISTS update_log (
     status          Nullable(String)
 ) ENGINE = MergeTree()
 ORDER BY update_time;
+
+CREATE TABLE IF NOT EXISTS stock_dividend
+(
+    `symbol` String,
+    `record_date` Nullable(Date),
+    `payment_date` Nullable(Date),
+    `exercise_rate` Nullable(Float64),
+    `plan_volume` Nullable(UInt64),
+    `issue_volume` Nullable(UInt64),
+    `currency` Nullable(String),
+    `dividend_year` Nullable(UInt16),
+    `duration` Nullable(String)
+)
+ENGINE = MergeTree
+ORDER BY (symbol, coalesce(dividend_year, 0));
+
+CREATE TABLE IF NOT EXISTS cash_dividend
+(
+    symbol String,
+    record_date Nullable(Date),
+    payment_date Nullable(Date),
+    exercise_rate Nullable(Float64),
+    dps Nullable(Float64), -- Dividend Per Share
+    currency Nullable(String),
+    dividend_year Nullable(UInt16),
+    duration Nullable(String)
+)
+ENGINE = MergeTree()
+ORDER BY symbol;

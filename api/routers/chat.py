@@ -25,7 +25,12 @@ from tools.database_query import (
     DATABASE_QUERY_TOOL_SCHEMA,
 )
 from tools.visualize import build_chart, VISUALIZE_TOOL_SCHEMA
-from prompts import get_system_prompt
+from prompts import (
+    get_system_prompt,
+    get_database_query_prompt,
+    get_visualize_prompt,
+    get_web_search_prompt,
+)
 from routers.auth import get_current_user
 from routers.sessions import authorize_session
 
@@ -625,6 +630,23 @@ async def send_message(
                 # ── RAG Retrieval (only if project has files) ────
                 rag_sources = []
                 search_project = session_project_id if session_project_id >= 0 else 0
+
+                # If the rewriter resolved a company scope, narrow RAG to
+                # files named `<TICKER>_*` (project convention). The ingest
+                # layer auto-falls-back to unfiltered search if no file
+                # matches, so this never starves the chat of RAG context.
+                ticker_prefixes: list[str] = []
+                if (
+                    rewrite_result
+                    and rewrite_result.scope_type == "company"
+                    and resolved_companies
+                ):
+                    ticker_prefixes = [
+                        (c.get("symbol") or "").upper()
+                        for c in resolved_companies
+                        if c.get("symbol")
+                    ]
+
                 t_rag = time.perf_counter()
                 if await _project_has_files(db, search_project):
                     try:
@@ -634,11 +656,13 @@ async def send_message(
                             project_id=search_project,
                             top_k=20,
                             top_n_rerank=5,
+                            file_name_prefixes=ticker_prefixes or None,
                         )
                         log.info(
                             f"[session={session_id}] RAG retrieved "
                             f"{len(rag_chunks) if rag_chunks else 0} chunks "
                             f"for query={embed_query_text[:80]!r} "
+                            f"prefixes={ticker_prefixes or '-'} "
                             f"in {(time.perf_counter() - t_rag)*1000:.0f}ms"
                         )
                         if rag_chunks:
@@ -738,12 +762,26 @@ async def send_message(
                     messages.append({"role": "user", "content": body.text})
 
                 tools = []
+                tool_guides: list[str] = []
                 if "web_search" in enabled_tools:
                     tools.append(WEB_SEARCH_TOOL_SCHEMA)
+                    tool_guides.append(get_web_search_prompt())
                 if "database_query" in enabled_tools and db_enabled():
                     tools.append(DATABASE_QUERY_TOOL_SCHEMA)
+                    tool_guides.append(get_database_query_prompt())
                 if "visualize" in enabled_tools:
                     tools.append(VISUALIZE_TOOL_SCHEMA)
+                    tool_guides.append(get_visualize_prompt())
+
+                # Inject per-tool guides as a single system block right after
+                # the main system prompt. Only the guides for ENABLED tools
+                # are loaded, so unused tool docs don't burn context.
+                if tool_guides:
+                    insert_at = 1 if messages and messages[0].get("role") == "system" else 0
+                    messages.insert(insert_at, {
+                        "role": "system",
+                        "content": "\n\n".join(tool_guides),
+                    })
 
                 log.info(
                     f"[session={session_id}] tools enabled: "

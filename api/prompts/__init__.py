@@ -28,9 +28,33 @@ _FALLBACK_REWRITER = (
     "rewritten, needs_clarification, clarification, preserved_entities, preserved_timeframe."
 )
 
+_FALLBACK_DATABASE_QUERY = (
+    "Use database_query for read-only SQL on the OLAP database. "
+    "Tables include stocks, company_overview, balance_sheet, income_statement, "
+    "cash_flow_statement, financial_ratios, shareholders, officers, news, events, "
+    "stock_price_history. Add FINAL on ReplacingMergeTree tables for latest rows. "
+    "Filter financial tables by (symbol, year, quarter); quarter=0 means annual."
+)
+
+_FALLBACK_VISUALIZE = (
+    "Use visualize after database_query. Pie only for share-of-whole "
+    "(percentages, shareholder breakdown). Bar for cross-entity comparison. "
+    "Line/area for time series. Scatter for two-numeric relationships. "
+    "y_field must be numeric. Embed the returned URL with markdown ![title](url)."
+)
+
+_FALLBACK_WEB_SEARCH = (
+    "Use web_search only for fresh info outside training cutoff and outside "
+    "the OLAP database. Resolve pronouns first. Include ticker/company and "
+    "year/quarter in the query. Cite sources [1], [2] in the answer."
+)
+
 _FALLBACKS = {
     "system": _FALLBACK_SYSTEM,
     "query_rewriter": _FALLBACK_REWRITER,
+    "database_query": _FALLBACK_DATABASE_QUERY,
+    "visualize": _FALLBACK_VISUALIZE,
+    "web_search": _FALLBACK_WEB_SEARCH,
 }
 
 
@@ -81,3 +105,15 @@ def get_system_prompt() -> str:
 
 def get_query_rewriter_prompt() -> str:
     return load_prompt("query_rewriter")
+
+
+def get_database_query_prompt() -> str:
+    return load_prompt("database_query")
+
+
+def get_visualize_prompt() -> str:
+    return load_prompt("visualize")
+
+
+def get_web_search_prompt() -> str:
+    return load_prompt("web_search")
