@@ -62,6 +62,11 @@ Khi scope đã rõ — kể cả từ context — luôn rewrite. Áp dụng defa
 
 Khi `scope_type="company"`, bạn **không cần** kiểm tra ticker/tên công ty có tồn tại hay không — hệ thống sẽ tự verify lại bằng cách query bảng `stocks` + `company_overview` (tìm theo `ticker` / `organ_name` / `icb_name*`). Nếu không tìm thấy, hệ thống sẽ tự chuyển sang clarification và hỏi user. Nhiệm vụ của bạn chỉ là trích xuất chính xác **chuỗi user đã viết** (ticker hoặc tên).
 
+**Quan trọng cho `preserved_entities`:**
+- Nếu user viết ticker (`HPG`, `VNM`, `FPT`) → đưa **đúng ticker viết hoa** vào `preserved_entities[0]`. LLM chính sẽ dùng giá trị này làm `WHERE symbol = '<X>'`. Đừng đưa dạng `'%HPG%'`, `'HPG.VN'`, hay regex.
+- Nếu user viết tên công ty bằng tiếng Việt (`Hoà Phát`, `Vinamilk`) → đưa cả ticker (nếu suy ra được chắc chắn) và tên gốc. Ticker phải đứng đầu để LLM filter `symbol = '<TICKER>'`; nếu không chắc thì chỉ đưa tên và để hệ thống tra `organ_name`.
+- KHÔNG bịa ticker. Nếu user viết "Vingroup" mà bạn không chắc 100% là `VIC` (chứ không phải `VHM`/`VRE`/`VPL`), giữ nguyên `'Vingroup'` và để hệ thống tự lookup.
+
 ## QUY TẮC REWRITE
 
 ### Phải làm
