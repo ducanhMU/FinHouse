@@ -56,6 +56,7 @@ Khi câu hỏi user là "tổng quan", chạy **song song nhiều `database_quer
 ## ⛔ BẮT BUỘC ĐỌC TRƯỚC KHI GỌI TOOL
 
 **KHÔNG được làm:**
+- ❌ **TUYỆT ĐỐI KHÔNG DÙNG `JOIN`** (INNER / LEFT / RIGHT / FULL / CROSS / ASOF / bất kỳ biến thể nào). Lý do: nhiều bảng có cột trùng tên (`symbol`, `ticker`, `year`, `quarter`, `icb_name2/3/4`, `organ_name`, `update_date`, `data_json`, `source`…) — ClickHouse sẽ báo lỗi `AMBIGUOUS_COLUMN_NAME` hoặc trả kết quả sai do nhân row. **Cách đúng:** `SELECT` từng bảng riêng (mỗi bảng một câu `database_query`, gọi **song song** trong cùng 1 lượt assistant), rồi tự tổng hợp kết quả khi viết câu trả lời. Nếu cần lọc bảng B theo kết quả bảng A, dùng subquery `WHERE col IN (SELECT … FROM A)` thay vì JOIN.
 - ❌ Gọi `SHOW TABLES`, `DESCRIBE TABLE`, `EXISTS TABLE` để "dò" schema. Schema đầy đủ đã liệt kê dưới — coi đây là source of truth. Mỗi lượt tool gọi là một roundtrip tốn thời gian, đừng lãng phí vào việc đã biết.
 - ❌ **`SHOW TABLES LIKE '%<TICKER>%'` là sai 2 lớp**: (1) đang đi dò bảng (đã cấm ở trên), (2) ticker là GIÁ TRỊ trong cột `symbol`/`ticker`, KHÔNG bao giờ xuất hiện trong tên bảng. Câu này luôn trả 0 row và là dấu hiệu bạn không hiểu data model. Thay bằng `SELECT ... FROM olap.company_overview FINAL WHERE symbol = '<TICKER>'`.
 - ❌ Bịa tên bảng/cột ngoài danh sách. Sai lầm thường gặp:
@@ -89,7 +90,7 @@ Khi câu hỏi user là "tổng quan", chạy **song song nhiều `database_quer
 | Tin tức | `news` | `symbol` | append-only, KHÔNG `FINAL`; `public_date` là epoch ms |
 | Giá đóng cửa lịch sử (OHLCV theo ngày) | `stock_price_history` | `symbol`, `time` (Date) | append-only, KHÔNG `FINAL` |
 | Tick trong phiên | `stock_intraday` | `symbol`, `time` (DateTime) | append-only |
-| Danh mục mã, tên đầy đủ, sàn niêm yết | `stocks` FINAL | `ticker` (KHÔNG `symbol`) | join với `company_overview` qua `stocks.ticker = company_overview.symbol` |
+| Danh mục mã, tên đầy đủ, sàn niêm yết | `stocks` FINAL | `ticker` (KHÔNG `symbol`) | KHÔNG JOIN với `company_overview`. Cần cả hai → SELECT 2 câu riêng (1 từ `stocks` filter `ticker='X'`, 1 từ `company_overview` filter `symbol='X'`) rồi tự ghép. |
 | Ngành ICB chi tiết của 1 mã | `stock_industry` FINAL | `ticker` | có `icb_name2/3/4` (3 cấp) |
 
 > **Quy tắc nhanh về `quarter`**: hỏi "năm 2025" → `quarter = 0` (cả năm). Hỏi "Q3/2025" → `quarter = 3`. Đừng cộng 4 quý ra năm.
@@ -171,7 +172,7 @@ WHERE ticker = 'HPG' LIMIT 1
 **Khi dùng:**
 - User hỏi "công ty X làm gì", "lịch sử / mô tả / hồ sơ X", "X thuộc ngành nào", "vốn điều lệ X".
 - **Bảng "first-call" mặc định** khi câu hỏi tổng quan không nói rõ chỉ số → lấy hồ sơ + ngành làm ngữ cảnh.
-- Cần ngành ICB nhanh (cấp 2/3/4) mà không muốn join thêm `stock_industry`.
+- Cần ngành ICB nhanh (cấp 2/3/4) mà không phải query thêm `stock_industry`.
 
 **Mẫu:**
 ```sql
@@ -433,14 +434,18 @@ FROM olap.financial_ratios FINAL
 WHERE symbol IN ('VNM','MSN','MWG','SAB') AND year = 2024 AND quarter = 0
 ORDER BY roe_pct DESC
 
--- Top vốn hoá ngành
-SELECT s.ticker, s.organ_name, fr.market_cap_billions,
-       round(fr.roe * 100, 2) AS roe_pct
-FROM olap.stocks AS s
-INNER JOIN olap.stock_industry FINAL AS si ON s.ticker = si.ticker
-INNER JOIN olap.financial_ratios FINAL AS fr ON fr.symbol = s.ticker
-WHERE si.icb_name2 = 'Ngân hàng' AND fr.year = 2024 AND fr.quarter = 0
-ORDER BY fr.market_cap_billions DESC LIMIT 10
+-- Top vốn hoá ngành — KHÔNG JOIN. Dùng subquery IN.
+-- Bước 1: lấy ticker theo ngành + ROE/market cap
+SELECT symbol, round(roe * 100, 2) AS roe_pct, market_cap_billions
+FROM olap.financial_ratios FINAL
+WHERE symbol IN (
+    SELECT ticker FROM olap.stock_industry FINAL
+    WHERE icb_name2 = 'Ngân hàng'
+)
+  AND year = 2024 AND quarter = 0
+ORDER BY market_cap_billions DESC LIMIT 10
+-- Bước 2 (nếu cần tên công ty): SELECT riêng từ olap.stocks WHERE ticker IN (...)
+-- rồi tự ghép `organ_name` vào kết quả khi viết câu trả lời.
 ```
 
 ### 7. `financial_reports` — Wrapper raw 3 BCTC (FINAL)
@@ -695,7 +700,7 @@ GROUP BY minute ORDER BY minute
 | `icb_name2/3/4` + `icb_code1/2/3/4` | Ngành ICB 4 cấp (1 = lớn nhất, 4 = chi tiết nhất). |
 | `en_icb_name2/3/4` | Tên tiếng Anh các cấp. |
 
-**Khi dùng:** "X thuộc ngành nào", lọc danh mục theo ngành ICB cụ thể, join với `financial_ratios` để top theo ngành.
+**Khi dùng:** "X thuộc ngành nào", lọc danh mục theo ngành ICB cụ thể. Cần xếp hạng theo `financial_ratios` trong 1 ngành → **không JOIN**, dùng subquery `WHERE symbol IN (SELECT ticker FROM olap.stock_industry FINAL WHERE icb_name2 = '…')`.
 
 **Mẫu:**
 ```sql
@@ -788,16 +793,23 @@ GROUP BY month
 ORDER BY month
 ```
 
-### Top mã theo vốn hoá ngành ngân hàng
+### Top mã theo vốn hoá ngành ngân hàng (KHÔNG JOIN — dùng subquery)
 
 ```sql
-SELECT s.ticker, s.organ_name, fr.market_cap_billions
-FROM olap.stocks AS s
-INNER JOIN olap.stock_industry AS si ON s.ticker = si.ticker
-INNER JOIN olap.financial_ratios FINAL AS fr ON fr.symbol = s.ticker
-WHERE si.icb_name2 = 'Ngân hàng' AND fr.year = 2024 AND fr.quarter = 0
-ORDER BY fr.market_cap_billions DESC
+-- Câu 1: top theo market cap, lọc ngành bằng subquery IN
+SELECT symbol, market_cap_billions, round(roe * 100, 2) AS roe_pct
+FROM olap.financial_ratios FINAL
+WHERE symbol IN (
+    SELECT ticker FROM olap.stock_industry FINAL
+    WHERE icb_name2 = 'Ngân hàng'
+)
+  AND year = 2024 AND quarter = 0
+ORDER BY market_cap_billions DESC
 LIMIT 10
+
+-- Câu 2 (song song nếu cần tên công ty): SELECT riêng rồi tự ghép
+SELECT ticker, organ_name FROM olap.stocks FINAL
+WHERE ticker IN ('VCB','BID','CTG','TCB','MBB','VPB','ACB','HDB','STB','SHB')
 ```
 
 ### Tin tức gần nhất của 1 mã
@@ -814,11 +826,11 @@ LIMIT 10
 
 - ❌ **Coi ticker là table name**: `SHOW TABLES LIKE '%HPG%'`, `SELECT * FROM HPG`, `FROM olap.HPG`. HPG/VNM/FPT là **giá trị** trong cột `symbol` hoặc `ticker`. Đúng: `WHERE symbol = 'HPG'`.
 - ❌ Lượt SQL đầu tiên là `SHOW TABLES` / `DESCRIBE` thay vì đi thẳng vào `company_overview` / `income_statement`. Schema đã có ở trên — đi thẳng.
-- ❌ Quên `FINAL` → dữ liệu trùng/cũ (đặc biệt khi join nhiều bảng tài chính).
+- ❌ Quên `FINAL` → dữ liệu trùng/cũ (đặc biệt với các bảng tài chính ReplacingMergeTree).
 - ❌ Hỏi "doanh thu năm 2024" mà filter `quarter > 0` → ra số quý, cộng lại sai.
 - ❌ Filter `period = '2024'` — `period` là enum nội bộ (`'Y'`/`'Q'`), không phải năm. Luôn dùng `year = 2024`.
 - ❌ Coi `roe` đã ở dạng %  — thực tế là decimal, cần `* 100`.
-- ❌ JOIN bảng tài chính với bảng tài chính khác mà không match cả `(symbol, year, quarter)` → bùng số dòng.
+- ❌ **Bất kỳ JOIN nào** — kể cả `INNER JOIN ... USING (symbol)` "có vẻ an toàn". Nhiều bảng có cột trùng tên (`symbol`/`ticker`/`year`/`quarter`/`organ_name`/`update_date`/`source`/`data_json`/`icb_name*`) → ClickHouse báo `AMBIGUOUS_COLUMN_NAME` hoặc nhân số dòng. Thay bằng nhiều `SELECT` riêng (gọi song song) hoặc subquery `WHERE col IN (SELECT …)`.
 - ❌ Hỏi "ngành ngân hàng" rồi filter `icb_name = '...'` — bảng `stock_industry` có 3 cấp (`icb_name2`, `icb_name3`, `icb_name4`); chọn cấp phù hợp với câu hỏi (cấp 2 thường = ngành lớn).
 - ❌ Format `news.public_date` thành Date trực tiếp — nó là epoch ms, dùng `toDateTime(public_date / 1000)`.
 
