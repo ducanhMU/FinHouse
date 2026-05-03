@@ -29,18 +29,24 @@ _FALLBACK_REWRITER = (
 )
 
 _FALLBACK_DATABASE_QUERY = (
-    "Use database_query for read-only SQL on the OLAP database. "
+    "Use select_rows(table, columns?, filters?, order_by?, limit?, use_final?) and "
+    "aggregate(table, aggregations, group_by?, filters?, order_by?, limit?, use_final?) "
+    "to read the OLAP database. ONE table per call — no JOIN. "
     "Tables include stocks, company_overview, balance_sheet, income_statement, "
     "cash_flow_statement, financial_ratios, shareholders, officers, news, events, "
-    "stock_price_history. Add FINAL on ReplacingMergeTree tables for latest rows. "
-    "Filter financial tables by (symbol, year, quarter); quarter=0 means annual."
+    "stock_price_history. Set use_final=true on ReplacingMergeTree tables for latest "
+    "rows; false on append-only (stock_price_history, stock_intraday, news, events). "
+    "Filter financial tables by symbol/year/quarter; quarter=0 means annual."
 )
 
 _FALLBACK_VISUALIZE = (
-    "Use visualize after database_query. Pie only for share-of-whole "
-    "(percentages, shareholder breakdown). Bar for cross-entity comparison. "
-    "Line/area for time series. Scatter for two-numeric relationships. "
-    "y_field must be numeric. Embed the returned URL with markdown ![title](url)."
+    "Use bar(table, x_column, y_columns, filters?, order_by?, ...), "
+    "line(table, x_column, y_columns, filters?, order_by?, ...), or "
+    "pie(table, label_column, value_column, filters?, ...) to render charts. "
+    "Each tool reads one OLAP table directly — do NOT pre-fetch data. "
+    "Pie only for share-of-whole (shareholders, segment mix). Bar for "
+    "cross-entity comparison. Line for trends — always pass order_by asc "
+    "on the time column. Embed the returned URL with markdown ![title](url)."
 )
 
 _FALLBACK_WEB_SEARCH = (

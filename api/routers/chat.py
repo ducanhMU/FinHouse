@@ -21,10 +21,17 @@ from models import ChatSession, ChatEvent, File
 from services.ollama import chat_stream, chat_sync, TOOL_CAPABLE_MODELS
 from tools.web_search import web_search, WEB_SEARCH_TOOL_SCHEMA
 from tools.database_query import (
-    run_sql, is_enabled as db_enabled,
-    DATABASE_QUERY_TOOL_SCHEMA,
+    is_enabled as db_enabled,
+    select_rows as db_select_rows,
+    aggregate as db_aggregate,
+    DATABASE_QUERY_TOOL_SCHEMAS,
 )
-from tools.visualize import build_chart, VISUALIZE_TOOL_SCHEMA
+from tools.visualize import (
+    bar as viz_bar,
+    line as viz_line,
+    pie as viz_pie,
+    VISUALIZE_TOOL_SCHEMAS,
+)
 from prompts import (
     get_system_prompt,
     get_database_query_prompt,
@@ -351,26 +358,78 @@ async def _handle_tool_calls(
                 result_text = json.dumps(results, ensure_ascii=False)
             except Exception as e:
                 result_text = json.dumps({"error": f"web_search failed: {e}"})
-        elif tool_name == "database_query" and "database_query" in enabled_tools:
-            sql = tool_args.get("sql", "")
+        elif tool_name == "select_rows" and "database_query" in enabled_tools:
             try:
-                result = await run_sql(sql)
+                result = await db_select_rows(
+                    table=tool_args.get("table", ""),
+                    columns=tool_args.get("columns") or None,
+                    filters=tool_args.get("filters") or None,
+                    order_by=tool_args.get("order_by") or None,
+                    limit=tool_args.get("limit", 100),
+                    use_final=tool_args.get("use_final", True),
+                )
                 result_text = json.dumps(result, ensure_ascii=False, default=str)
             except Exception as e:
-                result_text = json.dumps({"error": f"database_query failed: {e}"})
-        elif tool_name == "visualize" and "visualize" in enabled_tools:
+                result_text = json.dumps({"error": f"select_rows failed: {e}"})
+        elif tool_name == "aggregate" and "database_query" in enabled_tools:
             try:
-                result = await build_chart(
-                    data_rows=tool_args.get("data_rows", []),
-                    mark=tool_args.get("mark", "bar"),
-                    x_field=tool_args.get("x_field", ""),
-                    y_field=tool_args.get("y_field", ""),
-                    color_field=tool_args.get("color_field"),
+                result = await db_aggregate(
+                    table=tool_args.get("table", ""),
+                    aggregations=tool_args.get("aggregations") or [],
+                    group_by=tool_args.get("group_by") or None,
+                    filters=tool_args.get("filters") or None,
+                    order_by=tool_args.get("order_by") or None,
+                    limit=tool_args.get("limit", 100),
+                    use_final=tool_args.get("use_final", True),
+                )
+                result_text = json.dumps(result, ensure_ascii=False, default=str)
+            except Exception as e:
+                result_text = json.dumps({"error": f"aggregate failed: {e}"})
+        elif tool_name == "bar" and "visualize" in enabled_tools:
+            try:
+                result = await viz_bar(
+                    table=tool_args.get("table", ""),
+                    x_column=tool_args.get("x_column", ""),
+                    y_columns=tool_args.get("y_columns") or [],
+                    filters=tool_args.get("filters") or None,
+                    order_by=tool_args.get("order_by") or None,
+                    limit=tool_args.get("limit", 50),
+                    use_final=tool_args.get("use_final", True),
                     title=tool_args.get("title"),
                 )
                 result_text = json.dumps(result, ensure_ascii=False, default=str)
             except Exception as e:
-                result_text = json.dumps({"error": f"visualize failed: {e}"})
+                result_text = json.dumps({"error": f"bar failed: {e}"})
+        elif tool_name == "line" and "visualize" in enabled_tools:
+            try:
+                result = await viz_line(
+                    table=tool_args.get("table", ""),
+                    x_column=tool_args.get("x_column", ""),
+                    y_columns=tool_args.get("y_columns") or [],
+                    filters=tool_args.get("filters") or None,
+                    order_by=tool_args.get("order_by") or None,
+                    limit=tool_args.get("limit", 50),
+                    use_final=tool_args.get("use_final", True),
+                    title=tool_args.get("title"),
+                )
+                result_text = json.dumps(result, ensure_ascii=False, default=str)
+            except Exception as e:
+                result_text = json.dumps({"error": f"line failed: {e}"})
+        elif tool_name == "pie" and "visualize" in enabled_tools:
+            try:
+                result = await viz_pie(
+                    table=tool_args.get("table", ""),
+                    label_column=tool_args.get("label_column", ""),
+                    value_column=tool_args.get("value_column", ""),
+                    filters=tool_args.get("filters") or None,
+                    order_by=tool_args.get("order_by") or None,
+                    limit=tool_args.get("limit", 10),
+                    use_final=tool_args.get("use_final", True),
+                    title=tool_args.get("title"),
+                )
+                result_text = json.dumps(result, ensure_ascii=False, default=str)
+            except Exception as e:
+                result_text = json.dumps({"error": f"pie failed: {e}"})
         else:
             result_text = json.dumps({"error": f"Tool '{tool_name}' not available"})
 
@@ -767,10 +826,10 @@ async def send_message(
                     tools.append(WEB_SEARCH_TOOL_SCHEMA)
                     tool_guides.append(get_web_search_prompt())
                 if "database_query" in enabled_tools and db_enabled():
-                    tools.append(DATABASE_QUERY_TOOL_SCHEMA)
+                    tools.extend(DATABASE_QUERY_TOOL_SCHEMAS)
                     tool_guides.append(get_database_query_prompt())
                 if "visualize" in enabled_tools:
-                    tools.append(VISUALIZE_TOOL_SCHEMA)
+                    tools.extend(VISUALIZE_TOOL_SCHEMAS)
                     tool_guides.append(get_visualize_prompt())
 
                 # Inject per-tool guides as a single system block right after

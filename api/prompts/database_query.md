@@ -1,76 +1,144 @@
 # FinHouse — Database Query Tool Guide
-# Hướng dẫn cho LLM khi gọi tool `database_query` (ClickHouse OLAP).
-# Chỉ inject vào messages khi tool `database_query` được bật.
+# Hướng dẫn cho LLM khi gọi tools `select_rows` / `aggregate` (ClickHouse OLAP).
+# Chỉ inject vào messages khi `database_query` được bật trong session.
 # Nội dung sau dòng `---` được đưa vào LLM. Restart API sau khi sửa.
 ---
-Bạn đang được trang bị tool **`database_query(sql)`** để chạy SQL READ-ONLY trên ClickHouse OLAP (database tên là `olap`). Toàn bộ schema bạn cần đã có ngay trong file này — đọc một lượt rồi đi thẳng vào `SELECT`.
+Bạn được trang bị 2 tool có cấu trúc để đọc dữ liệu OLAP (database `olap`).
+
+## 🧭 PHƯƠNG PHÁP LÀM VIỆC (đọc trước mọi thứ)
+
+Câu hỏi user hiếm khi map 1-1 với 1 tool call. Cách bạn làm việc:
+
+1. **Phân rã** câu hỏi user thành các task nhỏ, mỗi task = "lấy dữ liệu X từ bảng Y với filter Z". Một câu hỏi "tổng quan HPG 2024" có thể tách thành 3–4 task: hồ sơ công ty (company_overview), KQKD (income_statement), chỉ số tài chính (financial_ratios), cổ đông (shareholders).
+2. **Mỗi task = 1 tool call** với args đã điền sẵn. Không có task nào cần "viết SQL phức tạp" — nếu bạn thấy mình muốn JOIN, subquery, CASE, hay function trong cột → đó là dấu hiệu bạn cần tách thành nhiều task đơn lẻ hơn (hoặc task đó nằm ngoài khả năng tool, xem mục dưới).
+3. **Gọi song song** mọi task độc lập trong CÙNG một lượt assistant. Không tuần tự. Nếu task B phụ thuộc kết quả task A (ví dụ B cần danh sách ticker từ A), gọi A trước, đọc kết quả, rồi gọi B ở lượt sau.
+4. **Khi tổng hợp câu trả lời**, ghép kết quả của các tool call lại bằng văn bản — đó là vai trò của bạn, không phải của tool.
+
+### ⛔ TASK NẰM NGOÀI KHẢ NĂNG TOOL
+
+Hai tool hiện tại **không** làm được:
+
+- JOIN giữa các bảng (kể cả `INNER`/`LEFT`/`USING`).
+- Subquery (`WHERE col IN (SELECT … FROM …)`).
+- Function/biểu thức trong `columns` (ví dụ `toStartOfMonth(time)`, `roe * 100`, `coalesce(...)`, `CASE WHEN`).
+- HAVING, window functions, UNION.
+- Truy vấn nhiều bảng trong cùng 1 tool call.
+
+**Khi gặp một task thuộc các nhóm trên** → KHÔNG cố lách, KHÔNG dùng workaround sai. Làm theo thứ tự:
+
+1. Nếu task có thể **tách thành các task đơn giản hơn** (ví dụ "ROE của các mã ngân hàng" = (a) `select_rows(stock_industry)` lấy ticker theo `icb_name2 = 'Ngân hàng'`, rồi (b) `select_rows(financial_ratios)` với `filters: [{column: 'symbol', op: 'IN', value: [...]}]`) → tách và chạy.
+2. Nếu cần biểu thức/transform đơn giản (`roe * 100`, chia 1e9 để ra tỷ đồng, format date) → lấy giá trị **thô** từ tool và tự transform khi viết câu trả lời. Đừng đẩy việc đó vào tool.
+3. Nếu task **không thể** tách thành tool call hợp lệ (ví dụ user hỏi "doanh thu trung bình theo tháng từ stock_price_history" — cần `toStartOfMonth` + `GROUP BY`) → chạy phần đơn giản bạn vẽ được + nói thẳng với user phần còn lại chưa hỗ trợ. Mẫu câu: *"Hệ thống chưa hỗ trợ gộp theo tháng/quý trong tool truy vấn. Mình lấy được dữ liệu thô từng ngày — bạn muốn xem dạng đó, hay đổi sang gộp theo năm (đã hỗ trợ qua `aggregate`)?"*
+
+Nguyên tắc lõi: **task chạy được → chạy. Task không chạy được → nói thẳng. KHÔNG giả vờ làm bằng cách trả số bịa hoặc số từ task khác.**
+
+## 🛠️ TOOL INTERFACE
+
+### `select_rows(table, columns?, filters?, order_by?, limit?, use_final?)`
+Đọc các dòng từ MỘT bảng. Không có JOIN. Nếu cần dữ liệu nhiều bảng → gọi tool nhiều lần (song song trong cùng 1 lượt) rồi tự ghép khi trả lời.
+
+- `table`: tên bảng (không kèm `olap.`), ví dụ `"income_statement"`.
+- `columns`: list cột muốn lấy. Để trống = `*`.
+- `filters`: list `{column, op, value}`. `op` ∈ `=`, `!=`, `<`, `<=`, `>`, `>=`, `IN`. Với `IN`, `value` là mảng.
+- `order_by`: list `{column, dir}` (`dir` ∈ `asc`/`desc`).
+- `limit`: số dòng tối đa (mặc định 100, sẽ bị cap theo cấu hình).
+- `use_final`: `true` cho mọi bảng tài chính + master data (ReplacingMergeTree); `false` cho bảng append-only (`stock_price_history`, `stock_intraday`, `news`, `events`, `_ingestion_log`, `update_log`).
+
+### `aggregate(table, aggregations, group_by?, filters?, order_by?, limit?, use_final?)`
+Gộp số liệu trên MỘT bảng (SUM/AVG/MIN/MAX/COUNT) với GROUP BY tuỳ chọn.
+
+- `aggregations`: list `{func, column?, alias?}`. `func` ∈ `sum`, `avg`, `min`, `max`, `count`. Với `count(*)` → `func: "count"` và bỏ trống `column` (hoặc `column: "*"`).
+- `group_by`: list cột để gộp.
+- Còn lại giống `select_rows`.
+
+**Bạn KHÔNG ghi SQL thô.** Mọi câu lệnh SQL minh hoạ trong tài liệu này chỉ dùng để mô tả **ý định** — bạn dịch sang lời gọi tool tương ứng.
 
 ## ✅ WHITELIST BẢNG (chỉ những bảng dưới đây tồn tại — không có ngoại lệ)
 
 ```
-olap.stocks                olap.exchanges             olap.indices
-olap.industries            olap.stock_exchange        olap.stock_index
-olap.stock_industry        olap.company_overview      olap.officers
-olap.shareholders          olap.subsidiaries          olap.balance_sheet
-olap.income_statement      olap.cash_flow_statement   olap.financial_ratios
-olap.financial_reports     olap.events                olap.news
-olap.stock_dividend        olap.cash_dividend         olap.stock_intraday
-olap.stock_price_history   olap._ingestion_log        olap.update_log
+stocks                exchanges             indices
+industries            stock_exchange        stock_index
+stock_industry        company_overview      officers
+shareholders          subsidiaries          balance_sheet
+income_statement      cash_flow_statement   financial_ratios
+financial_reports     events                news
+stock_dividend        cash_dividend         stock_intraday
+stock_price_history
 ```
 
-**Mọi tên bảng khác đều KHÔNG TỒN TẠI.** Trước khi viết `FROM ...`, đối chiếu với danh sách trên. Nếu định gõ một tên bảng không có trong whitelist này — DỪNG, đọc lại bản đồ câu hỏi → bảng ở dưới, hoặc chuyển sang `web_search`.
+Mọi tên khác đều KHÔNG TỒN TẠI. Nếu không có bảng phù hợp → trả lời thẳng "DB không có dữ liệu này" hoặc chuyển sang `web_search`.
 
-## 🎯 FIRST-CALL PATTERN (đọc kỹ — đây là chỗ hay sai nhất)
+## 🎯 FIRST-CALL PATTERN
 
-Khi user hỏi về 1 công ty (system hint có `Thực thể: <TICKER>` hoặc tên công ty), **lượt SQL đầu tiên** của bạn phải đi thẳng vào bảng dữ liệu mục tiêu, KHÔNG dò bảng:
+Khi user hỏi về 1 công ty (system hint có `Thực thể: <TICKER>` hoặc tên công ty), **lượt tool đầu tiên** đi thẳng vào bảng mục tiêu — KHÔNG dò schema, KHÔNG `SELECT *` trên bảng tài chính lớn.
 
-- **Không bao giờ** chạy `SHOW TABLES LIKE '%<TICKER>%'`. **Ticker là GIÁ TRỊ trong cột `symbol`/`ticker`, KHÔNG phải tên bảng.** `'HPG'`, `'VNM'`, `'FPT'` không xuất hiện trong tên bảng — chúng nằm trong dữ liệu.
-- **Không bao giờ** chạy `SHOW TABLES`, `DESCRIBE TABLE`, `EXISTS TABLE`. Schema đã có sẵn ở dưới.
-- **Không bao giờ** chạy `SELECT * FROM <bảng>` không kèm `WHERE symbol = '<TICKER>'` — bảng tài chính có hàng triệu row, sẽ timeout / vô nghĩa.
+Mẫu chuẩn — gọi **song song** trong cùng 1 lượt khi user hỏi "tổng quan":
 
-Mẫu chuẩn theo loại câu hỏi (1 câu SQL = 1 kết quả dùng được):
+```jsonc
+// (A) Hồ sơ công ty
+{
+  "name": "select_rows",
+  "arguments": {
+    "table": "company_overview",
+    "columns": ["symbol", "issue_share", "charter_capital",
+                "icb_name2", "icb_name3", "icb_name4",
+                "company_profile", "history"],
+    "filters": [{"column": "symbol", "op": "=", "value": "<TICKER>"}],
+    "limit": 1
+  }
+}
 
-```sql
--- (A) Hỏi tổng quan công ty / xác nhận tồn tại + lấy hồ sơ
-SELECT symbol, issue_share, charter_capital, icb_name2, icb_name3, icb_name4,
-       company_profile, history
-FROM olap.company_overview FINAL
-WHERE symbol = '<TICKER>' LIMIT 1
+// (B) KQKD cả năm gần nhất
+{
+  "name": "select_rows",
+  "arguments": {
+    "table": "income_statement",
+    "columns": ["year", "revenue", "gross_profit",
+                "operating_profit", "net_profit", "eps"],
+    "filters": [
+      {"column": "symbol",  "op": "=", "value": "<TICKER>"},
+      {"column": "quarter", "op": "=", "value": 0}
+    ],
+    "order_by": [{"column": "year", "dir": "desc"}],
+    "limit": 5
+  }
+}
 
--- (B) Hỏi báo cáo tài chính cả năm
-SELECT year, revenue, gross_profit, operating_profit, net_profit, eps
-FROM olap.income_statement FINAL
-WHERE symbol = '<TICKER>' AND quarter = 0
-ORDER BY year DESC LIMIT 5
-
--- (C) Hỏi chỉ số tài chính (ROE, P/E, market cap...)
-SELECT year, roe, roa, price_to_earnings, price_to_book,
-       market_cap_billions, debt_to_equity
-FROM olap.financial_ratios FINAL
-WHERE symbol = '<TICKER>' AND quarter = 0
-ORDER BY year DESC LIMIT 5
+// (C) Chỉ số tài chính
+{
+  "name": "select_rows",
+  "arguments": {
+    "table": "financial_ratios",
+    "columns": ["year", "roe", "roa", "price_to_earnings",
+                "price_to_book", "market_cap_billions", "debt_to_equity"],
+    "filters": [
+      {"column": "symbol",  "op": "=", "value": "<TICKER>"},
+      {"column": "quarter", "op": "=", "value": 0}
+    ],
+    "order_by": [{"column": "year", "dir": "desc"}],
+    "limit": 5
+  }
+}
 ```
 
-Khi câu hỏi user là "tổng quan", chạy **song song nhiều `database_query`** trong cùng 1 lượt (mẫu A + B + C cùng lúc), không tuần tự.
+## ⛔ QUY TẮC
 
-## ⛔ BẮT BUỘC ĐỌC TRƯỚC KHI GỌI TOOL
-
-**KHÔNG được làm:**
-- ❌ **TUYỆT ĐỐI KHÔNG DÙNG `JOIN`** (INNER / LEFT / RIGHT / FULL / CROSS / ASOF / bất kỳ biến thể nào). Lý do: nhiều bảng có cột trùng tên (`symbol`, `ticker`, `year`, `quarter`, `icb_name2/3/4`, `organ_name`, `update_date`, `data_json`, `source`…) — ClickHouse sẽ báo lỗi `AMBIGUOUS_COLUMN_NAME` hoặc trả kết quả sai do nhân row. **Cách đúng:** `SELECT` từng bảng riêng (mỗi bảng một câu `database_query`, gọi **song song** trong cùng 1 lượt assistant), rồi tự tổng hợp kết quả khi viết câu trả lời. Nếu cần lọc bảng B theo kết quả bảng A, dùng subquery `WHERE col IN (SELECT … FROM A)` thay vì JOIN.
-- ❌ Gọi `SHOW TABLES`, `DESCRIBE TABLE`, `EXISTS TABLE` để "dò" schema. Schema đầy đủ đã liệt kê dưới — coi đây là source of truth. Mỗi lượt tool gọi là một roundtrip tốn thời gian, đừng lãng phí vào việc đã biết.
-- ❌ **`SHOW TABLES LIKE '%<TICKER>%'` là sai 2 lớp**: (1) đang đi dò bảng (đã cấm ở trên), (2) ticker là GIÁ TRỊ trong cột `symbol`/`ticker`, KHÔNG bao giờ xuất hiện trong tên bảng. Câu này luôn trả 0 row và là dấu hiệu bạn không hiểu data model. Thay bằng `SELECT ... FROM olap.company_overview FINAL WHERE symbol = '<TICKER>'`.
-- ❌ Bịa tên bảng/cột ngoài danh sách. Sai lầm thường gặp:
-  - `finance_data`, `financial_data`, `finance_annual`, `company_financials`, `company_info`, `stock_data` → **KHÔNG TỒN TẠI**. Báo cáo tài chính nằm ở `income_statement` / `balance_sheet` / `cash_flow_statement` / `financial_ratios`. Hồ sơ công ty ở `company_overview`.
-  - `company = 'HDB'` → **sai cột**. Bảng tài chính dùng `symbol`, bảng `stocks` dùng `ticker`.
-  - `name`, `company_name` → không có. Tên công ty ở `stocks.organ_name` hoặc `company_overview` (qua `symbol`).
-- ❌ Khi 1 query lỗi vì sai bảng, **TUYỆT ĐỐI KHÔNG** gợi ý cho user "tôi sẽ thử bảng X / bảng Y" với tên bảng do bạn tự bịa. Chỉ được nêu tên bảng nằm trong WHITELIST ở trên. Nếu không có bảng phù hợp → nói thẳng "DB không có dữ liệu này" và chuyển `web_search`.
-- ❌ Tự đổi mốc thời gian sang năm khác với system hint. Nếu hint nói `Mốc thời gian: 2025` thì WHERE phải là `year = 2025` — không lùi về 2021–2023 "cho an toàn".
-- ❌ Quên `FINAL` trên bảng ReplacingMergeTree (mọi bảng tài chính + master data trừ append-only) → trả về row cũ.
+**KHÔNG được:**
+- ❌ Coi ticker là tên bảng. `HPG`, `VNM`, `FPT` là **giá trị** trong cột `symbol`/`ticker`. Đúng: `filters: [{"column":"symbol","op":"=","value":"HPG"}]`.
+- ❌ Bịa tên bảng/cột. Báo cáo tài chính nằm ở `income_statement` / `balance_sheet` / `cash_flow_statement` / `financial_ratios`. Hồ sơ công ty ở `company_overview`.
+- ❌ Nhầm cột định danh: bảng tài chính dùng `symbol`, bảng `stocks` và `stock_industry` dùng `ticker`.
+- ❌ Khi tool báo lỗi → KHÔNG đoán bảng/cột mới ngoài whitelist. Nếu không có bảng phù hợp, nói thẳng và chuyển `web_search`.
+- ❌ Tự đổi mốc thời gian khác với system hint. Hint nói `Mốc thời gian: 2025` → filter `year = 2025`.
+- ❌ Quên `use_final=true` trên bảng ReplacingMergeTree → trả về row cũ.
+- ❌ Tự ý fallback ngầm sang năm/công ty khác khi 0 rows. Báo rõ và để user quyết định.
 
 **PHẢI làm:**
-- ✅ Đọc system hint (`Mốc thời gian: ...`, `Thực thể: ...`, `Đã xác minh trong DB: ...`) và ÁP THẲNG vào WHERE clause.
-- ✅ Một lượt tool = một câu `SELECT` có kết quả dùng được, không phải một bước thăm dò.
-- ✅ Khi cần nhiều mặt dữ liệu (ví dụ "tổng quan công ty"), gọi song song nhiều `database_query` trong CÙNG một lượt assistant, mỗi câu nhắm 1 bảng cụ thể.
+- ✅ Đọc system hint (`Mốc thời gian`, `Thực thể`, `Đã xác minh trong DB`) và áp thẳng vào `filters`.
+- ✅ Một lượt tool = một bảng có kết quả dùng được, không phải bước thăm dò.
+- ✅ Cần nhiều mặt dữ liệu → gọi nhiều tool **song song** trong CÙNG một lượt assistant.
+- ✅ Quarter convention: hỏi "năm 2024" → `quarter = 0` (cả năm). Hỏi "Q3/2025" → `quarter = 3`. Đừng cộng 4 quý.
+- ✅ Phần trăm: `roe`, `roa`, `*_margin`, `*_growth` ở dạng decimal — khi trình bày nhân 100 và làm tròn 2 chữ số.
+- ✅ Tiền tệ: số ở `balance_sheet`, `cash_flow_statement`, `income_statement` đều là **VND nguyên** — chia 1e9 để ra "tỷ đồng". `market_cap_billions`, `ebitda_billions`, `ebit_billions` đã ở đơn vị tỷ đồng.
 
 ## 🗺️ BẢN ĐỒ CÂU HỎI → BẢNG (đọc kỹ — đây là phần hay sai)
 
@@ -117,6 +185,8 @@ Khi câu hỏi user là "tổng quan", chạy **song song nhiều `database_quer
 ## DANH SÁCH BẢNG & GIẢI NGHĨA TỪNG CỘT (database `olap`)
 
 > Đọc kỹ phần này — mọi cột bạn cần đã có ngữ nghĩa ở đây. Đừng đoán cột.
+>
+> ⚠️ **Các đoạn SQL ở phần "Mẫu" bên dưới chỉ minh hoạ Ý ĐỊNH.** Bạn KHÔNG ghi SQL thô — dịch thành tham số `select_rows` hoặc `aggregate`. Ví dụ `SELECT a, b FROM t WHERE x = 1 ORDER BY y DESC LIMIT 5` ⇒ `select_rows(table="t", columns=["a","b"], filters=[{"column":"x","op":"=","value":1}], order_by=[{"column":"y","dir":"desc"}], limit=5)`.
 
 ### 1. `stocks` — Danh mục mã chứng khoán (FINAL)
 
@@ -742,124 +812,231 @@ WHERE index_code = 'VN30' LIMIT 50
 - `_ingestion_log` — log Spark ingest. TTL 90 ngày.
 - `update_log` — bảo trì.
 
-## PATTERN PHỔ BIẾN
+## PATTERN PHỔ BIẾN — DẠNG TOOL CALL
 
-### Lấy báo cáo cả năm gần nhất của 1 mã
+### Báo cáo cả năm gần nhất
 
-```sql
-SELECT symbol, year, revenue, net_profit, eps
-FROM olap.income_statement FINAL
-WHERE symbol = 'VNM' AND quarter = 0
-ORDER BY year DESC
-LIMIT 5
+```jsonc
+select_rows({
+  "table": "income_statement",
+  "columns": ["year", "revenue", "net_profit", "eps"],
+  "filters": [
+    {"column": "symbol", "op": "=", "value": "VNM"},
+    {"column": "quarter", "op": "=", "value": 0}
+  ],
+  "order_by": [{"column": "year", "dir": "desc"}],
+  "limit": 5
+})
 ```
 
-### Lấy báo cáo theo quý liên tục
+### Báo cáo theo quý liên tục
 
-```sql
-SELECT symbol, year, quarter, revenue, net_profit
-FROM olap.income_statement FINAL
-WHERE symbol = 'FPT' AND quarter > 0
-ORDER BY year DESC, quarter DESC
-LIMIT 8
+```jsonc
+select_rows({
+  "table": "income_statement",
+  "columns": ["year", "quarter", "revenue", "net_profit"],
+  "filters": [
+    {"column": "symbol", "op": "=", "value": "FPT"},
+    {"column": "quarter", "op": ">", "value": 0}
+  ],
+  "order_by": [
+    {"column": "year", "dir": "desc"},
+    {"column": "quarter", "dir": "desc"}
+  ],
+  "limit": 8
+})
 ```
 
 ### Cơ cấu cổ đông (PIE-friendly)
 
-```sql
-SELECT share_holder, share_own_percent
-FROM olap.shareholders FINAL
-WHERE symbol = 'HPG'
-ORDER BY share_own_percent DESC
-LIMIT 10
+```jsonc
+select_rows({
+  "table": "shareholders",
+  "columns": ["share_holder", "share_own_percent"],
+  "filters": [{"column": "symbol", "op": "=", "value": "HPG"}],
+  "order_by": [{"column": "share_own_percent", "dir": "desc"}],
+  "limit": 10
+})
 ```
 
-### So sánh ROE giữa nhiều công ty cùng năm (BAR-friendly)
+### So sánh ROE nhiều công ty cùng năm (BAR-friendly)
 
-```sql
-SELECT symbol, roe * 100 AS roe_pct
-FROM olap.financial_ratios FINAL
-WHERE symbol IN ('VNM','FPT','HPG','MWG','VCB') AND year = 2024 AND quarter = 0
-ORDER BY roe_pct DESC
+```jsonc
+select_rows({
+  "table": "financial_ratios",
+  "columns": ["symbol", "roe", "market_cap_billions"],
+  "filters": [
+    {"column": "symbol",  "op": "IN", "value": ["VNM","FPT","HPG","MWG","VCB"]},
+    {"column": "year",    "op": "=",  "value": 2024},
+    {"column": "quarter", "op": "=",  "value": 0}
+  ],
+  "order_by": [{"column": "roe", "dir": "desc"}]
+})
+// Khi trình bày: nhân roe * 100, làm tròn 2 chữ số.
 ```
 
-### Trend giá đóng cửa theo tháng (LINE-friendly)
+### Tin tức gần nhất 1 mã
 
-```sql
-SELECT toStartOfMonth(time) AS month, avg(close) AS avg_close
-FROM olap.stock_price_history
-WHERE symbol = 'VNM' AND time >= '2024-01-01'
-GROUP BY month
-ORDER BY month
+```jsonc
+select_rows({
+  "table": "news",
+  "columns": ["news_title", "public_date", "news_source_link"],
+  "filters": [{"column": "symbol", "op": "=", "value": "VIC"}],
+  "order_by": [{"column": "public_date", "dir": "desc"}],
+  "limit": 10,
+  "use_final": false
+})
+// public_date là epoch ms — chia 1000 để có Unix seconds khi trình bày.
 ```
 
-### Top mã theo vốn hoá ngành ngân hàng (KHÔNG JOIN — dùng subquery)
+### Đếm / tổng theo nhóm (aggregate)
 
-```sql
--- Câu 1: top theo market cap, lọc ngành bằng subquery IN
-SELECT symbol, market_cap_billions, round(roe * 100, 2) AS roe_pct
-FROM olap.financial_ratios FINAL
-WHERE symbol IN (
-    SELECT ticker FROM olap.stock_industry FINAL
-    WHERE icb_name2 = 'Ngân hàng'
-)
-  AND year = 2024 AND quarter = 0
-ORDER BY market_cap_billions DESC
-LIMIT 10
-
--- Câu 2 (song song nếu cần tên công ty): SELECT riêng rồi tự ghép
-SELECT ticker, organ_name FROM olap.stocks FINAL
-WHERE ticker IN ('VCB','BID','CTG','TCB','MBB','VPB','ACB','HDB','STB','SHB')
+```jsonc
+// Tổng doanh thu năm 2024 cho 1 nhóm mã
+aggregate({
+  "table": "income_statement",
+  "aggregations": [
+    {"func": "sum", "column": "revenue",     "alias": "total_revenue"},
+    {"func": "sum", "column": "net_profit",  "alias": "total_net_profit"}
+  ],
+  "group_by": ["symbol"],
+  "filters": [
+    {"column": "symbol",  "op": "IN", "value": ["VNM","FPT","HPG"]},
+    {"column": "year",    "op": "=",  "value": 2024},
+    {"column": "quarter", "op": "=",  "value": 0}
+  ],
+  "order_by": [{"column": "total_revenue", "dir": "desc"}]
+})
 ```
 
-### Tin tức gần nhất của 1 mã
+### Pattern cần 2 bảng → 2 tool call song song
 
-```sql
-SELECT news_title, toDateTime(public_date / 1000) AS published_at, news_source_link
-FROM olap.news
-WHERE symbol = 'VIC'
-ORDER BY public_date DESC
-LIMIT 10
+Khi cần kết hợp dữ liệu từ 2 bảng (ví dụ "ROE của các mã ngân hàng"), gọi 2 tool song song trong CÙNG một lượt rồi tự ghép:
+
+```jsonc
+// Lượt 1 — chạy song song:
+select_rows({
+  "table": "stock_industry",
+  "columns": ["ticker"],
+  "filters": [{"column": "icb_name2", "op": "=", "value": "Ngân hàng"}],
+  "limit": 50
+})
+
+// Sau khi có danh sách ticker, lượt 2:
+select_rows({
+  "table": "financial_ratios",
+  "columns": ["symbol", "roe", "market_cap_billions"],
+  "filters": [
+    {"column": "symbol",  "op": "IN", "value": ["VCB","BID","CTG", /* …từ lượt 1 */]},
+    {"column": "year",    "op": "=",  "value": 2024},
+    {"column": "quarter", "op": "=",  "value": 0}
+  ],
+  "order_by": [{"column": "market_cap_billions", "dir": "desc"}],
+  "limit": 10
+})
 ```
+
+> **Giới hạn hiện tại:** chưa có subquery, chưa có function trong `columns` (ví dụ `toStartOfMonth(time)`), chưa có HAVING. Khi cần phân tích phức tạp hơn → lấy raw rows rồi tổng hợp khi viết câu trả lời, hoặc nói cho user biết là pattern này chưa hỗ trợ.
+
+### 🧪 Worked example: phân rã yêu cầu phức tạp
+
+User hỏi: *"So sánh HPG với VNM năm 2024: doanh thu, ROE, cơ cấu cổ đông, và xu hướng giá đóng cửa theo tháng trong năm."*
+
+Phân rã thành 4 task:
+
+| Task | Bảng | Hỗ trợ? |
+|---|---|---|
+| Doanh thu cả năm 2024 của HPG, VNM | `income_statement` | ✅ chạy được bằng `select_rows` |
+| ROE 2024 của HPG, VNM | `financial_ratios` | ✅ chạy được bằng `select_rows` |
+| Cơ cấu cổ đông HPG, VNM | `shareholders` | ✅ chạy được bằng 2 `select_rows` (1 mã / 1 call) |
+| Giá đóng cửa **theo tháng** | `stock_price_history` | ❌ cần `toStartOfMonth(time)` + `GROUP BY month`, không hỗ trợ |
+
+3 task đầu — gọi **song song** trong 1 lượt assistant:
+
+```jsonc
+select_rows({
+  "table": "income_statement",
+  "columns": ["symbol", "year", "revenue", "net_profit"],
+  "filters": [
+    {"column": "symbol",  "op": "IN", "value": ["HPG","VNM"]},
+    {"column": "year",    "op": "=",  "value": 2024},
+    {"column": "quarter", "op": "=",  "value": 0}
+  ]
+})
+
+select_rows({
+  "table": "financial_ratios",
+  "columns": ["symbol", "year", "roe", "market_cap_billions"],
+  "filters": [
+    {"column": "symbol",  "op": "IN", "value": ["HPG","VNM"]},
+    {"column": "year",    "op": "=",  "value": 2024},
+    {"column": "quarter", "op": "=",  "value": 0}
+  ]
+})
+
+select_rows({
+  "table": "shareholders",
+  "columns": ["symbol", "share_holder", "share_own_percent"],
+  "filters": [{"column": "symbol", "op": "IN", "value": ["HPG","VNM"]}],
+  "order_by": [{"column": "share_own_percent", "dir": "desc"}],
+  "limit": 20
+})
+```
+
+Task thứ 4 — KHÔNG cố lách. Khi viết câu trả lời, nói thẳng với user:
+
+> *"Mình chưa lấy được trend giá theo tháng (tool truy vấn hiện chưa hỗ trợ gộp theo `toStartOfMonth`). Bạn muốn xem giá đóng cửa từng ngày trong 2024 (mình lấy được dạng đó), hoặc giá cuối từng quý/năm?"*
+
+Rồi trả lời 3 phần đầu bằng số liệu thật từ 3 tool call. **Không bịa số tháng** để có cái mà nói.
 
 ## SAI LẦM HAY GẶP — TRÁNH
 
-- ❌ **Coi ticker là table name**: `SHOW TABLES LIKE '%HPG%'`, `SELECT * FROM HPG`, `FROM olap.HPG`. HPG/VNM/FPT là **giá trị** trong cột `symbol` hoặc `ticker`. Đúng: `WHERE symbol = 'HPG'`.
-- ❌ Lượt SQL đầu tiên là `SHOW TABLES` / `DESCRIBE` thay vì đi thẳng vào `company_overview` / `income_statement`. Schema đã có ở trên — đi thẳng.
-- ❌ Quên `FINAL` → dữ liệu trùng/cũ (đặc biệt với các bảng tài chính ReplacingMergeTree).
-- ❌ Hỏi "doanh thu năm 2024" mà filter `quarter > 0` → ra số quý, cộng lại sai.
-- ❌ Filter `period = '2024'` — `period` là enum nội bộ (`'Y'`/`'Q'`), không phải năm. Luôn dùng `year = 2024`.
-- ❌ Coi `roe` đã ở dạng %  — thực tế là decimal, cần `* 100`.
-- ❌ **Bất kỳ JOIN nào** — kể cả `INNER JOIN ... USING (symbol)` "có vẻ an toàn". Nhiều bảng có cột trùng tên (`symbol`/`ticker`/`year`/`quarter`/`organ_name`/`update_date`/`source`/`data_json`/`icb_name*`) → ClickHouse báo `AMBIGUOUS_COLUMN_NAME` hoặc nhân số dòng. Thay bằng nhiều `SELECT` riêng (gọi song song) hoặc subquery `WHERE col IN (SELECT …)`.
-- ❌ Hỏi "ngành ngân hàng" rồi filter `icb_name = '...'` — bảng `stock_industry` có 3 cấp (`icb_name2`, `icb_name3`, `icb_name4`); chọn cấp phù hợp với câu hỏi (cấp 2 thường = ngành lớn).
-- ❌ Format `news.public_date` thành Date trực tiếp — nó là epoch ms, dùng `toDateTime(public_date / 1000)`.
+- ❌ **Coi ticker là table name**. HPG/VNM/FPT là **giá trị** trong cột `symbol` hoặc `ticker`. Đúng: `filters: [{"column":"symbol","op":"=","value":"HPG"}]`.
+- ❌ Quên `use_final=true` → dữ liệu trùng/cũ (đặc biệt với bảng tài chính ReplacingMergeTree).
+- ❌ Hỏi "doanh thu năm 2024" mà filter `quarter > 0` → ra số quý, cộng lại sai. Đúng: `quarter = 0`.
+- ❌ Filter `period = '2024'` — `period` là enum nội bộ (`'Y'`/`'Q'`), không phải năm. Luôn dùng `year`.
+- ❌ Coi `roe` đã ở dạng %  — thực tế là decimal, nhân 100 khi trình bày.
+- ❌ Hỏi "ngành ngân hàng" rồi filter `icb_name = '...'` — bảng `stock_industry` có 3 cấp (`icb_name2/3/4`); chọn cấp phù hợp.
 
 ## KHI NÀO KHÔNG DÙNG TOOL NÀY
 
-- Câu hỏi định nghĩa khái niệm thuần ("EBITDA là gì?") — trả lời từ kiến thức, không cần SQL.
-- Tin tức / sự kiện sau ngày cutoff training và không có trong bảng `news` / `events` — dùng `web_search` thay thế.
-- Câu hỏi về tài liệu nội bộ đã có trong RAG context — ưu tiên trích dẫn [1], [2] từ context, không SQL lại.
-- **Tool trả lỗi "table does not exist"** → bảng bạn vừa gõ không có trong WHITELIST. Đối chiếu lại bản đồ câu hỏi → bảng. Nếu thực sự không có bảng nào trong WHITELIST chứa thông tin user hỏi → dừng SQL, chuyển `web_search`. KHÔNG được "thử bảng khác" với tên bịa.
+- Câu hỏi định nghĩa khái niệm thuần ("EBITDA là gì?") — trả lời từ kiến thức.
+- Tin tức / sự kiện không có trong bảng `news` / `events` → chuyển `web_search`.
+- Câu hỏi đã có trong RAG context — ưu tiên trích dẫn [1], [2] từ context.
+- **Tool trả lỗi `Invalid table name` hoặc bảng không tồn tại** → bảng bạn vừa gõ không có trong WHITELIST. Đối chiếu lại bản đồ câu hỏi → bảng. Nếu không có bảng phù hợp → dừng, chuyển `web_search`. KHÔNG đoán bảng khác.
 
 ## KHI QUERY TRẢ VỀ 0 ROWS (PHẢI ĐỌC)
 
 Tuyệt đối **không** im lặng đổi sang năm/quý/công ty khác rồi trả lời như thật. Đi theo bậc thang:
 
-1. **Kiểm tra entity có tồn tại không** — chạy 1 câu nhỏ:
-   ```sql
-   SELECT symbol FROM olap.company_overview FINAL WHERE symbol = '<TICKER>' LIMIT 1
+1. **Kiểm tra entity có tồn tại không** — gọi:
+   ```jsonc
+   select_rows({
+     "table": "company_overview",
+     "columns": ["symbol"],
+     "filters": [{"column": "symbol", "op": "=", "value": "<TICKER>"}],
+     "limit": 1
+   })
    ```
    Nếu rỗng → entity không có trong DB. Báo user kiểm tra lại ticker/tên, KHÔNG đoán mã khác.
 
-2. **Entity có nhưng không có timeframe user hỏi** — liệt kê các mốc sẵn có để user chọn:
-   ```sql
-   SELECT DISTINCT year, quarter FROM olap.income_statement FINAL
-   WHERE symbol = '<TICKER>' ORDER BY year DESC, quarter DESC LIMIT 12
+2. **Entity có nhưng không có timeframe user hỏi** — liệt kê các mốc sẵn có:
+   ```jsonc
+   select_rows({
+     "table": "income_statement",
+     "columns": ["year", "quarter"],
+     "filters": [{"column": "symbol", "op": "=", "value": "<TICKER>"}],
+     "order_by": [
+       {"column": "year", "dir": "desc"},
+       {"column": "quarter", "dir": "desc"}
+     ],
+     "limit": 12
+   })
    ```
-   Sau đó nói thẳng với user: *"Hệ thống có dữ liệu \<TICKER\> các năm/quý: …. Bạn muốn xem mốc nào?"* và **chờ user trả lời**, không tự chọn.
+   Rồi nói với user các năm/quý có sẵn và **chờ** user chọn, không tự chọn.
 
-3. **Cả entity + timeframe đều có nhưng cột cụ thể NULL** (ví dụ `eps` null cho 1 năm cũ) — báo rõ "Trường \<X\> không có dữ liệu cho \<timeframe\>", liệt kê các trường còn lại đã lấy được.
+3. **Cả entity + timeframe đều có nhưng cột cụ thể NULL** — báo rõ "Trường \<X\> không có dữ liệu cho \<timeframe\>", liệt kê các trường còn lại đã lấy được.
 
-4. **DB hoàn toàn không phù hợp với câu hỏi** (ví dụ user hỏi tin tức mới sau cutoff) → chuyển `web_search`, KHÔNG cố ép vào DB.
+4. **DB hoàn toàn không phù hợp với câu hỏi** (ví dụ tin tức sau cutoff) → chuyển `web_search`.
 
 Nguyên tắc lõi: **trả lời đúng entity + đúng timeframe user yêu cầu, hoặc nói thẳng là không có rồi nhường quyết định cho user**. Đừng tự ý "fallback ngầm" sang dữ liệu năm khác.

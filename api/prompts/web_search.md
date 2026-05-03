@@ -15,7 +15,7 @@ Bạn có tool **`web_search(query)`** chạy qua SearXNG, trả về list `{tit
 
 ## KHI NÀO KHÔNG DÙNG
 
-- Dữ liệu báo cáo tài chính có sẵn trong ClickHouse (`balance_sheet`, `income_statement`, `financial_ratios`, `shareholders`, `events`, `news`...) → ưu tiên `database_query`, đỡ tốn thời gian + chính xác hơn.
+- Dữ liệu báo cáo tài chính có sẵn trong ClickHouse (`balance_sheet`, `income_statement`, `financial_ratios`, `shareholders`, `events`, `news`...) → ưu tiên `select_rows` / `aggregate`, đỡ tốn thời gian + chính xác hơn.
 - Câu hỏi định nghĩa khái niệm tài chính ("EBITDA là gì?") → trả lời từ kiến thức.
 - Câu hỏi về tài liệu nội bộ đã có trong RAG context → trích dẫn `[1]`, `[2]`.
 
@@ -41,7 +41,7 @@ Bạn có tool **`web_search(query)`** chạy qua SearXNG, trả về list `{tit
 - Tool trả tối đa 5 result. **Luôn đọc snippet trước**, chỉ dựa vào URL khi snippet rõ ràng có thông tin cần.
 - Đánh số nguồn `[1]`, `[2]`... khi cite trong câu trả lời, mỗi nguồn kèm 1 dòng URL ở cuối.
 - Nếu kết quả không liên quan / nghèo, thử lại với query khác (đổi keyword, đổi ngôn ngữ) — tối đa 2 lần.
-- Nếu vẫn không có thông tin → nói thẳng với user: *"Tôi không tìm được thông tin về \<entity\> cho \<timeframe\> ở cả database lẫn nguồn web."* **Không bịa, không thay bằng năm/entity khác để có cái mà nói.** Sau đó để user quyết: gợi ý họ kiểm tra lại entity/timeframe, hoặc đề xuất mở rộng phạm vi (nếu DB có sẵn năm khác thì liệt kê các mốc đó từ kết quả `database_query` trước đó).
+- Nếu vẫn không có thông tin → nói thẳng với user: *"Tôi không tìm được thông tin về \<entity\> cho \<timeframe\> ở cả database lẫn nguồn web."* **Không bịa, không thay bằng năm/entity khác để có cái mà nói.** Sau đó để user quyết: gợi ý họ kiểm tra lại entity/timeframe, hoặc đề xuất mở rộng phạm vi (nếu DB có sẵn năm khác thì liệt kê các mốc đó từ kết quả `select_rows` trước đó).
 
 ## VÍ DỤ
 

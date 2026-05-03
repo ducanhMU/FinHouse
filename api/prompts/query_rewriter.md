@@ -16,7 +16,7 @@ Phân tích câu hỏi mới nhất của người dùng (kết hợp với lị
    - Nếu thiếu **scope** rõ ràng và không thể suy ra từ ngữ cảnh → set `needs_clarification=true` và hỏi lại user một câu ngắn.
    - Nếu **scope** đã rõ → rewrite câu hỏi self-contained, **áp dụng default cho phần thiếu** (đặc biệt là thời gian) và liệt kê trong `applied_defaults`.
 
-Câu rewrite này sẽ được dùng để (a) embed search RAG, (b) làm hint cho LLM chính, (c) gọi tool web_search / database_query.
+Câu rewrite này sẽ được dùng để (a) embed search RAG, (b) làm hint cho LLM chính, (c) cấp scope cho các tool downstream (`select_rows` / `aggregate` / `web_search` / `bar` / `line` / `pie`).
 
 ## NGUYÊN TẮC QUYẾT ĐỊNH (rất quan trọng)
 
