@@ -73,6 +73,31 @@ class Settings(BaseSettings):
     # error. To disable rewriting, edit api/services/rewriter.py.
     REWRITER_ENABLED: bool = True
 
+    # ── Multi-agent LLM routing (LangGraph nodes) ──
+    # Format: "<provider>:<model>" or empty to fall back to the session
+    # model on local Ollama.
+    # Providers:
+    #   ollama:<tag>           — local Ollama (e.g. ollama:qwen2.5:14b)
+    #   gemini:<model>         — Google Gemini OpenAI-compat endpoint
+    #   openai:<model>         — any OpenAI-compatible endpoint configured
+    #                            via OLLAMA_API_URL/OLLAMA_API_KEY
+    REWRITER_AGENT_LLM:     str = ""
+    ORCHESTRATOR_AGENT_LLM: str = ""
+    WEB_AGENT_LLM:          str = ""
+    DB_AGENT_LLM:           str = ""
+    VIS_AGENT_LLM:          str = ""
+    COLLECTOR_AGENT_LLM:    str = ""
+
+    # Gemini (used when any *_AGENT_LLM = "gemini:<model>")
+    # OpenAI-compatible endpoint, see:
+    # https://ai.google.dev/gemini-api/docs/openai
+    GEMINI_API_URL: str = "https://generativelanguage.googleapis.com/v1beta/openai"
+    GEMINI_API_KEY: str = ""
+
+    # Per-agent ReAct loop ceiling. Tools-stop and self-clarify after this
+    # many tool rounds, mirroring MAX_TOOL_ROUNDS for the unified agent.
+    AGENT_MAX_ROUNDS: int = 6
+
     # Embedding / Reranker — local services
     EMBED_HOST: str = "http://finhouse-bge-m3:8081"
     RERANK_HOST: str = "http://finhouse-reranker:8082"

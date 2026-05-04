@@ -18,3 +18,5 @@ pypdf==5.1.0
 marshmallow==3.21.3
 environs==9.5.0
 matplotlib==3.9.2
+langchain-core==0.3.29
+langgraph==0.2.62
