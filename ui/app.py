@@ -3,6 +3,7 @@ FinHouse — Streamlit Chat UI
 RAG-based AI Chat Platform with Ollama
 """
 
+import html
 import json
 import time
 from datetime import datetime, timedelta
@@ -72,6 +73,29 @@ st.markdown("""
         display: flex;
         align-items: center;
         gap: 0.5rem;
+    }
+
+    /* Reasoning / thinking block — visually distinct from the final answer */
+    .reasoning-block {
+        font-style: italic;
+        opacity: 0.65;
+        font-size: 0.85rem;
+        line-height: 1.45;
+        border-left: 3px solid rgba(99,102,241,0.45);
+        padding: 0.5rem 0.85rem;
+        margin: 0.4rem 0 0.6rem 0;
+        background: rgba(99,102,241,0.04);
+        border-radius: 0 6px 6px 0;
+        white-space: pre-wrap;
+    }
+    .reasoning-label {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 0.7rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        opacity: 0.75;
+        margin-bottom: 0.25rem;
     }
 
     /* Tool activity cards */
@@ -849,6 +873,15 @@ else:
     # response feel consistent.
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]):
+            if msg.get("reasoning") and msg["role"] == "assistant":
+                with st.expander("💭 thinking", expanded=False):
+                    st.markdown(
+                        f'<div class="reasoning-block" '
+                        f'style="margin:0;border-left:none;background:transparent;">'
+                        f'{html.escape(msg["reasoning"])}</div>',
+                        unsafe_allow_html=True,
+                    )
+
             st.markdown(msg["content"])
 
             if msg.get("rag_sources") and msg["role"] == "assistant":
@@ -912,6 +945,7 @@ else:
 
         # Stream assistant response
         with st.chat_message("assistant"):
+            reasoning_area = st.empty()  # dim italic block above the answer
             response_area = st.empty()
             # Order matters: source_container ABOVE tool_container so RAG
             # sources land right under the response, not buried below tool
@@ -922,6 +956,7 @@ else:
             tool_container = st.container()
             footer_container = st.container()   # for end-of-response status banners
             full_response = ""
+            full_reasoning = ""
             tool_events = []
             rag_sources = []
             rag_rendered = False
@@ -940,6 +975,18 @@ else:
                     if etype == "token":
                         full_response += event.get("content", "")
                         response_area.markdown(full_response + "▌")
+
+                    elif etype == "reasoning":
+                        full_reasoning += event.get("content", "")
+                        # html.escape avoids breaking the layout if the
+                        # model emits raw `<` / `>` mid-thought.
+                        reasoning_area.markdown(
+                            '<div class="reasoning-block">'
+                            '<div class="reasoning-label">💭 thinking</div>'
+                            f'{html.escape(full_reasoning)}'
+                            '</div>',
+                            unsafe_allow_html=True,
+                        )
 
                     elif etype == "rag_sources":
                         rag_sources = event.get("sources", [])
@@ -1057,9 +1104,22 @@ else:
 
             # Finalize
             response_area.markdown(full_response)
+            if full_reasoning.strip():
+                with reasoning_area.container():
+                    with st.expander("💭 thinking", expanded=False):
+                        st.markdown(
+                            f'<div class="reasoning-block" '
+                            f'style="margin:0;border-left:none;background:transparent;">'
+                            f'{html.escape(full_reasoning)}</div>',
+                            unsafe_allow_html=True,
+                        )
+            else:
+                reasoning_area.empty()
             st.session_state.is_streaming = False
 
             assistant_msg = {"role": "assistant", "content": full_response}
+            if full_reasoning.strip():
+                assistant_msg["reasoning"] = full_reasoning
             if tool_events:
                 assistant_msg["tool_events"] = tool_events
             if rag_sources:

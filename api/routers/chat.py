@@ -952,16 +952,19 @@ async def send_message(
                             break
                         chunk_msg = chunk.get("message", {}) or {}
                         content = chunk_msg.get("content", "") or ""
-                        # Some models (gpt-oss family) put intermediate text
-                        # in `thinking` and leave `content` empty. Surface
-                        # that to the user instead of streaming nothing.
-                        if not content:
-                            content = chunk_msg.get("thinking", "") or ""
+                        # Reasoning text — emit as a separate event type so
+                        # the UI can style it (italic / dim block) and keep
+                        # it visually distinct from the actual answer. Some
+                        # models (gpt-oss family) emit reasoning here while
+                        # `content` stays empty until they finish thinking.
+                        thinking = chunk_msg.get("thinking", "") or ""
                         if chunk_msg.get("tool_calls"):
                             saw_tool_call_attempt = True
+                        if thinking:
+                            yield f"data: {json.dumps({'type': 'reasoning', 'content': thinking}, ensure_ascii=False)}\n\n"
                         if content:
                             full_response += content
-                            yield f"data: {json.dumps({'type': 'token', 'content': content})}\n\n"
+                            yield f"data: {json.dumps({'type': 'token', 'content': content}, ensure_ascii=False)}\n\n"
 
                         if chunk.get("done"):
                             break
