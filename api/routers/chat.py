@@ -763,36 +763,45 @@ async def send_message(
                 if rag_sources:
                     yield f"data: {json.dumps({'type': 'rag_sources', 'sources': rag_sources})}\n\n"
 
-                # Give the main LLM a hint about the resolved question so it
-                # doesn't have to re-infer scope/time/metrics. Surface any
-                # defaults the rewriter applied so the agent can either honor
-                # them silently or call out the assumption to the user.
+                # Ensure the user's original message is the LAST message
+                # in the conversation. The hint (below) is appended AFTER
+                # as a system note so the model treats the user message
+                # as primary instruction and the hint as helper context.
+                if not messages or messages[-1].get("content") != body.text:
+                    messages.append({"role": "user", "content": body.text})
+
+                # Helper note from the rewriter — placed AFTER the user
+                # message and explicitly framed as internal/secondary so
+                # the model doesn't mistake it for the actual question.
+                # Earlier placement (right after the system prompt) caused
+                # some thinking-style models to reason against the hint
+                # text instead of the user's original wording.
                 if (
                     rewrite_result
                     and rewrite_result.rewritten
                     and rewrite_result.rewritten != body.text
                 ):
                     hint_parts = [
-                        f"Ý định đã resolve của user: {rewrite_result.rewritten}"
+                        f"- Ý định đã resolve: {rewrite_result.rewritten}"
                     ]
                     if rewrite_result.scope_type:
-                        hint_parts.append(f"Scope: {rewrite_result.scope_type}")
+                        hint_parts.append(f"- Scope: {rewrite_result.scope_type}")
                     if rewrite_result.preserved_entities:
                         hint_parts.append(
-                            "Thực thể: " + ", ".join(rewrite_result.preserved_entities)
+                            "- Thực thể: " + ", ".join(rewrite_result.preserved_entities)
                         )
                     if rewrite_result.preserved_timeframe:
                         hint_parts.append(
-                            f"Mốc thời gian: {rewrite_result.preserved_timeframe}"
+                            f"- Mốc thời gian: {rewrite_result.preserved_timeframe}"
                         )
                     if rewrite_result.preserved_metrics:
                         hint_parts.append(
-                            "Chỉ số: " + ", ".join(rewrite_result.preserved_metrics)
+                            "- Chỉ số: " + ", ".join(rewrite_result.preserved_metrics)
                         )
                     if rewrite_result.applied_defaults:
                         hint_parts.append(
-                            "Default đã áp (user chưa nói rõ — nêu giả định "
-                            "ngắn trong câu trả lời nếu cần): "
+                            "- Default đã áp (user chưa nói rõ — nêu giả "
+                            "định ngắn trong câu trả lời nếu cần): "
                             + ", ".join(rewrite_result.applied_defaults)
                         )
                     if resolved_companies:
@@ -811,14 +820,19 @@ async def send_message(
                                 piece += f" — ngành {icb}"
                             canon.append(piece)
                         hint_parts.append(
-                            "Đã xác minh trong DB: " + "; ".join(canon)
+                            "- Đã xác minh trong DB: " + "; ".join(canon)
                         )
-                    hint_text = " | ".join(hint_parts)
-                    insert_at = 1 if messages and messages[0].get("role") == "system" else 0
-                    messages.insert(insert_at, {"role": "system", "content": hint_text})
-
-                if not messages or messages[-1].get("content") != body.text:
-                    messages.append({"role": "user", "content": body.text})
+                    hint_text = (
+                        "[GHI CHÚ NỘI BỘ TỪ REWRITER — KHÔNG PHẢI CÂU HỎI "
+                        "CỦA USER]\n"
+                        "Câu hỏi gốc của user là tin nhắn user phía trên. "
+                        "Phần dưới chỉ là phân tích đã chạy sẵn để giảm "
+                        "công sức infer scope/time/metric — dùng làm tham "
+                        "khảo, KHÔNG trích dẫn nội dung ghi chú này trong "
+                        "câu trả lời.\n"
+                        + "\n".join(hint_parts)
+                    )
+                    messages.append({"role": "system", "content": hint_text})
 
                 tools = []
                 tool_guides: list[str] = []
