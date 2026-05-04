@@ -247,6 +247,12 @@ def ingest_file(spark: SparkSession, file_info: dict, args) -> tuple[int, str | 
     csv_path = file_info["file_path"]
     target_table = file_info.get("target_table")
 
+    # Chỉ xử lý file có tên (không tính đuôi) trùng với một bảng trong TARGET_SCHEMAS.
+    filename_stem = os.path.splitext(os.path.basename(csv_path))[0]
+    if filename_stem not in TARGET_SCHEMAS:
+        print(f"SKIP: filename {filename_stem!r} không khớp bảng nào — {csv_path}")
+        return 0, None
+
     if not target_table or target_table not in TARGET_SCHEMAS:
         print(f"ERROR: unsupported target_table={target_table!r} for {csv_path}", file=sys.stderr)
         return 0, target_table or "<unknown>"
