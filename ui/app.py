@@ -171,9 +171,7 @@ DEFAULTS = {
     "current_session_id": None,
     "current_project_id": None,
     "messages": [],           # [{role, content, tool_events?}]
-    "models": [],
-    "selected_model": None,
-    "tools_enabled": ["web_search"],   # web_search bật mặc định
+    "agents_config": None,    # cached GET /agents response
     "is_streaming": False,
     "show_auth": "login",     # "login" or "register"
     "session_meta": None,     # current session metadata
@@ -183,11 +181,16 @@ for k, v in DEFAULTS.items():
     if k not in st.session_state:
         st.session_state[k] = v
 
-# Fetch models once
-if not st.session_state.models:
-    st.session_state.models = api.get_models()
-    if st.session_state.models and not st.session_state.selected_model:
-        st.session_state.selected_model = st.session_state.models[0]["name"]
+# Fetch agent brain config once per session
+if st.session_state.agents_config is None:
+    try:
+        st.session_state.agents_config = api.get_agents_config()
+    except Exception:
+        st.session_state.agents_config = {
+            "agents": [],
+            "fallback_model": "qwen2.5:14b",
+            "providers": {},
+        }
 
 
 def is_guest() -> bool:
@@ -270,8 +273,6 @@ def load_session_events(session_id: str):
     try:
         meta = api.get_session(session_id)
         st.session_state.session_meta = meta
-        st.session_state.selected_model = meta.get("model_used", st.session_state.selected_model)
-        st.session_state.tools_enabled = meta.get("tools_used") or []
     except Exception:
         pass
 
@@ -292,11 +293,12 @@ def create_new_session():
     if is_guest():
         project_id = None
 
+    # No model_used / tools_used — backend fills both:
+    #   model_used  = settings.DEFAULT_MODEL (fallback for empty per-agent brains)
+    #   tools_used  = every tool the deployment supports
     session = api.create_session(
         token=token,
-        model_used=st.session_state.selected_model or "qwen2.5:14b",
         project_id=project_id,
-        tools_used=list(st.session_state.tools_enabled or []),
     )
     st.session_state.current_session_id = session["session_id"]
     st.session_state.messages = []
@@ -546,26 +548,31 @@ with st.sidebar:
 top_col1, top_col2, top_col3 = st.columns([3, 4, 2])
 
 with top_col1:
-    # Model selector
-    model_names = [m["name"] for m in st.session_state.models]
-    if model_names:
-        current_idx = 0
-        if st.session_state.selected_model in model_names:
-            current_idx = model_names.index(st.session_state.selected_model)
+    # Agent brain config display (read-only — configured via .env)
+    cfg = st.session_state.agents_config or {}
+    agents = cfg.get("agents") or []
+    providers_map = cfg.get("providers") or {}
+    fallback = cfg.get("fallback_model") or "qwen2.5:14b"
+    active_providers = [p for p, on in providers_map.items() if on]
+    primary_provider = (
+        "dashscope" if providers_map.get("dashscope")
+        else "gemini" if providers_map.get("gemini")
+        else "openai" if providers_map.get("openai")
+        else "ollama"
+    )
 
-        has_messages = len(st.session_state.messages) > 0
-        selected = st.selectbox(
-            "Model",
-            model_names,
-            index=current_idx,
-            disabled=has_messages,
-            help="Model is locked after first message" if has_messages else "Select Ollama model",
-            label_visibility="collapsed",
+    label = f"🧠 {len(agents)} agents · primary: {primary_provider}"
+    with st.popover(label, use_container_width=True):
+        st.caption(
+            "Brain config is loaded from `.env` at server start. "
+            "Edit `*_AGENT_LLM` vars + restart API to change. "
+            f"Fallback model = `{fallback}` (Ollama)."
         )
-        if selected != st.session_state.selected_model and not has_messages:
-            st.session_state.selected_model = selected
-    else:
-        st.warning("No models available — pull models via Ollama")
+        st.markdown("**Active providers**: " + ", ".join(active_providers or ["none"]))
+        for a in agents:
+            spec_label = a.get("label", "—")
+            badge = " *(fallback)*" if a.get("is_fallback") else ""
+            st.markdown(f"- **{a.get('name','?')}** → `{spec_label}`{badge}")
 
 with top_col2:
     # Context badge
@@ -590,7 +597,7 @@ with top_col2:
         # Welcome state placeholder — keep visual parity with active-session header
         st.markdown(
             "**New conversation** &nbsp; "
-            "<span class='ctx-badge'>🟢 Chưa có lịch sử — chọn model & tools bên dưới</span>",
+            "<span class='ctx-badge'>🟢 Chưa có lịch sử — gõ câu hỏi để bắt đầu</span>",
             unsafe_allow_html=True,
         )
 
@@ -775,49 +782,10 @@ if st.session_state.view == "files":
 
 
 # ════════════════════════════════════════════════════════════
-# Chat view: compact tools panel (no file management here)
+# Chat view: tool selector removed — orchestrator auto-detects tools
+# from user intent. Collector suggests un-used tools at the end of
+# the answer so the user discovers capabilities organically.
 # ════════════════════════════════════════════════════════════
-
-# Tools panel — expanded by default when no chat yet so user can configure
-_no_session = not st.session_state.current_session_id and not st.session_state.messages
-with st.expander("⚙️ Tools", expanded=_no_session):
-    tool_col1, tool_col2, tool_col3 = st.columns(3)
-
-    has_msgs = len(st.session_state.messages) > 0
-    tools_locked = has_msgs
-
-    with tool_col1:
-        ws_enabled = st.checkbox(
-            "🔍 Web Search",
-            value="web_search" in st.session_state.tools_enabled,
-            disabled=tools_locked,
-        )
-    with tool_col2:
-        dbq_enabled = st.checkbox(
-            "🗄️ Database Query",
-            value="database_query" in st.session_state.tools_enabled,
-            disabled=tools_locked,
-        )
-    with tool_col3:
-        viz_enabled = st.checkbox(
-            "📊 Visualize",
-            value="visualize" in st.session_state.tools_enabled,
-            disabled=tools_locked,
-        )
-
-    if tools_locked:
-        st.caption("🔒 Đã khóa sau khi gửi câu hỏi đầu tiên.")
-
-    # Update tool list only before first message
-    if not tools_locked:
-        new_tools = []
-        if ws_enabled:
-            new_tools.append("web_search")
-        if dbq_enabled:
-            new_tools.append("database_query")
-        if viz_enabled:
-            new_tools.append("visualize")
-        st.session_state.tools_enabled = new_tools
 
 
 # ════════════════════════════════════════════════════════════
@@ -831,8 +799,10 @@ if not st.session_state.current_session_id and not st.session_state.messages:
     with col_w2:
         st.markdown("### 🏠 Chào mừng đến FinHouse")
         st.caption(
-            "Chọn **model** và **tools** ở phía trên, rồi gõ câu hỏi vào ô chat bên dưới. "
-            "Session sẽ tự tạo khi bạn gửi câu đầu tiên. Sau đó model và tools sẽ bị khóa cho session này."
+            "Gõ câu hỏi vào ô chat bên dưới — hệ thống multi-agent tự "
+            "phát hiện tool nào cần dùng (database, web search, biểu đồ). "
+            "Brain của từng agent đã cấu hình qua `.env`, xem ở popover "
+            "🧠 phía trên."
         )
         st.markdown("")
 
@@ -1069,28 +1039,16 @@ else:
                             st.session_state.session_meta["session_title"] = event.get("content", "")
 
                     elif etype == "done":
-                        # Banner 1: tools that failed at runtime
+                        # Banner: tools that failed at runtime
+                        # (the "user enabled but skipped" banner is gone —
+                        # tools are always all-on and collector suggests
+                        # un-used ones inline at end of answer)
                         if failed_tools:
                             unique_fails = sorted(set(failed_tools))
                             with footer_container:
                                 st.warning(
                                     "⚠️ Tool chạy không thành công: "
                                     + ", ".join(f"`{t}`" for t in unique_fails)
-                                )
-
-                        # Banner 2: tools user enabled but LLM didn't invoke.
-                        # Reasons could be: model can't do function calling,
-                        # LLM judged the question didn't need them, etc.
-                        # We only show this once tools_enabled is non-empty.
-                        enabled = set(st.session_state.tools_enabled or [])
-                        skipped = enabled - called_tools
-                        if skipped:
-                            with footer_container:
-                                st.info(
-                                    "ℹ️ Tool bạn đã bật nhưng không được gọi trong lượt này: "
-                                    + ", ".join(f"`{t}`" for t in sorted(skipped))
-                                    + ". Có thể model không hỗ trợ function calling, "
-                                    + "hoặc câu hỏi không cần dùng tool đó."
                                 )
                         break
 

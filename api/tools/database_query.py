@@ -159,6 +159,33 @@ async def describe_table(table_name: str) -> dict[str, Any]:
     return await run_sql(f"DESCRIBE TABLE {settings.CLICKHOUSE_DB}.{table_name}")
 
 
+async def distinct_values(
+    table: str,
+    column: str,
+    filters: Optional[list[dict]] = None,
+    limit: int = 100,
+    use_final: bool = True,
+) -> dict[str, Any]:
+    """Return distinct values of one column in a table.
+
+    Useful for entity discovery — e.g. "which tickers does the OLAP know
+    about?" or "which years are populated for income_statement?". Filters
+    follow the same schema as select_rows so an agent can scope the
+    distinct set (e.g. distinct year WHERE symbol='VNM').
+    """
+    try:
+        col_sql = _ident(column)
+        sql = (
+            f"SELECT DISTINCT {col_sql} AS value "
+            f"FROM {_table_ref(table, use_final)}"
+        )
+        sql += _build_where(filters)
+        sql += f" ORDER BY value ASC LIMIT {_clamp_limit(limit)}"
+    except (ValueError, KeyError, TypeError) as e:
+        return {"error": str(e)}
+    return await run_sql(sql)
+
+
 # ── Structured query builders ───────────────────────────────
 # These take typed args from the LLM and assemble safe SQL. Identifiers
 # are whitelist-validated and backtick-quoted; literals go through
@@ -480,4 +507,249 @@ AGGREGATE_TOOL_SCHEMA = {
     },
 }
 
-DATABASE_QUERY_TOOL_SCHEMAS = [SELECT_ROWS_TOOL_SCHEMA, AGGREGATE_TOOL_SCHEMA]
+LIST_TABLES_TOOL_SCHEMA = {
+    "type": "function",
+    "function": {
+        "name": "list_tables",
+        "description": (
+            "List every table available in the OLAP database. Call this "
+            "first if you are not sure a table name exists, instead of "
+            "guessing — table inventory drifts as new datasets land. No "
+            "arguments."
+        ),
+        "parameters": {"type": "object", "properties": {}},
+    },
+}
+
+DESCRIBE_TABLE_TOOL_SCHEMA = {
+    "type": "function",
+    "function": {
+        "name": "describe_table",
+        "description": (
+            "Return the column names + types of one OLAP table. Use this "
+            "when you don't remember the exact column names, or to verify "
+            "a column exists before calling select_rows / aggregate / "
+            "visualize tools."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "table": {
+                    "type": "string",
+                    "description": "Table name without database prefix.",
+                },
+            },
+            "required": ["table"],
+        },
+    },
+}
+
+DISTINCT_VALUES_TOOL_SCHEMA = {
+    "type": "function",
+    "function": {
+        "name": "distinct_values",
+        "description": (
+            "List distinct values of ONE column in a table, with optional "
+            "filters. Use this for entity discovery: 'what tickers exist?', "
+            "'which years have data for VNM?', 'what news categories?'. "
+            "Cheaper and clearer than aggregate(count) when you only want "
+            "the value list, not counts."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "table": {"type": "string"},
+                "column": {
+                    "type": "string",
+                    "description": "Column whose distinct values you want.",
+                },
+                "filters": _FILTERS_SCHEMA,
+                "limit": {"type": "integer", "minimum": 1, "default": 100},
+                "use_final": {"type": "boolean", "default": True},
+            },
+            "required": ["table", "column"],
+        },
+    },
+}
+
+DATABASE_QUERY_TOOL_SCHEMAS = [
+    LIST_TABLES_TOOL_SCHEMA,
+    DESCRIBE_TABLE_TOOL_SCHEMA,
+    SELECT_ROWS_TOOL_SCHEMA,
+    DISTINCT_VALUES_TOOL_SCHEMA,
+    AGGREGATE_TOOL_SCHEMA,
+]
+
+
+# ════════════════════════════════════════════════════════════
+# Company resolution — used by the rewriter agent's lookup_company
+# tool and by post-rewrite verification. Lives here (not in
+# services/rewriter) so any agent can resolve a company without an
+# upstream dependency on the rewriter package.
+# ════════════════════════════════════════════════════════════
+
+_ENTITY_OK_RE = re.compile(r"^[\w \-\.&,/À-ỹ]+$", re.UNICODE)
+_MAX_ENTITY_LEN = 100
+_MAX_VERIFY_ENTITIES = 10
+
+
+def _ch_quote(s: str) -> str:
+    """Escape a string literal for ClickHouse single-quoted form."""
+    return "'" + s.replace("\\", "\\\\").replace("'", "''") + "'"
+
+
+def _sanitize_entities(entities: list[str]) -> list[str]:
+    """Drop entities that don't fit the whitelist or are too long."""
+    cleaned: list[str] = []
+    seen: set[str] = set()
+    for raw in entities or []:
+        e = (raw or "").strip()
+        if not e or len(e) > _MAX_ENTITY_LEN:
+            continue
+        if not _ENTITY_OK_RE.match(e):
+            continue
+        key = e.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        cleaned.append(e)
+        if len(cleaned) >= _MAX_VERIFY_ENTITIES:
+            break
+    return cleaned
+
+
+async def verify_company_entities(
+    entities: list[str],
+) -> tuple[list[dict], list[str], bool]:
+    """Resolve LLM-extracted entity strings against `stocks` +
+    `company_overview` in ClickHouse.
+
+    Match rules (per entity):
+      • exact ticker match (case-insensitive on `stocks.ticker`), OR
+      • case-insensitive substring match on `stocks.organ_name`.
+
+    Returns:
+        (resolved, unresolved, ch_available)
+        resolved      — list of {symbol, organ_name, icb_name3, icb_name2}
+        unresolved    — input strings that did not match anything
+        ch_available  — False when ClickHouse isn't configured or query
+                        failed; in that case caller should treat the
+                        scope as "couldn't verify, assume valid" to
+                        avoid blocking the user on infra gaps.
+    """
+    if not entities:
+        return [], [], True
+
+    if not is_enabled():
+        return [], list(entities), False
+
+    cleaned = _sanitize_entities(entities)
+    if not cleaned:
+        return [], list(entities), True
+
+    or_clauses = []
+    for e in cleaned:
+        q = _ch_quote(e)
+        or_clauses.append(
+            f"(upper(s.ticker) = upper({q}) OR "
+            f"positionCaseInsensitive(coalesce(s.organ_name,''), {q}) > 0)"
+        )
+    where_clause = " OR ".join(or_clauses)
+
+    # Fixed internal SQL with column aliases — JOIN here is safe (no
+    # collision) because we control both sides. The "no JOIN" rule
+    # applies to LLM-generated SQL via the public tool surface, not
+    # to internal helpers like this one.
+    sql = (
+        "SELECT s.ticker AS symbol, "
+        "       coalesce(s.organ_name,'') AS organ_name, "
+        "       coalesce(co.icb_name3,'') AS icb_name3, "
+        "       coalesce(co.icb_name2,'') AS icb_name2 "
+        "FROM stocks s "
+        "LEFT JOIN company_overview co ON s.ticker = co.symbol "
+        f"WHERE {where_clause} "
+        "LIMIT 20"
+    )
+
+    try:
+        result = await run_sql(sql)
+    except Exception as e:
+        logger.warning("company verify query crashed: %s; treating as unavailable", e)
+        return [], list(entities), False
+
+    if isinstance(result, dict) and result.get("error"):
+        logger.warning("company verify SQL rejected: %s", result.get("error"))
+        return [], list(entities), False
+
+    columns = result.get("columns", []) if isinstance(result, dict) else []
+    rows = result.get("rows", []) if isinstance(result, dict) else []
+    resolved: list[dict] = [dict(zip(columns, r)) for r in rows]
+
+    resolved_tickers = {(row.get("symbol") or "").upper() for row in resolved}
+    resolved_names = [(row.get("organ_name") or "").lower() for row in resolved]
+
+    unresolved: list[str] = []
+    for e in cleaned:
+        e_upper = e.upper()
+        e_lower = e.lower()
+        if e_upper in resolved_tickers:
+            continue
+        if any(n and (e_lower in n or n in e_lower) for n in resolved_names):
+            continue
+        unresolved.append(e)
+
+    return resolved, unresolved, True
+
+
+async def lookup_company(query: str) -> dict[str, Any]:
+    """Look up a company by ticker or name fragment.
+
+    Wraps `verify_company_entities([query])` into a single-entity tool
+    suitable for ReAct agents — returns a dict the LLM can read directly:
+
+        {
+          "query": "<input>",
+          "ch_available": true,
+          "matches": [{"symbol", "organ_name", "icb_name3", "icb_name2"}, ...],
+          "match_count": int
+        }
+
+    If ClickHouse isn't configured, `ch_available=false`. If no match,
+    `matches=[]` and the caller (rewriter) should ask the user to
+    clarify which company they meant.
+    """
+    if not isinstance(query, str) or not query.strip():
+        return {"error": "lookup_company requires a non-empty 'query' string"}
+    resolved, _unresolved, ch_avail = await verify_company_entities([query])
+    return {
+        "query": query.strip(),
+        "ch_available": ch_avail,
+        "matches": resolved,
+        "match_count": len(resolved),
+    }
+
+
+LOOKUP_COMPANY_TOOL_SCHEMA = {
+    "type": "function",
+    "function": {
+        "name": "lookup_company",
+        "description": (
+            "Verify a company exists in the OLAP database (tables: "
+            "stocks + company_overview). Pass a ticker (e.g. 'VNM') or a "
+            "name fragment ('Vinamilk', 'Hoa Phat'). Returns canonical "
+            "matches with symbol + organ_name + ICB sector. Use this BEFORE "
+            "deciding scope_type='company' so you don't ask the agent to "
+            "answer about a non-existent ticker."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "query": {
+                    "type": "string",
+                    "description": "Ticker or company name fragment to resolve.",
+                },
+            },
+            "required": ["query"],
+        },
+    },
+}

@@ -46,9 +46,10 @@ class LLMSpec:
 
 def parse_spec(raw: str, fallback_model: str) -> LLMSpec:
     """
-    "ollama:qwen2.5:14b" → LLMSpec("ollama", "qwen2.5:14b")
+    "dashscope:qwen-plus" → LLMSpec("dashscope", "qwen-plus")
+    "ollama:qwen2.5:14b"  → LLMSpec("ollama", "qwen2.5:14b")
     "gemini:gemini-2.0-flash" → LLMSpec("gemini", "gemini-2.0-flash")
-    ""                  → LLMSpec("ollama", fallback_model)
+    ""                    → LLMSpec("ollama", fallback_model)
     """
     raw = (raw or "").strip()
     if not raw:
@@ -59,7 +60,7 @@ def parse_spec(raw: str, fallback_model: str) -> LLMSpec:
     provider, _, model = raw.partition(":")
     provider = provider.strip().lower()
     model = model.strip()
-    if provider not in {"ollama", "gemini", "openai"}:
+    if provider not in {"ollama", "gemini", "openai", "dashscope"}:
         log.warning(
             "Unknown LLM provider %r in spec %r — falling back to ollama:%s",
             provider, raw, fallback_model,
@@ -99,6 +100,10 @@ class LLMHandle:
                 self.spec.model, messages, tools=tools,
                 timeout=timeout, options=options,
             )
+        if self.spec.provider == "dashscope":
+            return await _dashscope_chat_sync(
+                self.spec.model, messages, tools, timeout, options,
+            )
         if self.spec.provider == "gemini":
             return await _gemini_chat_sync(
                 self.spec.model, messages, tools, timeout, options,
@@ -116,6 +121,10 @@ class LLMHandle:
     ) -> AsyncGenerator[dict, None]:
         if self.spec.provider == "ollama":
             async for chunk in ollama_chat_stream(self.spec.model, messages, tools=tools):
+                yield chunk
+            return
+        if self.spec.provider == "dashscope":
+            async for chunk in _dashscope_chat_stream(self.spec.model, messages, tools):
                 yield chunk
             return
         if self.spec.provider == "gemini":
@@ -336,3 +345,166 @@ async def _openai_compat_chat_stream(
     payload = _build_openai_payload(model, messages, tools, options=None, stream=True)
     async for chunk in _stream_openai_compat(base_url, key, payload):
         yield chunk
+
+
+# ════════════════════════════════════════════════════════════
+# Alibaba DashScope (Model Studio) — OpenAI-compat + thinking
+# ════════════════════════════════════════════════════════════
+#
+# Same wire format as OpenAI / Gemini, plus two extras:
+#   • `extra_body: {"enable_thinking": true|false}` toggles Qwen-3
+#     reasoning. Streamed reasoning shows up as `reasoning_content` in
+#     deltas (separate from `content`).
+#   • Sync responses on thinking models include
+#     `choices[0].message.reasoning_content`.
+#
+# We surface reasoning to the rest of the graph as Ollama-shaped
+# `thinking` chunks, identical to how services/ollama.py emits them
+# for gpt-oss / Qwen-thinking on local Ollama.
+
+
+def _dashscope_credentials() -> tuple[str, str]:
+    if not settings.DASHSCOPE_API_KEY:
+        raise RuntimeError("DASHSCOPE_API_KEY not configured")
+    return settings.DASHSCOPE_API_URL.rstrip("/"), settings.DASHSCOPE_API_KEY
+
+
+def _build_dashscope_payload(
+    model: str,
+    messages: list[dict],
+    tools: Optional[list[dict]],
+    options: Optional[dict],
+    stream: bool,
+) -> dict:
+    """OpenAI-shape payload + DashScope `extra_body.enable_thinking`.
+
+    `enable_thinking` is read from options first (per-call override),
+    then settings.DASHSCOPE_ENABLE_THINKING (global default).
+    """
+    payload = _build_openai_payload(model, messages, tools, options, stream)
+    enable_thinking = settings.DASHSCOPE_ENABLE_THINKING
+    if options and "enable_thinking" in options:
+        enable_thinking = bool(options["enable_thinking"])
+    payload["extra_body"] = {"enable_thinking": enable_thinking}
+    return payload
+
+
+async def _dashscope_chat_sync(
+    model: str, messages: list[dict], tools: Optional[list[dict]],
+    timeout: Optional[float], options: Optional[dict],
+) -> dict:
+    base_url, key = _dashscope_credentials()
+    payload = _build_dashscope_payload(model, messages, tools, options, stream=False)
+    headers = {"Content-Type": "application/json", "Authorization": f"Bearer {key}"}
+    total_timeout = timeout if timeout is not None else 300.0
+
+    async with httpx.AsyncClient(timeout=httpx.Timeout(total_timeout, connect=10.0)) as client:
+        resp = await client.post(f"{base_url}/chat/completions", json=payload, headers=headers)
+        if resp.status_code >= 400:
+            log.error("DashScope chat_sync %s: %s", resp.status_code, resp.text[:500])
+        resp.raise_for_status()
+        data = resp.json()
+
+    if isinstance(data, dict) and "choices" not in data and "data" in data:
+        data = data["data"]
+    choices = data.get("choices") or []
+    if not choices:
+        return {"message": {"role": "assistant", "content": ""}, "done": True}
+    msg = choices[0].get("message") or {}
+    out = _openai_message_to_ollama(msg)
+    # DashScope thinking models put reasoning text here on sync calls
+    reasoning = msg.get("reasoning_content")
+    if reasoning:
+        out["thinking"] = reasoning
+    return {"message": out, "done": True}
+
+
+async def _dashscope_chat_stream(
+    model: str, messages: list[dict], tools: Optional[list[dict]],
+) -> AsyncGenerator[dict, None]:
+    """Streaming with DashScope reasoning_content surfaced as `thinking`."""
+    base_url, key = _dashscope_credentials()
+    payload = _build_dashscope_payload(model, messages, tools, options=None, stream=True)
+    headers = {"Content-Type": "application/json", "Authorization": f"Bearer {key}"}
+
+    accumulated_tool_calls: dict[int, dict] = {}
+
+    async with httpx.AsyncClient(timeout=httpx.Timeout(300.0, connect=10.0)) as client:
+        async with client.stream(
+            "POST", f"{base_url}/chat/completions",
+            json=payload, headers=headers,
+        ) as resp:
+            if resp.status_code >= 400:
+                body = await resp.aread()
+                log.error("DashScope stream error %s: %s",
+                          resp.status_code, body.decode()[:500])
+            resp.raise_for_status()
+
+            async for raw_line in resp.aiter_lines():
+                line = raw_line.strip() if raw_line else ""
+                if not line or not line.startswith("data:"):
+                    continue
+                payload_str = line[len("data:"):].strip()
+                if payload_str == "[DONE]":
+                    if accumulated_tool_calls:
+                        ol_tcs = []
+                        for idx in sorted(accumulated_tool_calls.keys()):
+                            tc = accumulated_tool_calls[idx]
+                            args_str = tc.get("arguments", "")
+                            try:
+                                args_obj = json.loads(args_str) if args_str.strip() else {}
+                            except json.JSONDecodeError:
+                                args_obj = {"_raw": args_str}
+                            ol_tcs.append({
+                                "function": {
+                                    "name": tc.get("name", ""),
+                                    "arguments": args_obj,
+                                },
+                            })
+                        yield {
+                            "message": {"role": "assistant", "content": "", "tool_calls": ol_tcs},
+                            "done": True,
+                        }
+                    else:
+                        yield {"message": {"role": "assistant", "content": ""}, "done": True}
+                    return
+                try:
+                    chunk = json.loads(payload_str)
+                except json.JSONDecodeError:
+                    continue
+                if isinstance(chunk, dict) and "choices" not in chunk and "data" in chunk:
+                    chunk = chunk["data"]
+                choices = chunk.get("choices") or []
+                if not choices:
+                    continue
+                delta = choices[0].get("delta") or {}
+
+                # Accumulate tool_calls
+                for tc_delta in delta.get("tool_calls") or []:
+                    idx = tc_delta.get("index", 0)
+                    bucket = accumulated_tool_calls.setdefault(idx, {"name": "", "arguments": ""})
+                    fn = tc_delta.get("function") or {}
+                    if fn.get("name"):
+                        bucket["name"] = fn["name"]
+                    if fn.get("arguments"):
+                        bucket["arguments"] += fn["arguments"]
+
+                # Reasoning (thinking) — DashScope only field
+                reasoning_delta = delta.get("reasoning_content")
+                if reasoning_delta:
+                    yield {
+                        "message": {
+                            "role": "assistant",
+                            "content": "",
+                            "thinking": reasoning_delta,
+                        },
+                        "done": False,
+                    }
+
+                # Final content delta
+                content_delta = delta.get("content")
+                if content_delta:
+                    yield {
+                        "message": {"role": "assistant", "content": content_delta},
+                        "done": False,
+                    }

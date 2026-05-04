@@ -69,12 +69,6 @@ REWRITE_TIMEOUT_SEC = 12
 
 _VALID_SCOPE_TYPES = {"company", "sector", "macro", "general", ""}
 
-# Whitelist for entity strings we'll splice into ClickHouse SQL.
-# Vietnamese diacritics + ASCII letters/digits + a few punctuation marks.
-_ENTITY_OK_RE = re.compile(r"^[\w \-\.&,/À-ỹ]+$", re.UNICODE)
-_MAX_ENTITY_LEN = 100
-_MAX_VERIFY_ENTITIES = 10
-
 
 @dataclass
 class RewriteResult:
@@ -335,132 +329,9 @@ async def rewrite_query(
 
 # ── Company scope verification ──────────────────────────────
 #
-# The rewriter LLM only does string extraction — it can confidently
-# spit out a ticker or company name that doesn't actually exist in the
-# OLAP database. We resolve that here by hitting `stocks` +
-# `company_overview` directly. The contract:
-#
-#   verify_company_entities(["VNM", "Vinamilk"]) →
-#       (resolved=[{symbol, organ_name, icb_name3, icb_name2}],
-#        unresolved=[],
-#        ch_available=True)
-#
-# Caller logic:
-#   • ch_available=False → ClickHouse not configured; skip the check
-#     entirely (don't punish the user for ops gap).
-#   • resolved=[] AND ch_available=True → none of the entities exist;
-#     flip the rewrite into a clarification ("which company did you
-#     mean?") so the agent never answers about a non-existent ticker.
-#   • resolved=[…] → enrich the agent's hint with canonical names.
-
-def _ch_quote(s: str) -> str:
-    """Escape a string literal for ClickHouse single-quoted form."""
-    return "'" + s.replace("\\", "\\\\").replace("'", "''") + "'"
-
-
-def _sanitize_entities(entities: list[str]) -> list[str]:
-    """Drop entities that don't fit the whitelist or are too long."""
-    cleaned = []
-    seen = set()
-    for raw in entities or []:
-        e = (raw or "").strip()
-        if not e or len(e) > _MAX_ENTITY_LEN:
-            continue
-        if not _ENTITY_OK_RE.match(e):
-            continue
-        key = e.lower()
-        if key in seen:
-            continue
-        seen.add(key)
-        cleaned.append(e)
-        if len(cleaned) >= _MAX_VERIFY_ENTITIES:
-            break
-    return cleaned
-
-
-async def verify_company_entities(
-    entities: list[str],
-) -> tuple[list[dict], list[str], bool]:
-    """
-    Resolve LLM-extracted entity strings against `stocks` +
-    `company_overview` in ClickHouse.
-
-    Match rules (per entity):
-      • exact ticker match (case-insensitive on `stocks.ticker`), OR
-      • case-insensitive substring match on `stocks.organ_name`.
-
-    Returns:
-        (resolved, unresolved, ch_available)
-        resolved      — list of {symbol, organ_name, icb_name3, icb_name2}
-        unresolved    — input strings that did not match anything
-        ch_available  — False when ClickHouse isn't configured or query
-                        failed; in that case caller should treat the
-                        scope as "couldn't verify, assume valid" to
-                        avoid blocking the user on infra gaps.
-    """
-    from tools.database_query import is_enabled, run_sql
-
-    if not entities:
-        return [], [], True
-
-    if not is_enabled():
-        return [], list(entities), False
-
-    cleaned = _sanitize_entities(entities)
-    if not cleaned:
-        # Nothing parseable to send to SQL; mark all as unresolved.
-        return [], list(entities), True
-
-    or_clauses = []
-    for e in cleaned:
-        q = _ch_quote(e)
-        or_clauses.append(
-            f"(upper(s.ticker) = upper({q}) OR "
-            f"positionCaseInsensitive(coalesce(s.organ_name,''), {q}) > 0)"
-        )
-    where_clause = " OR ".join(or_clauses)
-
-    sql = (
-        "SELECT s.ticker AS symbol, "
-        "       coalesce(s.organ_name,'') AS organ_name, "
-        "       coalesce(co.icb_name3,'') AS icb_name3, "
-        "       coalesce(co.icb_name2,'') AS icb_name2 "
-        "FROM stocks s "
-        "LEFT JOIN company_overview co ON s.ticker = co.symbol "
-        f"WHERE {where_clause} "
-        "LIMIT 20"
-    )
-
-    try:
-        result = await run_sql(sql)
-    except Exception as e:
-        log.warning(f"company verify query crashed: {e}; treating as unavailable")
-        return [], list(entities), False
-
-    if isinstance(result, dict) and result.get("error"):
-        log.warning(f"company verify SQL rejected: {result.get('error')}")
-        return [], list(entities), False
-
-    columns = result.get("columns", []) if isinstance(result, dict) else []
-    rows = result.get("rows", []) if isinstance(result, dict) else []
-    resolved: list[dict] = [dict(zip(columns, r)) for r in rows]
-
-    # Map each input entity → matched? An entity is matched if a
-    # resolved row's ticker equals its uppercase form OR its lowercased
-    # form is a substring (or contains a substring of) any resolved
-    # organ_name. This catches both ticker queries ("VNM") and name
-    # queries ("Vinamilk", "Vinamilk Việt Nam").
-    resolved_tickers = {(row.get("symbol") or "").upper() for row in resolved}
-    resolved_names = [(row.get("organ_name") or "").lower() for row in resolved]
-
-    unresolved: list[str] = []
-    for e in cleaned:
-        e_upper = e.upper()
-        e_lower = e.lower()
-        if e_upper in resolved_tickers:
-            continue
-        if any(n and (e_lower in n or n in e_lower) for n in resolved_names):
-            continue
-        unresolved.append(e)
-
-    return resolved, unresolved, True
+# The implementation moved to tools.database_query so it can be exposed
+# as a ReAct tool (lookup_company). Re-export here for back-compat with
+# any caller that still imports from services.rewriter.
+from tools.database_query import (   # noqa: E402,F401
+    verify_company_entities,
+)

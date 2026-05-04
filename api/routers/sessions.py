@@ -18,7 +18,15 @@ router = APIRouter(prefix="/sessions", tags=["sessions"])
 
 class SessionCreate(BaseModel):
     project_id: Optional[int] = None
-    model_used: str
+    # Optional — defaults to settings.DEFAULT_MODEL. The "session model"
+    # is now only a fallback for any agent whose *_AGENT_LLM env var is
+    # empty; the per-agent brains override it. UI no longer exposes a
+    # picker — the backend fills this in.
+    model_used: Optional[str] = None
+    # Ignored by the server — every session auto-enables every tool the
+    # deployment supports. Kept in the schema for back-compat with
+    # older clients but not honored. The orchestrator decides which
+    # tool to actually invoke per-turn based on user intent.
     tools_used: Optional[list[str]] = None
 
 
@@ -148,20 +156,20 @@ async def create_session(
         if not await _can_user_access_project(db, user_id, project_id):
             raise HTTPException(status_code=403, detail="Access denied")
 
-    # Default tool set — web_search always on unless user explicitly disables it.
-    # RAG (file retrieval) is always on when files exist; not a toggleable "tool".
-    default_tools = ["web_search"]
-    # Enable OLAP tools only if ClickHouse is configured in this deployment
+    # Auto-enable every tool the deployment supports. The orchestrator
+    # picks which to actually use per-turn based on user intent — and
+    # the collector suggests unused-but-relevant tools at the end of
+    # each answer. We ignore any client-supplied tools_used list to
+    # keep agent capability uniform across sessions.
     from config import get_settings
     _s = get_settings()
+    tools = ["web_search"]
     if _s.CLICKHOUSE_HOST:
-        default_tools.extend(["database_query", "visualize"])
-
-    tools = body.tools_used if body.tools_used is not None else default_tools
+        tools.extend(["database_query", "visualize"])
 
     session = ChatSession(
         project_id=project_id,
-        model_used=body.model_used,
+        model_used=(body.model_used or _s.DEFAULT_MODEL or "qwen2.5:14b"),
         tools_used=tools,
     )
     db.add(session)

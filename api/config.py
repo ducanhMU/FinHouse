@@ -74,29 +74,74 @@ class Settings(BaseSettings):
     REWRITER_ENABLED: bool = True
 
     # ── Multi-agent LLM routing (LangGraph nodes) ──
-    # Format: "<provider>:<model>" or empty to fall back to the session
-    # model on local Ollama.
-    # Providers:
-    #   ollama:<tag>           — local Ollama (e.g. ollama:qwen2.5:14b)
+    # Each ReAct agent in the chat graph has its own brain. Choose the
+    # model per-agent by complexity tier.
+    #
+    # Qwen series available on DashScope (Model Studio):
+    #   • Qwen-Max series — flagship reasoning. Latest tags:
+    #       qwen3.6-max, qwen3-max, qwen-max
+    #   • Qwen-Plus series — strong general / agentic. Latest tags:
+    #       qwen3.6-plus, qwen3.5-plus, qwen-plus
+    #   • Qwen-Flash series — fast/cheap, good for high-throughput. Tags:
+    #       qwen3.6-flash, qwen3.5-flash, qwen-flash
+    #   • Qwen-Coder series — best at code & structured output (SQL, JSON):
+    #       qwen3-coder-plus, qwen3-coder-flash, qwen-coder-plus,
+    #       qwen2.5-coder-32b-instruct
+    #   • Qwen-Turbo — legacy ultra-light tier (qwen-turbo)
+    #   • Open-source dense / MoE: qwen3.6-*, qwen3.5-*, qwen3-*, qwen2.5-*
+    #
+    # Tier mapping (recommendation):
+    #   Tier-A (heaviest reasoning — DB schema + SQL planning):
+    #     DB_AGENT_LLM         → dashscope:qwen3-coder-plus
+    #                            (alt: qwen3.6-max for non-coder reasoning)
+    #   Tier-B (medium — orchestration, charts, synthesis):
+    #     ORCHESTRATOR / VIS / COLLECTOR
+    #                          → dashscope:qwen3.6-plus
+    #                            (alt: qwen-plus, qwen3.5-plus)
+    #   Tier-C (light — JSON extraction, lookup-only ReAct):
+    #     REWRITER / WEB       → dashscope:qwen3.6-flash
+    #                            (alt: qwen-turbo, qwen3.5-flash)
+    #
+    # Format: "<provider>:<model>" or empty to fall back to the chat
+    # session's model on local Ollama (legacy single-brain mode).
+    # Providers (ordered by preference):
+    #   dashscope:<model>      — Alibaba DashScope (PRIMARY).
+    #   ollama:<tag>           — local Ollama (FALLBACK). e.g. qwen2.5:14b
     #   gemini:<model>         — Google Gemini OpenAI-compat endpoint
-    #   openai:<model>         — any OpenAI-compatible endpoint configured
-    #                            via OLLAMA_API_URL/OLLAMA_API_KEY
-    REWRITER_AGENT_LLM:     str = ""
-    ORCHESTRATOR_AGENT_LLM: str = ""
-    WEB_AGENT_LLM:          str = ""
-    DB_AGENT_LLM:           str = ""
-    VIS_AGENT_LLM:          str = ""
-    COLLECTOR_AGENT_LLM:    str = ""
+    #   openai:<model>         — any OpenAI-compat endpoint via
+    #                            OLLAMA_API_URL / OLLAMA_API_KEY
+    REWRITER_AGENT_LLM:     str = ""  # tier-C — recommend qwen3.6-flash
+    ORCHESTRATOR_AGENT_LLM: str = ""  # tier-B — recommend qwen3.6-plus
+    WEB_AGENT_LLM:          str = ""  # tier-C — recommend qwen3.6-flash
+    DB_AGENT_LLM:           str = ""  # tier-A — recommend qwen3-coder-plus
+    VIS_AGENT_LLM:          str = ""  # tier-B — recommend qwen3.6-plus
+    COLLECTOR_AGENT_LLM:    str = ""  # tier-B — recommend qwen3.6-plus
 
-    # Gemini (used when any *_AGENT_LLM = "gemini:<model>")
+    # ── DashScope (Alibaba Model Studio) ─────────────────────
+    # OpenAI-compatible. International endpoint default; switch to
+    # https://dashscope.aliyuncs.com/compatible-mode/v1 for Beijing region.
+    # Get API key: https://www.alibabacloud.com/help/model-studio/get-api-key
+    DASHSCOPE_API_URL: str = "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
+    DASHSCOPE_API_KEY: str = ""
+    # Toggle "thinking" mode for Qwen-3 series. When True, the model emits
+    # reasoning_content streamed separately from final content (rendered
+    # as italic/dim block in the UI). Set False for tier-C agents to cut
+    # latency and tokens.
+    DASHSCOPE_ENABLE_THINKING: bool = False
+
+    # ── Gemini (used when any *_AGENT_LLM = "gemini:<model>") ──
     # OpenAI-compatible endpoint, see:
     # https://ai.google.dev/gemini-api/docs/openai
     GEMINI_API_URL: str = "https://generativelanguage.googleapis.com/v1beta/openai"
     GEMINI_API_KEY: str = ""
 
-    # Per-agent ReAct loop ceiling. Tools-stop and self-clarify after this
-    # many tool rounds, mirroring MAX_TOOL_ROUNDS for the unified agent.
+    # Per-agent ReAct loop ceiling. Each agent stops calling tools after
+    # this many rounds and produces its final answer with what it has.
     AGENT_MAX_ROUNDS: int = 6
+
+    # Tighter cap for the rewriter: it should converge on JSON in 1-2
+    # rounds at most (call lookup_company once, then emit JSON).
+    REWRITER_MAX_ROUNDS: int = 3
 
     # Embedding / Reranker — local services
     EMBED_HOST: str = "http://finhouse-bge-m3:8081"

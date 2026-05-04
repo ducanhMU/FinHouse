@@ -27,7 +27,7 @@ from langchain_core.runnables import RunnableConfig, RunnableLambda
 from graph.llm_router import get_llm
 from graph.sse import PersistSpec, emit
 from graph.state import ChatState
-from prompts import get_system_prompt
+from prompts import get_collector_prompt
 
 log = logging.getLogger("finhouse.graph.collector")
 
@@ -55,7 +55,7 @@ def _agent_summary_block(state: ChatState) -> str:
 
 
 def _assemble_messages(state: ChatState) -> list[dict]:
-    msgs: list[dict] = [{"role": "system", "content": get_system_prompt()}]
+    msgs: list[dict] = [{"role": "system", "content": get_collector_prompt()}]
 
     # RAG passages — produced by rag_node
     msgs.extend(state.rag_messages or [])

@@ -149,15 +149,22 @@ def list_sessions(token: Optional[str], project_id: Optional[int] = None) -> lis
 
 def create_session(
     token: Optional[str],
-    model_used: str,
     project_id: Optional[int] = None,
+    model_used: Optional[str] = None,
     tools_used: Optional[list[str]] = None,
 ) -> dict:
-    body = {"model_used": model_used}
+    """Create a chat session.
+
+    Both `model_used` and `tools_used` are optional — the server now
+    fills `model_used` from settings.DEFAULT_MODEL and auto-enables
+    every tool the deployment supports. UI no longer asks the user
+    to choose either.
+    """
+    body: dict = {}
     if project_id is not None:
         body["project_id"] = project_id
-    # Pass tools_used even when it's an empty list — that means "no tools".
-    # Truthy check ([] is falsy) would silently fall back to backend defaults.
+    if model_used is not None:
+        body["model_used"] = model_used
     if tools_used is not None:
         body["tools_used"] = tools_used
     r = httpx.post(
@@ -166,6 +173,21 @@ def create_session(
         headers=_headers(token),
         timeout=TIMEOUT,
     )
+    r.raise_for_status()
+    return r.json()
+
+
+def get_agents_config() -> dict:
+    """Read-only snapshot of per-agent brain config (GET /agents).
+
+    Returns:
+        {
+          "agents": [{name, env_var, raw, provider, model, label, is_fallback}],
+          "fallback_model": "qwen2.5:14b",
+          "providers": {"dashscope": bool, "gemini": bool, "openai": bool, "ollama": bool},
+        }
+    """
+    r = httpx.get(f"{API_BASE}/agents", timeout=TIMEOUT)
     r.raise_for_status()
     return r.json()
 

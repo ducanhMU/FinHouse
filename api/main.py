@@ -193,5 +193,47 @@ async def health_check():
 
 @app.get("/models", tags=["system"])
 async def get_models():
-    """List available Ollama models."""
+    """List available Ollama models (legacy — UI uses /agents now)."""
     return await list_models()
+
+
+@app.get("/agents", tags=["system"])
+async def get_agents_config():
+    """Read-only snapshot of the per-agent brain configuration.
+
+    The UI consumes this to display which LLM each ReAct agent is
+    bound to. Brains are configured via *_AGENT_LLM env vars (read at
+    process start); the UI does NOT let the user override them here.
+
+    Empty `spec` means the agent is using fallback = session model on
+    local Ollama. The frontend should label that as "Ollama (fallback)".
+    """
+    from graph.llm_router import _AGENT_ENV, parse_spec
+
+    fallback = settings.DEFAULT_MODEL or "qwen2.5:14b"
+    agents = []
+    for name, env_name in _AGENT_ENV.items():
+        raw = (getattr(settings, env_name, "") or "").strip()
+        spec = parse_spec(raw, fallback)
+        agents.append({
+            "name": name,
+            "env_var": env_name,
+            "raw": raw,
+            "provider": spec.provider,
+            "model": spec.model,
+            "label": f"{spec.provider}:{spec.model}",
+            "is_fallback": not raw,
+        })
+
+    providers = {
+        "dashscope": bool(settings.DASHSCOPE_API_KEY),
+        "gemini":    bool(settings.GEMINI_API_KEY),
+        "openai":    bool(settings.OLLAMA_API_KEY and settings.OLLAMA_API_URL),
+        "ollama":    bool(settings.OLLAMA_HOST),
+    }
+
+    return {
+        "agents": agents,
+        "fallback_model": fallback,
+        "providers": providers,
+    }

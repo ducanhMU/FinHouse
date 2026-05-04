@@ -55,8 +55,18 @@ _FALLBACK_WEB_SEARCH = (
     "year/quarter in the query. Cite sources [1], [2] in the answer."
 )
 
+_FALLBACK_ORCHESTRATOR = (
+    "Decompose the user's question into 0+ tasks, one per tool agent "
+    "(database / web_search / visualize). Output a single JSON object: "
+    "{reasoning, tasks: [{goal, tool_type, args}]}. No markdown, no tool calls."
+)
+
+_FALLBACK_COLLECTOR = _FALLBACK_SYSTEM
+
 _FALLBACKS = {
     "system": _FALLBACK_SYSTEM,
+    "collector": _FALLBACK_COLLECTOR,
+    "orchestrator": _FALLBACK_ORCHESTRATOR,
     "query_rewriter": _FALLBACK_REWRITER,
     "database_query": _FALLBACK_DATABASE_QUERY,
     "visualize": _FALLBACK_VISUALIZE,
@@ -106,7 +116,18 @@ def reload_prompts() -> None:
 # ── Convenience accessors ───────────────────────────────────
 
 def get_system_prompt() -> str:
+    """Legacy alias — prefer get_collector_prompt() for the collector role."""
     return load_prompt("system")
+
+
+def get_collector_prompt() -> str:
+    """Persona + synthesis instructions for the collector node."""
+    return load_prompt("collector")
+
+
+def get_orchestrator_prompt() -> str:
+    """Plan-emission instructions for the orchestrator node."""
+    return load_prompt("orchestrator")
 
 
 def get_query_rewriter_prompt() -> str:

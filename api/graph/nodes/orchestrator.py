@@ -24,40 +24,12 @@ from langchain_core.runnables import RunnableConfig, RunnableLambda
 from graph.llm_router import get_llm
 from graph.sse import emit
 from graph.state import ChatState, OrchestratorPlan, OrchestratorTask, ToolType
+from prompts import get_orchestrator_prompt
 
 log = logging.getLogger("finhouse.graph.orchestrator")
 
 
 _VALID_TOOL_TYPES: set[ToolType] = {"web_search", "database", "visualize"}
-
-
-_ORCH_SYSTEM_PROMPT = """Bạn là Orchestrator của hệ thống FinHouse — agent tài chính tiếng Việt.
-
-Đầu vào của bạn là kết quả phân tích từ Re-Writer (scope, time, metrics, entities, etc.) và danh sách tool đang được bật.
-
-Nhiệm vụ: phân rã câu hỏi của user thành 0 hoặc nhiều TASK, mỗi task gán cho ĐÚNG MỘT loại tool agent:
-  • "database"   — dùng khi cần dữ liệu định lượng từ OLAP nội bộ
-                    (báo cáo tài chính, giá CK, news, events, v.v.).
-  • "web_search" — dùng khi cần thông tin ngoài cutoff hoặc ngoài DB
-                    (tin nóng vĩ mô, sự kiện ngành mới).
-  • "visualize"  — dùng khi user yêu cầu biểu đồ (bar/line/pie).
-
-Nguyên tắc:
-  • Tasks chạy song song độc lập — không assume thứ tự.
-  • Mỗi task có goal RÕ RÀNG (1–2 câu, có entity + time + metric khi liên quan).
-  • Có thể bỏ qua hoàn toàn nếu RAG nội bộ là đủ → trả về tasks: [].
-  • Nếu user yêu cầu biểu đồ thì luôn phát sinh 1 task visualize.
-  • Chỉ tạo task cho tool đang ENABLED (xem TOOLS_ENABLED bên dưới).
-
-OUTPUT: DUY NHẤT 1 JSON object dạng:
-{
-  "reasoning": "<1 câu giải thích lý do chọn tasks>",
-  "tasks": [
-    {"goal": "<câu hỏi rõ ràng cho agent>", "tool_type": "database|web_search|visualize", "args": {<gợi ý tham số nếu có>}}
-  ]
-}
-
-Không markdown fence, không text khác."""
 
 
 def _extract_json(raw: str) -> dict | None:
@@ -134,7 +106,7 @@ async def _orchestrator_node(state: ChatState, config: RunnableConfig) -> dict:
 
     llm = get_llm("orchestrator", state.session_model)
     messages = [
-        {"role": "system", "content": _ORCH_SYSTEM_PROMPT},
+        {"role": "system", "content": get_orchestrator_prompt()},
         {"role": "user", "content": _build_user_block(state)},
     ]
 

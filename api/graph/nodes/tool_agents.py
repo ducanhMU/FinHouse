@@ -30,6 +30,9 @@ from prompts import (
 from tools.database_query import (
     DATABASE_QUERY_TOOL_SCHEMAS,
     aggregate as db_aggregate,
+    describe_table as db_describe_table,
+    distinct_values as db_distinct_values,
+    list_tables as db_list_tables,
     select_rows as db_select_rows,
 )
 from tools.visualize import (
@@ -48,6 +51,24 @@ log = logging.getLogger("finhouse.graph.tool_agents")
 
 async def _h_web_search(args: dict):
     return await web_search(args.get("query", "")[:500])
+
+
+async def _h_list_tables(args: dict):  # noqa: ARG001
+    return await db_list_tables()
+
+
+async def _h_describe_table(args: dict):
+    return await db_describe_table(args.get("table", ""))
+
+
+async def _h_distinct_values(args: dict):
+    return await db_distinct_values(
+        table=args.get("table", ""),
+        column=args.get("column", ""),
+        filters=args.get("filters") or None,
+        limit=args.get("limit", 100),
+        use_final=args.get("use_final", True),
+    )
 
 
 async def _h_select_rows(args: dict):
@@ -149,9 +170,24 @@ def make_db_agent(session_model: str) -> ReactAgent:
         system_prompt=get_database_query_prompt(),
         tools=[
             AgentTool(
+                name="list_tables",
+                schema=_schema_by_name(DATABASE_QUERY_TOOL_SCHEMAS, "list_tables"),
+                handler=_h_list_tables,
+            ),
+            AgentTool(
+                name="describe_table",
+                schema=_schema_by_name(DATABASE_QUERY_TOOL_SCHEMAS, "describe_table"),
+                handler=_h_describe_table,
+            ),
+            AgentTool(
                 name="select_rows",
                 schema=_schema_by_name(DATABASE_QUERY_TOOL_SCHEMAS, "select_rows"),
                 handler=_h_select_rows,
+            ),
+            AgentTool(
+                name="distinct_values",
+                schema=_schema_by_name(DATABASE_QUERY_TOOL_SCHEMAS, "distinct_values"),
+                handler=_h_distinct_values,
             ),
             AgentTool(
                 name="aggregate",
