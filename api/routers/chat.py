@@ -900,7 +900,7 @@ async def send_message(
                                 fn = tc.get("function", {})
                                 log.info(
                                     f"[session={session_id}] tool call: "
-                                    f"{fn.get('name')} args={str(fn.get('arguments'))[:200]}"
+                                    f"{fn.get('name')} args={json.dumps(fn.get('arguments'), ensure_ascii=False, default=str)[:1000]}"
                                 )
                                 yield f"data: {json.dumps({'type': 'tool_start', 'tool': fn.get('name',''), 'args': fn.get('arguments',{})})}\n\n"
 

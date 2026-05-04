@@ -165,9 +165,25 @@ async def describe_table(table_name: str) -> dict[str, Any]:
 # _ch_lit() which escapes ClickHouse single-quote rules.
 
 _IDENT_RE = re.compile(r"^[a-zA-Z_][a-zA-Z0-9_]*$")
-_FILTER_OPS = {"=", "!=", "<", "<=", ">", ">=", "IN"}
+_FILTER_OPS = {"=", "!=", "<", "<=", ">", ">=", "IN", "NOT IN", "LIKE", "NOT LIKE", "MATCH"}
 _AGG_FUNCS = {"sum", "avg", "min", "max", "count"}
 _ORDER_DIRS = {"asc", "desc"}
+
+# Aliases the model frequently emits but which aren't real ClickHouse ops.
+# Map them onto the canonical op so a small-model typo doesn't kill the call.
+_FILTER_OP_ALIASES = {
+    "==": "=",
+    "<>": "!=",
+    "=~": "MATCH",       # regex match (PCRE) — ClickHouse match()
+    "!~": "NOT MATCH",   # negated regex
+    "REGEX": "MATCH",
+    "REGEXP": "MATCH",
+    "ILIKE": "LIKE",     # ClickHouse LIKE is already case-insensitive enough for our use
+    "NOT_IN": "NOT IN",
+    "NOTIN": "NOT IN",
+    "NOT_LIKE": "NOT LIKE",
+    "NOTLIKE": "NOT LIKE",
+}
 
 
 def _ident(name: str) -> str:
@@ -199,16 +215,19 @@ def _build_where(filters: Optional[list[dict]]) -> str:
             raise ValueError(f"Filter must be an object with 'column': {f!r}")
         col = _ident(f["column"])
         op = (f.get("op") or "=").upper().strip()
-        if op == "<>":
-            op = "!="
+        op = _FILTER_OP_ALIASES.get(op, op)
         if op not in _FILTER_OPS:
             raise ValueError(f"Unsupported filter op: {op}")
-        if op == "IN":
+        if op in ("IN", "NOT IN"):
             values = f.get("value") or f.get("values")
             if not isinstance(values, list) or not values:
-                raise ValueError(f"IN filter requires non-empty list of values for {f['column']!r}")
+                raise ValueError(f"{op} filter requires non-empty list of values for {f['column']!r}")
             literals = ", ".join(_ch_lit(v) for v in values)
-            clauses.append(f"{col} IN ({literals})")
+            clauses.append(f"{col} {op} ({literals})")
+        elif op == "MATCH":
+            clauses.append(f"match({col}, {_ch_lit(f.get('value'))})")
+        elif op == "NOT MATCH":
+            clauses.append(f"NOT match({col}, {_ch_lit(f.get('value'))})")
         else:
             clauses.append(f"{col} {op} {_ch_lit(f.get('value'))}")
     return " WHERE " + " AND ".join(clauses)
@@ -336,8 +355,13 @@ _FILTERS_SCHEMA = {
     "type": "array",
     "description": (
         "WHERE conditions ANDed together. Each item is "
-        "{column, op, value}. op ∈ =, !=, <, <=, >, >=, IN. "
-        "For IN, value must be an array."
+        "{column, op, value}. op ∈ =, !=, <, <=, >, >=, IN, NOT IN, "
+        "LIKE, NOT LIKE, MATCH. For IN/NOT IN, value must be an array. "
+        "For LIKE/NOT LIKE, value uses SQL wildcards (% and _) — e.g. "
+        "value='2025-%' to match anything starting with '2025-'. "
+        "For MATCH, value is a PCRE regex (ClickHouse match()) — e.g. "
+        "value='^2025-' for the same prefix match. Do NOT use '=~'; "
+        "use op='MATCH' instead."
     ),
     "items": {
         "type": "object",
@@ -345,10 +369,17 @@ _FILTERS_SCHEMA = {
             "column": {"type": "string"},
             "op": {
                 "type": "string",
-                "enum": ["=", "!=", "<", "<=", ">", ">=", "IN"],
+                "enum": [
+                    "=", "!=", "<", "<=", ">", ">=",
+                    "IN", "NOT IN",
+                    "LIKE", "NOT LIKE",
+                    "MATCH",
+                ],
             },
             "value": {
-                "description": "Scalar for =/!=/</<=/>/>=. Array for IN.",
+                "description": (
+                    "Scalar for =/!=/</<=/>/>=/LIKE/MATCH. Array for IN/NOT IN."
+                ),
             },
         },
         "required": ["column", "value"],
