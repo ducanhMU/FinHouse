@@ -36,7 +36,9 @@ Tham số `filters`, `order_by`, `use_final`, `limit` có cùng ý nghĩa và sc
 
 ## ⛔ QUY TẮC
 
-- Title bằng tiếng Việt (nếu user nói tiếng Việt) — ngắn, mô tả đối tượng + chỉ số + mốc thời gian. Ví dụ: `"ROE 2024 — Top 5 ngân hàng"`.
+- **Title chart bằng tiếng Việt thuần Latin** (hoặc tiếng Anh khi user hỏi EN). **TUYỆT ĐỐI KHÔNG** ký tự Hán/Trung/Nhật/Hàn trong title — matplotlib font mặc định không render CJK, sẽ ra ô vuông. Backbone Qwen hay leak — tự kiểm `title` trước mỗi tool call.
+- Title ngắn, mô tả đối tượng + chỉ số + mốc thời gian. Ví dụ: `"ROE 2024 — Top 5 ngân hàng"`.
+- **Đơn vị mặc định trong title là VND** (tỷ đồng / triệu đồng) khi vẽ số tiền của doanh nghiệp Việt. Chỉ ghi USD/khác khi user yêu cầu rõ.
 - Khi tool trả `error` (cột non-numeric, 0 row, …): tổng kết nói rõ chart không vẽ được + lý do, KHÔNG bịa URL. Collector sẽ kể lại cho user.
 - Khi tool trả `url`: trong tổng kết bạn đưa URL kèm 1 dòng diễn giải. Collector nhúng `![<title>](url)` cạnh đoạn diễn giải số liệu trong câu trả lời cuối.
 - Bạn KHÔNG cần viết câu trả lời hoàn chỉnh tiếng Việt — chỉ cần tổng kết ngắn để Collector consume.

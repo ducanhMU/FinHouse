@@ -11,6 +11,12 @@ from datetime import datetime, timedelta
 import streamlit as st
 import api_client as api
 
+# Mirror of api/services/ingest.py:SUPPORTED_EXTENSIONS — files whose
+# type isn't in this set are stored on the server with status 'failed'
+# (no RAG ingestion). Hide them from the file manager so the user
+# only sees what they can actually search against.
+SUPPORTED_EXTENSIONS = {"pdf", "md", "txt", "docx"}
+
 # ════════════════════════════════════════════════════════════
 # Page Config
 # ════════════════════════════════════════════════════════════
@@ -233,6 +239,54 @@ def group_sessions_by_time(sessions: list[dict]) -> dict[str, list]:
 
 
 # ════════════════════════════════════════════════════════════
+# Helper: Render one tool result inside an expander
+# ════════════════════════════════════════════════════════════
+
+def render_tool_result(tool_name: str, content: str, is_error: bool = False) -> None:
+    """
+    Render a single tool result inside an expander. Used by both the live
+    streaming path and the persistent (reload-from-DB) path so the two
+    views stay in sync.
+
+    The streaming path used to render only `web_search`-shaped results
+    (`[{title,url,snippet}]`); other tools (database, visualize, ...) hit
+    an `if isinstance(r, dict) and "title" in r:` branch with no `else`
+    and produced visibly empty expanders. After reload the persistent
+    path with `st.json` fallbacks would suddenly fill them in. This
+    helper has the full fallback chain so both paths show the same
+    thing immediately.
+    """
+    label = f"{'⚠️' if is_error else '📋'} {tool_name or 'tool'} result"
+    with st.expander(label, expanded=False):
+        if not content:
+            st.caption("(empty result)")
+            return
+        try:
+            data = json.loads(content)
+        except Exception:
+            st.text(content[:2000])
+            return
+
+        if isinstance(data, list):
+            if not data:
+                st.caption("(no rows)")
+                return
+            for r in data[:20]:
+                # web_search shape — render as link + snippet
+                if isinstance(r, dict) and "title" in r and "url" in r:
+                    st.markdown(f"**[{r['title']}]({r.get('url','')})**")
+                    snip = r.get("snippet", "")
+                    if snip:
+                        st.caption(snip[:300])
+                else:
+                    st.json(r, expanded=False)
+            if len(data) > 20:
+                st.caption(f"… +{len(data) - 20} more")
+        else:
+            st.json(data, expanded=False)
+
+
+# ════════════════════════════════════════════════════════════
 # Helper: Load session messages from events
 # ════════════════════════════════════════════════════════════
 
@@ -260,7 +314,27 @@ def load_session_events(session_id: str):
             except Exception:
                 current_tool_events.append({"type": "tool_call", "raw": ev["text"]})
         elif ev["event_type"] == "tool_result":
-            current_tool_events.append({"type": "tool_result", "content": ev["text"]})
+            # New format: {"tool": "<name>", "content": "<raw>"}.
+            # Old format: just the raw content string. Keep both working
+            # so older sessions still render.
+            tool_name = ""
+            content = ev["text"]
+            try:
+                parsed = json.loads(ev["text"])
+                if (
+                    isinstance(parsed, dict)
+                    and "content" in parsed
+                    and "tool" in parsed
+                ):
+                    tool_name = parsed.get("tool", "") or ""
+                    content = parsed.get("content", "") or ""
+            except Exception:
+                pass
+            current_tool_events.append({
+                "type": "tool_result",
+                "tool": tool_name,
+                "content": content,
+            })
         elif ev["event_type"] == "rag_context":
             try:
                 current_rag_sources = json.loads(ev["text"])
@@ -654,13 +728,15 @@ if st.session_state.view == "files":
         "truy cập được. File ở project khác là riêng của bạn."
     )
 
-    # Upload area
+    # Upload area — only RAG-ingestable formats. Anything else would
+    # land in DB as `failed` and be filtered out of the list below
+    # anyway, so reject at the picker.
     st.markdown("### Upload")
     uploaded = st.file_uploader(
         "Chọn file để upload",
-        type=["pdf", "md", "txt", "docx", "csv", "json", "xlsx", "jpg", "png"],
+        type=sorted(SUPPORTED_EXTENSIONS),
         accept_multiple_files=True,
-        help="Hỗ trợ RAG: PDF, MD, TXT, DOCX. Định dạng khác sẽ lưu nhưng không search được.",
+        help=f"Hỗ trợ: {', '.join(sorted(e.upper() for e in SUPPORTED_EXTENSIONS))}.",
     )
 
     if uploaded:
@@ -739,13 +815,29 @@ if st.session_state.view == "files":
         st.error(f"Không tải được danh sách file: {e}")
         files_list = []
 
+    # Hide files whose extension we don't ingest for RAG — their rows
+    # are dead weight in the listing (status 'failed', no retry). Files
+    # uploaded before SUPPORTED_EXTENSIONS was tightened, or junk in
+    # ./data/, get filtered out here.
+    hidden_unsupported = sum(
+        1 for f in files_list
+        if (f.get("file_type") or "").lower() not in SUPPORTED_EXTENSIONS
+    )
+    files_list = [
+        f for f in files_list
+        if (f.get("file_type") or "").lower() in SUPPORTED_EXTENSIONS
+    ]
+
     if filter_status != "Tất cả":
         files_list = [f for f in files_list if f.get("process_status") == filter_status]
 
     if not files_list:
         st.info("Chưa có file nào. Upload ở trên để bắt đầu.")
     else:
-        st.caption(f"Tổng: {len(files_list)} file")
+        caption = f"Tổng: {len(files_list)} file"
+        if hidden_unsupported:
+            caption += f" · ẩn {hidden_unsupported} file đuôi không hỗ trợ"
+        st.caption(caption)
         for finfo in files_list:
             fname = finfo.get("file_name", "?")
             fstatus = finfo.get("process_status", "?")
@@ -770,7 +862,7 @@ if st.session_state.view == "files":
             with fcol4:
                 bc1, bc2 = st.columns(2)
                 with bc1:
-                    if fstatus == "failed" and ftype in ("pdf", "md", "txt", "docx"):
+                    if fstatus == "failed" and (ftype or "").lower() in SUPPORTED_EXTENSIONS:
                         if st.button("🔄", key=f"retry_{fid}", help="Retry"):
                             try:
                                 api.reprocess_file(get_token(), fid)
@@ -880,32 +972,27 @@ else:
                         st.caption(text_preview)
 
             if msg.get("tool_events"):
+                # Prefer the tool name attached to each tool_result (new
+                # persisted format wraps `{tool, content}`). Old events
+                # don't have that, so fall back to the most recent
+                # tool_call name — works for sequential agents but can
+                # mis-attribute when multiple parallel agents
+                # interleaved their start/end pairs in the old format.
+                last_tool_name = ""
                 for tev in msg["tool_events"]:
                     if tev["type"] == "tool_call":
-                        tool_name = tev.get("tool", "Unknown")
+                        last_tool_name = tev.get("tool", "Unknown")
                         args = tev.get("args", {})
                         st.markdown(
                             f'<div class="tool-card">'
-                            f'<div class="tool-card-header">🔧 {tool_name}</div>'
+                            f'<div class="tool-card-header">🔧 {last_tool_name}</div>'
                             f'<code>{json.dumps(args, ensure_ascii=False)[:200]}</code>'
                             f'</div>',
                             unsafe_allow_html=True,
                         )
                     elif tev["type"] == "tool_result":
-                        with st.expander("📋 Tool results", expanded=False):
-                            try:
-                                results = json.loads(tev["content"])
-                                if isinstance(results, list):
-                                    for r in results[:5]:
-                                        if isinstance(r, dict) and "title" in r:
-                                            st.markdown(f"**[{r['title']}]({r.get('url','')})**")
-                                            st.caption(r.get("snippet", "")[:200])
-                                        else:
-                                            st.json(r)
-                                else:
-                                    st.json(results)
-                            except Exception:
-                                st.text(tev["content"][:500])
+                        name = tev.get("tool") or last_tool_name
+                        render_tool_result(name, tev.get("content", ""))
 
     # ── Chat input ──────────────────────────────────────────
     pending = st.session_state.pop("_pending_prompt", None)
@@ -1031,21 +1118,17 @@ else:
                             )
 
                     elif etype == "tool_end":
-                        tool_events.append({"type": "tool_result", "content": event.get("content", "")})
                         tool_name = event.get("tool", "")
-                        if event.get("error") and tool_name:
+                        is_err = bool(event.get("error"))
+                        tool_events.append({
+                            "type": "tool_result",
+                            "tool": tool_name,
+                            "content": event.get("content", ""),
+                        })
+                        if is_err and tool_name:
                             failed_tools.append(tool_name)
                         with tool_container:
-                            with st.expander("📋 Search results", expanded=False):
-                                try:
-                                    results = json.loads(event.get("content", "[]"))
-                                    if isinstance(results, list):
-                                        for r in results[:5]:
-                                            if isinstance(r, dict) and "title" in r:
-                                                st.markdown(f"**[{r['title']}]({r.get('url','')})**")
-                                                st.caption(r.get("snippet", "")[:200])
-                                except Exception:
-                                    st.text(event.get("content", "")[:500])
+                            render_tool_result(tool_name, event.get("content", ""), is_error=is_err)
 
                     elif etype == "title":
                         if st.session_state.session_meta:

@@ -111,12 +111,27 @@ async def emit_tool_end(
     config: RunnableConfig, tool: str, content: str,
     error: bool = False, agent: str = "",
 ) -> None:
+    # Stream full content (no 500-char cap). Old behavior truncated for
+    # SSE-perf reasons but it meant the live UI showed empty/partial
+    # results that only filled in after a page reload — confusing for
+    # auditing tool calls. The renderer side caps display itself.
+    #
+    # Persisted text is JSON-wrapped {tool, content} so the reload path
+    # can attribute each result to its tool even when multiple agents
+    # ran in parallel and emitted interleaved start/end pairs. Old raw
+    # events still load fine — load_session_events falls back to
+    # last-seen-tool-name pairing when the wrapper is missing.
+    import json as _json
+    persisted_text = _json.dumps(
+        {"tool": tool, "content": content},
+        ensure_ascii=False,
+    )
     await emit(
         config, "tool_end",
-        {"tool": tool, "error": error, "content": content[:500], "agent": agent},
+        {"tool": tool, "error": error, "content": content, "agent": agent},
         persist=PersistSpec(
             role="system",
-            text=content,
+            text=persisted_text,
             event_type="tool_result",
         ),
     )
