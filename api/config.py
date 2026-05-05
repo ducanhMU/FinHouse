@@ -74,48 +74,66 @@ class Settings(BaseSettings):
     REWRITER_ENABLED: bool = True
 
     # ── Multi-agent LLM routing (LangGraph nodes) ──
-    # Each ReAct agent in the chat graph has its own brain. Choose the
-    # model per-agent by complexity tier.
+    # Each ReAct agent in the chat graph has its own brain. Each value is
+    # a COMMA-SEPARATED CHAIN of specs: primary first, then fallbacks.
+    # The router rotates to the next entry on quota / rate-limit (HTTP
+    # 429) or transient 5xx / network errors. Each DashScope model has
+    # its own ~1M token daily budget, so spreading agents across distinct
+    # primaries multiplies effective capacity by N.
     #
-    # Qwen series available on DashScope (Model Studio):
-    #   • Qwen-Max series — flagship reasoning. Latest tags:
-    #       qwen3.6-max, qwen3-max, qwen-max
-    #   • Qwen-Plus series — strong general / agentic. Latest tags:
-    #       qwen3.6-plus, qwen3.5-plus, qwen-plus
-    #   • Qwen-Flash series — fast/cheap, good for high-throughput. Tags:
-    #       qwen3.6-flash, qwen3.5-flash, qwen-flash
-    #   • Qwen-Coder series — best at code & structured output (SQL, JSON):
-    #       qwen3-coder-plus, qwen3-coder-flash, qwen-coder-plus,
-    #       qwen2.5-coder-32b-instruct
-    #   • Qwen-Turbo — legacy ultra-light tier (qwen-turbo)
-    #   • Open-source dense / MoE: qwen3.6-*, qwen3.5-*, qwen3-*, qwen2.5-*
-    #
-    # Tier mapping (recommendation):
-    #   Tier-A (heaviest reasoning — DB schema + SQL planning):
-    #     DB_AGENT_LLM         → dashscope:qwen3-coder-plus
-    #                            (alt: qwen3.6-max for non-coder reasoning)
-    #   Tier-B (medium — orchestration, charts, synthesis):
-    #     ORCHESTRATOR / VIS / COLLECTOR
-    #                          → dashscope:qwen3.6-plus
-    #                            (alt: qwen-plus, qwen3.5-plus)
-    #   Tier-C (light — JSON extraction, lookup-only ReAct):
-    #     REWRITER / WEB       → dashscope:qwen3.6-flash
-    #                            (alt: qwen-turbo, qwen3.5-flash)
-    #
-    # Format: "<provider>:<model>" or empty to fall back to the chat
-    # session's model on local Ollama (legacy single-brain mode).
-    # Providers (ordered by preference):
+    # Format per entry: "<provider>:<model>"
     #   dashscope:<model>      — Alibaba DashScope (PRIMARY).
     #   ollama:<tag>           — local Ollama (FALLBACK). e.g. qwen2.5:14b
     #   gemini:<model>         — Google Gemini OpenAI-compat endpoint
     #   openai:<model>         — any OpenAI-compat endpoint via
     #                            OLLAMA_API_URL / OLLAMA_API_KEY
-    REWRITER_AGENT_LLM:     str = ""  # tier-C — recommend qwen3.6-flash
-    ORCHESTRATOR_AGENT_LLM: str = ""  # tier-B — recommend qwen3.6-plus
-    WEB_AGENT_LLM:          str = ""  # tier-C — recommend qwen3.6-flash
-    DB_AGENT_LLM:           str = ""  # tier-A — recommend qwen3-coder-plus
-    VIS_AGENT_LLM:          str = ""  # tier-B — recommend qwen3.6-plus
-    COLLECTOR_AGENT_LLM:    str = ""  # tier-B — recommend qwen3.6-plus
+    # Empty string → single-brain mode = chat session's selected model
+    # on local Ollama (legacy behavior).
+    #
+    # Qwen tiers on DashScope (Model Studio):
+    #   • Max series — flagship reasoning:
+    #       qwen3.6-max, qwen3-max, qwen-max
+    #   • Plus series — strong general / agentic:
+    #       qwen3.6-plus, qwen3.5-plus, qwen-plus
+    #   • Flash series — fast/cheap, high-throughput:
+    #       qwen3.6-flash, qwen3.5-flash, qwen-flash
+    #   • Coder series — best at SQL / JSON / structured output:
+    #       qwen3-coder-plus, qwen3-coder-flash, qwen2.5-coder-32b-instruct
+    #   • Turbo — legacy ultra-light tier (qwen-turbo)
+    #   • Open-source dense: qwen2.5-7b-instruct, qwen2.5-14b-instruct, ...
+    #
+    # Chain allocation (recommendation — high-complexity tier prioritises
+    # 3.6/3.5; light tier uses qwen3-* / qwen2.5-*):
+    #   Tier-A (heaviest — DB schema + SQL planning):
+    #     DB           → qwen3-coder-plus → qwen3.6-plus → qwen2.5-coder-32b-instruct
+    #   Tier-B (medium — orchestration / charts / synthesis):
+    #     ORCHESTRATOR → qwen3.6-plus  → qwen3.5-plus       → qwen-plus
+    #     VIS          → qwen3.5-plus  → qwen3-coder-flash  → qwen2.5-coder-32b-instruct
+    #     COLLECTOR    → qwen3.6-flash → qwen3.5-flash      → qwen-plus
+    #   Tier-C (light — JSON extraction / simple ReAct):
+    #     REWRITER     → qwen2.5-7b-instruct  → qwen-turbo            → qwen2.5-14b-instruct
+    #     WEB          → qwen3-coder-flash    → qwen2.5-14b-instruct  → qwen-flash
+    REWRITER_AGENT_LLM:     str = ""
+    ORCHESTRATOR_AGENT_LLM: str = ""
+    WEB_AGENT_LLM:          str = ""
+    DB_AGENT_LLM:           str = ""
+    VIS_AGENT_LLM:          str = ""
+    COLLECTOR_AGENT_LLM:    str = ""
+
+    # Per-agent thinking flag for DashScope Qwen-3 reasoning models.
+    # When True, the model emits `reasoning_content` (rendered as a dim
+    # block in the UI). Adds ~2-4s latency and burns more tokens, so
+    # only enable on agents that benefit from explicit reasoning:
+    #   • DB           — schema + SQL planning over multiple tables
+    #   • ORCHESTRATOR — multi-task plan with non-trivial routing
+    # Light-tier agents (REWRITER, WEB) and pure-formatting agents (VIS,
+    # COLLECTOR) should keep thinking OFF — wastes tokens with no win.
+    REWRITER_AGENT_THINKING:     bool = False
+    ORCHESTRATOR_AGENT_THINKING: bool = False
+    WEB_AGENT_THINKING:          bool = False
+    DB_AGENT_THINKING:           bool = False
+    VIS_AGENT_THINKING:          bool = False
+    COLLECTOR_AGENT_THINKING:    bool = False
 
     # ── DashScope (Alibaba Model Studio) ─────────────────────
     # OpenAI-compatible. International endpoint default; switch to

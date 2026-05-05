@@ -205,23 +205,33 @@ async def get_agents_config():
     bound to. Brains are configured via *_AGENT_LLM env vars (read at
     process start); the UI does NOT let the user override them here.
 
-    Empty `spec` means the agent is using fallback = session model on
+    Each `*_AGENT_LLM` may be a comma-separated chain — the primary is
+    surfaced as `provider`/`model`/`label`, with the full chain in
+    `chain` for UI tooltips. `thinking` reflects the per-agent
+    `*_AGENT_THINKING` flag (DashScope reasoning toggle).
+
+    Empty `raw` means the agent is using fallback = session model on
     local Ollama. The frontend should label that as "Ollama (fallback)".
     """
-    from graph.llm_router import _AGENT_ENV, parse_spec
+    from graph.llm_router import _AGENT_ENV, parse_chain
 
     fallback = settings.DEFAULT_MODEL or "qwen2.5:14b"
     agents = []
-    for name, env_name in _AGENT_ENV.items():
-        raw = (getattr(settings, env_name, "") or "").strip()
-        spec = parse_spec(raw, fallback)
+    for name, (env_chain, env_thinking) in _AGENT_ENV.items():
+        raw = (getattr(settings, env_chain, "") or "").strip()
+        thinking = bool(getattr(settings, env_thinking, False))
+        chain = parse_chain(raw, fallback)
+        primary = chain[0]
         agents.append({
             "name": name,
-            "env_var": env_name,
+            "env_var": env_chain,
+            "thinking_env_var": env_thinking,
             "raw": raw,
-            "provider": spec.provider,
-            "model": spec.model,
-            "label": f"{spec.provider}:{spec.model}",
+            "provider": primary.provider,
+            "model": primary.model,
+            "label": primary.label,
+            "chain": [s.label for s in chain],
+            "thinking": thinking,
             "is_fallback": not raw,
         })
 

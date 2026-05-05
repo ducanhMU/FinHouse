@@ -565,14 +565,27 @@ with top_col1:
     with st.popover(label, use_container_width=True):
         st.caption(
             "Brain config is loaded from `.env` at server start. "
-            "Edit `*_AGENT_LLM` vars + restart API to change. "
+            "Each `*_AGENT_LLM` is a comma-separated fallback chain — "
+            "the router rotates on quota / rate-limit (HTTP 429). "
             f"Fallback model = `{fallback}` (Ollama)."
         )
         st.markdown("**Active providers**: " + ", ".join(active_providers or ["none"]))
         for a in agents:
-            spec_label = a.get("label", "—")
-            badge = " *(fallback)*" if a.get("is_fallback") else ""
-            st.markdown(f"- **{a.get('name','?')}** → `{spec_label}`{badge}")
+            chain = a.get("chain") or [a.get("label", "—")]
+            primary = chain[0]
+            fb_count = max(0, len(chain) - 1)
+            badges = []
+            if a.get("is_fallback"):
+                badges.append("*(fallback to session model)*")
+            if a.get("thinking"):
+                badges.append("🧩 *thinking*")
+            if fb_count:
+                badges.append(f"+{fb_count} fb")
+            badge_str = " " + " · ".join(badges) if badges else ""
+            st.markdown(f"- **{a.get('name','?')}** → `{primary}`{badge_str}")
+            if fb_count:
+                fb_str = " → ".join(f"`{c}`" for c in chain[1:])
+                st.caption(f"    fallback: {fb_str}")
 
 with top_col2:
     # Context badge

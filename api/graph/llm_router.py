@@ -1,19 +1,29 @@
 """
-FinHouse — Per-agent LLM routing.
+FinHouse — Per-agent LLM routing with fallback chain.
 
 Each node in the graph asks `get_llm("rewriter", session_model)` and
 receives an `LLMHandle` exposing the same `chat_sync` / `chat_stream`
 contract used elsewhere in the codebase. This keeps node code provider-
-agnostic — Ollama, Gemini, or any OpenAI-compatible endpoint look the
-same from the caller's side.
+agnostic — Ollama, DashScope, Gemini, or any OpenAI-compatible endpoint
+look the same from the caller's side.
+
+Each `*_AGENT_LLM` env var is a COMMA-SEPARATED CHAIN: primary first,
+then fallbacks. The handle tries each spec in order; on quota / rate-
+limit (HTTP 429) or transient 5xx / network errors it rotates to the
+next entry. This lets us spread agents across multiple DashScope models
+(each with its own ~1M token daily budget) and survive single-model
+exhaustion automatically.
 
 Config strings live in `.env`:
-    REWRITER_AGENT_LLM=ollama:qwen2.5:14b
-    DB_AGENT_LLM=gemini:gemini-2.0-flash
-    WEB_AGENT_LLM=openai:gpt-4o-mini
+    DB_AGENT_LLM=dashscope:qwen3-coder-plus,dashscope:qwen3.6-plus,dashscope:qwen2.5-coder-32b-instruct
+    REWRITER_AGENT_LLM=dashscope:qwen2.5-7b-instruct,dashscope:qwen-turbo
     VIS_AGENT_LLM=                       # empty → fall back to session model
 
-Empty string falls back to the chat session's selected model on local
+Per-agent reasoning toggle (DashScope thinking models only):
+    DB_AGENT_THINKING=true
+    ORCHESTRATOR_AGENT_THINKING=true
+
+Empty chain falls back to the chat session's selected model on local
 Ollama (which itself respects OLLAMA_MODE: local / backup / auto), so
 the existing single-brain behavior is preserved by default.
 """
@@ -40,35 +50,89 @@ settings = get_settings()
 
 @dataclass(frozen=True)
 class LLMSpec:
-    provider: str   # "ollama" | "gemini" | "openai"
+    provider: str   # "ollama" | "gemini" | "openai" | "dashscope"
     model: str
 
+    @property
+    def label(self) -> str:
+        return f"{self.provider}:{self.model}"
 
-def parse_spec(raw: str, fallback_model: str) -> LLMSpec:
-    """
-    "dashscope:qwen-plus" → LLMSpec("dashscope", "qwen-plus")
-    "ollama:qwen2.5:14b"  → LLMSpec("ollama", "qwen2.5:14b")
-    "gemini:gemini-2.0-flash" → LLMSpec("gemini", "gemini-2.0-flash")
-    ""                    → LLMSpec("ollama", fallback_model)
-    """
-    raw = (raw or "").strip()
-    if not raw:
-        return LLMSpec("ollama", fallback_model)
-    if ":" not in raw:
-        # Bare model name, assume ollama.
-        return LLMSpec("ollama", raw)
-    provider, _, model = raw.partition(":")
+
+_VALID_PROVIDERS = {"ollama", "gemini", "openai", "dashscope"}
+
+
+def _parse_one(part: str, fallback_model: str) -> Optional[LLMSpec]:
+    """Parse a single 'provider:model' token. Returns None if unusable."""
+    part = part.strip()
+    if not part:
+        return None
+    if ":" not in part:
+        # Bare model name — assume ollama.
+        return LLMSpec("ollama", part)
+    provider, _, model = part.partition(":")
     provider = provider.strip().lower()
     model = model.strip()
-    if provider not in {"ollama", "gemini", "openai", "dashscope"}:
-        log.warning(
-            "Unknown LLM provider %r in spec %r — falling back to ollama:%s",
-            provider, raw, fallback_model,
-        )
-        return LLMSpec("ollama", fallback_model)
+    if provider not in _VALID_PROVIDERS:
+        log.warning("Unknown LLM provider %r in spec %r — skipping", provider, part)
+        return None
     if not model:
         return LLMSpec(provider, fallback_model)
     return LLMSpec(provider, model)
+
+
+def parse_chain(raw: str, fallback_model: str) -> list[LLMSpec]:
+    """
+    Parse a comma-separated chain of specs.
+
+    "dashscope:qwen3-coder-plus,dashscope:qwen3.6-plus"
+        → [LLMSpec("dashscope","qwen3-coder-plus"),
+           LLMSpec("dashscope","qwen3.6-plus")]
+    "ollama:qwen2.5:14b"  → [LLMSpec("ollama","qwen2.5:14b")]
+    ""                    → [LLMSpec("ollama", fallback_model)]
+    """
+    raw = (raw or "").strip()
+    if not raw:
+        return [LLMSpec("ollama", fallback_model)]
+    chain: list[LLMSpec] = []
+    for token in raw.split(","):
+        spec = _parse_one(token, fallback_model)
+        if spec is not None:
+            chain.append(spec)
+    if not chain:
+        return [LLMSpec("ollama", fallback_model)]
+    return chain
+
+
+def parse_spec(raw: str, fallback_model: str) -> LLMSpec:
+    """Legacy single-spec parser. Returns the primary entry of the chain.
+
+    Kept for /agents endpoint backward compatibility — new code should
+    use `parse_chain` and operate on the full chain.
+    """
+    return parse_chain(raw, fallback_model)[0]
+
+
+# ── Error classification ────────────────────────────────────
+
+
+def _is_rotatable_error(e: BaseException) -> bool:
+    """Should we rotate to the next spec on this error?
+
+    True for quota / rate-limit / transient infrastructure failures.
+    False for auth errors, malformed requests, or programming bugs —
+    rotating won't help.
+    """
+    if isinstance(e, httpx.HTTPStatusError):
+        return e.response.status_code in {408, 425, 429, 500, 502, 503, 504, 529}
+    if isinstance(e, (
+        httpx.TimeoutException,
+        httpx.ConnectError,
+        httpx.ReadError,
+        httpx.RemoteProtocolError,
+        httpx.NetworkError,
+    )):
+        return True
+    return False
 
 
 # ── Handle ──────────────────────────────────────────────────
@@ -76,17 +140,67 @@ def parse_spec(raw: str, fallback_model: str) -> LLMSpec:
 
 class LLMHandle:
     """
-    Uniform sync/stream chat surface across providers.
+    Uniform sync/stream chat surface across providers + a fallback chain.
     Always returns / yields Ollama-shaped dicts:
         {"message": {"role": ..., "content": ..., "tool_calls": [...]}, "done": bool}
     """
 
-    def __init__(self, spec: LLMSpec):
-        self.spec = spec
+    def __init__(self, chain: list[LLMSpec], enable_thinking: bool = False):
+        if not chain:
+            raise ValueError("LLMHandle requires at least one LLMSpec")
+        self.chain: list[LLMSpec] = list(chain)
+        self.enable_thinking = enable_thinking
+
+    @property
+    def primary(self) -> LLMSpec:
+        return self.chain[0]
 
     @property
     def label(self) -> str:
-        return f"{self.spec.provider}:{self.spec.model}"
+        suffix = f"+{len(self.chain) - 1}fb" if len(self.chain) > 1 else ""
+        return f"{self.primary.label}{suffix}"
+
+    @property
+    def chain_labels(self) -> list[str]:
+        return [s.label for s in self.chain]
+
+    def _merge_options(self, options: Optional[dict]) -> dict:
+        """Inject per-agent enable_thinking into call options.
+
+        Per-call `options["enable_thinking"]` (if set by the caller)
+        wins over the agent-level setting — the rewriter / collector can
+        force-disable reasoning for a particular turn.
+        """
+        merged = dict(options or {})
+        merged.setdefault("enable_thinking", self.enable_thinking)
+        return merged
+
+    async def _call_one_sync(
+        self,
+        spec: LLMSpec,
+        messages: list[dict],
+        tools: Optional[list[dict]],
+        timeout: Optional[float],
+        options: Optional[dict],
+    ) -> dict:
+        if spec.provider == "ollama":
+            return await ollama_chat_sync(
+                spec.model, messages, tools=tools,
+                timeout=timeout, options=options,
+            )
+        if spec.provider == "dashscope":
+            return await _dashscope_chat_sync(
+                spec.model, messages, tools, timeout, options,
+            )
+        if spec.provider == "gemini":
+            return await _gemini_chat_sync(
+                spec.model, messages, tools, timeout, options,
+            )
+        if spec.provider == "openai":
+            return await _openai_compat_chat_sync(
+                spec.model, messages, tools, timeout, options,
+            )
+        raise RuntimeError(f"Unsupported provider {spec.provider!r}")
 
     async def chat_sync(
         self,
@@ -95,58 +209,104 @@ class LLMHandle:
         timeout: Optional[float] = None,
         options: Optional[dict] = None,
     ) -> dict:
-        if self.spec.provider == "ollama":
-            return await ollama_chat_sync(
-                self.spec.model, messages, tools=tools,
-                timeout=timeout, options=options,
-            )
-        if self.spec.provider == "dashscope":
-            return await _dashscope_chat_sync(
-                self.spec.model, messages, tools, timeout, options,
-            )
-        if self.spec.provider == "gemini":
-            return await _gemini_chat_sync(
-                self.spec.model, messages, tools, timeout, options,
-            )
-        if self.spec.provider == "openai":
-            return await _openai_compat_chat_sync(
-                self.spec.model, messages, tools, timeout, options,
-            )
-        raise RuntimeError(f"Unsupported provider {self.spec.provider!r}")
+        merged_options = self._merge_options(options)
+        last_err: Optional[BaseException] = None
+        for i, spec in enumerate(self.chain):
+            try:
+                return await self._call_one_sync(
+                    spec, messages, tools, timeout, merged_options,
+                )
+            except Exception as e:
+                last_err = e
+                has_next = i < len(self.chain) - 1
+                if has_next and _is_rotatable_error(e):
+                    nxt = self.chain[i + 1]
+                    log.warning(
+                        "[llm] sync %s failed (%s: %s) — rotating to %s",
+                        spec.label, type(e).__name__, e, nxt.label,
+                    )
+                    continue
+                raise
+        # Should be unreachable — last spec either returned or raised.
+        assert last_err is not None
+        raise last_err
+
+    async def _stream_one(
+        self,
+        spec: LLMSpec,
+        messages: list[dict],
+        tools: Optional[list[dict]],
+        options: Optional[dict],
+    ) -> AsyncGenerator[dict, None]:
+        if spec.provider == "ollama":
+            async for chunk in ollama_chat_stream(
+                spec.model, messages, tools=tools,
+            ):
+                yield chunk
+            return
+        if spec.provider == "dashscope":
+            async for chunk in _dashscope_chat_stream(
+                spec.model, messages, tools, options,
+            ):
+                yield chunk
+            return
+        if spec.provider == "gemini":
+            async for chunk in _gemini_chat_stream(spec.model, messages, tools):
+                yield chunk
+            return
+        if spec.provider == "openai":
+            async for chunk in _openai_compat_chat_stream(spec.model, messages, tools):
+                yield chunk
+            return
+        raise RuntimeError(f"Unsupported provider {spec.provider!r}")
 
     async def chat_stream(
         self,
         messages: list[dict],
         tools: Optional[list[dict]] = None,
+        options: Optional[dict] = None,
     ) -> AsyncGenerator[dict, None]:
-        if self.spec.provider == "ollama":
-            async for chunk in ollama_chat_stream(self.spec.model, messages, tools=tools):
-                yield chunk
-            return
-        if self.spec.provider == "dashscope":
-            async for chunk in _dashscope_chat_stream(self.spec.model, messages, tools):
-                yield chunk
-            return
-        if self.spec.provider == "gemini":
-            async for chunk in _gemini_chat_stream(self.spec.model, messages, tools):
-                yield chunk
-            return
-        if self.spec.provider == "openai":
-            async for chunk in _openai_compat_chat_stream(self.spec.model, messages, tools):
-                yield chunk
-            return
-        raise RuntimeError(f"Unsupported provider {self.spec.provider!r}")
+        merged_options = self._merge_options(options)
+        last_err: Optional[BaseException] = None
+        for i, spec in enumerate(self.chain):
+            yielded = False
+            try:
+                async for chunk in self._stream_one(
+                    spec, messages, tools, merged_options,
+                ):
+                    yielded = True
+                    yield chunk
+                return
+            except Exception as e:
+                # Mid-stream errors can't be recovered — partial content
+                # has already gone to the client. Just propagate.
+                if yielded:
+                    raise
+                last_err = e
+                has_next = i < len(self.chain) - 1
+                if has_next and _is_rotatable_error(e):
+                    nxt = self.chain[i + 1]
+                    log.warning(
+                        "[llm] stream %s failed (%s: %s) — rotating to %s",
+                        spec.label, type(e).__name__, e, nxt.label,
+                    )
+                    continue
+                raise
+        assert last_err is not None
+        raise last_err
 
 
 # ── Public entry point ──────────────────────────────────────
 
-_AGENT_ENV = {
-    "rewriter":     "REWRITER_AGENT_LLM",
-    "orchestrator": "ORCHESTRATOR_AGENT_LLM",
-    "web":          "WEB_AGENT_LLM",
-    "database":     "DB_AGENT_LLM",
-    "visualize":    "VIS_AGENT_LLM",
-    "collector":    "COLLECTOR_AGENT_LLM",
+# Maps the agent name used in get_llm() to the (LLM_chain, THINKING) env
+# var pair on the Settings object.
+_AGENT_ENV: dict[str, tuple[str, str]] = {
+    "rewriter":     ("REWRITER_AGENT_LLM",     "REWRITER_AGENT_THINKING"),
+    "orchestrator": ("ORCHESTRATOR_AGENT_LLM", "ORCHESTRATOR_AGENT_THINKING"),
+    "web":          ("WEB_AGENT_LLM",          "WEB_AGENT_THINKING"),
+    "database":     ("DB_AGENT_LLM",           "DB_AGENT_THINKING"),
+    "visualize":    ("VIS_AGENT_LLM",          "VIS_AGENT_THINKING"),
+    "collector":    ("COLLECTOR_AGENT_LLM",    "COLLECTOR_AGENT_THINKING"),
 }
 
 
@@ -157,12 +317,15 @@ def get_llm(agent: str, session_model: str) -> LLMHandle:
     is used as the fallback when the agent's env var is empty so the
     out-of-the-box behavior matches the legacy single-brain pipeline.
     """
-    env_name = _AGENT_ENV.get(agent)
-    raw = ""
-    if env_name:
-        raw = getattr(settings, env_name, "") or ""
-    spec = parse_spec(raw, session_model)
-    return LLMHandle(spec)
+    pair = _AGENT_ENV.get(agent)
+    raw_chain = ""
+    enable_thinking = False
+    if pair:
+        env_chain, env_thinking = pair
+        raw_chain = (getattr(settings, env_chain, "") or "").strip()
+        enable_thinking = bool(getattr(settings, env_thinking, False))
+    chain = parse_chain(raw_chain, session_model)
+    return LLMHandle(chain, enable_thinking=enable_thinking)
 
 
 # ════════════════════════════════════════════════════════════
@@ -378,8 +541,10 @@ def _build_dashscope_payload(
 ) -> dict:
     """OpenAI-shape payload + DashScope `extra_body.enable_thinking`.
 
-    `enable_thinking` is read from options first (per-call override),
-    then settings.DASHSCOPE_ENABLE_THINKING (global default).
+    Resolution order for `enable_thinking`:
+      1. `options["enable_thinking"]` — explicit per-call value (set by
+         LLMHandle from the per-agent flag, or by callers overriding).
+      2. `settings.DASHSCOPE_ENABLE_THINKING` — global default.
     """
     payload = _build_openai_payload(model, messages, tools, options, stream)
     enable_thinking = settings.DASHSCOPE_ENABLE_THINKING
@@ -421,10 +586,11 @@ async def _dashscope_chat_sync(
 
 async def _dashscope_chat_stream(
     model: str, messages: list[dict], tools: Optional[list[dict]],
+    options: Optional[dict] = None,
 ) -> AsyncGenerator[dict, None]:
     """Streaming with DashScope reasoning_content surfaced as `thinking`."""
     base_url, key = _dashscope_credentials()
-    payload = _build_dashscope_payload(model, messages, tools, options=None, stream=True)
+    payload = _build_dashscope_payload(model, messages, tools, options, stream=True)
     headers = {"Content-Type": "application/json", "Authorization": f"Bearer {key}"}
 
     accumulated_tool_calls: dict[int, dict] = {}
