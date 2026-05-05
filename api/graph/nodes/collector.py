@@ -54,6 +54,44 @@ def _agent_summary_block(state: ChatState) -> str:
     return "\n".join(lines)
 
 
+def _ask_back_block(state: ChatState) -> str:
+    """Build the per-agent clarification suggestions surfaced upward.
+
+    Tool agents never block the chat — they record `needs_clarification`
+    + `clarification_request` in their AgentResult. The collector turns
+    those into a hint so it can offer the user a concrete follow-up
+    inside the final answer (mid-flow, no extra graph node).
+    """
+    pending = [
+        r for r in state.agent_results
+        if r.needs_clarification and r.clarification_request
+    ]
+    if not pending:
+        return ""
+    lines = [
+        "── ĐỀ XUẤT HỎI LẠI USER (từ tool agents) ──",
+        "Một hoặc nhiều agent dưới đây không thu thập đủ dữ liệu. Sau khi "
+        "trả lời PHẦN ĐÃ CÓ một cách trung thực (nói rõ phần nào còn thiếu, "
+        "không bịa), HÃY KẾT THÚC bằng đoạn ngắn gọi ý user bổ sung thông "
+        "tin theo các điểm sau:",
+    ]
+    for i, r in enumerate(pending, 1):
+        lines.append(f"  {i}. [{r.tool_type}] {r.clarification_request}")
+    return "\n".join(lines)
+
+
+def _aggregate_agent_usage(state: ChatState) -> dict:
+    """Sum token usage across all tool agents for one-line logging."""
+    pt = ct = tt = calls = 0
+    for r in state.agent_results:
+        u = r.usage
+        pt += u.input_tokens
+        ct += u.output_tokens
+        tt += u.total_tokens
+        calls += u.calls
+    return {"input": pt, "output": ct, "total": tt, "calls": calls}
+
+
 def _assemble_messages(state: ChatState) -> list[dict]:
     msgs: list[dict] = [{"role": "system", "content": get_collector_prompt()}]
 
@@ -69,6 +107,15 @@ def _assemble_messages(state: ChatState) -> list[dict]:
                 "[TỔNG HỢP DỮ LIỆU TỪ AGENTS — DÙNG ĐỂ TRẢ LỜI, KHÔNG TRÍCH "
                 "DẪN NGUYÊN VĂN KHỐI NÀY]\n" + agent_block
             ),
+        })
+
+    # Ask-back hints from tool agents — collector weaves a follow-up
+    # question into the final answer instead of blocking the flow.
+    ask_back = _ask_back_block(state)
+    if ask_back:
+        msgs.append({
+            "role": "system",
+            "content": ask_back,
         })
 
     # Recent conversation history (last few turns) — caller passes
@@ -138,10 +185,13 @@ async def _collector_node(state: ChatState, config: RunnableConfig) -> dict:
     llm = get_llm("collector", state.session_model)
     messages = _assemble_messages(state)
 
+    agent_usage = _aggregate_agent_usage(state)
+    pending_clar = sum(1 for r in state.agent_results if r.needs_clarification)
     log.info(
-        "[collector %s] %d messages, %d agent_results, %d rag chunks",
-        llm.label, len(messages), len(state.agent_results),
-        len(state.rag_sources),
+        "[collector %s] %d messages, %d agent_results (%d need-clarification), "
+        "%d rag chunks, agent_tokens=%s",
+        llm.label, len(messages), len(state.agent_results), pending_clar,
+        len(state.rag_sources), agent_usage,
     )
 
     full_response = ""

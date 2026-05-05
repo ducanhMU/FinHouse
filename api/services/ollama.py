@@ -180,14 +180,35 @@ async def _list_models_local() -> list[dict]:
         return out
 
 
+def _ollama_local_format(options: Optional[dict]) -> Optional[str]:
+    """Translate OpenAI-style `response_format` → Ollama-native `format`.
+
+    Ollama supports `format="json"` (any valid JSON) on its native
+    `/api/chat` endpoint. We accept the same caller contract as the
+    OpenAI-compat path so nodes don't branch on backend.
+    """
+    if not options:
+        return None
+    rf = options.get("response_format")
+    if isinstance(rf, dict):
+        t = rf.get("type")
+        if t in ("json_object", "json_schema"):
+            return "json"
+    return None
+
+
 async def _chat_stream_local(
     model: str,
     messages: list[dict],
     tools: Optional[list[dict]],
+    options: Optional[dict] = None,
 ) -> AsyncGenerator[dict, None]:
     payload = {"model": model, "messages": messages, "stream": True}
     if tools:
         payload["tools"] = tools
+    fmt = _ollama_local_format(options)
+    if fmt:
+        payload["format"] = fmt
 
     async with httpx.AsyncClient(timeout=httpx.Timeout(300.0, connect=10.0)) as client:
         async with client.stream(
@@ -218,7 +239,17 @@ async def _chat_sync_local(
     if tools:
         payload["tools"] = tools
     if options:
-        payload["options"] = options
+        # Pass through Ollama-native `options` (temperature, num_predict…)
+        # but exclude OpenAI-style fields we translate separately.
+        ollama_opts = {
+            k: v for k, v in options.items()
+            if k not in {"response_format", "stream_options", "enable_thinking"}
+        }
+        if ollama_opts:
+            payload["options"] = ollama_opts
+    fmt = _ollama_local_format(options)
+    if fmt:
+        payload["format"] = fmt
 
     total_timeout = timeout if timeout is not None else 300.0
 
@@ -229,7 +260,19 @@ async def _chat_sync_local(
         if resp.status_code >= 400:
             log.error("Ollama chat_sync %s: %s", resp.status_code, resp.text[:500])
         resp.raise_for_status()
-        return resp.json()
+        data = resp.json()
+    # Ollama's native response carries token counts at the top level.
+    # Surface them in the same Ollama-shape envelope as the API path.
+    pt = int(data.get("prompt_eval_count") or 0)
+    ct = int(data.get("eval_count") or 0)
+    if pt or ct:
+        data["usage"] = {
+            "input_tokens": pt,
+            "output_tokens": ct,
+            "total_tokens": pt + ct,
+            "calls": 1,
+        }
+    return data
 
 
 # ════════════════════════════════════════════════════════════
@@ -261,7 +304,34 @@ def _openai_payload(
             payload["top_p"] = options["top_p"]
         if "top_k" in options:
             payload["top_k"] = options["top_k"]
+        # JSON-mode / structured output — passes straight through to
+        # OpenAI-compat providers (FPT Cloud, etc.).
+        if options.get("response_format"):
+            payload["response_format"] = options["response_format"]
+    if stream:
+        stream_opts = (options or {}).get("stream_options") or {}
+        payload["stream_options"] = {
+            "include_usage": True,
+            **stream_opts,
+        }
     return payload
+
+
+def _parse_openai_usage(usage_obj) -> Optional[dict]:
+    """Normalise OpenAI-shape usage block into our standard dict."""
+    if not isinstance(usage_obj, dict) or not usage_obj:
+        return None
+    pt = int(usage_obj.get("prompt_tokens") or usage_obj.get("input_tokens") or 0)
+    ct = int(usage_obj.get("completion_tokens") or usage_obj.get("output_tokens") or 0)
+    tt = int(usage_obj.get("total_tokens") or (pt + ct))
+    if pt == 0 and ct == 0 and tt == 0:
+        return None
+    return {
+        "input_tokens": pt,
+        "output_tokens": ct,
+        "total_tokens": tt,
+        "calls": 1,
+    }
 
 
 def _openai_headers() -> dict:
@@ -304,20 +374,28 @@ async def _chat_sync_api(
         data = data["data"]
 
     choices = data.get("choices") or []
+    usage = _parse_openai_usage(data.get("usage"))
     if not choices:
-        return {"message": {"role": "assistant", "content": ""}, "done": True}
+        out: dict = {"message": {"role": "assistant", "content": ""}, "done": True}
+        if usage:
+            out["usage"] = usage
+        return out
 
     msg = choices[0].get("message") or {}
-    return {
+    out = {
         "message": _openai_message_to_ollama(msg),
         "done": True,
     }
+    if usage:
+        out["usage"] = usage
+    return out
 
 
 async def _chat_stream_api(
     model: str,
     messages: list[dict],
     tools: Optional[list[dict]],
+    options: Optional[dict] = None,
 ) -> AsyncGenerator[dict, None]:
     """
     Streaming completion via OpenAI-compatible SSE.
@@ -334,10 +412,11 @@ async def _chat_stream_api(
     if not _api_configured():
         raise RuntimeError("OLLAMA_API_URL / OLLAMA_API_KEY not configured")
 
-    payload = _openai_payload(model, messages, tools, options=None, stream=True)
+    payload = _openai_payload(model, messages, tools, options=options, stream=True)
 
     # Accumulators across deltas
     accumulated_tool_calls: dict[int, dict] = {}
+    last_usage: Optional[dict] = None
 
     async with httpx.AsyncClient(timeout=httpx.Timeout(300.0, connect=10.0)) as client:
         async with client.stream(
@@ -357,6 +436,7 @@ async def _chat_stream_api(
                 payload_str = line[len("data:"):].strip()
                 if payload_str == "[DONE]":
                     # Final chunk — flush any accumulated tool_calls.
+                    final_msg: dict = {"role": "assistant", "content": ""}
                     if accumulated_tool_calls:
                         ol_tcs = []
                         for idx in sorted(accumulated_tool_calls.keys()):
@@ -372,16 +452,11 @@ async def _chat_stream_api(
                                     "arguments": args_obj,
                                 },
                             })
-                        yield {
-                            "message": {
-                                "role": "assistant",
-                                "content": "",
-                                "tool_calls": ol_tcs,
-                            },
-                            "done": True,
-                        }
-                    else:
-                        yield {"message": {"role": "assistant", "content": ""}, "done": True}
+                        final_msg["tool_calls"] = ol_tcs
+                    final_chunk: dict = {"message": final_msg, "done": True}
+                    if last_usage is not None:
+                        final_chunk["usage"] = last_usage
+                    yield final_chunk
                     return
 
                 try:
@@ -392,6 +467,10 @@ async def _chat_stream_api(
                 # Some providers wrap streaming chunks too
                 if isinstance(chunk, dict) and "choices" not in chunk and "data" in chunk:
                     chunk = chunk["data"]
+
+                u = _parse_openai_usage(chunk.get("usage"))
+                if u is not None:
+                    last_usage = u
 
                 choices = chunk.get("choices") or []
                 if not choices:
@@ -543,10 +622,15 @@ async def chat_stream(
     model: str,
     messages: list[dict],
     tools: Optional[list[dict]] = None,
+    options: Optional[dict] = None,
 ) -> AsyncGenerator[dict, None]:
     """
     Streaming chat completion. Always yields Ollama-shaped chunks:
         {"message": {"role": "assistant", "content": "delta"}, "done": false/true}
+
+    The optional `options` dict carries the same keys as `chat_sync`
+    (response_format, stream_options, temperature…) so callers can
+    request JSON-mode or schema-bound output during streaming too.
 
     See `chat_sync` for routing rules. For auto-mode, fallback to API
     only happens BEFORE the stream starts; once we begin yielding, we
@@ -556,24 +640,24 @@ async def chat_stream(
     mode = _mode()
 
     if mode == "backup":
-        async for chunk in _chat_stream_api(model, messages, tools):
+        async for chunk in _chat_stream_api(model, messages, tools, options):
             yield chunk
         return
 
     if mode == "local":
-        async for chunk in _chat_stream_local(model, messages, tools):
+        async for chunk in _chat_stream_local(model, messages, tools, options):
             yield chunk
         return
 
     # auto
     if _use_chat_api and _api_configured():
-        async for chunk in _chat_stream_api(model, messages, tools):
+        async for chunk in _chat_stream_api(model, messages, tools, options):
             yield chunk
         return
 
     # Try to OPEN the local stream; if that throws, fall over to API.
     try:
-        gen = _chat_stream_local(model, messages, tools)
+        gen = _chat_stream_local(model, messages, tools, options)
         first = await gen.__anext__()
     except StopAsyncIteration:
         return
@@ -588,7 +672,7 @@ async def chat_stream(
         if _local_chat_failures >= settings.LOCAL_FAILURE_THRESHOLD:
             log.warning("🔀 Sticky-switch to managed chat API: %s", settings.OLLAMA_API_URL)
             _use_chat_api = True
-        async for chunk in _chat_stream_api(model, messages, tools):
+        async for chunk in _chat_stream_api(model, messages, tools, options):
             yield chunk
         return
 

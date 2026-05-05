@@ -31,7 +31,7 @@ from langchain_core.runnables import RunnableConfig
 from config import get_settings
 from graph.llm_router import LLMHandle
 from graph.sse import emit_tool_end, emit_tool_start
-from graph.state import AgentResult, ToolCallTrace, ToolType
+from graph.state import AgentResult, LLMUsage, ToolCallTrace, ToolType
 
 log = logging.getLogger("finhouse.graph.react")
 settings = get_settings()
@@ -53,6 +53,11 @@ class ReactAgent:
     A small ReAct-style loop bound to one LLMHandle, one prompt, and
     one set of tools. Stateless between invocations — call `run()` for
     each new task.
+
+    `default_options` is forwarded to every `chat_sync` call (think
+    `response_format`, `temperature`…). Use it to opt agents into JSON
+    mode when their final answer must be machine-parseable (e.g. the
+    rewriter, which emits a `RewriteOutput` JSON envelope).
     """
 
     name: str
@@ -62,6 +67,7 @@ class ReactAgent:
     tools: list[AgentTool]
     max_rounds: Optional[int] = None
     max_result_chars: int = 20_000
+    default_options: Optional[dict] = None
 
     async def run(
         self,
@@ -90,6 +96,8 @@ class ReactAgent:
         tool_schemas = [t.schema for t in self.tools] if self.tools else None
         traces: list[ToolCallTrace] = []
         answer = ""
+        usage = LLMUsage()
+        hit_soft_ceiling = False
 
         for round_idx in range(rounds_cap + 1):
             # Soft ceiling: tell the model to stop calling tools
@@ -104,10 +112,12 @@ class ReactAgent:
                     ),
                 })
                 tool_schemas = None  # force final answer
+                hit_soft_ceiling = True
 
             try:
                 resp = await self.llm.chat_sync(
                     messages, tools=tool_schemas,
+                    options=self.default_options,
                 )
             except Exception as e:
                 log.warning("ReAct[%s] LLM call failed: %s", self.name, e)
@@ -115,7 +125,13 @@ class ReactAgent:
                     tool_type=self.tool_type, goal=goal,
                     answer="", calls=traces,
                     error=f"LLM failure: {e}",
+                    usage=usage,
                 )
+
+            # Accumulate token usage across rounds.
+            u = resp.get("usage")
+            if isinstance(u, dict):
+                usage = usage.add(LLMUsage(**u))
 
             msg = resp.get("message") or {}
             tool_calls = msg.get("tool_calls") or []
@@ -179,10 +195,50 @@ class ReactAgent:
             answer = (msg.get("content") or "").strip()
             break
 
+        needs_clar, clar_req = self._detect_clarification(
+            goal, traces, answer, hit_soft_ceiling,
+        )
         return AgentResult(
             tool_type=self.tool_type, goal=goal,
             answer=answer, calls=traces, error="",
+            needs_clarification=needs_clar,
+            clarification_request=clar_req,
+            usage=usage,
         )
+
+    @staticmethod
+    def _detect_clarification(
+        goal: str,
+        traces: list[ToolCallTrace],
+        answer: str,
+        hit_soft_ceiling: bool,
+    ) -> tuple[bool, str]:
+        """Decide whether the agent needs the user to clarify.
+
+        Surface a clarification suggestion to the collector when one of
+        these heuristics fires — collector embeds the question in its
+        final answer so the chat flow stays single-turn (no extra graph
+        node, no second user prompt mid-run):
+
+          1. Every tool call errored (or no tool was called) AND the
+             agent produced no usable answer.
+          2. We hit the soft ceiling (max rounds) yet the answer is
+             still empty/very short — agent ran out of room without
+             converging.
+        """
+        successful = [t for t in traces if t.ok]
+        any_call = bool(traces)
+        ans_short = len(answer) < 40
+        all_failed = any_call and not successful
+
+        if (not any_call and ans_short) or all_failed or (hit_soft_ceiling and ans_short):
+            return True, (
+                f"Mình chưa thu thập đủ dữ liệu cho yêu cầu \"{goal[:120]}\". "
+                "Bạn có thể cung cấp thêm thông tin (mã chứng khoán/ticker, "
+                "mốc thời gian cụ thể, tên bảng/chỉ số) để mình truy xuất "
+                "chính xác hơn không?"
+            )
+        return False, ""
 
     def _handler_for(self, tool_name: str) -> Optional[ToolHandler]:
         for t in self.tools:

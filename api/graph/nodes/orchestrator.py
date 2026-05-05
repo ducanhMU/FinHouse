@@ -116,7 +116,13 @@ async def _orchestrator_node(state: ChatState, config: RunnableConfig) -> dict:
         resp = await llm.chat_sync(
             messages, tools=None,
             timeout=12.0,
-            options={"temperature": 0.2, "num_predict": 600},
+            options={
+                "temperature": 0.2,
+                "num_predict": 600,
+                # Force a valid JSON object — kills the regex-fence-strip
+                # fallbacks in `_extract_json` for the common path.
+                "response_format": {"type": "json_object"},
+            },
         )
         raw = (resp.get("message") or {}).get("content") or ""
         parsed = _extract_json(raw)

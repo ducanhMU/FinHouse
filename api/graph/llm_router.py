@@ -240,7 +240,7 @@ class LLMHandle:
     ) -> AsyncGenerator[dict, None]:
         if spec.provider == "ollama":
             async for chunk in ollama_chat_stream(
-                spec.model, messages, tools=tools,
+                spec.model, messages, tools=tools, options=options,
             ):
                 yield chunk
             return
@@ -251,11 +251,11 @@ class LLMHandle:
                 yield chunk
             return
         if spec.provider == "gemini":
-            async for chunk in _gemini_chat_stream(spec.model, messages, tools):
+            async for chunk in _gemini_chat_stream(spec.model, messages, tools, options):
                 yield chunk
             return
         if spec.provider == "openai":
-            async for chunk in _openai_compat_chat_stream(spec.model, messages, tools):
+            async for chunk in _openai_compat_chat_stream(spec.model, messages, tools, options):
                 yield chunk
             return
         raise RuntimeError(f"Unsupported provider {spec.provider!r}")
@@ -379,7 +379,41 @@ def _build_openai_payload(
             payload["max_tokens"] = int(options["num_predict"])
         if "top_p" in options:
             payload["top_p"] = options["top_p"]
+        # JSON-mode / structured output. Caller passes either:
+        #   {"type": "json_object"}              — any valid JSON
+        #   {"type": "json_schema", "json_schema": {...}} — schema-bound
+        if options.get("response_format"):
+            payload["response_format"] = options["response_format"]
+    if stream:
+        # Always ask providers to include token usage on the final chunk
+        # so we can track per-agent quota burn. Caller can override.
+        stream_opts = (options or {}).get("stream_options") or {}
+        payload["stream_options"] = {
+            "include_usage": True,
+            **stream_opts,
+        }
     return payload
+
+
+def _parse_usage(usage_obj: Optional[dict]) -> Optional[dict]:
+    """Normalise an OpenAI-shape usage block into Ollama-shape dict.
+
+    Returns None when `usage_obj` is missing or empty so callers can
+    skip attaching a zeroed `usage` field.
+    """
+    if not isinstance(usage_obj, dict) or not usage_obj:
+        return None
+    pt = int(usage_obj.get("prompt_tokens") or usage_obj.get("input_tokens") or 0)
+    ct = int(usage_obj.get("completion_tokens") or usage_obj.get("output_tokens") or 0)
+    tt = int(usage_obj.get("total_tokens") or (pt + ct))
+    if pt == 0 and ct == 0 and tt == 0:
+        return None
+    return {
+        "input_tokens": pt,
+        "output_tokens": ct,
+        "total_tokens": tt,
+        "calls": 1,
+    }
 
 
 async def _post_openai_compat_sync(
@@ -396,10 +430,17 @@ async def _post_openai_compat_sync(
     if isinstance(data, dict) and "choices" not in data and "data" in data:
         data = data["data"]
     choices = data.get("choices") or []
+    usage = _parse_usage(data.get("usage"))
     if not choices:
-        return {"message": {"role": "assistant", "content": ""}, "done": True}
+        out: dict = {"message": {"role": "assistant", "content": ""}, "done": True}
+        if usage:
+            out["usage"] = usage
+        return out
     msg = choices[0].get("message") or {}
-    return {"message": _openai_message_to_ollama(msg), "done": True}
+    out = {"message": _openai_message_to_ollama(msg), "done": True}
+    if usage:
+        out["usage"] = usage
+    return out
 
 
 async def _stream_openai_compat(
@@ -407,6 +448,7 @@ async def _stream_openai_compat(
 ) -> AsyncGenerator[dict, None]:
     headers = {"Content-Type": "application/json", "Authorization": f"Bearer {key}"}
     accumulated_tool_calls: dict[int, dict] = {}
+    last_usage: Optional[dict] = None
     async with httpx.AsyncClient(timeout=httpx.Timeout(300.0, connect=10.0)) as client:
         async with client.stream(
             "POST", f"{base_url}/chat/completions",
@@ -423,6 +465,7 @@ async def _stream_openai_compat(
                     continue
                 payload_str = line[len("data:"):].strip()
                 if payload_str == "[DONE]":
+                    final_msg: dict = {"role": "assistant", "content": ""}
                     if accumulated_tool_calls:
                         ol_tcs = []
                         for idx in sorted(accumulated_tool_calls.keys()):
@@ -438,12 +481,11 @@ async def _stream_openai_compat(
                                     "arguments": args_obj,
                                 },
                             })
-                        yield {
-                            "message": {"role": "assistant", "content": "", "tool_calls": ol_tcs},
-                            "done": True,
-                        }
-                    else:
-                        yield {"message": {"role": "assistant", "content": ""}, "done": True}
+                        final_msg["tool_calls"] = ol_tcs
+                    final_chunk: dict = {"message": final_msg, "done": True}
+                    if last_usage is not None:
+                        final_chunk["usage"] = last_usage
+                    yield final_chunk
                     return
                 try:
                     chunk = json.loads(payload_str)
@@ -451,6 +493,12 @@ async def _stream_openai_compat(
                     continue
                 if isinstance(chunk, dict) and "choices" not in chunk and "data" in chunk:
                     chunk = chunk["data"]
+                # Usage may arrive in its own chunk (with empty choices)
+                # when stream_options.include_usage is set — capture it
+                # for emission alongside the final [DONE] marker.
+                u = _parse_usage(chunk.get("usage"))
+                if u is not None:
+                    last_usage = u
                 choices = chunk.get("choices") or []
                 if not choices:
                     continue
@@ -485,9 +533,10 @@ async def _gemini_chat_sync(
 
 async def _gemini_chat_stream(
     model: str, messages: list[dict], tools: Optional[list[dict]],
+    options: Optional[dict] = None,
 ) -> AsyncGenerator[dict, None]:
     base_url, key = _gemini_credentials()
-    payload = _build_openai_payload(model, messages, tools, options=None, stream=True)
+    payload = _build_openai_payload(model, messages, tools, options=options, stream=True)
     async for chunk in _stream_openai_compat(base_url, key, payload):
         yield chunk
 
@@ -503,9 +552,10 @@ async def _openai_compat_chat_sync(
 
 async def _openai_compat_chat_stream(
     model: str, messages: list[dict], tools: Optional[list[dict]],
+    options: Optional[dict] = None,
 ) -> AsyncGenerator[dict, None]:
     base_url, key = _openai_credentials()
-    payload = _build_openai_payload(model, messages, tools, options=None, stream=True)
+    payload = _build_openai_payload(model, messages, tools, options=options, stream=True)
     async for chunk in _stream_openai_compat(base_url, key, payload):
         yield chunk
 
@@ -573,15 +623,22 @@ async def _dashscope_chat_sync(
     if isinstance(data, dict) and "choices" not in data and "data" in data:
         data = data["data"]
     choices = data.get("choices") or []
+    usage = _parse_usage(data.get("usage"))
     if not choices:
-        return {"message": {"role": "assistant", "content": ""}, "done": True}
+        out_resp: dict = {"message": {"role": "assistant", "content": ""}, "done": True}
+        if usage:
+            out_resp["usage"] = usage
+        return out_resp
     msg = choices[0].get("message") or {}
     out = _openai_message_to_ollama(msg)
     # DashScope thinking models put reasoning text here on sync calls
     reasoning = msg.get("reasoning_content")
     if reasoning:
         out["thinking"] = reasoning
-    return {"message": out, "done": True}
+    out_resp = {"message": out, "done": True}
+    if usage:
+        out_resp["usage"] = usage
+    return out_resp
 
 
 async def _dashscope_chat_stream(
@@ -594,6 +651,7 @@ async def _dashscope_chat_stream(
     headers = {"Content-Type": "application/json", "Authorization": f"Bearer {key}"}
 
     accumulated_tool_calls: dict[int, dict] = {}
+    last_usage: Optional[dict] = None
 
     async with httpx.AsyncClient(timeout=httpx.Timeout(300.0, connect=10.0)) as client:
         async with client.stream(
@@ -612,6 +670,7 @@ async def _dashscope_chat_stream(
                     continue
                 payload_str = line[len("data:"):].strip()
                 if payload_str == "[DONE]":
+                    final_msg: dict = {"role": "assistant", "content": ""}
                     if accumulated_tool_calls:
                         ol_tcs = []
                         for idx in sorted(accumulated_tool_calls.keys()):
@@ -627,12 +686,11 @@ async def _dashscope_chat_stream(
                                     "arguments": args_obj,
                                 },
                             })
-                        yield {
-                            "message": {"role": "assistant", "content": "", "tool_calls": ol_tcs},
-                            "done": True,
-                        }
-                    else:
-                        yield {"message": {"role": "assistant", "content": ""}, "done": True}
+                        final_msg["tool_calls"] = ol_tcs
+                    final_chunk: dict = {"message": final_msg, "done": True}
+                    if last_usage is not None:
+                        final_chunk["usage"] = last_usage
+                    yield final_chunk
                     return
                 try:
                     chunk = json.loads(payload_str)
@@ -640,6 +698,9 @@ async def _dashscope_chat_stream(
                     continue
                 if isinstance(chunk, dict) and "choices" not in chunk and "data" in chunk:
                     chunk = chunk["data"]
+                u = _parse_usage(chunk.get("usage"))
+                if u is not None:
+                    last_usage = u
                 choices = chunk.get("choices") or []
                 if not choices:
                     continue

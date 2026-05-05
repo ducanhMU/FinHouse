@@ -77,6 +77,28 @@ class RagChunk(BaseModel):
 # ── Tool agent results ───────────────────────────────────────
 
 
+class LLMUsage(BaseModel):
+    """Token accounting for one or more LLM calls.
+
+    Aggregated across rounds within a single ReAct agent run, and across
+    the orchestrator / rewriter / collector calls in the surrounding
+    chat turn. Default zero so summing is straightforward.
+    """
+
+    input_tokens: int = 0
+    output_tokens: int = 0
+    total_tokens: int = 0
+    calls: int = 0   # number of LLM calls aggregated into this counter
+
+    def add(self, other: "LLMUsage") -> "LLMUsage":
+        return LLMUsage(
+            input_tokens=self.input_tokens + other.input_tokens,
+            output_tokens=self.output_tokens + other.output_tokens,
+            total_tokens=self.total_tokens + other.total_tokens,
+            calls=self.calls + other.calls,
+        )
+
+
 class ToolCallTrace(BaseModel):
     """One tool invocation inside a ReAct agent loop."""
 
@@ -87,13 +109,22 @@ class ToolCallTrace(BaseModel):
 
 
 class AgentResult(BaseModel):
-    """Final output of a single tool ReAct agent run."""
+    """Final output of a single tool ReAct agent run.
+
+    `needs_clarification` + `clarification_request` form the ask-back
+    contract: tool agents never block the chat to ask the user — they
+    flag the gap here and the collector node weaves a suggestion into
+    its final answer (so the existing graph flow is unchanged).
+    """
 
     tool_type: ToolType
     goal: str
     answer: str = ""              # the agent's natural-language summary
     calls: list[ToolCallTrace] = Field(default_factory=list)
     error: str = ""
+    needs_clarification: bool = False
+    clarification_request: str = ""
+    usage: LLMUsage = Field(default_factory=LLMUsage)
 
 
 # ── Top-level graph state ────────────────────────────────────

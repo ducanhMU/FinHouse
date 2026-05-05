@@ -89,6 +89,13 @@ def _make_rewriter_agent(session_model: str) -> ReactAgent:
             ),
         ],
         max_rounds=settings.REWRITER_MAX_ROUNDS,
+        # The rewriter's terminal message MUST be a `RewriteOutput`
+        # JSON envelope. JSON-mode forces a valid object so the
+        # downstream `_extract_json` regex fallbacks rarely fire.
+        default_options={
+            "temperature": 0.2,
+            "response_format": {"type": "json_object"},
+        },
     )
 
 
