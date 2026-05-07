@@ -16,3 +16,4 @@ volumes/
 *.tar.gz
 presets/
 .claude
+report.md

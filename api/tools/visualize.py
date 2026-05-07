@@ -27,6 +27,7 @@ import io
 import logging
 import uuid
 from typing import Any, Optional
+from urllib.parse import urlparse
 
 import matplotlib
 matplotlib.use("Agg")  # headless backend — no GUI
@@ -56,6 +57,34 @@ def _get_minio_client():
         access_key=settings.MINIO_ROOT_USER,
         secret_key=settings.MINIO_ROOT_PASSWORD,
         secure=False,
+    )
+
+
+def _get_minio_presign_client():
+    """
+    Client used only to sign URLs handed to the user's browser.
+
+    `_get_minio_client()` targets the Docker-internal hostname so the API
+    container can upload — but a presigned URL signed with that hostname
+    is not reachable from outside the Docker network. When
+    MINIO_PUBLIC_URL is set, we build a separate client whose endpoint
+    matches the browser-reachable host so the signature lines up with
+    the host the browser actually hits. Presigning is purely local URL
+    construction (no network call), so this client never connects.
+    """
+    public_url = (settings.MINIO_PUBLIC_URL or "").strip()
+    if not public_url:
+        return _get_minio_client()
+    from minio import Minio
+    parsed = urlparse(public_url)
+    host = parsed.hostname or ""
+    port = parsed.port
+    endpoint = f"{host}:{port}" if port else host
+    return Minio(
+        endpoint,
+        access_key=settings.MINIO_ROOT_USER,
+        secret_key=settings.MINIO_ROOT_PASSWORD,
+        secure=parsed.scheme == "https",
     )
 
 
@@ -242,7 +271,10 @@ async def _upload_png(png_bytes: bytes) -> dict[str, Any]:
         )
 
         from datetime import timedelta
-        url = client.presigned_get_object(
+        # Sign with the browser-reachable host so the URL we hand back
+        # actually loads in the user's browser (the upload client points
+        # at the Docker-internal hostname).
+        url = _get_minio_presign_client().presigned_get_object(
             bucket_name=bucket,
             object_name=object_name,
             expires=timedelta(seconds=PRESIGN_EXPIRY),

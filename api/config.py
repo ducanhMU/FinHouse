@@ -26,6 +26,16 @@ class Settings(BaseSettings):
     MINIO_HOST: str = "finhouse-minio"
     MINIO_PORT: int = 9000
     MINIO_BUCKET: str = "finhouse-files"
+    # Browser-reachable MinIO endpoint used when *signing* presigned URLs
+    # (e.g. chart images returned by the visualize tool). MINIO_HOST is
+    # the Docker-internal name and is unreachable from the user's browser
+    # — set this to the host:port that the browser can hit.
+    # Examples:
+    #   Local dev:    http://localhost:19000
+    #   Remote IP:    http://112.137.129.161:19000
+    # Empty → falls back to MINIO_HOST:MINIO_PORT (only correct when the
+    # browser shares the Docker network, i.e. essentially never).
+    MINIO_PUBLIC_URL: str = ""
 
     # JWT
     JWT_SECRET: str = "changeme_jwt_secret_at_least_32_chars"
