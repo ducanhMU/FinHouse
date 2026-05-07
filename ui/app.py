@@ -159,6 +159,63 @@ st.markdown("""
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     .stDeployButton {display: none;}
+
+    /* Streaming indicator — pulsing dot floats above the chat input so the
+       user can tell at a glance the model is still working. Clicking the
+       chat_input (sending a new message) will cancel the in-flight run
+       on the backend and start a fresh one. */
+    .streaming-indicator {
+        position: fixed;
+        bottom: 92px;
+        right: 32px;
+        z-index: 9999;
+        background: rgba(99,102,241,0.95);
+        color: #fff;
+        padding: 8px 14px;
+        border-radius: 20px;
+        font-size: 0.78rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+        backdrop-filter: blur(6px);
+    }
+    .streaming-spinner {
+        width: 12px;
+        height: 12px;
+        border: 2px solid rgba(255,255,255,0.35);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: streaming-spin 0.8s linear infinite;
+    }
+    @keyframes streaming-spin {
+        to { transform: rotate(360deg); }
+    }
+    /* Inline "thinking" pill that sits at the top of the assistant bubble
+       while no tokens have arrived yet. Once the first token lands, the
+       response area replaces it. */
+    .inline-thinking {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.82rem;
+        color: rgba(99,102,241,0.95);
+        padding: 4px 10px;
+        background: rgba(99,102,241,0.08);
+        border-radius: 12px;
+    }
+    .inline-thinking .dot {
+        width: 6px; height: 6px; border-radius: 50%;
+        background: rgba(99,102,241,0.9);
+        animation: dot-pulse 1.2s ease-in-out infinite;
+    }
+    .inline-thinking .dot:nth-child(2) { animation-delay: 0.15s; }
+    .inline-thinking .dot:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes dot-pulse {
+        0%, 80%, 100% { opacity: 0.3; transform: scale(0.85); }
+        40% { opacity: 1; transform: scale(1.1); }
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -994,16 +1051,38 @@ else:
                         name = tev.get("tool") or last_tool_name
                         render_tool_result(name, tev.get("content", ""))
 
+    # ── Streaming indicator (floats over the chat input) ────
+    # Rendered every rerun while is_streaming=True so the user always
+    # has a visible signal "the model is still working". Disappears as
+    # soon as the streaming loop ends or gets cancelled.
+    if st.session_state.get("is_streaming"):
+        st.markdown(
+            '<div class="streaming-indicator">'
+            '<div class="streaming-spinner"></div>'
+            'AI đang trả lời… (gõ tin nhắn mới để dừng)'
+            '</div>',
+            unsafe_allow_html=True,
+        )
+
     # ── Chat input ──────────────────────────────────────────
     pending = st.session_state.pop("_pending_prompt", None)
+    # Input stays ENABLED during streaming — submitting a new message
+    # cancels the in-flight run and starts a fresh round.
     user_input = st.chat_input(
         "Incognito — not saved. Ask anything..." if st.session_state.incognito
         else "Ask FinHouse...",
-        disabled=st.session_state.is_streaming,
     )
     prompt = pending or user_input
 
     if prompt:
+        # If the previous turn was still streaming, tell the backend to
+        # cancel before we kick off a new one. The Streamlit rerun has
+        # already torn down the previous SSE generator on this side, but
+        # the graph_task on the server keeps running until we ping /stop.
+        if st.session_state.get("is_streaming") and st.session_state.current_session_id:
+            api.stop_stream(st.session_state.current_session_id, get_token())
+            st.session_state.is_streaming = False
+
         # Ensure session exists
         if not st.session_state.current_session_id:
             create_new_session()
@@ -1017,6 +1096,16 @@ else:
         with st.chat_message("assistant"):
             reasoning_area = st.empty()  # dim italic block above the answer
             response_area = st.empty()
+            # "Đang suy nghĩ" pill — visible until the first token lands so
+            # the bubble is never empty while waiting on the orchestrator
+            # / tool agents (which can take 5-10s before any token appears).
+            response_area.markdown(
+                '<div class="inline-thinking">'
+                '<span class="dot"></span><span class="dot"></span>'
+                '<span class="dot"></span> đang suy nghĩ'
+                '</div>',
+                unsafe_allow_html=True,
+            )
             # Order matters: source_container ABOVE tool_container so RAG
             # sources land right under the response, not buried below tool
             # cards. The expander itself is rendered on the rag_sources

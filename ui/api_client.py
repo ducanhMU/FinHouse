@@ -242,9 +242,19 @@ def send_message_stream(
                     continue
 
 
-def stop_stream(session_id: str):
+def stop_stream(session_id: str, token: Optional[str] = None):
+    """Tell the backend to cancel the active SSE for this session.
+
+    Called when the user submits a new prompt while the previous
+    response is still streaming — the in-flight graph_task is cancelled
+    so we don't burn LLM/API quota on a reply nobody will read.
+    """
     try:
-        httpx.post(f"{API_BASE}/chat/{session_id}/stop", timeout=5.0)
+        httpx.post(
+            f"{API_BASE}/chat/{session_id}/stop",
+            headers=_headers(token),
+            timeout=5.0,
+        )
     except Exception:
         pass
 

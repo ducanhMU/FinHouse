@@ -34,7 +34,11 @@ matplotlib.use("Agg")  # headless backend — no GUI
 import matplotlib.pyplot as plt
 
 from config import get_settings
-from tools.database_query import select_rows
+from tools.database_query import (
+    describe_table as db_describe_table,
+    list_tables as db_list_tables,
+    select_rows,
+)
 
 settings = get_settings()
 logger = logging.getLogger("finhouse.tools.visualize")
@@ -113,6 +117,20 @@ def _coerce_rows(raw_rows: list[Any], columns: list[str]) -> list[dict]:
     return out
 
 
+_MISSING_TABLE_RE = (
+    "UNKNOWN_TABLE",
+    "Table ",
+    "doesn't exist",
+    "does not exist",
+)
+_MISSING_COLUMN_RE = (
+    "UNKNOWN_IDENTIFIER",
+    "Missing columns",
+    "There's no column",
+    "Unknown identifier",
+)
+
+
 async def _fetch(
     table: str,
     columns: list[str],
@@ -121,7 +139,12 @@ async def _fetch(
     limit: int,
     use_final: bool,
 ) -> dict[str, Any]:
-    """Fetch the data via select_rows and surface any error as-is."""
+    """Fetch the data via select_rows.
+
+    On ClickHouse "table does not exist" / "unknown column" errors,
+    auto-attach the real table or column list so the ReAct loop can
+    retry with the correct name on the next round instead of dying.
+    """
     result = await select_rows(
         table=table,
         columns=columns,
@@ -131,10 +154,55 @@ async def _fetch(
         use_final=use_final,
     )
     if isinstance(result, dict) and result.get("error"):
-        return {"error": result["error"]}
+        err = str(result["error"])
+        hint = await _schema_hint_for_error(err, table)
+        if hint:
+            err = err + " | " + hint
+        return {"error": err}
     cols = result.get("columns", []) if isinstance(result, dict) else []
     rows = result.get("rows", []) if isinstance(result, dict) else []
     return {"columns": cols, "rows": _coerce_rows(rows, cols)}
+
+
+async def _schema_hint_for_error(err: str, table: str) -> str:
+    """Build a short schema hint to append to a failed-fetch error.
+
+    Designed so the LLM can self-correct on the next ReAct round:
+      • Bad table → list real tables.
+      • Bad column → list real columns of the (correct) table.
+    """
+    if any(s in err for s in _MISSING_TABLE_RE):
+        try:
+            tables_res = await db_list_tables()
+            rows = tables_res.get("rows") or [] if isinstance(tables_res, dict) else []
+            names = [r[0] for r in rows if r] if rows and isinstance(rows[0], (list, tuple)) else []
+            if names:
+                return (
+                    f"available tables in OLAP DB: {', '.join(names)}. "
+                    "Pick the correct one and retry — do NOT invent a table name."
+                )
+        except Exception:
+            pass
+        return (
+            "table not in OLAP DB — call list_tables() first to see real "
+            "names. Common tables: stocks, company_overview, balance_sheet, "
+            "income_statement, cash_flow_statement, financial_ratios, "
+            "shareholders, officers, news, events, stock_price_history."
+        )
+    if any(s in err for s in _MISSING_COLUMN_RE):
+        try:
+            desc = await db_describe_table(table)
+            rows = desc.get("rows") or [] if isinstance(desc, dict) else []
+            names = [r[0] for r in rows if r] if rows and isinstance(rows[0], (list, tuple)) else []
+            if names:
+                return (
+                    f"columns in `{table}`: {', '.join(names)}. "
+                    "Pick a column from this list and retry."
+                )
+        except Exception:
+            pass
+        return f"column not found — call describe_table('{table}') to see real columns."
+    return ""
 
 
 def _render_multi_series(
@@ -378,6 +446,91 @@ async def pie(
     return {**upload, "mark": "pie", "title": title or "", "row_count": len(fetch["rows"])}
 
 
+async def chart_from_data(
+    mark: str,
+    x_labels: list[Any],
+    y_series: list[dict],
+    title: Optional[str] = None,
+) -> dict[str, Any]:
+    """Render a chart from inline data (no OLAP fetch).
+
+    Use this when the data came from web_search (or anywhere outside
+    OLAP) and you've parsed it into labels + values yourself. The
+    end-goal is still a chart — this tool keeps that promise even when
+    `bar`/`line`/`pie` can't (because they only read OLAP).
+
+    Args:
+      mark: "bar" | "line" | "pie".
+      x_labels: list of category/time labels (one per data point).
+        For pie, these are slice labels.
+      y_series:
+        - bar/line: list of {"name": str, "values": [number, ...]}
+          where len(values) == len(x_labels). Multiple series → grouped
+          bars / multi-line.
+        - pie: list with ONE entry {"name": str, "values": [number, ...]}
+          where len(values) == len(x_labels) (one positive number per
+          slice — negatives/zero/null are dropped).
+      title: chart title (Latin/Vietnamese only — no CJK).
+    """
+    mark = (mark or "").lower().strip()
+    if mark not in {"bar", "line", "pie"}:
+        return {"error": f"mark must be 'bar', 'line' or 'pie' — got {mark!r}"}
+    if not isinstance(x_labels, list) or not x_labels:
+        return {"error": "x_labels must be a non-empty list"}
+    if not isinstance(y_series, list) or not y_series:
+        return {"error": "y_series must be a non-empty list"}
+
+    n = len(x_labels)
+    norm_series: list[tuple[str, list[Optional[float]]]] = []
+    for i, s in enumerate(y_series):
+        if not isinstance(s, dict):
+            return {"error": f"y_series[{i}] must be an object"}
+        name = str(s.get("name") or f"series_{i+1}").strip() or f"series_{i+1}"
+        vals = s.get("values")
+        if not isinstance(vals, list):
+            return {"error": f"y_series[{i}].values must be a list"}
+        if len(vals) != n:
+            return {
+                "error": (
+                    f"y_series[{i}].values length {len(vals)} != x_labels "
+                    f"length {n}"
+                )
+            }
+        norm_series.append((name, [_to_float(v) for v in vals]))
+
+    if mark in {"bar", "line"}:
+        rows = [{"_x": x_labels[i]} for i in range(n)]
+        for name, vals in norm_series:
+            for i in range(n):
+                rows[i][name] = vals[i]
+        try:
+            png = _render_multi_series(
+                rows, "_x", [n for n, _ in norm_series], mark, title,
+            )
+        except ValueError as e:
+            return {"error": str(e)}
+    else:  # pie
+        if len(norm_series) != 1:
+            return {"error": "pie requires exactly one entry in y_series"}
+        _, vals = norm_series[0]
+        rows = [{"label": x_labels[i], "value": vals[i]} for i in range(n)]
+        try:
+            png = _render_pie(rows, "label", "value", title)
+        except ValueError as e:
+            return {"error": str(e)}
+
+    upload = await _upload_png(png)
+    if "error" in upload:
+        return upload
+    return {
+        **upload,
+        "mark": mark,
+        "title": title or "",
+        "row_count": n,
+        "source": "inline",
+    }
+
+
 # ── Tool schemas (for Ollama function calling) ──────────────
 
 _FILTERS_SCHEMA = {
@@ -519,4 +672,66 @@ PIE_TOOL_SCHEMA = {
     },
 }
 
-VISUALIZE_TOOL_SCHEMAS = [BAR_TOOL_SCHEMA, LINE_TOOL_SCHEMA, PIE_TOOL_SCHEMA]
+CHART_FROM_DATA_TOOL_SCHEMA = {
+    "type": "function",
+    "function": {
+        "name": "chart_from_data",
+        "description": (
+            "Render a chart from INLINE data (you supply labels + numbers "
+            "directly). Use this AFTER web_search when OLAP doesn't have "
+            "the data and you've parsed numbers from search results. The "
+            "end goal is still a chart — this tool ensures we always "
+            "deliver a PNG when a chart was asked for. Returns a "
+            "presigned image URL like bar/line/pie."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "mark": {
+                    "type": "string",
+                    "enum": ["bar", "line", "pie"],
+                    "description": "Chart type.",
+                },
+                "x_labels": {
+                    "type": "array",
+                    "items": {},
+                    "minItems": 1,
+                    "description": (
+                        "Category/time labels for bar/line, or slice labels "
+                        "for pie. Strings or numbers."
+                    ),
+                },
+                "y_series": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {"type": "string"},
+                            "values": {
+                                "type": "array",
+                                "items": {"type": ["number", "null"]},
+                            },
+                        },
+                        "required": ["name", "values"],
+                    },
+                    "description": (
+                        "Numeric series. For bar/line: multiple entries → "
+                        "grouped bars / multi-line. For pie: exactly one "
+                        "entry; values length must equal x_labels length."
+                    ),
+                },
+                "title": {"type": "string"},
+            },
+            "required": ["mark", "x_labels", "y_series"],
+        },
+    },
+}
+
+
+VISUALIZE_TOOL_SCHEMAS = [
+    BAR_TOOL_SCHEMA,
+    LINE_TOOL_SCHEMA,
+    PIE_TOOL_SCHEMA,
+    CHART_FROM_DATA_TOOL_SCHEMA,
+]

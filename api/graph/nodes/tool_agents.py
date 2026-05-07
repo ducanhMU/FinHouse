@@ -29,6 +29,8 @@ from prompts import (
 )
 from tools.database_query import (
     DATABASE_QUERY_TOOL_SCHEMAS,
+    DESCRIBE_TABLE_TOOL_SCHEMA,
+    LIST_TABLES_TOOL_SCHEMA,
     aggregate as db_aggregate,
     describe_table as db_describe_table,
     distinct_values as db_distinct_values,
@@ -38,6 +40,7 @@ from tools.database_query import (
 from tools.visualize import (
     VISUALIZE_TOOL_SCHEMAS,
     bar as viz_bar,
+    chart_from_data as viz_chart_from_data,
     line as viz_line,
     pie as viz_pie,
 )
@@ -133,6 +136,15 @@ async def _h_pie(args: dict):
     )
 
 
+async def _h_chart_from_data(args: dict):
+    return await viz_chart_from_data(
+        mark=args.get("mark", ""),
+        x_labels=args.get("x_labels") or [],
+        y_series=args.get("y_series") or [],
+        title=args.get("title"),
+    )
+
+
 # ── Schema lookup helper ────────────────────────────────────
 
 
@@ -205,6 +217,21 @@ def make_viz_agent(session_model: str) -> ReactAgent:
         llm=get_llm("visualize", session_model),
         system_prompt=get_visualize_prompt(),
         tools=[
+            # Discovery tools first — let the agent verify table/column
+            # names against ClickHouse before calling bar/line/pie. Without
+            # these the LLM sometimes hallucinates a table (e.g.
+            # `stock_prices` instead of `stock_price_history`) and the
+            # render fails with a 404 it can't recover from.
+            AgentTool(
+                name="list_tables",
+                schema=LIST_TABLES_TOOL_SCHEMA,
+                handler=_h_list_tables,
+            ),
+            AgentTool(
+                name="describe_table",
+                schema=DESCRIBE_TABLE_TOOL_SCHEMA,
+                handler=_h_describe_table,
+            ),
             AgentTool(
                 name="bar",
                 schema=_schema_by_name(VISUALIZE_TOOL_SCHEMAS, "bar"),
@@ -219,6 +246,22 @@ def make_viz_agent(session_model: str) -> ReactAgent:
                 name="pie",
                 schema=_schema_by_name(VISUALIZE_TOOL_SCHEMAS, "pie"),
                 handler=_h_pie,
+            ),
+            # Fallback path — when OLAP doesn't have what the user asked
+            # for, the agent runs `web_search` to harvest numbers from the
+            # web, then calls `chart_from_data` with the parsed labels +
+            # values to render the PNG. Web_search alone is NOT the answer:
+            # the user asked for a chart, so we keep going until we have a
+            # PNG (or honestly tell the collector we couldn't get one).
+            AgentTool(
+                name="web_search",
+                schema=WEB_SEARCH_TOOL_SCHEMA,
+                handler=_h_web_search,
+            ),
+            AgentTool(
+                name="chart_from_data",
+                schema=_schema_by_name(VISUALIZE_TOOL_SCHEMAS, "chart_from_data"),
+                handler=_h_chart_from_data,
             ),
         ],
     )
