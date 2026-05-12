@@ -55,10 +55,18 @@ async def _rag_node(state: ChatState, config: RunnableConfig) -> dict:
     if state.rewrite and state.rewrite.needs_clarification:
         return {"rag_sources": [], "rag_messages": []}
 
-    embed_query = (
-        state.rewrite.embed_query
-        if state.rewrite else state.user_text
-    )
+    # HyDE: feed all hypothetical passages alongside the rewritten query.
+    # `embed_queries` returns the rewrite + passages list (or just [user_text]
+    # when no rewrite is present). The cross-encoder reranks against the
+    # rewritten/original question — not the passages — so HyDE only affects
+    # retrieval, not final scoring.
+    if state.rewrite:
+        embed_queries = state.rewrite.embed_queries or [state.user_text]
+        rerank_query = state.rewrite.embed_query or state.user_text
+    else:
+        embed_queries = [state.user_text]
+        rerank_query = state.user_text
+
     search_project = state.project_id if state.project_id >= 0 else 0
 
     # Ticker prefix nudge — same convention as the legacy chat router
@@ -84,20 +92,21 @@ async def _rag_node(state: ChatState, config: RunnableConfig) -> dict:
 
         from services.ingest import retrieve_context
         chunks = await retrieve_context(
-            query=embed_query,
+            query=embed_queries,
             project_id=search_project,
             top_k=20,
             top_n_rerank=5,
             file_name_prefixes=ticker_prefixes or None,
+            rerank_query=rerank_query,
         )
     except Exception as e:
         log.warning("[rag] retrieval skipped: %s", e, exc_info=True)
         return {"rag_sources": [], "rag_messages": []}
 
     log.info(
-        "[rag] retrieved %d chunks for query=%r prefixes=%s in %.0fms",
-        len(chunks or []), embed_query[:80], ticker_prefixes or "-",
-        (time.perf_counter() - t0) * 1000,
+        "[rag] retrieved %d chunks for query=%r (+%d HyDE passages) prefixes=%s in %.0fms",
+        len(chunks or []), rerank_query[:80], max(0, len(embed_queries) - 1),
+        ticker_prefixes or "-", (time.perf_counter() - t0) * 1000,
     )
     if not chunks:
         return {"rag_sources": [], "rag_messages": []}

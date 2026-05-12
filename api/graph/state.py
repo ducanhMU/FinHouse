@@ -39,11 +39,38 @@ class RewriteOutput(BaseModel):
     applied_defaults: list[str] = Field(default_factory=list)
     original: str = ""
 
+    # ── HyDE additions (backward-compatible; default empty) ──
+    # Hypothetical answer passages (HyDE). Written in document style as
+    # if extracted from a financial report, NOT as questions. Used as
+    # additional embed queries for retrieval. Empty list → no HyDE
+    # boost, retrieval falls back to single-query (rewritten only).
+    hypothetical_passages: list[str] = Field(default_factory=list)
+    # Paraphrased clarification options shown to the user as clickable
+    # chips when needs_clarification=True. Each item is a self-contained
+    # question with a different scope assumption. Empty → UI shows only
+    # the plain `clarification` text.
+    clarification_suggestions: list[str] = Field(default_factory=list)
+
     @property
     def embed_query(self) -> str:
         if self.rewritten and not self.needs_clarification:
             return self.rewritten
         return self.original
+
+    @property
+    def embed_queries(self) -> list[str]:
+        """All queries to embed for retrieval: rewritten + HyDE passages."""
+        if self.needs_clarification:
+            return [self.original] if self.original else []
+        base = self.rewritten or self.original
+        if not base:
+            return []
+        out = [base]
+        for p in self.hypothetical_passages:
+            p = (p or "").strip()
+            if p and p not in out:
+                out.append(p)
+        return out
 
 
 # ── Orchestrator ─────────────────────────────────────────────

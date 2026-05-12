@@ -176,13 +176,26 @@ def _build_user_block(state: ChatState) -> str:
         '  "preserved_entities": ["VNM"],\n'
         '  "preserved_timeframe": "2025",\n'
         '  "preserved_metrics": ["doanh thu"],\n'
-        '  "applied_defaults": ["timeframe=2025"]\n'
+        '  "applied_defaults": ["timeframe=2025"],\n'
+        '  "hypothetical_passages": ["<đoạn 2-4 câu kiểu báo cáo, góc 1>", "<góc 2>", "<góc 3>"],\n'
+        '  "clarification_suggestions": []\n'
         "}\n\n"
         "Nếu sau khi gọi `lookup_company` mà không entity nào match → "
         'set `needs_clarification=true`, viết `clarification` ngắn hỏi '
-        'user xác nhận lại tên/ticker. Còn lại để mặc định.\n'
+        'user xác nhận lại tên/ticker. Trong trường hợp này: '
+        '`hypothetical_passages=[]` và đưa 3-4 câu hỏi paraphrase tự chứa '
+        'vào `clarification_suggestions` (mỗi cái cho một giả định scope '
+        'khác nhau, UI sẽ render thành chips).\n'
         "Nếu chỉ thiếu thời gian → áp default = NĂM TÀI CHÍNH GẦN NHẤT "
-        "HOÀN CHỈNH ở khối bối cảnh phía trên, ghi vào `applied_defaults`."
+        "HOÀN CHỈNH ở khối bối cảnh phía trên, ghi vào `applied_defaults`.\n\n"
+        "HYPOTHETICAL_PASSAGES (chỉ khi `needs_clarification=false`): "
+        "viết 2-3 đoạn 2-4 câu (~80-200 chữ/đoạn) theo phong cách trích "
+        "từ báo cáo tài chính / phân tích doanh nghiệp (văn phong khẳng "
+        "định, KHÔNG phải câu hỏi). Mỗi đoạn nhấn vào một góc khác nhau "
+        "(số liệu trực tiếp, nguyên nhân/bối cảnh, so sánh/xu hướng). "
+        "Số liệu có thể bịa hợp lý — chỉ dùng cho embedding, không bao "
+        "giờ hiển thị. Giữ ticker + timeframe trong mỗi đoạn để embedding "
+        "đúng cluster. Tuyệt đối không CJK/Cyrillic."
     )
 
 
@@ -229,7 +242,40 @@ async def _rewriter_node(state: ChatState, config: RunnableConfig) -> dict:
         preserved_metrics=_coerce_str_list(parsed.get("preserved_metrics")),
         applied_defaults=_coerce_str_list(parsed.get("applied_defaults")),
         original=state.user_text,
+        hypothetical_passages=_coerce_str_list(
+            parsed.get("hypothetical_passages"), cap=5,
+        ),
+        clarification_suggestions=_coerce_str_list(
+            parsed.get("clarification_suggestions"), cap=5,
+        ),
     )
+
+    # Trim oversized passages to keep embed payloads sane.
+    out.hypothetical_passages = [
+        (p[:1500] if isinstance(p, str) else "").strip()
+        for p in out.hypothetical_passages
+    ]
+    out.hypothetical_passages = [p for p in out.hypothetical_passages if p]
+    out.clarification_suggestions = [
+        (p[:400] if isinstance(p, str) else "").strip()
+        for p in out.clarification_suggestions
+    ]
+    out.clarification_suggestions = [p for p in out.clarification_suggestions if p]
+
+    # Honor the global feature flag — if HyDE is disabled, drop passages
+    # so the RAG node falls back to single-query retrieval.
+    if not settings.RAG_HYDE_ENABLED:
+        out.hypothetical_passages = []
+    else:
+        # Cap to the configured maximum
+        out.hypothetical_passages = out.hypothetical_passages[: settings.RAG_HYDE_N_PASSAGES]
+
+    # When clarification is set, passages don't make sense (scope unknown).
+    if out.needs_clarification:
+        out.hypothetical_passages = []
+    else:
+        # When NOT in clarification, suggestions are noise.
+        out.clarification_suggestions = []
 
     # Sanity repairs
     if out.needs_clarification and not out.clarification:
@@ -295,7 +341,10 @@ async def _rewriter_node(state: ChatState, config: RunnableConfig) -> dict:
     )
 
     if out.needs_clarification:
-        await emit(config, "clarification", {"content": out.clarification})
+        await emit(config, "clarification", {
+            "content": out.clarification,
+            "suggestions": out.clarification_suggestions,
+        })
     else:
         await emit(config, "query_rewrite", _rewrite_payload(state.user_text, out))
 
@@ -311,6 +360,7 @@ def _rewrite_payload(original: str, out: RewriteOutput) -> dict:
         "timeframe": out.preserved_timeframe,
         "metrics": out.preserved_metrics,
         "applied_defaults": out.applied_defaults,
+        "hypothetical_passages": out.hypothetical_passages,
     }
 
 

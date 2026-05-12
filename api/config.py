@@ -201,6 +201,44 @@ class Settings(BaseSettings):
     MILVUS_HOST: str = "finhouse-milvus"
     MILVUS_PORT: int = 19530
 
+    # ── RAG v2 feature flags ──
+    # Collection routing — leave as legacy name to use the old IVF_FLAT
+    # dense-only collection; switch to `finhouse_chunks_v2` to use the new
+    # HNSW + hybrid-capable collection. Both collections coexist, so a
+    # rollback is just flipping this back to "finhouse_chunks".
+    RAG_COLLECTION: str = "finhouse_chunks_v2"
+    # Vector index type for the v2 collection. HNSW is the recommended
+    # default; IVF_FLAT kept as an escape hatch.
+    RAG_INDEX_TYPE: str = "HNSW"
+    # Use BGE-M3 sparse (lexical) embeddings alongside dense, fused via
+    # RRF. Requires the embed service to expose /embed_hybrid AND the
+    # active collection to have a sparse_embedding field (v2 only).
+    RAG_HYBRID_ENABLED: bool = True
+    # HyDE — let the rewriter emit 2-3 hypothetical passages that are
+    # embedded alongside the rewritten query. Off → embed only the
+    # rewritten query (legacy behavior).
+    RAG_HYDE_ENABLED: bool = True
+    RAG_HYDE_N_PASSAGES: int = 3
+    # Reciprocal Rank Fusion constant. 60 is the canonical paper value;
+    # higher values flatten the contribution of top ranks.
+    RAG_RRF_K: int = 60
+    # Semantic chunking at ingest time (embedding-based topic boundary
+    # detection). Off by default — slower + costlier ingest. Per-file
+    # fallback to rule-based chunking on any error.
+    RAG_SEMANTIC_CHUNKING: bool = False
+    # Percentile of pairwise embedding distance used as the split
+    # threshold for semantic chunking. Lower → more chunks; higher →
+    # fewer, larger chunks. 90-95 is the LangChain default range.
+    RAG_SEMANTIC_THRESHOLD_PCT: float = 92.0
+    # When True, the startup data-folder scanner treats files marked
+    # `ready` in Postgres as needing re-ingest (instead of skipping
+    # them). Use this **once** after flipping RAG_COLLECTION to v2 so a
+    # plain `docker compose restart finhouse-api` re-feeds every base-
+    # knowledge file into the new collection. Flip back to False after
+    # the scan log says all files re-processed, otherwise every restart
+    # will pointlessly re-embed everything.
+    RAG_FORCE_RESCAN: bool = False
+
     # SearXNG
     SEARXNG_HOST: str = "http://finhouse-searxng:8080"
 

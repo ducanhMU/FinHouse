@@ -81,6 +81,9 @@ class RewriteResult:
     preserved_metrics: list[str] = field(default_factory=list)
     applied_defaults: list[str] = field(default_factory=list)
     original: str = ""
+    # HyDE / clarification UX additions — see RewriteOutput for semantics.
+    hypothetical_passages: list[str] = field(default_factory=list)
+    clarification_suggestions: list[str] = field(default_factory=list)
 
     @property
     def embed_query(self) -> str:
@@ -88,6 +91,21 @@ class RewriteResult:
         if self.rewritten and not self.needs_clarification:
             return self.rewritten
         return self.original
+
+    @property
+    def embed_queries(self) -> list[str]:
+        """All queries to embed for retrieval: rewritten + HyDE passages."""
+        if self.needs_clarification:
+            return [self.original] if self.original else []
+        base = self.rewritten or self.original
+        if not base:
+            return []
+        out = [base]
+        for p in self.hypothetical_passages:
+            p = (p or "").strip()
+            if p and p not in out:
+                out.append(p)
+        return out
 
 
 def _passthrough(original: str) -> RewriteResult:
@@ -281,6 +299,12 @@ async def rewrite_query(
             preserved_metrics=_coerce_str_list(parsed.get("preserved_metrics")),
             applied_defaults=_coerce_str_list(parsed.get("applied_defaults")),
             original=user_message,
+            hypothetical_passages=_coerce_str_list(
+                parsed.get("hypothetical_passages"), cap=5,
+            ),
+            clarification_suggestions=_coerce_str_list(
+                parsed.get("clarification_suggestions"), cap=5,
+            ),
         )
     except Exception as e:
         log.warning(f"rewriter result construction failed: {e}; passthrough")

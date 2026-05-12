@@ -116,13 +116,29 @@ async def scan_data_folder(db: AsyncSession):
         existing = result.scalar_one_or_none()
 
         if existing:
-            if existing.process_status == "ready":
+            # When RAG_FORCE_RESCAN is set (e.g. right after flipping
+            # RAG_COLLECTION to v2), treat 'ready' files as needing
+            # re-ingest so a plain restart migrates everything into the
+            # new collection. Operator should clear the flag after the
+            # first successful pass.
+            should_retry = existing.process_status in (
+                "failed", "pending", "processing"
+            ) or (
+                settings.RAG_FORCE_RESCAN
+                and existing.process_status == "ready"
+            )
+
+            if existing.process_status == "ready" and not should_retry:
                 logger.debug(f"✓ Already processed: {rel_path}")
                 skipped += 1
                 continue
-            elif existing.process_status in ("failed", "pending", "processing"):
-                # Retry: re-process this file
-                logger.info(f"🔄 Retrying previously {existing.process_status} file: {rel_path}")
+            elif should_retry:
+                reason = (
+                    "RAG_FORCE_RESCAN"
+                    if existing.process_status == "ready"
+                    else f"previously {existing.process_status}"
+                )
+                logger.info(f"🔄 Re-ingesting ({reason}): {rel_path}")
                 existing.process_status = "processing"
                 await db.flush()
                 file_record = existing
@@ -230,7 +246,19 @@ async def run_startup_scan():
         )
         return
 
-    logger.info(f"🔍 Starting data folder scan: {DATA_DIR}")
+    logger.info(
+        f"🔍 Starting data folder scan: {DATA_DIR} "
+        f"(collection={settings.RAG_COLLECTION}, "
+        f"hybrid={settings.RAG_HYBRID_ENABLED}, "
+        f"semantic_chunking={settings.RAG_SEMANTIC_CHUNKING}, "
+        f"force_rescan={settings.RAG_FORCE_RESCAN})"
+    )
+    if settings.RAG_FORCE_RESCAN:
+        logger.warning(
+            "⚠️  RAG_FORCE_RESCAN=true — all 'ready' files will be RE-INGESTED. "
+            "Remember to set this back to false in .env after the migration "
+            "completes, or every restart will pointlessly re-embed everything."
+        )
 
     async with async_session_factory() as db:
         try:

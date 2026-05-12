@@ -21,6 +21,8 @@ RUN pip install --no-cache-dir \
         fastapi==0.115.6 \
         "uvicorn[standard]==0.34.0" \
         sentence-transformers==3.3.1 \
+        FlagEmbedding==1.3.4 \
+        peft==0.13.2 \
         numpy
 
 COPY main.py .
