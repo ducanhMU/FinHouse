@@ -30,6 +30,14 @@ RUN --mount=type=cache,target=/root/.cache/pip \
         torch==2.6.0
 
 # Stage 2 — pure-Python deps (small, fast).
+#
+# transformers PINNED to 4.44.2: FlagEmbedding 1.3.4 imports the
+# private constant `GEMMA2_START_DOCSTRING` which was removed in
+# transformers >= 4.45. Without this pin, sentence-transformers pulls
+# in transformers 4.57+ → FlagEmbedding import crashes at runtime →
+# embed service silently falls back to dense-only sentence-transformers,
+# breaking hybrid retrieval. 4.44.2 is the last 4.44.x and works with
+# both sentence-transformers 3.3 (needs >=4.41) and FlagEmbedding 1.3.4.
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip install \
         --timeout 600 \
@@ -37,6 +45,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
         --resume-retries 10 \
         fastapi==0.115.6 \
         "uvicorn[standard]==0.34.0" \
+        transformers==4.44.2 \
         sentence-transformers==3.3.1 \
         FlagEmbedding==1.3.4 \
         peft==0.13.2 \
