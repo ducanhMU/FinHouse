@@ -471,66 +471,166 @@ async def close_http_clients():
         _rerank_client = None
 
 
+def _get_embed_hosts() -> list[str]:
+    """
+    Return the ordered list of local embed hosts to try.
+
+    Primary = settings.EMBED_HOST. Fallbacks come from EMBED_HOST_FALLBACKS
+    (comma-separated). Empties / dupes filtered. Order matters — chain
+    stops at the first 200 response.
+    """
+    chain: list[str] = []
+    seen: set[str] = set()
+
+    primary = (settings.EMBED_HOST or "").strip().rstrip("/")
+    if primary:
+        chain.append(primary)
+        seen.add(primary)
+
+    fallbacks_raw = (settings.EMBED_HOST_FALLBACKS or "").strip()
+    if fallbacks_raw:
+        for h in fallbacks_raw.split(","):
+            h = h.strip().rstrip("/")
+            if h and h not in seen:
+                chain.append(h)
+                seen.add(h)
+    return chain
+
+
+async def _embed_batch_at_host(
+    host: str, batch: list[str], max_retries: int = 2,
+) -> list[list[float]]:
+    """Call /embed on ONE host with retries. Raises on definitive failure."""
+    client = get_embed_client()
+    last_err: Exception | None = None
+    for attempt in range(max_retries + 1):
+        try:
+            resp = await client.post(f"{host}/embed", json={"texts": batch})
+            resp.raise_for_status()
+            data = resp.json()
+            batch_embs = data.get("embeddings", [])
+            if len(batch_embs) != len(batch):
+                raise ValueError(
+                    f"count mismatch: sent {len(batch)}, got {len(batch_embs)}"
+                )
+            return batch_embs
+        except (
+            httpx.HTTPStatusError, httpx.ConnectError,
+            httpx.ReadTimeout, httpx.RemoteProtocolError, ValueError,
+        ) as e:
+            last_err = e
+            if attempt < max_retries:
+                import asyncio
+                await asyncio.sleep(2 ** attempt)
+            else:
+                raise RuntimeError(
+                    f"Embed host {host} failed after {max_retries+1} attempts: {last_err}"
+                ) from last_err
+    # Unreachable, satisfies type checker
+    raise RuntimeError(f"Embed host {host} failed: {last_err}")
+
+
 async def _embed_via_local(
     texts: list[str], batch_size: int = 32, max_retries: int = 2,
 ) -> list[list[float]]:
-    """Call the local BGE-M3 microservice."""
-    all_embeddings = []
-    client = get_embed_client()
+    """
+    Call local BGE-M3 microservices with multi-host fallback.
+
+    Tries EMBED_HOST first, then each entry in EMBED_HOST_FALLBACKS in
+    order. Per-batch granularity: if host A fails on batch 3, the
+    remaining batches retry from host A first; we only escalate to
+    host B if host A still fails. This keeps connection pools warm at
+    the primary and avoids thrashing.
+
+    Raises RuntimeError when ALL hosts fail on a single batch — the
+    caller (`embed_texts`) catches that and triggers the API fallback.
+    """
+    hosts = _get_embed_hosts()
+    if not hosts:
+        raise RuntimeError("No EMBED_HOST configured")
+
+    all_embeddings: list[list[float]] = []
 
     for batch_idx, i in enumerate(range(0, len(texts), batch_size)):
         batch = texts[i : i + batch_size]
+        host_errors: list[str] = []
+        batch_embs: list[list[float]] | None = None
 
-        last_err = None
-        for attempt in range(max_retries + 1):
+        for host in hosts:
             try:
-                resp = await client.post(
-                    f"{settings.EMBED_HOST}/embed",
-                    json={"texts": batch},
-                )
-                resp.raise_for_status()
-                data = resp.json()
-
-                batch_embs = data.get("embeddings", [])
-                if len(batch_embs) != len(batch):
-                    raise ValueError(
-                        f"count mismatch: sent {len(batch)}, got {len(batch_embs)}"
+                batch_embs = await _embed_batch_at_host(host, batch, max_retries)
+                if host != hosts[0]:
+                    logger.info(
+                        f"Embed batch {batch_idx} succeeded via fallback host {host}"
                     )
-                all_embeddings.extend(batch_embs)
                 break
+            except Exception as e:
+                host_errors.append(f"{host}: {e}")
+                logger.warning(
+                    f"Embed host {host} failed on batch {batch_idx} ({e}), "
+                    f"trying next in chain"
+                )
+                continue
 
-            except (
-                httpx.HTTPStatusError, httpx.ConnectError,
-                httpx.ReadTimeout, httpx.RemoteProtocolError, ValueError,
-            ) as e:
-                last_err = e
-                if attempt < max_retries:
-                    import asyncio
-                    await asyncio.sleep(2 ** attempt)
-                else:
-                    raise RuntimeError(
-                        f"Local embed failed after {max_retries+1} attempts "
-                        f"on batch {batch_idx}: {last_err}"
-                    ) from last_err
+        if batch_embs is None:
+            raise RuntimeError(
+                f"All {len(hosts)} embed hosts failed on batch {batch_idx}. "
+                + " | ".join(host_errors)
+            )
+        all_embeddings.extend(batch_embs)
 
     return all_embeddings
+
+
+def _resolve_embed_api_key() -> str:
+    """Use EMBED_API_KEY if set, else fall back to DASHSCOPE_API_KEY."""
+    return (settings.EMBED_API_KEY or settings.DASHSCOPE_API_KEY or "").strip()
+
+
+def _resolve_rerank_api_key() -> str:
+    """Use RERANK_API_KEY if set, else fall back to DASHSCOPE_API_KEY."""
+    return (settings.RERANK_API_KEY or settings.DASHSCOPE_API_KEY or "").strip()
+
+
+def _build_resource_url(base_url: str, resource: str) -> str:
+    """
+    Append the resource path unless the URL already includes it.
+
+    Lets users put either:
+        EMBED_API_URL=https://.../v1            → we append /embeddings
+        EMBED_API_URL=https://.../v1/embeddings → we use as-is
+    """
+    base = (base_url or "").rstrip("/")
+    if not base:
+        return ""
+    leaf = base.rsplit("/", 1)[-1].lower()
+    res_clean = resource.strip("/").lower()
+    if leaf == res_clean:
+        return base
+    return f"{base}/{resource.strip('/')}"
 
 
 async def _embed_via_api(
     texts: list[str], batch_size: int = 32,
 ) -> list[list[float]]:
     """
-    Call OpenAI-compatible managed embedding API.
-    FPT Cloud format — passes dimensions, input_text_truncate, input_type.
+    Call OpenAI-compatible managed embedding API. Default target is
+    Alibaba DashScope (text-embedding-v4); compatible with any provider
+    exposing the OpenAI `/embeddings` schema.
+
+    Payload sent: only standard OpenAI fields (model, input, dimensions,
+    encoding_format). FPT-specific extensions (input_text_truncate,
+    input_type) are dropped — DashScope rejects unknown params on some
+    endpoints, and they were never load-bearing for retrieval quality.
     """
     all_embeddings = []
     client = get_embed_client()
 
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer {settings.EMBED_API_KEY}",
+        "Authorization": f"Bearer {_resolve_embed_api_key()}",
     }
-    url = f"{settings.EMBED_API_URL.rstrip('/')}/embeddings"
+    url = _build_resource_url(settings.EMBED_API_URL, "embeddings")
 
     for i in range(0, len(texts), batch_size):
         batch = texts[i : i + batch_size]
@@ -540,8 +640,6 @@ async def _embed_via_api(
             "input": batch,
             "dimensions": settings.EMBED_API_DIMENSIONS,
             "encoding_format": "float",
-            "input_text_truncate": "none",
-            "input_type": "passage",
         }
 
         resp = await client.post(url, json=payload, headers=headers)
@@ -578,14 +676,15 @@ async def embed_texts(
         return []
 
     mode = settings.EMBED_MODE.lower().strip()
-    api_configured = bool(settings.EMBED_API_URL and settings.EMBED_API_KEY)
-    local_configured = bool(settings.EMBED_HOST and settings.EMBED_HOST.strip())
+    api_configured = bool(settings.EMBED_API_URL and _resolve_embed_api_key())
+    local_configured = bool(_get_embed_hosts())
 
     # ── Mode: backup — go straight to API ──
     if mode == "backup":
         if not api_configured:
             raise RuntimeError(
-                "EMBED_MODE=backup but EMBED_API_URL / EMBED_API_KEY not set"
+                "EMBED_MODE=backup but EMBED_API_URL is empty or no API key "
+                "(EMBED_API_KEY / DASHSCOPE_API_KEY) is set"
             )
         return await _embed_via_api(texts, batch_size=batch_size)
 
@@ -682,10 +781,10 @@ async def embed_texts_hybrid(
         return [], [], _hybrid_available
 
     # Hybrid only works through the local service (sparse not in API)
-    local_configured = bool(settings.EMBED_HOST and settings.EMBED_HOST.strip())
+    hosts = _get_embed_hosts()
     mode = settings.EMBED_MODE.lower().strip()
 
-    if mode == "backup" or not local_configured or _use_embed_api:
+    if mode == "backup" or not hosts or _use_embed_api:
         # No local path → no sparse. Fall back to dense-only via existing path.
         dense = await embed_texts(texts, batch_size=batch_size)
         return dense, [{} for _ in texts], False
@@ -697,22 +796,42 @@ async def embed_texts_hybrid(
 
     for i in range(0, len(texts), batch_size):
         batch = texts[i : i + batch_size]
-        try:
-            resp = await client.post(
-                f"{settings.EMBED_HOST}/embed_hybrid",
-                json={
-                    "texts": batch,
-                    "return_dense": True,
-                    "return_sparse": True,
-                },
-            )
-            resp.raise_for_status()
-            data = resp.json()
-        except Exception as e:
-            # /embed_hybrid not available → degrade. Old embed container,
-            # FlagEmbedding missing, or transient network failure.
+        data: dict | None = None
+        host_errors: list[str] = []
+
+        # Try each host in chain. First 200 wins. Mirrors _embed_via_local
+        # multi-host logic — see _get_embed_hosts() for ordering.
+        for host in hosts:
+            try:
+                resp = await client.post(
+                    f"{host}/embed_hybrid",
+                    json={
+                        "texts": batch,
+                        "return_dense": True,
+                        "return_sparse": True,
+                    },
+                )
+                resp.raise_for_status()
+                data = resp.json()
+                if host != hosts[0]:
+                    logger.info(
+                        f"Hybrid embed batch {i // batch_size} via fallback host {host}"
+                    )
+                break
+            except Exception as e:
+                host_errors.append(f"{host}: {e}")
+                logger.warning(
+                    f"embed_hybrid host {host} failed ({e}), trying next"
+                )
+                continue
+
+        if data is None:
+            # All hosts down. Degrade to dense-only via the standard
+            # embed_texts path (which itself walks the host chain and
+            # falls to API as a last resort).
             logger.warning(
-                f"embed_hybrid failed ({e}); falling back to dense /embed"
+                f"All {len(hosts)} hybrid hosts failed; degrading to dense-only. "
+                + " | ".join(host_errors)
             )
             _hybrid_probe_done = True
             _hybrid_available = False
@@ -939,7 +1058,19 @@ def upsert_chunks(
             if sparse_embeddings is not None:
                 batch_sparse = sparse_embeddings[start:end]
             else:
-                batch_sparse = [{} for _ in batch_chunks]
+                batch_sparse = [None] * len(batch_chunks)
+            # Milvus SPARSE_FLOAT_VECTOR rejects empty / None — every row
+            # must be a non-empty {token_id: weight} dict. When sparse
+            # isn't available (local embed down → API fallback, which
+            # only returns dense), we insert a degenerate placeholder
+            # {0: 1e-9}. Sparse search on such a vector contributes ~0
+            # to RRF, so the chunk stays retrievable via dense and
+            # ranking isn't skewed. Empty dicts from FlagEmbedding for
+            # chunks with no recognized tokens get the same treatment.
+            batch_sparse = [
+                (sv if isinstance(sv, dict) and sv else {0: 1e-9})
+                for sv in batch_sparse
+            ]
             row_data.append(batch_sparse)
 
         collection.insert(row_data)
@@ -1238,13 +1369,39 @@ def _rrf_fuse(
 # Reranker Client — Local service with Managed API fallback
 # ════════════════════════════════════════════════════════════
 
-async def _rerank_via_local(
-    query: str, documents: list[str], top_n: int,
+def _get_rerank_hosts() -> list[str]:
+    """
+    Return the ordered list of local rerank hosts to try.
+
+    Primary = settings.RERANK_HOST. Fallbacks come from RERANK_HOST_FALLBACKS
+    (comma-separated). Empties / dupes filtered. Order matters — chain
+    stops at the first successful response.
+    """
+    chain: list[str] = []
+    seen: set[str] = set()
+
+    primary = (settings.RERANK_HOST or "").strip().rstrip("/")
+    if primary:
+        chain.append(primary)
+        seen.add(primary)
+
+    fallbacks_raw = (settings.RERANK_HOST_FALLBACKS or "").strip()
+    if fallbacks_raw:
+        for h in fallbacks_raw.split(","):
+            h = h.strip().rstrip("/")
+            if h and h not in seen:
+                chain.append(h)
+                seen.add(h)
+    return chain
+
+
+async def _rerank_at_host(
+    host: str, query: str, documents: list[str], top_n: int,
 ) -> list[dict]:
-    """Call local BGE reranker microservice. Returns [{index, score}]."""
+    """Call /rerank on ONE host. Raises on failure."""
     client = get_rerank_client()
     resp = await client.post(
-        f"{settings.RERANK_HOST}/rerank",
+        f"{host}/rerank",
         json={"query": query, "documents": documents, "top_n": top_n},
     )
     resp.raise_for_status()
@@ -1255,19 +1412,56 @@ async def _rerank_via_local(
     ]
 
 
+async def _rerank_via_local(
+    query: str, documents: list[str], top_n: int,
+) -> list[dict]:
+    """
+    Call local rerank microservices with multi-host fallback.
+
+    Tries RERANK_HOST first, then each entry in RERANK_HOST_FALLBACKS
+    in order. First 200 wins. Raises RuntimeError when ALL hosts fail —
+    caller (`rerank_chunks`) then triggers the API fallback.
+    """
+    hosts = _get_rerank_hosts()
+    if not hosts:
+        raise RuntimeError("No RERANK_HOST configured")
+
+    host_errors: list[str] = []
+    for host in hosts:
+        try:
+            results = await _rerank_at_host(host, query, documents, top_n)
+            if host != hosts[0]:
+                logger.info(f"Rerank succeeded via fallback host {host}")
+            return results
+        except Exception as e:
+            host_errors.append(f"{host}: {e}")
+            logger.warning(
+                f"Rerank host {host} failed ({e}), trying next in chain"
+            )
+            continue
+
+    raise RuntimeError(
+        f"All {len(hosts)} rerank hosts failed. " + " | ".join(host_errors)
+    )
+
+
 async def _rerank_via_api(
     query: str, documents: list[str], top_n: int,
 ) -> list[dict]:
     """
-    Call managed rerank API (FPT Cloud style).
-    Response has {results: [{index, relevance_score}]}.
+    Call managed rerank API. Default target is Alibaba DashScope
+    (qwen3-rerank). Response shape is the standard rerank schema:
+    {results: [{index, relevance_score}]}.
+
+    Note the resource path is `/reranks` (plural) per DashScope.
+    `_build_resource_url` tolerates either base URL form.
     """
     client = get_rerank_client()
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer {settings.RERANK_API_KEY}",
+        "Authorization": f"Bearer {_resolve_rerank_api_key()}",
     }
-    url = f"{settings.RERANK_API_URL.rstrip('/')}/rerank"
+    url = _build_resource_url(settings.RERANK_API_URL, "reranks")
 
     payload = {
         "model": settings.RERANK_API_MODEL,
@@ -1314,8 +1508,8 @@ async def rerank_chunks(
         return reranked
 
     mode = settings.RERANK_MODE.lower().strip()
-    api_configured = bool(settings.RERANK_API_URL and settings.RERANK_API_KEY)
-    local_configured = bool(settings.RERANK_HOST and settings.RERANK_HOST.strip())
+    api_configured = bool(settings.RERANK_API_URL and _resolve_rerank_api_key())
+    local_configured = bool(_get_rerank_hosts())
 
     # Rerank is non-critical — graceful fallback to raw order on error
     def _raw_order_fallback(why: str) -> list[dict]:

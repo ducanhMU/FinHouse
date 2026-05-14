@@ -46,7 +46,47 @@ from tools.visualize import (
 )
 from tools.web_search import WEB_SEARCH_TOOL_SCHEMA, web_search
 
+from config import get_settings
+
 log = logging.getLogger("finhouse.graph.tool_agents")
+_settings = get_settings()
+
+
+# Optional web-agent tool imports — wrapped in try/except so a missing
+# pip dep (vnstock / yfinance / wikipedia / trafilatura) doesn't break
+# agent startup. Each import sets the module-level handle to None on
+# failure; `make_web_agent` checks before adding the AgentTool.
+try:
+    from tools.url_fetch import URL_FETCH_TOOL_SCHEMA, fetch_url
+except Exception as _e:  # pragma: no cover
+    URL_FETCH_TOOL_SCHEMA = None
+    fetch_url = None
+    log.warning(f"url_fetch tool unavailable: {_e}")
+
+try:
+    from tools.market_data import (
+        GET_VN_HISTORY_TOOL_SCHEMA,
+        GET_VN_QUOTE_TOOL_SCHEMA,
+        GET_WORLD_QUOTE_TOOL_SCHEMA,
+        get_vn_history,
+        get_vn_quote,
+        get_world_quote,
+    )
+except Exception as _e:  # pragma: no cover
+    GET_VN_HISTORY_TOOL_SCHEMA = None
+    GET_VN_QUOTE_TOOL_SCHEMA = None
+    GET_WORLD_QUOTE_TOOL_SCHEMA = None
+    get_vn_history = None
+    get_vn_quote = None
+    get_world_quote = None
+    log.warning(f"market_data tools unavailable: {_e}")
+
+try:
+    from tools.wikipedia import WIKIPEDIA_TOOL_SCHEMA, wikipedia_search
+except Exception as _e:  # pragma: no cover
+    WIKIPEDIA_TOOL_SCHEMA = None
+    wikipedia_search = None
+    log.warning(f"wikipedia tool unavailable: {_e}")
 
 
 # ── Adapter: AgentTool handlers wrap the raw tool functions ──
@@ -54,6 +94,30 @@ log = logging.getLogger("finhouse.graph.tool_agents")
 
 async def _h_web_search(args: dict):
     return await web_search(args.get("query", "")[:500])
+
+
+async def _h_url_fetch(args: dict):
+    return await fetch_url(args.get("url", ""))
+
+
+async def _h_get_vn_quote(args: dict):
+    return await get_vn_quote(args.get("symbol", ""))
+
+
+async def _h_get_vn_history(args: dict):
+    return await get_vn_history(
+        args.get("symbol", ""), int(args.get("days") or 30),
+    )
+
+
+async def _h_get_world_quote(args: dict):
+    return await get_world_quote(args.get("symbol", ""))
+
+
+async def _h_wikipedia(args: dict):
+    return await wikipedia_search(
+        args.get("query", ""), args.get("lang", "vi"),
+    )
 
 
 async def _h_list_tables(args: dict):  # noqa: ARG001
@@ -159,18 +223,73 @@ def _schema_by_name(schemas: list[dict], name: str) -> dict:
 
 
 def make_web_agent(session_model: str) -> ReactAgent:
+    """
+    Build the web_search ReAct agent.
+
+    Always has `web_search` (SearXNG). Optional extras are gated by
+    settings.WEB_TOOL_*_ENABLED flags AND availability of the underlying
+    pip dep — if the lib failed to import at module load, the tool is
+    silently skipped (logged once at startup).
+    """
+    tools: list[AgentTool] = [
+        AgentTool(
+            name="web_search",
+            schema=WEB_SEARCH_TOOL_SCHEMA,
+            handler=_h_web_search,
+        ),
+    ]
+
+    if (
+        _settings.WEB_TOOL_URL_FETCH_ENABLED
+        and URL_FETCH_TOOL_SCHEMA is not None
+    ):
+        tools.append(AgentTool(
+            name="fetch_url",
+            schema=URL_FETCH_TOOL_SCHEMA,
+            handler=_h_url_fetch,
+        ))
+
+    if (
+        _settings.WEB_TOOL_VN_MARKET_ENABLED
+        and GET_VN_QUOTE_TOOL_SCHEMA is not None
+    ):
+        tools.append(AgentTool(
+            name="get_vn_quote",
+            schema=GET_VN_QUOTE_TOOL_SCHEMA,
+            handler=_h_get_vn_quote,
+        ))
+        tools.append(AgentTool(
+            name="get_vn_history",
+            schema=GET_VN_HISTORY_TOOL_SCHEMA,
+            handler=_h_get_vn_history,
+        ))
+
+    if (
+        _settings.WEB_TOOL_WORLD_MARKET_ENABLED
+        and GET_WORLD_QUOTE_TOOL_SCHEMA is not None
+    ):
+        tools.append(AgentTool(
+            name="get_world_quote",
+            schema=GET_WORLD_QUOTE_TOOL_SCHEMA,
+            handler=_h_get_world_quote,
+        ))
+
+    if (
+        _settings.WEB_TOOL_WIKIPEDIA_ENABLED
+        and WIKIPEDIA_TOOL_SCHEMA is not None
+    ):
+        tools.append(AgentTool(
+            name="wikipedia",
+            schema=WIKIPEDIA_TOOL_SCHEMA,
+            handler=_h_wikipedia,
+        ))
+
     return ReactAgent(
         name="web_search_agent",
         tool_type="web_search",
         llm=get_llm("web", session_model),
         system_prompt=get_web_search_prompt(),
-        tools=[
-            AgentTool(
-                name="web_search",
-                schema=WEB_SEARCH_TOOL_SCHEMA,
-                handler=_h_web_search,
-            ),
-        ],
+        tools=tools,
     )
 
 

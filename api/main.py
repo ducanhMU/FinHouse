@@ -1,5 +1,6 @@
 """FinHouse — FastAPI Application Entry Point."""
 
+import asyncio
 from contextlib import asynccontextmanager
 
 import httpx
@@ -44,12 +45,15 @@ async def lifespan(app: FastAPI):
 
     yield
 
-    # Shutdown: cancel cleanup worker
+    # Shutdown: cancel cleanup worker.
+    # CancelledError is BaseException (not Exception) in Py 3.8+, so
+    # catch it explicitly — otherwise it propagates through the lifespan
+    # context and uvicorn logs a noisy "Application shutdown failed".
     if cleanup_task and not cleanup_task.done():
         cleanup_task.cancel()
         try:
             await cleanup_task
-        except Exception:
+        except (asyncio.CancelledError, Exception):
             pass
 
     # Close singleton httpx clients cleanly

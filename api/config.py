@@ -175,6 +175,21 @@ class Settings(BaseSettings):
     EMBED_HOST: str = "http://finhouse-bge-m3:8081"
     RERANK_HOST: str = "http://finhouse-reranker:8082"
 
+    # Optional fallback embed servers (comma-separated). The runtime
+    # tries EMBED_HOST first, then each entry here in order. Only after
+    # EVERY local host fails does it consider the API fallback.
+    # Example: EMBED_HOST_FALLBACKS=http://server2:8081,http://server3:8081
+    # NOTE: put the host with FlagEmbedding (sparse-capable) first —
+    # the chain stops at the first successful response, so a dense-only
+    # backend earlier in the chain will mask sparse on later ones.
+    EMBED_HOST_FALLBACKS: str = ""
+
+    # Same idea for rerank: chain of fallback rerank servers, tried in
+    # order after RERANK_HOST. After ALL local hosts fail enough times
+    # the runtime sticky-switches to RERANK_API_URL (DashScope by default).
+    # Example: RERANK_HOST_FALLBACKS=http://server2-reranker:8082
+    RERANK_HOST_FALLBACKS: str = ""
+
     # Service mode selector — controls which backend is used per call.
     #   "local"  → call the EMBED_HOST / RERANK_HOST service (default)
     #   "backup" → call managed API directly (skip local entirely)
@@ -182,16 +197,28 @@ class Settings(BaseSettings):
     EMBED_MODE: str = "local"
     RERANK_MODE: str = "local"
 
-    # Managed API credentials (used when mode is "backup" or "auto")
-    # OpenAI-compatible endpoints (FPT Cloud, OpenAI, Together, etc.)
-    EMBED_API_URL: str = ""            # e.g. https://mkp-api.fptcloud.com/v1
+    # Managed API credentials (used when mode is "backup" or "auto").
+    # Default is Alibaba DashScope (OpenAI-compatible). To switch back
+    # to FPT Cloud or another provider, override URL / MODEL in .env.
+    #
+    # Auth: if EMBED_API_KEY / RERANK_API_KEY is empty, the runtime
+    # falls back to DASHSCOPE_API_KEY (defined further up). So you only
+    # need ONE key for embed + rerank + agent LLMs when all on DashScope.
+    #
+    # URL pattern: pass the API base WITHOUT the resource path. The code
+    # appends `/embeddings` / `/reranks` automatically. If you already
+    # included the resource (e.g. `.../v1/embeddings`), the code detects
+    # that and uses the URL as-is.
+    EMBED_API_URL: str = "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
     EMBED_API_KEY: str = ""
-    EMBED_API_MODEL: str = "Vietnamese_Embedding"
-    EMBED_API_DIMENSIONS: int = 1024
+    EMBED_API_MODEL: str = "text-embedding-v4"
+    EMBED_API_DIMENSIONS: int = 1024   # must match BGE-M3 collection schema
 
-    RERANK_API_URL: str = ""           # e.g. https://mkp-api.fptcloud.com/v1
+    # NOTE the path here: DashScope rerank lives at `/compatible-api/v1`
+    # (NOT `/compatible-mode/v1`). The resource is `/reranks` (plural).
+    RERANK_API_URL: str = "https://dashscope-intl.aliyuncs.com/compatible-api/v1"
     RERANK_API_KEY: str = ""
-    RERANK_API_MODEL: str = "bge-reranker-v2-m3"
+    RERANK_API_MODEL: str = "qwen3-rerank"
 
     # In "auto" mode: number of consecutive local failures before
     # switching over to the API for the rest of the process lifetime.
@@ -241,6 +268,23 @@ class Settings(BaseSettings):
 
     # SearXNG
     SEARXNG_HOST: str = "http://finhouse-searxng:8080"
+
+    # ── Web agent: optional extra tools ──
+    # Each flag adds one tool to the web_search agent's toolbox. All
+    # default ON; flip individually to False to remove a tool from the
+    # ReAct loop without breaking anything else (no change to ToolType
+    # / orchestrator). If a tool's underlying lib isn't installed, the
+    # import fails silently and the tool is skipped — agent still runs
+    # with whatever loaded.
+    WEB_TOOL_URL_FETCH_ENABLED: bool = True
+    WEB_TOOL_VN_MARKET_ENABLED: bool = True       # vnstock 3.x — VN tickers
+    WEB_TOOL_WORLD_MARKET_ENABLED: bool = True    # yfinance — FX, commodities, indices
+    WEB_TOOL_WIKIPEDIA_ENABLED: bool = True
+
+    # url_fetch caps. Cap is a defense against runaway content + token cost,
+    # not a security boundary. Timeout is per-request.
+    URL_FETCH_MAX_CHARS: int = 10000
+    URL_FETCH_TIMEOUT_SEC: int = 10
 
     # ClickHouse (OLAP database for database_query tool)
     # Empty host → database_query tool is disabled

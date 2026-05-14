@@ -20,3 +20,12 @@ environs==9.5.0
 matplotlib==3.9.2
 langchain-core==0.3.29
 langgraph==0.2.62
+
+# Web agent extra tools — all optional (gated by WEB_TOOL_*_ENABLED flags
+# in config.py). If install fails for one, others still work; the missing
+# tool is silently skipped at agent build time.
+trafilatura==1.12.2
+vnstock==3.2.5
+yfinance==0.2.50
+langchain-community==0.3.14
+wikipedia==1.4.0
