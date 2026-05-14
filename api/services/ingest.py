@@ -946,15 +946,39 @@ def _get_milvus_connection(collection_name: str | None = None):
 
     name = collection_name or _active_collection_name()
 
-    try:
-        connections.connect(
-            alias="default",
-            host=settings.MILVUS_HOST,
-            port=str(settings.MILVUS_PORT),
-        )
-    except Exception as e:
-        logger.error(f"Milvus connection failed: {e}")
-        raise
+    # Retry connect with exponential backoff. On a shared host with etcd
+    # contention the gRPC handshake intermittently times out; one quick
+    # hiccup shouldn't fail an entire ingest. We bump pymilvus's default
+    # 10s connect timeout to 30s and retry up to 3 times (~total ~75s).
+    import time as _time
+    last_err: Exception | None = None
+    for attempt in range(3):
+        try:
+            # Disconnect any stale alias before reconnecting (otherwise
+            # pymilvus reuses the dead channel on next call)
+            try:
+                connections.disconnect("default")
+            except Exception:
+                pass
+            connections.connect(
+                alias="default",
+                host=settings.MILVUS_HOST,
+                port=str(settings.MILVUS_PORT),
+                timeout=30,
+            )
+            last_err = None
+            break
+        except Exception as e:
+            last_err = e
+            wait = 2 ** attempt   # 1s, 2s, 4s
+            logger.warning(
+                f"Milvus connect attempt {attempt+1}/3 failed ({e}); "
+                f"retrying in {wait}s"
+            )
+            _time.sleep(wait)
+    if last_err is not None:
+        logger.error(f"Milvus connection failed after 3 attempts: {last_err}")
+        raise last_err
 
     with _milvus_lock:
         if name in _milvus_initialized:
