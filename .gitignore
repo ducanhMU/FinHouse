@@ -16,5 +16,13 @@ volumes/
 *.tar.gz
 presets/
 .claude
+
+# Documentation & generated reports — kept LOCAL, not tracked.
+# Functional markdown stays tracked (NOT docs): api/prompts/*.md are
+# loaded at runtime via load_prompt(), evaluation/testset_prompts/*
+# drive the eval harness, and the root README.md is the system intro.
+docs/
 report.md
 slide.md
+benchmark.md
+pipeline/nifi/README.md

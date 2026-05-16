@@ -25,6 +25,7 @@ import time
 from langchain_core.runnables import RunnableConfig, RunnableLambda
 
 from graph.llm_router import get_llm
+from graph.logging_helper import make_log_record
 from graph.sse import PersistSpec, emit
 from graph.state import ChatState
 from prompts import get_collector_prompt
@@ -95,8 +96,26 @@ def _aggregate_agent_usage(state: ChatState) -> dict:
 def _assemble_messages(state: ChatState) -> list[dict]:
     msgs: list[dict] = [{"role": "system", "content": get_collector_prompt()}]
 
-    # RAG passages — produced by rag_node
+    # RAG passages — produced by rag_node (raw chunks, kept as backup
+    # context in case the collector wants to verify a number against
+    # source text).
     msgs.extend(state.rag_messages or [])
+
+    # RAG agent's own synthesis — already grounded in the chunks above
+    # with [n] citations preserved. The collector should treat this as
+    # the primary draft for the RAG portion of the answer (incorporate
+    # verbatim or lightly polish; do NOT contradict).
+    if state.rag_answer:
+        msgs.append({
+            "role": "system",
+            "content": (
+                "[BẢN TỔNG HỢP TỪ RAG AGENT — đã grounded vào các đoạn trích "
+                "phía trên với citation [n]. Dùng làm bản nháp chính cho "
+                "phần dựa trên tài liệu hệ thống; KHÔNG mâu thuẫn với nội "
+                "dung này khi chưa có lý do rõ ràng]\n"
+                + state.rag_answer
+            ),
+        })
 
     # Agent findings — single system block summarising tool runs
     agent_block = _agent_summary_block(state)
@@ -166,6 +185,8 @@ def _assemble_messages(state: ChatState) -> list[dict]:
 
 
 async def _collector_node(state: ChatState, config: RunnableConfig) -> dict:
+    t_node = time.perf_counter()
+
     # ── Branch 1: clarification short-circuit ────────────────
     if state.rewrite and state.rewrite.needs_clarification:
         clarif = state.rewrite.clarification or (
@@ -179,7 +200,21 @@ async def _collector_node(state: ChatState, config: RunnableConfig) -> dict:
                 role="assistant", text=clarif, event_type="message",
             ),
         )
-        return {"final_answer": clarif}
+        return {
+            "final_answer": clarif,
+            "component_logs": make_log_record(
+                state, "collector",
+                input={
+                    "user_text": state.user_text,
+                    "branch": "clarification",
+                },
+                output={
+                    "answer": clarif,
+                    "structured": {"branch": "clarification"},
+                },
+                latency_ms=int((time.perf_counter() - t_node) * 1000),
+            ),
+        }
 
     # ── Branch 2: full synthesis with streaming ─────────────
     llm = get_llm("collector", state.session_model)
@@ -251,7 +286,48 @@ async def _collector_node(state: ChatState, config: RunnableConfig) -> dict:
             role="assistant", text=full_response, event_type="message",
         ),
     )
-    return {"final_answer": full_response}
+
+    # End-to-end log record. We snapshot everything that contributed to
+    # the final answer — RAG synthesis + per-agent answers — so the
+    # benchmark can re-score the components from a single chat.jsonl
+    # entry without having to cross-reference per-component files.
+    return {
+        "final_answer": full_response,
+        "component_logs": make_log_record(
+            state, "collector",
+            input={
+                "user_text":     state.user_text,
+                "branch":        "synthesis",
+                "has_rag_answer": bool(state.rag_answer),
+                "n_agent_results": len(state.agent_results),
+            },
+            output={
+                "answer": full_response,
+                "structured": {
+                    "branch":             "synthesis",
+                    "rag_answer":         state.rag_answer,
+                    "rag_structured":     state.rag_structured,
+                    "agent_summaries": [
+                        {
+                            "tool_type":  r.tool_type,
+                            "goal":       r.goal,
+                            "answer":     r.answer,
+                            "structured": r.structured,
+                            "error":      r.error,
+                        }
+                        for r in state.agent_results
+                    ],
+                },
+            },
+            usage=({
+                "input_tokens":  agent_usage["input"],
+                "output_tokens": agent_usage["output"],
+                "total_tokens":  agent_usage["total"],
+                "calls":         agent_usage["calls"],
+            } if agent_usage.get("total") else None),
+            latency_ms=int((time.perf_counter() - t_node) * 1000),
+        ),
+    }
 
 
 collector_runnable = RunnableLambda(_collector_node).with_config(

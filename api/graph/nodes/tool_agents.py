@@ -17,9 +17,12 @@ from __future__ import annotations
 
 import logging
 
+import time
+
 from langchain_core.runnables import RunnableConfig, RunnableLambda
 
 from graph.llm_router import get_llm
+from graph.logging_helper import make_log_record
 from graph.react_agent import AgentTool, ReactAgent, run_agents_parallel
 from graph.state import ChatState, OrchestratorTask
 from prompts import (
@@ -412,8 +415,56 @@ async def _dispatcher_node(state: ChatState, config: RunnableConfig) -> dict:
             runs.append((viz_agent, task.goal, task.args))
 
     log.info("[dispatcher] running %d agent task(s) in parallel", len(runs))
+    t0 = time.perf_counter()
     results = await run_agents_parallel(runs, config)
-    return {"agent_results": results}
+    total_ms = int((time.perf_counter() - t0) * 1000)
+
+    # ── Per-agent structured log records ────────────────────
+    # We emit one record per agent run rather than one record for the
+    # whole dispatcher: the benchmark wants per-component metrics
+    # (db / web / visualize evaluated independently). Component name
+    # maps tool_type → log channel: database → "db", web_search → "web",
+    # visualize → "visualize".
+    component_logs: list[dict] = []
+    for r, (_agent, goal, args) in zip(results, runs):
+        comp = {
+            "database":   "db",
+            "web_search": "web",
+            "visualize":  "visualize",
+        }.get(r.tool_type, r.tool_type)
+        usage = None
+        if r.usage and r.usage.total_tokens:
+            usage = {
+                "input_tokens":  r.usage.input_tokens,
+                "output_tokens": r.usage.output_tokens,
+                "total_tokens":  r.usage.total_tokens,
+                "calls":         r.usage.calls,
+            }
+        component_logs.extend(make_log_record(
+            state, comp,
+            input={
+                "goal":      goal,
+                "task_args": args or {},
+            },
+            output={
+                "answer":     r.answer,
+                "structured": r.structured,
+            },
+            traces=[
+                {"step": "tool_call", "data": {
+                    "tool": c.tool,
+                    "args": c.args,
+                    "ok":   c.ok,
+                    "result_preview": (c.result or "")[:1500],
+                }}
+                for c in r.calls
+            ],
+            usage=usage,
+            latency_ms=total_ms,
+            error=r.error or None,
+        ))
+
+    return {"agent_results": results, "component_logs": component_logs}
 
 
 dispatcher_runnable = RunnableLambda(_dispatcher_node).with_config(

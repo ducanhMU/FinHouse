@@ -307,6 +307,7 @@ _AGENT_ENV: dict[str, tuple[str, str]] = {
     "database":     ("DB_AGENT_LLM",           "DB_AGENT_THINKING"),
     "visualize":    ("VIS_AGENT_LLM",          "VIS_AGENT_THINKING"),
     "collector":    ("COLLECTOR_AGENT_LLM",    "COLLECTOR_AGENT_THINKING"),
+    "rag":          ("RAG_AGENT_LLM",          "RAG_AGENT_THINKING"),
 }
 
 

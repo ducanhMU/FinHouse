@@ -63,6 +63,18 @@ _FALLBACK_ORCHESTRATOR = (
 
 _FALLBACK_COLLECTOR = _FALLBACK_SYSTEM
 
+_FALLBACK_RAG_EVALUATOR = (
+    "Decide if the retrieved chunks are sufficient/partial/insufficient "
+    "to answer the question. Return a JSON object with fields "
+    "{GiaiThich, decision, useful_idx}."
+)
+
+_FALLBACK_RAG_GENERATOR = (
+    "Answer the question in Vietnamese using ONLY the provided chunks "
+    "(plus optional web snippets when retrieval was partial). Cite chunks "
+    "as [n]. Do not invent numbers."
+)
+
 _FALLBACKS = {
     "system": _FALLBACK_SYSTEM,
     "collector": _FALLBACK_COLLECTOR,
@@ -71,6 +83,8 @@ _FALLBACKS = {
     "database_query": _FALLBACK_DATABASE_QUERY,
     "visualize": _FALLBACK_VISUALIZE,
     "web_search": _FALLBACK_WEB_SEARCH,
+    "rag_evaluator": _FALLBACK_RAG_EVALUATOR,
+    "rag_generator": _FALLBACK_RAG_GENERATOR,
 }
 
 
@@ -144,3 +158,13 @@ def get_visualize_prompt() -> str:
 
 def get_web_search_prompt() -> str:
     return load_prompt("web_search")
+
+
+def get_rag_evaluator_prompt() -> str:
+    """Decision prompt for the RAG agent's evaluator stage."""
+    return load_prompt("rag_evaluator")
+
+
+def get_rag_generator_prompt() -> str:
+    """Synthesis prompt for the RAG agent's generator stage."""
+    return load_prompt("rag_generator")

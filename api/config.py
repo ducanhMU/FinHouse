@@ -129,6 +129,11 @@ class Settings(BaseSettings):
     DB_AGENT_LLM:           str = ""
     VIS_AGENT_LLM:          str = ""
     COLLECTOR_AGENT_LLM:    str = ""
+    # RAG agent — drives both the evaluator (sufficient/partial/
+    # insufficient verdict) and the generator (final natural-language
+    # synthesis). Empty → falls back to the session model. Same fallback
+    # chain semantics as the other *_AGENT_LLM env vars.
+    RAG_AGENT_LLM:          str = ""
 
     # Per-agent thinking flag for DashScope Qwen-3 reasoning models.
     # When True, the model emits `reasoning_content` (rendered as a dim
@@ -144,6 +149,7 @@ class Settings(BaseSettings):
     DB_AGENT_THINKING:           bool = False
     VIS_AGENT_THINKING:          bool = False
     COLLECTOR_AGENT_THINKING:    bool = False
+    RAG_AGENT_THINKING:          bool = False
 
     # ── DashScope (Alibaba Model Studio) ─────────────────────
     # OpenAI-compatible. International endpoint default; switch to

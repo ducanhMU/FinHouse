@@ -30,6 +30,7 @@ from langchain_core.runnables import RunnableConfig, RunnableLambda
 
 from config import get_settings
 from graph.llm_router import get_llm
+from graph.logging_helper import make_log_record
 from graph.react_agent import AgentTool, ReactAgent
 from graph.sse import emit
 from graph.state import ChatState, RewriteOutput
@@ -202,6 +203,47 @@ def _build_user_block(state: ChatState) -> str:
 # ── Main node ───────────────────────────────────────────────
 
 
+def _rewriter_log(
+    state: ChatState,
+    out: RewriteOutput,
+    resolved: list[dict],
+    latency_ms: int,
+    usage: dict | None = None,
+    error: str | None = None,
+    n_tool_calls: int = 0,
+) -> list[dict]:
+    """Build the rewriter component log record (no-op outside bench)."""
+    return make_log_record(
+        state, "rewriter",
+        input={
+            "user_text": state.user_text,
+            "history":   state.history or [],
+        },
+        output={
+            "answer":     out.rewritten,
+            "structured": {
+                "rewritten":           out.rewritten,
+                "needs_clarification": out.needs_clarification,
+                "clarification":       out.clarification,
+                "scope_type":          out.scope_type,
+                "preserved_entities":  out.preserved_entities,
+                "preserved_timeframe": out.preserved_timeframe,
+                "preserved_metrics":   out.preserved_metrics,
+                "applied_defaults":    out.applied_defaults,
+                "n_hypothetical_passages": len(out.hypothetical_passages),
+                "resolved_companies":  [
+                    {"symbol": r.get("symbol"), "name": r.get("organ_name")}
+                    for r in resolved
+                ],
+                "n_tool_calls":        n_tool_calls,
+            },
+        },
+        usage=usage,
+        latency_ms=latency_ms,
+        error=error,
+    )
+
+
 async def _rewriter_node(state: ChatState, config: RunnableConfig) -> dict:
     agent = _make_rewriter_agent(state.session_model)
     user_block = _build_user_block(state)
@@ -217,7 +259,14 @@ async def _rewriter_node(state: ChatState, config: RunnableConfig) -> dict:
         log.warning("rewriter agent crashed: %s — passthrough", e)
         out = _passthrough(state.user_text)
         await emit(config, "query_rewrite", _rewrite_payload(state.user_text, out))
-        return {"rewrite": out, "resolved_companies": []}
+        return {
+            "rewrite": out, "resolved_companies": [],
+            "component_logs": _rewriter_log(
+                state, out, [],
+                latency_ms=int((time.perf_counter() - t0) * 1000),
+                error=f"agent crashed: {e}",
+            ),
+        }
 
     raw = (result.answer or "").strip()
     parsed = _extract_json(raw)
@@ -225,7 +274,15 @@ async def _rewriter_node(state: ChatState, config: RunnableConfig) -> dict:
         log.warning("rewriter output not parseable: %r — passthrough", raw[:200])
         out = _passthrough(state.user_text)
         await emit(config, "query_rewrite", _rewrite_payload(state.user_text, out))
-        return {"rewrite": out, "resolved_companies": []}
+        return {
+            "rewrite": out, "resolved_companies": [],
+            "component_logs": _rewriter_log(
+                state, out, [],
+                latency_ms=int((time.perf_counter() - t0) * 1000),
+                error="output not parseable",
+                n_tool_calls=len(result.calls),
+            ),
+        }
 
     # Build RewriteOutput
     scope_type = str(parsed.get("scope_type", "") or "").strip().lower()
@@ -348,7 +405,24 @@ async def _rewriter_node(state: ChatState, config: RunnableConfig) -> dict:
     else:
         await emit(config, "query_rewrite", _rewrite_payload(state.user_text, out))
 
-    return {"rewrite": out, "resolved_companies": resolved}
+    usage_dict: dict | None = None
+    if result.usage and result.usage.total_tokens:
+        usage_dict = {
+            "input_tokens":  result.usage.input_tokens,
+            "output_tokens": result.usage.output_tokens,
+            "total_tokens":  result.usage.total_tokens,
+            "calls":         result.usage.calls,
+        }
+
+    return {
+        "rewrite": out, "resolved_companies": resolved,
+        "component_logs": _rewriter_log(
+            state, out, resolved,
+            latency_ms=int((time.perf_counter() - t0) * 1000),
+            usage=usage_dict,
+            n_tool_calls=len(result.calls),
+        ),
+    }
 
 
 def _rewrite_payload(original: str, out: RewriteOutput) -> dict:

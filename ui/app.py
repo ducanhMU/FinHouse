@@ -236,6 +236,7 @@ DEFAULTS = {
     "messages": [],           # [{role, content, tool_events?}]
     "agents_config": None,    # cached GET /agents response
     "is_streaming": False,
+    "_streaming_session_id": None,  # session whose SSE is in flight (for /stop)
     "show_auth": "login",     # "login" or "register"
     "session_meta": None,     # current session metadata
     "view": "chat",           # "chat" | "files"
@@ -264,6 +265,33 @@ def get_token():
     if st.session_state.incognito:
         return None
     return st.session_state.access_token
+
+
+# ════════════════════════════════════════════════════════════
+# Safety net: abandoned-stream guard
+# ════════════════════════════════════════════════════════════
+# Streamlit runs one script at a time per session. The blocking SSE
+# `for` loop can therefore only be interrupted by a user-triggered
+# rerun (new message, sidebar nav, session switch, browser refresh).
+# When that happens the streaming block's finalize never runs, so
+# `is_streaming` stays True forever (ghost "AI đang trả lời…" pill)
+# AND the backend graph_task keeps burning LLM/API quota because
+# nobody pinged /stop.
+#
+# So: if `is_streaming` is True at the START of a fresh run, the
+# previous stream was abandoned → cancel it server-side and clear the
+# flag. The legitimate streaming pass never trips this — it flips the
+# flag True and back to False within the same pass; only an aborted
+# pass leaves it True into the next run.
+if st.session_state.get("is_streaming"):
+    _abandoned_sid = (
+        st.session_state.get("_streaming_session_id")
+        or st.session_state.get("current_session_id")
+    )
+    if _abandoned_sid:
+        api.stop_stream(_abandoned_sid, get_token())
+    st.session_state.is_streaming = False
+    st.session_state["_streaming_session_id"] = None
 
 
 # ════════════════════════════════════════════════════════════
@@ -341,6 +369,64 @@ def render_tool_result(tool_name: str, content: str, is_error: bool = False) -> 
                 st.caption(f"… +{len(data) - 20} more")
         else:
             st.json(data, expanded=False)
+
+
+# ════════════════════════════════════════════════════════════
+# Helper: Clarification suggestion chips
+# ════════════════════════════════════════════════════════════
+
+def render_clarification_chips(suggestions: list, key_prefix: str) -> None:
+    """Render rewriter clarification suggestions as clickable chips.
+
+    The rewriter emits `clarification` with a `suggestions` list — each
+    item is a self-contained paraphrase of the user's question under a
+    different scope assumption. Clicking one re-asks that exact question
+    via the same `_pending_prompt` mechanism the welcome cards use.
+
+    Called from BOTH the live streaming finalize and the static
+    message-render loop with a matching `key_prefix` (message index) so
+    the widget identity is stable across the post-click rerun.
+    """
+    if not suggestions:
+        return
+    st.caption("💡 Chọn nhanh một hướng hỏi cụ thể:")
+    for i, sug in enumerate(suggestions):
+        if not isinstance(sug, str) or not sug.strip():
+            continue
+        if st.button(
+            sug.strip(),
+            key=f"{key_prefix}_{i}",
+            use_container_width=True,
+        ):
+            st.session_state["_pending_prompt"] = sug.strip()
+            st.rerun()
+
+
+def _rag_meta_caption(meta: dict) -> str:
+    """One-line summary of the 4-stage RAG agent's run for the UI.
+
+    `meta` comes from the additive `rag_sources` payload (evaluator
+    verdict + web-fallback flag). Empty when RAG was skipped or an old
+    backend that didn't send `meta` — caller renders nothing then.
+    """
+    if not meta:
+        return ""
+    decision = meta.get("evaluator_decision") or ""
+    _vi = {
+        "sufficient":   "tài liệu đủ",
+        "partial":      "tài liệu thiếu một phần",
+        "insufficient": "tài liệu không đủ",
+    }
+    parts = []
+    if decision:
+        parts.append(f"🔍 Đánh giá: {_vi.get(decision, decision)}")
+    if meta.get("web_fallback_used"):
+        parts.append("đã bổ sung web")
+    kept = meta.get("n_chunks_kept")
+    total = meta.get("n_chunks_total")
+    if isinstance(kept, int) and isinstance(total, int) and total:
+        parts.append(f"dùng {kept}/{total} đoạn")
+    return " · ".join(parts)
 
 
 # ════════════════════════════════════════════════════════════
@@ -435,6 +521,7 @@ def create_new_session():
     st.session_state.messages = []
     st.session_state.session_meta = session
     st.session_state.is_streaming = False
+    st.session_state["_streaming_session_id"] = None
 
 
 def reset_to_welcome():
@@ -445,6 +532,7 @@ def reset_to_welcome():
     st.session_state.messages = []
     st.session_state.session_meta = None
     st.session_state.is_streaming = False
+    st.session_state["_streaming_session_id"] = None
 
 
 # ════════════════════════════════════════════════════════════
@@ -1003,7 +1091,7 @@ else:
     # Order: response → RAG sources → tool activity. Matches the live
     # streaming layout so loading an old session and watching a new
     # response feel consistent.
-    for msg in st.session_state.messages:
+    for _msg_idx, msg in enumerate(st.session_state.messages):
         with st.chat_message(msg["role"]):
             if msg.get("reasoning") and msg["role"] == "assistant":
                 with st.expander("💭 thinking", expanded=False):
@@ -1051,6 +1139,15 @@ else:
                         name = tev.get("tool") or last_tool_name
                         render_tool_result(name, tev.get("content", ""))
 
+            if (
+                msg.get("clarification_suggestions")
+                and msg["role"] == "assistant"
+            ):
+                render_clarification_chips(
+                    msg["clarification_suggestions"],
+                    key_prefix=f"clarchip_{_msg_idx}",
+                )
+
     # ── Streaming indicator (floats over the chat input) ────
     # Rendered every rerun while is_streaming=True so the user always
     # has a visible signal "the model is still working". Disappears as
@@ -1075,13 +1172,10 @@ else:
     prompt = pending or user_input
 
     if prompt:
-        # If the previous turn was still streaming, tell the backend to
-        # cancel before we kick off a new one. The Streamlit rerun has
-        # already torn down the previous SSE generator on this side, but
-        # the graph_task on the server keeps running until we ping /stop.
-        if st.session_state.get("is_streaming") and st.session_state.current_session_id:
-            api.stop_stream(st.session_state.current_session_id, get_token())
-            st.session_state.is_streaming = False
+        # NOTE: cancelling a still-running previous stream is now handled
+        # uniformly by the global abandoned-stream guard at the top of
+        # this script (it already pinged /stop and reset is_streaming
+        # before we got here), so no per-prompt /stop call is needed.
 
         # Ensure session exists
         if not st.session_state.current_session_id:
@@ -1116,12 +1210,24 @@ else:
             footer_container = st.container()   # for end-of-response status banners
             full_response = ""
             full_reasoning = ""
+            final_answer_text = ""   # collector's `final_answer` payload (#6 fallback)
             tool_events = []
             rag_sources = []
+            rag_meta = {}            # evaluator verdict / web-fallback flag from RAG
+            clar_suggestions = []    # clickable clarification chips from rewriter
             rag_rendered = False
             failed_tools = []    # tool names that returned error at runtime
             called_tools = set() # tool names the LLM actually invoked this turn
+            # End-to-end completion signal: only `done`/`error`/
+            # `final_answer` mean the backend actually finished this turn.
+            # If the loop ends any other way (EOF / network drop) the
+            # answer is incomplete and we say so instead of passing a
+            # truncated bubble off as final.
+            saw_terminal = False
             st.session_state.is_streaming = True
+            st.session_state["_streaming_session_id"] = (
+                st.session_state.current_session_id
+            )
 
             try:
                 for event in api.send_message_stream(
@@ -1149,12 +1255,16 @@ else:
 
                     elif etype == "rag_sources":
                         rag_sources = event.get("sources", [])
+                        rag_meta = event.get("meta") or {}
                         if rag_sources and not rag_rendered:
                             with source_container:
                                 with st.expander(
                                     f"📚 Sources ({len(rag_sources)})",
                                     expanded=False,
                                 ):
+                                    cap = _rag_meta_caption(rag_meta)
+                                    if cap:
+                                        st.caption(cap)
                                     for src in rag_sources:
                                         idx = src.get("index", "?")
                                         fname = src.get("file_name", "unknown")
@@ -1172,18 +1282,34 @@ else:
                         rewritten = event.get("rewritten", "")
                         entities = event.get("entities", [])
                         timeframe = event.get("timeframe", "")
+                        scope = event.get("scope_type", "")
+                        metrics = event.get("metrics", [])
+                        applied = event.get("applied_defaults", [])
                         with tool_container:
                             with st.expander("🔎 Câu hỏi đã rewrite", expanded=False):
                                 st.markdown(f"**Rewritten:** {rewritten}")
+                                if scope:
+                                    st.caption(f"Scope: {scope}")
                                 if entities:
                                     st.caption(f"Entities: {', '.join(entities)}")
                                 if timeframe:
                                     st.caption(f"Timeframe: {timeframe}")
+                                if metrics:
+                                    st.caption(f"Metrics: {', '.join(metrics)}")
+                                if applied:
+                                    # Rewriter now silently applies defaults
+                                    # (e.g. timeframe→latest FY) — surface it
+                                    # so the user knows what was assumed.
+                                    st.caption(
+                                        "⚙️ Đã mặc định: " + ", ".join(applied)
+                                    )
 
                     elif etype == "clarification":
-                        # Rewriter asked for clarification — just log a small
-                        # note; the actual text comes as `token` events after
-                        clar_text = event.get("content", "")
+                        # Rewriter asked for clarification. The clarification
+                        # text itself arrives as `token` events; here we grab
+                        # the paraphrase `suggestions` so the finalize block
+                        # can render them as clickable chips below the answer.
+                        clar_suggestions = event.get("suggestions", []) or []
                         with tool_container:
                             st.markdown(
                                 f'<div class="tool-card">'
@@ -1219,11 +1345,35 @@ else:
                         with tool_container:
                             render_tool_result(tool_name, event.get("content", ""), is_error=is_err)
 
-                    elif etype == "title":
-                        if st.session_state.session_meta:
-                            st.session_state.session_meta["session_title"] = event.get("content", "")
+                    elif etype == "orchestrator_plan":
+                        # The orchestrator picked which tool agents to run.
+                        # Surface it so the bubble isn't silent for the
+                        # 5-10s the agents take before the first token.
+                        tasks = event.get("tasks", []) or []
+                        if tasks:
+                            with tool_container:
+                                with st.expander(
+                                    f"🧭 Kế hoạch ({len(tasks)} tác vụ)",
+                                    expanded=False,
+                                ):
+                                    reason = event.get("reasoning", "")
+                                    if reason:
+                                        st.caption(reason)
+                                    for t in tasks:
+                                        tt = t.get("tool_type", "?")
+                                        goal = t.get("goal", "")
+                                        st.markdown(f"- **`{tt}`** — {goal}")
+
+                    elif etype == "final_answer":
+                        # Authoritative full answer from the collector. Tokens
+                        # already built `full_response`; keep this as a
+                        # fallback for when the token stream is truncated
+                        # mid-flight (network blip) — see finalize below.
+                        final_answer_text = event.get("content", "")
+                        saw_terminal = True
 
                     elif etype == "done":
+                        saw_terminal = True
                         # Banner: tools that failed at runtime
                         # (the "user enabled but skipped" banner is gone —
                         # tools are always all-on and collector suggests
@@ -1238,6 +1388,7 @@ else:
                         break
 
                     elif etype == "error":
+                        saw_terminal = True
                         st.error(event.get("content", "Unknown error"))
                         break
 
@@ -1245,8 +1396,33 @@ else:
                 st.error(f"Stream error: {e}")
                 full_response = full_response or f"Error: {e}"
 
-            # Finalize
+            # The loop can also end because the SSE connection dropped
+            # WITHOUT a terminal event (backend died / network blip /
+            # clean EOF). In that case the turn is incomplete — don't
+            # present a truncated reply as a finished answer.
+            stream_interrupted = not saw_terminal
+
+            # Finalize. If the token stream got cut off mid-flight but the
+            # collector's authoritative `final_answer` did arrive, prefer
+            # that over a truncated bubble.
+            if not full_response.strip() and final_answer_text.strip():
+                full_response = final_answer_text
+            if stream_interrupted and not full_response.strip():
+                full_response = (
+                    "⚠️ Kết nối tới máy chủ bị gián đoạn trước khi có câu "
+                    "trả lời. Vui lòng gửi lại câu hỏi."
+                )
             response_area.markdown(full_response)
+            if (
+                stream_interrupted
+                and full_response
+                and not full_response.startswith(("⚠️", "Error:"))
+            ):
+                with footer_container:
+                    st.warning(
+                        "⚠️ Kết nối bị gián đoạn — câu trả lời có thể chưa "
+                        "hoàn chỉnh. Bạn có thể gửi lại để nhận bản đầy đủ."
+                    )
             if full_reasoning.strip():
                 with reasoning_area.container():
                     with st.expander("💭 thinking", expanded=False):
@@ -1259,6 +1435,7 @@ else:
             else:
                 reasoning_area.empty()
             st.session_state.is_streaming = False
+            st.session_state["_streaming_session_id"] = None
 
             assistant_msg = {"role": "assistant", "content": full_response}
             if full_reasoning.strip():
@@ -1267,7 +1444,19 @@ else:
                 assistant_msg["tool_events"] = tool_events
             if rag_sources:
                 assistant_msg["rag_sources"] = rag_sources
+            if clar_suggestions:
+                assistant_msg["clarification_suggestions"] = clar_suggestions
             st.session_state.messages.append(assistant_msg)
+
+            # Clarification chips, rendered live so the user can act
+            # without an extra interaction. Keyed by the just-appended
+            # message index so the widget identity matches the static
+            # render loop on the post-click rerun.
+            if clar_suggestions:
+                render_clarification_chips(
+                    clar_suggestions,
+                    key_prefix=f"clarchip_{len(st.session_state.messages) - 1}",
+                )
 
             # Refresh session meta
             if st.session_state.current_session_id:

@@ -142,12 +142,23 @@ class AgentResult(BaseModel):
     contract: tool agents never block the chat to ask the user — they
     flag the gap here and the collector node weaves a suggestion into
     its final answer (so the existing graph flow is unchanged).
+
+    `structured` is a machine-readable summary of what the agent
+    produced (rows, chart_url, search snippets, …). The natural-language
+    `answer` is what we benchmark; `structured` is what downstream nodes
+    or visualisations consume.
+
+    `traces` is a free-form list of intermediate steps inside the agent
+    (e.g. RAG's retriever/evaluator/generator stages). The benchmark
+    logger flushes this verbatim so per-step metrics can be computed.
     """
 
     tool_type: ToolType
     goal: str
     answer: str = ""              # the agent's natural-language summary
+    structured: dict[str, Any] = Field(default_factory=dict)
     calls: list[ToolCallTrace] = Field(default_factory=list)
+    traces: list[dict[str, Any]] = Field(default_factory=list)
     error: str = ""
     needs_clarification: bool = False
     clarification_request: str = ""
@@ -187,10 +198,34 @@ class ChatState(BaseModel):
     rag_sources: Annotated[list[RagChunk], operator.add] = Field(default_factory=list)
     rag_messages: Annotated[list[dict], operator.add] = Field(default_factory=list)
 
+    # Per-component LLM synthesis from the RAG agent (retriever →
+    # evaluator → generator). Empty string when retrieval was skipped
+    # (no project files, clarification path, or generator declined).
+    # Used by the collector as the primary "what RAG found" block and
+    # by the benchmark to score Layer B in isolation.
+    rag_answer: str = ""
+    rag_structured: dict[str, Any] = Field(default_factory=dict)
+
     plan: Optional[OrchestratorPlan] = None
     agent_results: Annotated[list[AgentResult], operator.add] = Field(default_factory=list)
 
     final_answer: str = ""
+
+    # ── benchmark / logging hooks ────────────────────────────
+    # `bench` is set by the evaluation runner; nodes use it to gate
+    # structured logging. Production traffic leaves it None and the
+    # logging helper becomes a no-op.
+    #
+    # Expected shape when set:
+    #   {"run_id": "2026-05-14_10-30_default",
+    #    "test_id": "rag-001",
+    #    "log_dir": "/path/to/logs/runs/<run_id>"}
+    #
+    # `component_logs` is append-only: every node that finishes a unit
+    # of work pushes one record. The runner flushes the list to
+    # `<log_dir>/<component>.jsonl` after each graph invocation.
+    bench: Optional[dict[str, Any]] = None
+    component_logs: Annotated[list[dict[str, Any]], operator.add] = Field(default_factory=list)
 
     # Class-level config: allow non-validated assignment for runtime queues.
     model_config = {

@@ -198,9 +198,31 @@ class ReactAgent:
         needs_clar, clar_req = self._detect_clarification(
             goal, traces, answer, hit_soft_ceiling,
         )
+
+        # Build a small machine-readable summary of the run. This is
+        # what the benchmark consumes when scoring "tool result quality"
+        # without having to parse the natural-language answer.
+        n_calls = len(traces)
+        n_ok = sum(1 for t in traces if t.ok)
+        tools_used: list[str] = []
+        for t in traces:
+            if t.tool and t.tool not in tools_used:
+                tools_used.append(t.tool)
+        last_ok = next((t for t in reversed(traces) if t.ok), None)
+        structured: dict[str, object] = {
+            "n_calls":      n_calls,
+            "n_ok":         n_ok,
+            "tools_used":   tools_used,
+            "hit_max_rounds": hit_soft_ceiling,
+        }
+        if last_ok is not None:
+            structured["last_tool"] = last_ok.tool
+            structured["last_result_preview"] = last_ok.result[:1500]
+
         return AgentResult(
             tool_type=self.tool_type, goal=goal,
-            answer=answer, calls=traces, error="",
+            answer=answer, structured=structured,
+            calls=traces, error="",
             needs_clarification=needs_clar,
             clarification_request=clar_req,
             usage=usage,
