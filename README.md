@@ -131,9 +131,14 @@ tool queries through `lookup_company` / `list_tables` / `describe_table`
 ## Evaluation harness
 
 `evaluation/` is a benchmark runner that scores the pipeline at three
-layers (RAG-only, per-agent, end-to-end). Nodes emit structured
-`component_logs` only when a benchmark run sets `state.bench`; production
-traffic is a no-op, zero overhead.
+layers (RAG-only, per-agent, end-to-end). All seven nodes (rewriter,
+orchestrator, rag, db, web, visualize, collector) emit a standardized
+`component_logs` record — including per-call token `usage` and the
+test's `category` — only when a benchmark run sets `state.bench`;
+production traffic is a no-op, zero overhead. `evaluation/token_stats.py`
+rolls the per-call usage up into `tokens.json` (min/max/avg/sum by
+component, whole-turn, and per question category); `visualize_chart.py
+--tokens` renders it. See [benchmark.md](benchmark.md).
 
 ## Models
 
@@ -173,6 +178,9 @@ finhouse/
 ├── rerank/                     # BGE reranker service
 ├── pipeline/                   # NiFi + Spark + Airflow → ClickHouse OLAP
 ├── evaluation/                 # 3-layer benchmark harness
+│   ├── runner.py               # Async runner + per-layer aggregation
+│   ├── token_stats.py          # Token roll-up → tokens.json
+│   └── visualize_chart.py      # bar / radar / compare + --tokens
 ├── searxng/                    # SearXNG config
 └── scripts/                    # model pull / migration helpers
 ```

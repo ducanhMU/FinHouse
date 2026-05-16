@@ -22,6 +22,7 @@ import time
 from langchain_core.runnables import RunnableConfig, RunnableLambda
 
 from graph.llm_router import get_llm
+from graph.logging_helper import make_log_record
 from graph.sse import emit
 from graph.state import ChatState, OrchestratorPlan, OrchestratorTask, ToolType
 from prompts import get_orchestrator_prompt
@@ -89,10 +90,48 @@ def _build_user_block(state: ChatState) -> str:
     return "\n".join(parts)
 
 
+def _orch_log(
+    state: ChatState,
+    plan: OrchestratorPlan,
+    latency_ms: int,
+    *,
+    usage: dict | None = None,
+    error: str | None = None,
+) -> list[dict]:
+    """Build the orchestrator component log record (no-op outside bench).
+
+    The orchestrator is one LLM call whose tokens were previously invisible
+    to the benchmark; this makes them show up as their own component so the
+    per-turn token roll-up is complete.
+    """
+    return make_log_record(
+        state, "orchestrator",
+        input={
+            "user_text":     state.user_text,
+            "enabled_tools": state.enabled_tools or [],
+        },
+        output={
+            "answer": plan.reasoning,
+            "structured": {
+                "tasks":     [t.model_dump() for t in plan.tasks],
+                "reasoning": plan.reasoning,
+                "n_tasks":   len(plan.tasks),
+            },
+        },
+        usage=usage,
+        latency_ms=latency_ms,
+        error=error,
+    )
+
+
 async def _orchestrator_node(state: ChatState, config: RunnableConfig) -> dict:
     # Skip if rewriter asked for clarification — the run will short-circuit.
     if state.rewrite and state.rewrite.needs_clarification:
-        return {"plan": OrchestratorPlan(tasks=[], reasoning="(skipped: clarification requested)")}
+        plan = OrchestratorPlan(tasks=[], reasoning="(skipped: clarification requested)")
+        return {
+            "plan": plan,
+            "component_logs": _orch_log(state, plan, 0),
+        }
 
     # If no tools are enabled at all, the collector can answer using only
     # RAG + system prompt. No need to ping the orchestrator LLM.
@@ -102,7 +141,10 @@ async def _orchestrator_node(state: ChatState, config: RunnableConfig) -> dict:
             "tasks": [],
             "reasoning": plan.reasoning,
         })
-        return {"plan": plan}
+        return {
+            "plan": plan,
+            "component_logs": _orch_log(state, plan, 0),
+        }
 
     llm = get_llm("orchestrator", state.session_model)
     messages = [
@@ -112,6 +154,8 @@ async def _orchestrator_node(state: ChatState, config: RunnableConfig) -> dict:
 
     t0 = time.perf_counter()
     parsed = None
+    resp: dict | None = None
+    llm_error: str | None = None
     try:
         resp = await llm.chat_sync(
             messages, tools=None,
@@ -127,6 +171,7 @@ async def _orchestrator_node(state: ChatState, config: RunnableConfig) -> dict:
         raw = (resp.get("message") or {}).get("content") or ""
         parsed = _extract_json(raw)
     except Exception as e:
+        llm_error = str(e)
         log.warning("[orchestrator] LLM call failed: %s", e)
 
     plan = OrchestratorPlan(tasks=[], reasoning="")
@@ -159,17 +204,26 @@ async def _orchestrator_node(state: ChatState, config: RunnableConfig) -> dict:
         except Exception as e:
             log.warning("[orchestrator] plan construction failed: %s", e)
 
+    latency_ms = int((time.perf_counter() - t0) * 1000)
     log.info(
-        "[orchestrator %s] %d tasks reasoning=%r in %.0fms",
-        llm.label, len(plan.tasks), plan.reasoning[:80],
-        (time.perf_counter() - t0) * 1000,
+        "[orchestrator %s] %d tasks reasoning=%r in %dms",
+        llm.label, len(plan.tasks), plan.reasoning[:80], latency_ms,
     )
+
+    usage = (resp or {}).get("usage")
+    if not (usage and usage.get("total_tokens")):
+        usage = None
 
     await emit(config, "orchestrator_plan", {
         "tasks": [t.model_dump() for t in plan.tasks],
         "reasoning": plan.reasoning,
     })
-    return {"plan": plan}
+    return {
+        "plan": plan,
+        "component_logs": _orch_log(
+            state, plan, latency_ms, usage=usage, error=llm_error,
+        ),
+    }
 
 
 orchestrator_runnable = RunnableLambda(_orchestrator_node).with_config(

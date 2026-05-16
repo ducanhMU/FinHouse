@@ -232,6 +232,7 @@ async def _collector_node(state: ChatState, config: RunnableConfig) -> dict:
     full_response = ""
     chunk_count = 0
     saw_tool_attempt = False
+    synth_usage: dict | None = None
     t0 = time.perf_counter()
 
     try:
@@ -247,6 +248,11 @@ async def _collector_node(state: ChatState, config: RunnableConfig) -> dict:
             if content:
                 full_response += content
                 await emit(config, "token", {"content": content})
+            # Final chunk carries the synthesis-call token usage — this is
+            # the collector's OWN LLM cost, distinct from the tool agents.
+            chunk_usage = chunk.get("usage")
+            if chunk_usage and chunk_usage.get("total_tokens"):
+                synth_usage = chunk_usage
             if chunk.get("done"):
                 break
     except Exception as e:
@@ -307,6 +313,16 @@ async def _collector_node(state: ChatState, config: RunnableConfig) -> dict:
                     "branch":             "synthesis",
                     "rag_answer":         state.rag_answer,
                     "rag_structured":     state.rag_structured,
+                    # Roll-up of the tool agents that fed this synthesis.
+                    # Kept here for traceability only — NOT in the envelope
+                    # `usage` field, so the token aggregator won't sum it
+                    # twice (the db/web/visualize records already carry it).
+                    "agent_usage": {
+                        "input_tokens":  agent_usage["input"],
+                        "output_tokens": agent_usage["output"],
+                        "total_tokens":  agent_usage["total"],
+                        "calls":         agent_usage["calls"],
+                    },
                     "agent_summaries": [
                         {
                             "tool_type":  r.tool_type,
@@ -319,12 +335,9 @@ async def _collector_node(state: ChatState, config: RunnableConfig) -> dict:
                     ],
                 },
             },
-            usage=({
-                "input_tokens":  agent_usage["input"],
-                "output_tokens": agent_usage["output"],
-                "total_tokens":  agent_usage["total"],
-                "calls":         agent_usage["calls"],
-            } if agent_usage.get("total") else None),
+            # The collector's OWN synthesis LLM call — an independent,
+            # non-overlapping leaf cost (usually the largest single call).
+            usage=synth_usage,
             latency_ms=int((time.perf_counter() - t_node) * 1000),
         ),
     }

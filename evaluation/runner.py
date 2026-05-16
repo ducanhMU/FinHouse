@@ -116,9 +116,10 @@ async def _invoke_graph_for_case(
         enabled_tools=enabled_tools,
         session_model=session_model,
         bench={
-            "run_id":  run_id,
-            "test_id": case["id"],
-            "log_dir": str(log_dir),
+            "run_id":   run_id,
+            "test_id":  case["id"],
+            "category": case.get("category", ""),
+            "log_dir":  str(log_dir),
         },
     )
     t0 = time.perf_counter()
@@ -355,6 +356,13 @@ async def run(
         json.dumps(meta, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
+
+    # Token roll-up — never let an aggregation hiccup fail the whole run.
+    try:
+        from evaluation.token_stats import aggregate_tokens
+        aggregate_tokens(log_dir)
+    except Exception as e:  # pragma: no cover - defensive
+        log.warning("token aggregation failed: %s", e)
 
     log.info("DONE — summary saved at %s", log_dir / "summary.json")
     print(json.dumps(summary, ensure_ascii=False, indent=2))

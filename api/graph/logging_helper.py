@@ -12,8 +12,9 @@ Schema (all components share this envelope):
     {
         "run_id":   "2026-05-14_10-30_default" | null,
         "test_id":  "rag-001"                  | null,
+        "category": "A. factual"               | null,
         "session_id": "uuid",
-        "component": "rag" | "rewriter" | "collector" | "db" | "web" | "visualize",
+        "component": "rag" | "rewriter" | "orchestrator" | "collector" | "db" | "web" | "visualize",
         "ts_end":   "2026-05-14T10:30:03.456Z",
         "latency_ms": 1234,
         "input":    { ... },        # what the node received
@@ -73,6 +74,7 @@ def make_log_record(
     record: dict[str, Any] = {
         "run_id":     bench.get("run_id"),
         "test_id":    bench.get("test_id"),
+        "category":   bench.get("category"),
         "session_id": str(getattr(state, "session_id", "")) or None,
         "component":  component,
         "ts_end":     now_iso(),

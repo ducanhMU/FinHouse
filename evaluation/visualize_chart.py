@@ -175,20 +175,163 @@ def plot_compare(summary_paths: list[Path], out_path: Path) -> Path:
     return out_path
 
 
+# ── plot: token consumption ───────────────────────────────────
+
+
+_COMP_ORDER = [
+    "rewriter", "orchestrator", "rag", "db", "web", "visualize", "collector",
+]
+# Distinct color per component for the stacked breakdown.
+_COMP_COLORS = {
+    "rewriter":     "#4C72B0",
+    "orchestrator": "#DD8452",
+    "rag":          "#55A868",
+    "db":           "#C44E52",
+    "web":          "#8172B3",
+    "visualize":    "#937860",
+    "collector":    "#DA8BC3",
+}
+
+
+def _resolve_tokens_path(path: Path) -> Path:
+    """Accept a tokens.json or the run dir that contains it."""
+    if path.is_dir():
+        path = path / "tokens.json"
+    if not path.exists():
+        raise SystemExit(f"no tokens.json at {path}")
+    return path
+
+
+def _grouped_minavgmax(ax, labels: list[str], stats: list[dict], title: str):
+    """Render min/avg/max grouped bars for `labels` onto `ax`."""
+    import numpy as np
+
+    x = np.arange(len(labels))
+    w = 0.27
+    for off, key, color in (
+        (-w, "min", "#9ecae1"),
+        (0.0, "avg", "#4C72B0"),
+        (w,  "max", "#08519c"),
+    ):
+        vals = [s.get(key, 0.0) for s in stats]
+        bars = ax.bar(x + off, vals, w, label=key, color=color)
+        for b, v in zip(bars, vals):
+            if v:
+                ax.text(b.get_x() + b.get_width() / 2, v,
+                        f"{int(v)}", ha="center", va="bottom", fontsize=7)
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels, rotation=20, ha="right", fontsize=9)
+    ax.set_ylabel("Total tokens")
+    ax.set_title(title)
+    ax.legend(fontsize=8)
+    ax.grid(axis="y", linestyle=":", alpha=0.5)
+
+
+def plot_tokens(tokens_path: Path) -> list[Path]:
+    """From a run's tokens.json emit:
+
+        tokens_component.png — min/avg/max per component + whole-turn
+        tokens_category.png  — min/avg/max per question category
+        tokens_breakdown.png — stacked avg-token mix per category
+    """
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    tokens_path = _resolve_tokens_path(tokens_path)
+    data = json.loads(tokens_path.read_text(encoding="utf-8"))
+    run_dir = tokens_path.parent
+    by_comp = data.get("by_component", {})
+    overall = data.get("overall_per_turn", {})
+    by_cat  = data.get("by_category", {})
+    outputs: list[Path] = []
+
+    # 1) per-component (+ whole turn) min/avg/max
+    comp_labels = [c for c in _COMP_ORDER if c in by_comp]
+    comp_stats  = [by_comp[c]["total"] for c in comp_labels]
+    if overall.get("turns"):
+        comp_labels.append("WHOLE\n/turn")
+        comp_stats.append(overall["total"])
+    if comp_labels:
+        fig, ax = plt.subplots(figsize=(max(7, 1.3 * len(comp_labels)), 5))
+        _grouped_minavgmax(
+            ax, comp_labels, comp_stats,
+            f"Token / component — {run_dir.name}",
+        )
+        fig.tight_layout()
+        p = run_dir / "tokens_component.png"
+        fig.savefig(p, dpi=120)
+        plt.close(fig)
+        log.info("saved %s", p)
+        outputs.append(p)
+
+    # 2) per-category whole-turn min/avg/max
+    if by_cat:
+        cats = list(by_cat.keys())
+        fig, ax = plt.subplots(figsize=(max(7, 1.4 * len(cats)), 5))
+        _grouped_minavgmax(
+            ax, cats, [by_cat[c]["total"] for c in cats],
+            f"Token / question category — {run_dir.name}",
+        )
+        fig.tight_layout()
+        p = run_dir / "tokens_category.png"
+        fig.savefig(p, dpi=120)
+        plt.close(fig)
+        log.info("saved %s", p)
+        outputs.append(p)
+
+        # 3) stacked component mix (avg tokens/turn) per category
+        fig, ax = plt.subplots(figsize=(max(7, 1.4 * len(cats)), 5))
+        x = np.arange(len(cats))
+        bottom = np.zeros(len(cats))
+        for comp in _COMP_ORDER:
+            vals = np.array([
+                by_cat[c].get("by_component_avg", {}).get(comp, 0.0)
+                for c in cats
+            ])
+            if not vals.any():
+                continue
+            ax.bar(x, vals, 0.6, bottom=bottom, label=comp,
+                   color=_COMP_COLORS.get(comp, "#888"))
+            bottom += vals
+        ax.set_xticks(x)
+        ax.set_xticklabels(cats, rotation=20, ha="right", fontsize=9)
+        ax.set_ylabel("Avg tokens / turn")
+        ax.set_title(f"Component mix per category — {run_dir.name}")
+        ax.legend(fontsize=8, ncol=2)
+        ax.grid(axis="y", linestyle=":", alpha=0.5)
+        fig.tight_layout()
+        p = run_dir / "tokens_breakdown.png"
+        fig.savefig(p, dpi=120)
+        plt.close(fig)
+        log.info("saved %s", p)
+        outputs.append(p)
+
+    if not outputs:
+        raise SystemExit(f"no token data to plot in {tokens_path}")
+    return outputs
+
+
 # ── CLI ───────────────────────────────────────────────────────
 
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("paths", type=Path, nargs="+",
-                   help="One or more summary.json paths")
+                   help="summary.json paths, or run dirs / tokens.json with --tokens")
     p.add_argument("--compare", action="store_true",
                    help="Emit A/B grouped bar chart instead of single-run charts")
+    p.add_argument("--tokens", action="store_true",
+                   help="Plot token consumption from tokens.json instead of scores")
     p.add_argument("--out", type=Path, default=None,
                    help="Output PNG path (defaults to <run_dir>/bar.png)")
     args = p.parse_args()
 
     logging.basicConfig(level=logging.INFO, format="%(message)s")
+
+    if args.tokens:
+        for path in args.paths:
+            plot_tokens(path)
+        return
 
     if args.compare:
         if len(args.paths) < 2:
