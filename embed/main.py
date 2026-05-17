@@ -35,6 +35,24 @@ _flag_model = None   # FlagEmbedding.BGEM3FlagModel — preferred
 _st_model = None     # sentence_transformers.SentenceTransformer — fallback
 _device = "cpu"
 
+# ── Encode limits (VRAM ↔ speed ↔ accuracy trade-off) ──────────
+# Ingest chunks are ~512 tokens (CHUNK_CHARS=1500 in
+# api/services/ingest.py). 1024 gives ~2x headroom for chunk overlap
+# and Vietnamese token inflation without truncating, while keeping
+# attention memory ~64x below BGE-M3's 8192 ceiling. Only raise this
+# if you also raise CHUNK_CHARS — otherwise long chunks are silently
+# cut and retrieval quality drops.
+EMBED_MAX_LENGTH = 1024
+# Texts encoded in parallel per forward pass. VRAM scales ~linearly
+# with batch size; CPU is kept low (no parallel headroom).
+EMBED_BATCH_SIZE_GPU = 32
+EMBED_BATCH_SIZE_CPU = 16
+
+
+def _batch_size() -> int:
+    """Device-aware batch size (resolved at call time, not import)."""
+    return EMBED_BATCH_SIZE_GPU if _device == "cuda" else EMBED_BATCH_SIZE_CPU
+
 
 def _detect_device() -> str:
     """Prefer CUDA if available; fall back to CPU."""
@@ -76,7 +94,13 @@ def load_models():
     from sentence_transformers import SentenceTransformer
     logger.info(f"Loading BGE-M3 (sentence-transformers) on {_device}...")
     _st_model = SentenceTransformer("BAAI/bge-m3", device=_device)
-    logger.info(f"BGE-M3 (sentence-transformers) loaded on {_device}")
+    # ST defaults to the model's full 8192 ceiling; clamp it so the
+    # fallback path has the same VRAM profile as the FlagEmbedding path.
+    _st_model.max_seq_length = EMBED_MAX_LENGTH
+    logger.info(
+        f"BGE-M3 (sentence-transformers) loaded on {_device} "
+        f"(max_seq_length={EMBED_MAX_LENGTH})"
+    )
 
 
 @app.on_event("startup")
@@ -137,7 +161,7 @@ def _dense_via_st(texts: list[str]) -> list[list[float]]:
     arr = _st_model.encode(
         texts,
         normalize_embeddings=True,
-        batch_size=64 if _device == "cuda" else 16,
+        batch_size=_batch_size(),
         show_progress_bar=False,
     )
     return arr.tolist()
@@ -151,8 +175,8 @@ def _encode_via_flag(
         raise HTTPException(503, "FlagEmbedding model not loaded")
     out = _flag_model.encode(
         texts,
-        batch_size=64 if _device == "cuda" else 16,
-        max_length=8192,
+        batch_size=_batch_size(),
+        max_length=EMBED_MAX_LENGTH,
         return_dense=True,
         return_sparse=return_sparse,
         return_colbert_vecs=False,
