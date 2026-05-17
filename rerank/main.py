@@ -48,6 +48,13 @@ def load_model():
         max_length=512,
         device=_device,
     )
+    # Halve weight VRAM on GPU (~2.3 GB fp32 → ~1.1 GB fp16), mirroring
+    # the embed service's use_fp16. Version-agnostic: .half() on the
+    # underlying HF model works across sentence-transformers releases.
+    # CPU stays fp32 (no fp16 speedup there, and some ops lack support).
+    if _device == "cuda":
+        _model.model.half()
+        logger.info("Reranker weights cast to fp16 (CUDA)")
     logger.info(f"✅ BGE Reranker loaded on {_device}")
     return _model
 
