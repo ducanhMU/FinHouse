@@ -263,6 +263,15 @@ class Settings(BaseSettings):
     # threshold for semantic chunking. Lower → more chunks; higher →
     # fewer, larger chunks. 90-95 is the LangChain default range.
     RAG_SEMANTIC_THRESHOLD_PCT: float = 92.0
+    # Master switch for the startup data-folder scanner (auto-ingest of
+    # ./data + retry of previously-failed files). True → scan runs on
+    # every API start (default, backward-compatible). False → scan is
+    # skipped entirely: no auto-ingest, no failed-file retry, no Milvus
+    # wait — lets you recreate the API for config-only changes without
+    # touching the index. Files can still be ingested via UI upload.
+    # Independent of RAG_FORCE_RESCAN (that only tunes re-ingest of
+    # already-`ready` files *when* the scan does run).
+    RAG_SCAN_ON_STARTUP: bool = True
     # When True, the startup data-folder scanner treats files marked
     # `ready` in Postgres as needing re-ingest (instead of skipping
     # them). Use this **once** after flipping RAG_COLLECTION to v2 so a

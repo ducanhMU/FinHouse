@@ -236,6 +236,14 @@ async def run_startup_scan():
     """
     from database import async_session_factory
 
+    if not settings.RAG_SCAN_ON_STARTUP:
+        logger.info(
+            "⏭️  RAG_SCAN_ON_STARTUP=false — skipping startup data-folder "
+            "scan (no auto-ingest, no failed-file retry). Set it to true "
+            "and restart to re-enable, or upload files via the UI."
+        )
+        return
+
     # Wait for Milvus to be ready before scanning (Milvus takes 2-5 min to boot)
     logger.info("⏳ Waiting for Milvus to be ready...")
     if not await _wait_for_milvus(max_wait_seconds=600):
