@@ -1,0 +1,259 @@
+
+[
+  {
+    "id": "D-014",
+    "question": "DGC, DCM và DPM năm 2024: doanh nghiệp hóa chất/phân bón nào có biên lợi nhuận và dòng tiền tốt nhất?",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "DGC",
+      "DCM",
+      "DPM"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-015",
+    "question": "VHM và KDH năm 2024: so sánh biên gộp, tồn kho bất động sản và nợ vay để đánh giá mức độ an toàn bảng cân đối.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "VHM",
+      "KDH"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-016",
+    "question": "SAB và VNM năm 2024: công ty tiêu dùng nào duy trì biên lợi nhuận ròng và ROE tốt hơn?",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "SAB",
+      "VNM"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": "Dựa trên số liệu năm 2024, Vinamilk (VNM) duy trì biên lợi nhuận ròng và ROE tốt hơn đáng kể so với SABECO (SAB). Cụ thể:\n- **Biên lợi nhuận ròng**: VNM đạt khoảng 15,3% (lợi nhuận sau thuế 9.453 tỷ đồng trên doanh thu 61.824 tỷ đồng), cao hơn mức 14,1% của SAB (lợi nhuận sau thuế 4.495 tỷ đồng trên doanh thu thuần 31.872 tỷ đồng).\n- **ROE**: VNM đạt mức rất cao là 26,1%, trong khi SAB chỉ đạt 12,4%.",
+    "sources": [
+      "SAB_BCTN24.pdf",
+      "VNM_BCTN24.pdf",
+      "Conversation History"
+    ],
+    "key_facts": [
+      "VNM 2024: Biên lợi nhuận ròng ~15,3%, ROE = 26,1%",
+      "SAB 2024: Biên lợi nhuận ròng ~14,1%, ROE = 12,4%",
+      "VNM vượt trội hơn SAB ở cả hai chỉ tiêu sinh lời"
+    ],
+    "negative_facts": [
+      "Cho rằng SAB có biên lợi nhuận ròng hoặc ROE cao hơn VNM",
+      "Sử dụng sai số liệu lợi nhuận hoặc doanh thu năm 2024"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "D-017",
+    "question": "PLX và GAS năm 2024: so sánh hiệu quả sinh lời qua biên gộp, biên ròng và ROA.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "PLX",
+      "GAS"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, PV GAS (GAS) thể hiện hiệu quả sinh lời vượt trội hoàn toàn so với Petrolimex (PLX) trên tất cả các chỉ tiêu:\n- **Biên lợi nhuận gộp**: GAS đạt khoảng 17% (lợi nhuận gộp 17.654 tỷ đồng trên doanh thu thuần 103.564 tỷ đồng), trong khi PLX chỉ đạt 5,6%.\n- **Biên lợi nhuận ròng**: GAS đạt mức 10%, cao gấp nhiều lần mức 1,11% của PLX.\n- **ROA**: Hệ số lợi nhuận ròng trên tổng tài sản của GAS đạt 12%, trong khi ROA của PLX thấp hơn rất nhiều (với biên ròng 1,11% và vòng quay tài sản 3,53 vòng, ROA của PLX ước tính chưa đến 4%).",
+    "sources": [
+      "PLX_BCTN24.pdf",
+      "GAS_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "PLX 2024: Biên gộp 5,6%, Biên ròng 1,11%",
+      "GAS 2024: Biên gộp ~17%, Biên ròng 10%, ROA 12%",
+      "GAS có hiệu quả sinh lời vượt trội hơn hẳn PLX"
+    ],
+    "negative_facts": [
+      "Cho rằng PLX có hiệu quả sinh lời tốt hơn do doanh thu lớn hơn",
+      "Cung cấp sai số liệu biên lợi nhuận của hai doanh nghiệp"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "D-018",
+    "question": "SSI và HCM năm 2024: công ty chứng khoán nào có hiệu quả vốn tốt hơn nếu so ROE, EPS và lợi nhuận sau thuế?",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "SSI",
+      "HCM"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-019",
+    "question": "MSN và MWG năm 2024: mô hình tiêu dùng nào tạo dòng tiền kinh doanh tốt hơn so với lợi nhuận báo cáo?",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "MSN",
+      "MWG"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-020",
+    "question": "POW và REE năm 2024: so sánh lợi nhuận sau thuế, chi phí tài chính và nợ vay để xem doanh nghiệp điện nào chịu áp lực tài chính lớn hơn.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "POW",
+      "REE"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-021",
+    "question": "VIC và VHM năm 2024: so sánh doanh thu hợp nhất, lợi nhuận sau thuế và nợ vay để đánh giá khác biệt rủi ro tài chính.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "VIC",
+      "VHM"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-022",
+    "question": "So sánh FPT, MWG và PNJ giai đoạn 2022-2024 theo CAGR doanh thu và xu hướng biên lợi nhuận ròng.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "FPT",
+      "MWG",
+      "PNJ"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-023",
+    "question": "VCB, BID, TCB, ACB và MBB giai đoạn 2022-2024: ngân hàng nào cải thiện ROE tốt nhất trong khi vẫn kiểm soát nợ xấu?",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "VCB",
+      "BID",
+      "TCB",
+      "ACB",
+      "MBB"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  }
+]

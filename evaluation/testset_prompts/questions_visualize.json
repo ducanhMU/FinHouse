@@ -1,0 +1,355 @@
+
+[
+  {
+    "id": "G-001",
+    "question": "Vẽ biểu đồ đường doanh thu, lợi nhuận sau thuế và biên lợi nhuận ròng của VNM giai đoạn 2020-2024 để nhìn xu hướng tăng trưởng.",
+    "category": "G. Chart request",
+    "expected_tools": [
+      "visualize"
+    ],
+    "expected_entities": [
+      "VNM"
+    ],
+    "expected_timeframe": "2020-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — muốn visualize trend / share / comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false
+  },
+  {
+    "id": "G-002",
+    "question": "Chart giúp tôi trend doanh thu, lợi nhuận sau thuế và ROE của FPT từ 2020 đến 2024.",
+    "category": "G. Chart request",
+    "expected_tools": [
+      "visualize"
+    ],
+    "expected_entities": [
+      "FPT"
+    ],
+    "expected_timeframe": "2020-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — muốn visualize trend / share / comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false
+  },
+  {
+    "id": "G-003",
+    "question": "Vẽ line chart cho HPG giai đoạn 2020-2024 gồm doanh thu thuần, lợi nhuận sau thuế và biên gộp để thấy chu kỳ ngành thép.",
+    "category": "G. Chart request",
+    "expected_tools": [
+      "visualize"
+    ],
+    "expected_entities": [
+      "HPG"
+    ],
+    "expected_timeframe": "2020-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — muốn visualize trend / share / comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false
+  },
+  {
+    "id": "G-004",
+    "question": "Tạo biểu đồ cột theo năm cho MWG từ 2020-2024: doanh thu, lợi nhuận ròng và chi phí bán hàng.",
+    "category": "G. Chart request",
+    "expected_tools": [
+      "visualize"
+    ],
+    "expected_entities": [
+      "MWG"
+    ],
+    "expected_timeframe": "2020-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — muốn visualize trend / share / comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false
+  },
+  {
+    "id": "G-005",
+    "question": "Vẽ biểu đồ xu hướng NIM, ROE và tỷ lệ nợ xấu của VCB giai đoạn 2020-2024.",
+    "category": "G. Chart request",
+    "expected_tools": [
+      "visualize"
+    ],
+    "expected_entities": [
+      "VCB"
+    ],
+    "expected_timeframe": "2020-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — muốn visualize trend / share / comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false
+  },
+  {
+    "id": "G-006",
+    "question": "Cho tôi biểu đồ đường lợi nhuận trước thuế, NIM và nợ xấu của BID trong giai đoạn 2020-2024.",
+    "category": "G. Chart request",
+    "expected_tools": [
+      "visualize"
+    ],
+    "expected_entities": [
+      "BID"
+    ],
+    "expected_timeframe": "2020-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — muốn visualize trend / share / comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false
+  },
+  {
+    "id": "G-007",
+    "question": "Vẽ combo chart cho VHM từ 2020 đến 2024 gồm doanh thu, lợi nhuận sau thuế và nợ vay.",
+    "category": "G. Chart request",
+    "expected_tools": [
+      "visualize"
+    ],
+    "expected_entities": [
+      "VHM"
+    ],
+    "expected_timeframe": "2020-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — muốn visualize trend / share / comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false
+  },
+  {
+    "id": "G-008",
+    "question": "VIC 2020-2024 vẽ giúp biểu đồ doanh thu hợp nhất, lợi nhuận sau thuế và dòng tiền kinh doanh.",
+    "category": "G. Chart request",
+    "expected_tools": [
+      "visualize"
+    ],
+    "expected_entities": [
+      "VIC"
+    ],
+    "expected_timeframe": "2020-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — muốn visualize trend / share / comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false
+  },
+  {
+    "id": "G-009",
+    "question": "Vẽ biểu đồ stacked bar cơ cấu doanh thu theo mảng của MSN giai đoạn 2020-2024, kèm line lợi nhuận sau thuế.",
+    "category": "G. Chart request",
+    "expected_tools": [
+      "visualize"
+    ],
+    "expected_entities": [
+      "MSN"
+    ],
+    "expected_timeframe": "2020-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — muốn visualize trend / share / comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false
+  },
+  {
+    "id": "G-010",
+    "question": "Chart trend CASA, NIM và ROE của TCB từ 2020 đến 2024.",
+    "category": "G. Chart request",
+    "expected_tools": [
+      "visualize"
+    ],
+    "expected_entities": [
+      "TCB"
+    ],
+    "expected_timeframe": "2020-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — muốn visualize trend / share / comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false
+  },
+  {
+    "id": "G-011",
+    "question": "Vẽ biểu đồ nhiều đường cho ACB giai đoạn 2020-2024: lợi nhuận trước thuế, ROE và tỷ lệ nợ xấu.",
+    "category": "G. Chart request",
+    "expected_tools": [
+      "visualize"
+    ],
+    "expected_entities": [
+      "ACB"
+    ],
+    "expected_timeframe": "2020-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — muốn visualize trend / share / comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false
+  },
+  {
+    "id": "G-012",
+    "question": "Tạo biểu đồ xu hướng MBB 2020-2024 gồm tăng trưởng tín dụng, NIM, nợ xấu và lợi nhuận trước thuế.",
+    "category": "G. Chart request",
+    "expected_tools": [
+      "visualize"
+    ],
+    "expected_entities": [
+      "MBB"
+    ],
+    "expected_timeframe": "2020-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — muốn visualize trend / share / comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false
+  },
+  {
+    "id": "G-013",
+    "question": "Vẽ biểu đồ doanh thu, lợi nhuận sau thuế và biên lợi nhuận ròng của SAB từ 2020-2024.",
+    "category": "G. Chart request",
+    "expected_tools": [
+      "visualize"
+    ],
+    "expected_entities": [
+      "SAB"
+    ],
+    "expected_timeframe": "2020-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — muốn visualize trend / share / comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false
+  },
+  {
+    "id": "G-014",
+    "question": "GAS giai đoạn 2020-2024: vẽ line chart doanh thu, lợi nhuận sau thuế và dòng tiền từ hoạt động kinh doanh.",
+    "category": "G. Chart request",
+    "expected_tools": [
+      "visualize"
+    ],
+    "expected_entities": [
+      "GAS"
+    ],
+    "expected_timeframe": "2020-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — muốn visualize trend / share / comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false
+  },
+  {
+    "id": "G-015",
+    "question": "Vẽ biểu đồ xu hướng PLX 2020-2024 gồm doanh thu thuần, lợi nhuận sau thuế và biên lợi nhuận ròng.",
+    "category": "G. Chart request",
+    "expected_tools": [
+      "visualize"
+    ],
+    "expected_entities": [
+      "PLX"
+    ],
+    "expected_timeframe": "2020-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — muốn visualize trend / share / comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false
+  },
+  {
+    "id": "G-016",
+    "question": "Tạo chart cho PNJ từ 2020 đến 2024: doanh thu, lợi nhuận ròng, hàng tồn kho và biên gộp.",
+    "category": "G. Chart request",
+    "expected_tools": [
+      "visualize"
+    ],
+    "expected_entities": [
+      "PNJ"
+    ],
+    "expected_timeframe": "2020-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — muốn visualize trend / share / comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false
+  },
+  {
+    "id": "G-017",
+    "question": "Vẽ bar chart so sánh ROE, EPS và P/E năm 2024 của FPT, VNM, MWG và PNJ.",
+    "category": "G. Chart request",
+    "expected_tools": [
+      "visualize"
+    ],
+    "expected_entities": [
+      "FPT",
+      "VNM",
+      "MWG",
+      "PNJ"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn visualize trend / share / comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false
+  },
+  {
+    "id": "G-018",
+    "question": "Vẽ biểu đồ cột peer comparison năm 2024 cho VCB, BID, TCB, ACB, MBB theo ROE, NIM và tỷ lệ nợ xấu.",
+    "category": "G. Chart request",
+    "expected_tools": [
+      "visualize"
+    ],
+    "expected_entities": [
+      "VCB",
+      "BID",
+      "TCB",
+      "ACB",
+      "MBB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn visualize trend / share / comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false
+  },
+  {
+    "id": "G-019",
+    "question": "Vẽ bar chart năm 2024 so sánh HPG, DGC, DCM và DPM theo doanh thu, biên gộp và lợi nhuận sau thuế.",
+    "category": "G. Chart request",
+    "expected_tools": [
+      "visualize"
+    ],
+    "expected_entities": [
+      "HPG",
+      "DGC",
+      "DCM",
+      "DPM"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn visualize trend / share / comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false
+  },
+  {
+    "id": "G-020",
+    "question": "Làm biểu đồ so sánh năm 2024 cho SSI, VND và HCM theo lợi nhuận sau thuế, ROE và vốn chủ sở hữu.",
+    "category": "G. Chart request",
+    "expected_tools": [
+      "visualize"
+    ],
+    "expected_entities": [
+      "SSI",
+      "VND",
+      "HCM"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn visualize trend / share / comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false
+  }
+]

@@ -1,0 +1,518 @@
+[
+{
+"id": "D-024",
+"question": "HPG, DGC và DCM trong giai đoạn 2022-2024: cổ phiếu chu kỳ nào có lợi nhuận biến động mạnh nhất?",
+"category": "D. Compare",
+"expected_tools": [
+"database"
+],
+"expected_entities": [
+"HPG",
+"DGC",
+"DCM"
+],
+"expected_timeframe": "2022-2024",
+"scope": "multi_company",
+"style": "compare",
+"persona": "analyst — muốn ranking, peer comparison",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Trong ba cổ phiếu chu kỳ HPG, DGC và DCM giai đoạn 2022-2024, DCM là doanh nghiệp có lợi nhuận biến động mạnh nhất nếu đo theo mức suy giảm tương đối từ đỉnh 2022 sang 2023-2024. DCM hưởng lợi rất lớn từ chu kỳ giá phân bón năm 2022 với LNST khoảng 4.321 tỷ đồng, sau đó giảm mạnh về khoảng 1.105 tỷ đồng năm 2023 và phục hồi nhẹ lên khoảng 1.341 tỷ đồng năm 2024. DGC cũng giảm mạnh sau đỉnh hóa chất/phốt pho năm 2022, từ khoảng 6.036 tỷ đồng LNST năm 2022 xuống khoảng 3.222 tỷ đồng năm 2023 và khoảng 3.107-3.110 tỷ đồng năm 2024, nhưng mức giảm tương đối thấp hơn DCM. HPG biến động theo chu kỳ thép: LNST 2023 khoảng 6.800 tỷ đồng, thấp hơn 2022 khoảng 19%, rồi phục hồi lên trên 12.000 tỷ đồng năm 2024. Vì vậy, xếp hạng biến động lợi nhuận 2022-2024 theo biên độ tương đối là: DCM mạnh nhất, tiếp theo DGC, sau đó HPG.",
+"sources": [],
+"web_sources": [
+"[https://www.hoaphat.com.vn/quan-he-co-dong/bao-cao-thuong-nien](https://www.hoaphat.com.vn/quan-he-co-dong/bao-cao-thuong-nien)",
+"[https://file.hoaphat.com.vn/hoaphat-com-vn/2024/04/hpg-annual-report-2023.pdf](https://file.hoaphat.com.vn/hoaphat-com-vn/2024/04/hpg-annual-report-2023.pdf)",
+"[https://cmsv5.fiingroup.vn/medialib/FG/2025/2025-04/2025-04-17/20250417_HPG-250417-Annual-Report-2024.pdf](https://cmsv5.fiingroup.vn/medialib/FG/2025/2025-04/2025-04-17/20250417_HPG-250417-Annual-Report-2024.pdf)",
+"[https://ducgiangchem.vn/en/english-2024-audited-financial-statements/](https://ducgiangchem.vn/en/english-2024-audited-financial-statements/)",
+"[https://ducgiangchem.vn/en/category/quan-he-co-dong/bao-cao-thuong-nien/](https://ducgiangchem.vn/en/category/quan-he-co-dong/bao-cao-thuong-nien/)",
+"[https://www.pvcfc.com.vn/bao-cao-thuong-nien](https://www.pvcfc.com.vn/bao-cao-thuong-nien)",
+"[https://www.vcbs.com.vn/api/v1/ttpt-reports/download-with-token?download_token=10d05d41-dba2-4ee1-a24a-991ae2490b6a&locale=vi](https://www.vcbs.com.vn/api/v1/ttpt-reports/download-with-token?download_token=10d05d41-dba2-4ee1-a24a-991ae2490b6a&locale=vi)"
+],
+"key_facts": [
+"LNST 2022 của HPG = khoảng 8.400-8.500 tỷ đồng [HPG_BCTN2023, suy ra từ LNST 2023 giảm 19% YoY]",
+"LNST 2023 của HPG = 6.800 tỷ đồng [HPG_BCTN2023]",
+"LNST 2024 của HPG = trên 12.000 tỷ đồng [HPG_BCTN2024]",
+"Doanh thu 2023 của HPG = 120.355 tỷ đồng [HPG_BCTN2023]",
+"Doanh thu 2024 của HPG = trên 140.000 tỷ đồng [HPG_BCTN2024]",
+"LNST 2022 của DGC = khoảng 6.036 tỷ đồng [DGC_BCTN/BCTC]",
+"LNST 2023 của DGC = khoảng 3.222 tỷ đồng [DGC_BCTN/BCTC]",
+"LNST 2024 của DGC = khoảng 3.107-3.110 tỷ đồng [DGC_BCTC kiểm toán 2024]",
+"LNST 2022 của DCM = khoảng 4.321 tỷ đồng [DCM_BCTN/BCTC]",
+"LNST 2023 của DCM = khoảng 1.105 tỷ đồng [DCM_BCTN/BCTC]",
+"LNST 2024 của DCM = 1.341 tỷ đồng [VCBS/DCM_BCTN2024]",
+"Mức giảm LNST DCM từ 2022 đến 2023 = khoảng -74% [tính từ DCM_BCTN/BCTC]",
+"Mức giảm LNST DGC từ 2022 đến 2023 = khoảng -47% [tính từ DGC_BCTN/BCTC]",
+"Mức giảm LNST HPG từ 2022 đến 2023 = khoảng -19% [HPG_BCTN2023]"
+],
+"negative_facts": [
+"KHÔNG xếp HPG biến động mạnh nhất chỉ vì quy mô lợi nhuận tuyệt đối lớn hơn",
+"KHÔNG so biến động bằng doanh thu thay cho LNST",
+"KHÔNG trộn LNST cổ đông công ty mẹ và LNST sau thuế hợp nhất nếu không ghi rõ"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "D-025",
+"question": "VIC, VHM và KDH giai đoạn 2022-2024: doanh nghiệp bất động sản nào giảm đòn bẩy tài chính rõ nhất?",
+"category": "D. Compare",
+"expected_tools": [
+"database"
+],
+"expected_entities": [
+"VIC",
+"VHM",
+"KDH"
+],
+"expected_timeframe": "2022-2024",
+"scope": "multi_company",
+"style": "compare",
+"persona": "analyst — muốn ranking, peer comparison",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Trong nhóm VIC, VHM và KDH giai đoạn 2022-2024, VHM là doanh nghiệp có bảng cân đối mạnh nhất và mức đòn bẩy thấp nhất trong nhóm, nhưng để kết luận “giảm đòn bẩy rõ nhất” cần so nợ vay ròng/vốn chủ sở hữu hoặc tổng nợ vay/vốn chủ sở hữu từng năm 2022, 2023, 2024. Các nguồn phân tích xác nhận VHM duy trì net debt/equity rất thấp, khoảng 0,2x cuối 2023 và quanh 0,1-0,2x trong nhiều năm, thấp hơn mặt bằng ngành. KDH có quy mô nhỏ hơn, biên gộp cao và đòn bẩy thận trọng hơn so với nhiều doanh nghiệp bất động sản, nhưng dữ liệu web không trích xuất đủ chuỗi 2022-2024 để khẳng định mức giảm mạnh nhất. VIC là tập đoàn mẹ đa ngành, chịu áp lực vốn và nợ vay cao hơn do hợp nhất các mảng sản xuất, thương mại dịch vụ và bất động sản. Vì vậy, theo chất lượng bảng cân đối, VHM an toàn nhất; theo câu hỏi “giảm đòn bẩy rõ nhất”, benchmark nên chấm dựa trên database với công thức: Δ(nợ vay ròng/VCSH) 2024 so với 2022, doanh nghiệp có mức giảm lớn nhất thắng.",
+"sources": [],
+"web_sources": [
+"[https://vingroup.net/quan-he-co-dong/bao-cao-tai-chinh](https://vingroup.net/quan-he-co-dong/bao-cao-tai-chinh)",
+"[https://amis.misa.vn/200527/bao-cao-tai-chinh-vingroup/](https://amis.misa.vn/200527/bao-cao-tai-chinh-vingroup/)",
+"[https://vinhomes.vn/en/bao-cao-thuong-nien](https://vinhomes.vn/en/bao-cao-thuong-nien)",
+"[https://vinhomes.vn/vi/bao-cao-tai-chinh-hop-nhat-kiem-toan-nam-2024](https://vinhomes.vn/vi/bao-cao-tai-chinh-hop-nhat-kiem-toan-nam-2024)",
+"[https://www.vndirect.com.vn/VHM_Updates_20240410.pdf](https://www.vndirect.com.vn/VHM_Updates_20240410.pdf)",
+"[https://www.khangdien.com.vn/wp-content/uploads/2025/03/20250324-kdh-bctc-kiem-toan-hop-nhat-nam-2024-giai-trinh.pdf](https://www.khangdien.com.vn/wp-content/uploads/2025/03/20250324-kdh-bctc-kiem-toan-hop-nhat-nam-2024-giai-trinh.pdf)",
+"[https://www.abs.vn/wp-content/uploads/2025/04/KDH_250428_DHDCD.pdf](https://www.abs.vn/wp-content/uploads/2025/04/KDH_250428_DHDCD.pdf)"
+],
+"key_facts": [
+"Net debt/equity cuối 2023 của VHM = 0,2x [VNDIRECT]",
+"VHM duy trì net debt/equity quanh 0,1x-0,2x trong các năm gần đây [VNDIRECT]",
+"Doanh thu thuần hợp nhất 2024 của VHM = 102.045 tỷ đồng [Vinhomes]",
+"LNST hợp nhất 2024 của VHM = 35.052 tỷ đồng [Vinhomes]",
+"Doanh thu thuần hợp nhất 2024 của VIC = 192.182 tỷ đồng [MISA/Vingroup]",
+"Tăng trưởng doanh thu thuần hợp nhất 2024 của VIC = 19% YoY [MISA]",
+"Doanh thu thuần 2024 của KDH = gần 3.300 tỷ đồng [ABS]",
+"LNST 2024 của KDH = 810 tỷ đồng [ABS]",
+"Doanh thu thuần 2024 của KDH tăng 57% YoY [ABS]",
+"LNST 2024 của KDH tăng 13% YoY [ABS]",
+"Chỉ tiêu chấm chính = nợ vay ròng/vốn chủ sở hữu 2022, 2023, 2024 của VIC, VHM và KDH [database/BCTC]",
+"Doanh nghiệp giảm đòn bẩy rõ nhất = doanh nghiệp có Δ(nợ vay ròng/VCSH) 2024-2022 âm lớn nhất [phương pháp]"
+],
+"negative_facts": [
+"KHÔNG kết luận chỉ dựa vào doanh thu hoặc LNST",
+"KHÔNG trộn nợ phải trả tổng cộng với nợ vay tài chính nếu đề hỏi đòn bẩy tài chính",
+"KHÔNG coi VIC và VHM là cùng một doanh nghiệp khi so rủi ro tài chính"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "D-026",
+"question": "SSI, VND và HCM từ 2022 đến 2024: so sánh ROE, lợi nhuận sau thuế và vốn chủ sở hữu để xếp hạng hiệu quả công ty chứng khoán.",
+"category": "D. Compare",
+"expected_tools": [
+"database"
+],
+"expected_entities": [
+"SSI",
+"VND",
+"HCM"
+],
+"expected_timeframe": "2022-2024",
+"scope": "multi_company",
+"style": "compare",
+"persona": "analyst — muốn ranking, peer comparison",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Giai đoạn 2022-2024, SSI dẫn đầu nhóm SSI-VND-HCM về quy mô vốn chủ sở hữu và lợi nhuận tuyệt đối, trong khi HCM có thể nổi bật hơn về hiệu quả trên vốn trong một số năm do quy mô vốn nhỏ hơn. Năm 2024, SSI đạt LNST hợp nhất khoảng 2.845 tỷ đồng, vốn chủ sở hữu cuối kỳ khoảng 32.066 tỷ đồng và ROE theo trang IR khoảng 13,5%. VNDIRECT năm 2024 đạt LNST khoảng 1.718 tỷ đồng và vốn chủ sở hữu khoảng 19.715 tỷ đồng. HCM năm 2024 đạt LNST khoảng 852 tỷ đồng theo Vietstock. Xếp hạng 2024 theo LNST tuyệt đối: SSI > VND > HCM. Xếp hạng hiệu quả vốn cần dùng ROE 2022-2024 trong database; với số đã verify, SSI có ROE 2024 khoảng 13,5% và là ứng viên mạnh nhất về cân bằng giữa quy mô và hiệu quả.",
+"sources": [],
+"web_sources": [
+"[https://www.ssi.com.vn/en/investor-relation/annual-reports](https://www.ssi.com.vn/en/investor-relation/annual-reports)",
+"[https://www.ssi.com.vn/en/investor-relation/featured-information](https://www.ssi.com.vn/en/investor-relation/featured-information)",
+"[https://file.fpts.com.vn/FileStore2/File/2025/04/10/20250410_SSI_250410_Annual_Report_2024.pdf](https://file.fpts.com.vn/FileStore2/File/2025/04/10/20250410_SSI_250410_Annual_Report_2024.pdf)",
+"[https://www.vndirect.com.vn/en/bao_cao_thuong_nien/annual-reports-2024/](https://www.vndirect.com.vn/en/bao_cao_thuong_nien/annual-reports-2024/)",
+"[https://www.vndirect.com.vn/VND_Financial-Statements-for-the-year-ended-31.12.2024.pdf](https://www.vndirect.com.vn/VND_Financial-Statements-for-the-year-ended-31.12.2024.pdf)",
+"[https://www.hsc.com.vn/en/financial-statements/annual-reports](https://www.hsc.com.vn/en/financial-statements/annual-reports)",
+"[https://storage.googleapis.com/hsc-cweb/bao-cao-thuong-nien/2024/hsc-ar-2024-en-2.pdf](https://storage.googleapis.com/hsc-cweb/bao-cao-thuong-nien/2024/hsc-ar-2024-en-2.pdf)",
+"[https://finance.vietstock.vn/HCM-ctcp-chung-khoan-thanh-pho-ho-chi-minh.htm?languageid=2&tab=BCTN](https://finance.vietstock.vn/HCM-ctcp-chung-khoan-thanh-pho-ho-chi-minh.htm?languageid=2&tab=BCTN)"
+],
+"key_facts": [
+"LNST hợp nhất 2024 của SSI = 2.845,109 tỷ đồng [SSI_BCTN2024/FPTS]",
+"LNST cổ đông công ty mẹ 2024 của SSI = 2.835,02 tỷ đồng [SSI]",
+"Vốn chủ sở hữu cuối 2024 của SSI = 32.066,318 tỷ đồng [SSI IR]",
+"ROE 2024 của SSI = 13,5% [SSI IR]",
+"ROE 2023 của SSI = 9,6% [SSI IR]",
+"ROA 2024 của SSI = 4,2% [SSI IR]",
+"ROA 2023 của SSI = 3,4% [SSI IR]",
+"LNST 2024 của VND = 1.718 tỷ đồng [VNDIRECT_BCTN/BCTC2024]",
+"Vốn chủ sở hữu cuối 2024 của VND = 19.715 tỷ đồng [VNDIRECT_BCTN2024]",
+"Tổng tài sản cuối 2024 của VND = 44.295 tỷ đồng [VNDIRECT_BCTN2024]",
+"LNST 2024 của HCM = 852,488 tỷ đồng [Vietstock]",
+"Doanh thu thuần 2024 của HCM = 3.901,445 tỷ đồng [Vietstock]",
+"Lợi nhuận hoạt động 2024 của HCM = 1.067,393 tỷ đồng [Vietstock]",
+"Xếp hạng LNST 2024 = SSI > VND > HCM [tính từ SSI/VNDIRECT/Vietstock]"
+],
+"negative_facts": [
+"KHÔNG xếp hạng ROE bằng LNST tuyệt đối",
+"KHÔNG dùng vốn điều lệ thay cho vốn chủ sở hữu để tính ROE",
+"KHÔNG trộn số riêng lẻ và hợp nhất nếu không ghi rõ"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "D-027",
+"question": "GAS, PLX và POW giai đoạn 2022-2024: doanh nghiệp năng lượng nào giữ dòng tiền kinh doanh ổn định nhất?",
+"category": "D. Compare",
+"expected_tools": [
+"database"
+],
+"expected_entities": [
+"GAS",
+"PLX",
+"POW"
+],
+"expected_timeframe": "2022-2024",
+"scope": "multi_company",
+"style": "compare",
+"persona": "analyst — muốn ranking, peer comparison",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Trong nhóm GAS, PLX và POW giai đoạn 2022-2024, GAS có chất lượng lợi nhuận và dòng tiền kinh doanh ổn định nhất về mặt mô hình kinh doanh: biên lợi nhuận cao, tài sản khí ổn định và doanh thu ít phụ thuộc vào tồn kho xăng dầu như PLX hay chu kỳ huy động nhà máy như POW. Năm 2024, GAS đạt doanh thu thuần khoảng 103.564 tỷ đồng, lợi nhuận gộp khoảng 17.654 tỷ đồng và biên gộp khoảng 17%, trong khi PLX có doanh thu rất lớn 284.028 tỷ đồng nhưng biên ròng chỉ khoảng 1,11%. POW có BCTC hợp nhất kiểm toán 2024 công bố bởi PV Power, nhưng để chấm đúng câu hỏi dòng tiền cần lấy CFO từng năm 2022, 2023, 2024 từ báo cáo lưu chuyển tiền tệ. Kết luận chấm nên ưu tiên GAS nếu database xác nhận CFO dương đều và độ lệch chuẩn CFO thấp hơn PLX/POW.",
+"sources": [],
+"web_sources": [
+"[https://finance.vietstock.vn/GAS-tong-cong-ty-khi-viet-nam-ctcp.htm](https://finance.vietstock.vn/GAS-tong-cong-ty-khi-viet-nam-ctcp.htm)",
+"[https://www.petrolimex.com.vn/bctn-2024-baocaotaichinh.html](https://www.petrolimex.com.vn/bctn-2024-baocaotaichinh.html)",
+"[https://www.tinnhanhchungkhoan.vn/loi-nhuan-quy-iv2024-cua-petrolimex-plx-giam-20-do-anh-huong-boi-ty-gia-post362504.html](https://www.tinnhanhchungkhoan.vn/loi-nhuan-quy-iv2024-cua-petrolimex-plx-giam-20-do-anh-huong-boi-ty-gia-post362504.html)",
+"[https://pvpower.vn/pow-media/to-ir/2-4-25-Bao-cao-tai-chinh-hop-nhat.pdf](https://pvpower.vn/pow-media/to-ir/2-4-25-Bao-cao-tai-chinh-hop-nhat.pdf)",
+"[https://pvpower.vn/pow-media/to-ir/2-4-25-Bao-cao-tai-chinh-rieng.pdf](https://pvpower.vn/pow-media/to-ir/2-4-25-Bao-cao-tai-chinh-rieng.pdf)"
+],
+"key_facts": [
+"Doanh thu thuần 2024 của GAS = 103.564 tỷ đồng [GAS_BCTN/BCTC]",
+"Lợi nhuận gộp 2024 của GAS = 17.654 tỷ đồng [GAS_BCTN/BCTC]",
+"Biên lợi nhuận gộp 2024 của GAS = khoảng 17,0% [tính từ GAS_BCTN/BCTC]",
+"Biên lợi nhuận ròng 2024 của GAS = khoảng 10% [GAS_BCTN/BCTC]",
+"Doanh thu thuần 2024 của PLX = 284.028 tỷ đồng [tinnhanhchungkhoan]",
+"LNST 2024 của PLX = 3.161,15 tỷ đồng (hợp nhất, đã kiểm toán) [Petrolimex]",
+"Biên lợi nhuận ròng 2024 của PLX = khoảng 1,11% [tính từ Petrolimex/tinnhanhchungkhoan]",
+"POW có BCTC hợp nhất kiểm toán năm 2024 công bố ngày 29/03/2025 [PVPower]",
+"Chỉ tiêu chấm chính = CFO 2022, CFO 2023, CFO 2024 của GAS, PLX và POW [database/BCTC]",
+"Doanh nghiệp giữ dòng tiền kinh doanh ổn định nhất = doanh nghiệp có CFO dương đều và hệ số biến thiên CFO thấp nhất [phương pháp]",
+"Kết luận định tính từ mô hình kinh doanh = GAS ổn định hơn PLX và POW [GAS/PLX/POW BCTC]"
+],
+"negative_facts": [
+"KHÔNG dùng LNST thay cho CFO khi đề hỏi dòng tiền kinh doanh",
+"KHÔNG kết luận PLX ổn định nhất chỉ vì doanh thu lớn nhất",
+"KHÔNG trộn lưu chuyển tiền thuần trong kỳ với lưu chuyển tiền từ HĐKD"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "D-028",
+"question": "SAB, MSN và VNM giai đoạn 2022-2024: so sánh xu hướng biên gộp để đánh giá sức mạnh định giá của nhóm tiêu dùng.",
+"category": "D. Compare",
+"expected_tools": [
+"database"
+],
+"expected_entities": [
+"SAB",
+"MSN",
+"VNM"
+],
+"expected_timeframe": "2022-2024",
+"scope": "multi_company",
+"style": "compare",
+"persona": "analyst — muốn ranking, peer comparison",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Giai đoạn 2022-2024, VNM là doanh nghiệp có biên gộp cao và ổn định nhất trong nhóm tiêu dùng thiết yếu nhờ thương hiệu sữa, quy mô sản xuất và kiểm soát chi phí nguyên liệu; biên lợi nhuận ròng 2024 của VNM đạt 15,3% và ROE 26,1%, cho thấy sức mạnh định giá tốt. SAB có biên lợi nhuận ròng 2024 khoảng 14,1%, nhưng biên gộp ngành bia chịu ảnh hưởng bởi chi phí nguyên liệu, thuế tiêu thụ đặc biệt và nhu cầu tiêu dùng yếu. MSN là tập đoàn tiêu dùng đa ngành nên biên gộp hợp nhất bị pha trộn giữa Masan Consumer, WinCommerce, thịt, khoáng sản/công ty liên kết; riêng Masan Consumer có biên gộp 2024 cao 46,6%, tăng 1,5 điểm % so với 2023, nhưng không đại diện cho toàn MSN hợp nhất. Vì vậy, nếu chấm theo biên gộp hợp nhất, cần lấy gross profit/net revenue của SAB, MSN và VNM trong database; định tính về sức mạnh định giá: VNM ổn định nhất, Masan Consumer mạnh nhưng MSN hợp nhất bị pha loãng, SAB thấp hơn VNM.",
+"sources": [],
+"web_sources": [
+"[https://static2.vietstock.vn/vietstock/2025/3/21/20250321_vnm_250321_annual_report_2024.pdf](https://static2.vietstock.vn/vietstock/2025/3/21/20250321_vnm_250321_annual_report_2024.pdf)",
+"[https://www.vinamilk.com.vn/en/investor/reports/annual](https://www.vinamilk.com.vn/en/investor/reports/annual)",
+"[https://cafef1.mediacdn.vn/download/250425/msn-bao-cao-thuong-nien-nam-2024-0.pdf](https://cafef1.mediacdn.vn/download/250425/msn-bao-cao-thuong-nien-nam-2024-0.pdf)",
+"[https://masanconsumer.com/wp-content/uploads/2025/04/MSC_AR_2024_ENG_compressed.pdf](https://masanconsumer.com/wp-content/uploads/2025/04/MSC_AR_2024_ENG_compressed.pdf)",
+"[https://finance.vietstock.vn/SAB-tong-cong-ty-co-phan-bia-ruou-nuoc-giai-khat-sai-gon.htm](https://finance.vietstock.vn/SAB-tong-cong-ty-co-phan-bia-ruou-nuoc-giai-khat-sai-gon.htm)"
+],
+"key_facts": [
+"Biên lợi nhuận ròng 2024 của VNM = 15,3% [VNM_BCTN2024]",
+"ROE 2024 của VNM = 26,1% [VNM_BCTN2024]",
+"Biên lợi nhuận ròng 2023 của VNM = 14,9% [VNM_BCTN2024]",
+"Biên lợi nhuận ròng 2022 của VNM = 14,3% [VNM_BCTN2024]",
+"Doanh thu thuần 2024 của SAB = 31.872 tỷ đồng [SAB_BCTN2024]",
+"LNST 2024 của SAB = 4.495 tỷ đồng [SAB_BCTN2024]",
+"Biên lợi nhuận ròng 2024 của SAB = khoảng 14,1% [tính từ SAB_BCTN2024]",
+"Biên lợi nhuận gộp 2024 của Masan Consumer = 46,6% [Masan Consumer AR2024]",
+"Biên lợi nhuận gộp 2024 của Masan Consumer tăng 1,5 điểm % so với 2023 [Masan Consumer AR2024]",
+"Biên gộp hợp nhất của MSN không được đồng nhất với biên gộp riêng Masan Consumer [MSN/Masan Consumer AR2024]",
+"Chỉ tiêu chấm chính = biên gộp hợp nhất 2022, 2023, 2024 của SAB, MSN và VNM [database/BCTC]",
+"Sức mạnh định giá nên đánh giá bằng xu hướng biên gộp, không chỉ mức doanh thu [phương pháp]"
+],
+"negative_facts": [
+"KHÔNG dùng biên gộp Masan Consumer để thay cho biên gộp hợp nhất MSN",
+"KHÔNG dùng biên ròng thay cho biên gộp nếu câu hỏi yêu cầu biên gộp",
+"KHÔNG kết luận sức mạnh định giá chỉ từ tăng trưởng doanh thu"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "D-029",
+"question": "DPM, DCM và DGC trong 2022-2024: xếp hạng theo khả năng chuyển lợi nhuận kế toán thành dòng tiền kinh doanh.",
+"category": "D. Compare",
+"expected_tools": [
+"database"
+],
+"expected_entities": [
+"DPM",
+"DCM",
+"DGC"
+],
+"expected_timeframe": "2022-2024",
+"scope": "multi_company",
+"style": "compare",
+"persona": "analyst — muốn ranking, peer comparison",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Để xếp hạng DPM, DCM và DGC theo khả năng chuyển lợi nhuận kế toán thành dòng tiền kinh doanh giai đoạn 2022-2024, chỉ tiêu chấm chính phải là CFO/LNST từng năm và tổng CFO 3 năm/tổng LNST 3 năm. Theo dữ liệu web đã đối chiếu, DGC là doanh nghiệp có lợi nhuận cao và biên lợi nhuận vượt trội năm 2024: doanh thu 9.865 tỷ đồng, lợi nhuận gộp 3.449 tỷ đồng, biên gộp 35% và LNST khoảng 3.107-3.110 tỷ đồng. DCM năm 2024 đạt doanh thu 13.456 tỷ đồng, LNST 1.341 tỷ đồng, biên gộp 18%. DPM năm 2024 đạt doanh thu khoảng 13.496 tỷ đồng, LNST khoảng 594 tỷ đồng và biên gộp 14,1% theo BSI. Về định tính, DGC có khả năng chuyển lợi nhuận thành tiền tốt nhờ biên cao và chi phí tài chính thấp; DCM đứng sau; DPM yếu hơn do biên thấp hơn. Tuy nhiên, để chấm tuyệt đối, database cần lấy CFO từ báo cáo lưu chuyển tiền tệ 2022-2024.",
+"sources": [],
+"web_sources": [
+"[https://ducgiangchem.vn/en/english-2024-audited-financial-statements/](https://ducgiangchem.vn/en/english-2024-audited-financial-statements/)",
+"[https://www.abs.vn/wp-content/uploads/2025/04/DGC_250401_DHCD.pdf](https://www.abs.vn/wp-content/uploads/2025/04/DGC_250401_DHCD.pdf)",
+"[https://cafef1.mediacdn.vn/Images/Uploaded/DuLieuDownload/PhanTichBaoCao/DGC_10325_KBSV10032025154047.pdf](https://cafef1.mediacdn.vn/Images/Uploaded/DuLieuDownload/PhanTichBaoCao/DGC_10325_KBSV10032025154047.pdf)",
+"[https://www.pvcfc.com.vn/bao-cao-thuong-nien](https://www.pvcfc.com.vn/bao-cao-thuong-nien)",
+"[https://www.vcbs.com.vn/api/v1/ttpt-reports/download-with-token?download_token=10d05d41-dba2-4ee1-a24a-991ae2490b6a&locale=vi](https://www.vcbs.com.vn/api/v1/ttpt-reports/download-with-token?download_token=10d05d41-dba2-4ee1-a24a-991ae2490b6a&locale=vi)",
+"[https://dpm.vn/BCTN-DPM-2024/bao-cao-hoat-dong-nam-2024.html](https://dpm.vn/BCTN-DPM-2024/bao-cao-hoat-dong-nam-2024.html)",
+"[https://www.bsi.com.vn/public/file/dpm-report-20250324_1742953145.pdf](https://www.bsi.com.vn/public/file/dpm-report-20250324_1742953145.pdf)"
+],
+"key_facts": [
+"Doanh thu thuần 2024 của DGC = 9.865 tỷ đồng [KBSV/cafef]",
+"LNST 2024 của DGC = khoảng 3.107-3.110 tỷ đồng [DGC_BCTC2024]",
+"Lợi nhuận gộp 2024 của DGC = 3.449 tỷ đồng [ABS]",
+"Biên lợi nhuận gộp 2024 của DGC = 35,0% [ABS]",
+"Chi phí tài chính 2024 của DGC = 69 tỷ đồng [ABS]",
+"Doanh thu thuần 2024 của DCM = 13.456 tỷ đồng [VCBS]",
+"LNST 2024 của DCM = 1.341 tỷ đồng [VCBS]",
+"Biên lợi nhuận gộp 2024 của DCM = 18% [VCBS]",
+"Doanh thu 2024 của DPM = 13.496 tỷ đồng [BSI]",
+"LNST 2024 của DPM = 594 tỷ đồng [BSI]",
+"Biên lợi nhuận gộp 2024 của DPM = 14,1% [BSI]",
+"Chỉ tiêu chấm chính = CFO/LNST 2022, 2023, 2024 của DPM, DCM và DGC [database/BCTC]",
+"Chỉ tiêu chấm tổng hợp = tổng CFO 2022-2024/tổng LNST 2022-2024 [phương pháp]"
+],
+"negative_facts": [
+"KHÔNG xếp hạng chuyển hóa tiền mặt chỉ bằng biên lợi nhuận",
+"KHÔNG dùng dòng tiền tự do thay CFO nếu không định nghĩa lại",
+"KHÔNG dùng LNST cổ đông công ty mẹ thay LNST hợp nhất nếu so với CFO hợp nhất"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "D-030",
+"question": "REE, GVR và PLX giai đoạn 2022-2024: so sánh ROA, ROE và biên lợi nhuận ròng để xem doanh nghiệp nào sử dụng tài sản hiệu quả hơn.",
+"category": "D. Compare",
+"expected_tools": [
+"database"
+],
+"expected_entities": [
+"REE",
+"GVR",
+"PLX"
+],
+"expected_timeframe": "2022-2024",
+"scope": "multi_company",
+"style": "compare",
+"persona": "analyst — muốn ranking, peer comparison",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Trong nhóm REE, GVR và PLX giai đoạn 2022-2024, PLX có quy mô doanh thu lớn nhất nhưng hiệu quả sinh lời thấp nhất do biên lợi nhuận ròng rất mỏng; năm 2024, PLX đạt doanh thu thuần 284.028 tỷ đồng và LNST 3.161 tỷ đồng, tương ứng biên ròng khoảng 1,11%. REE có mô hình tài sản hạ tầng điện-nước-bất động sản cho thuê, biên ròng và ROA/ROE thường cao hơn PLX; năm 2024 REE có dòng tiền thuần từ HĐKD 3.783,5 tỷ đồng theo BCTN/BCTC. GVR phụ thuộc chu kỳ cao su và khu công nghiệp, cần lấy ROA/ROE từng năm từ database. Kết luận định tính: REE sử dụng tài sản hiệu quả hơn PLX và có khả năng cạnh tranh với GVR; PLX kém nhất về biên ròng/ROA dù vòng quay tài sản cao. Benchmark nên chấm theo ROA bình quân 2022-2024, ROE bình quân 2022-2024 và biên ròng từng năm.",
+"sources": [],
+"web_sources": [
+"[https://cmsv5.fiingroup.vn/medialib/FG/2025/2025-03/2025-03-19/20250319_REE-250319-Annual-Report-2024.pdf](https://cmsv5.fiingroup.vn/medialib/FG/2025/2025-03/2025-03-19/20250319_REE-250319-Annual-Report-2024.pdf)",
+"[https://www.reecorp.com/danh-muc-bao-cao/bao-cao-tai-chinh/](https://www.reecorp.com/danh-muc-bao-cao/bao-cao-tai-chinh/)",
+"[https://www.petrolimex.com.vn/bctn-2024-baocaotaichinh.html](https://www.petrolimex.com.vn/bctn-2024-baocaotaichinh.html)",
+"[https://www.tinnhanhchungkhoan.vn/loi-nhuan-quy-iv2024-cua-petrolimex-plx-giam-20-do-anh-huong-boi-ty-gia-post362504.html](https://www.tinnhanhchungkhoan.vn/loi-nhuan-quy-iv2024-cua-petrolimex-plx-giam-20-do-anh-huong-boi-ty-gia-post362504.html)",
+"[https://finance.vietstock.vn/GVR-tap-doan-cong-nghiep-cao-su-viet-nam-ctcp.htm](https://finance.vietstock.vn/GVR-tap-doan-cong-nghiep-cao-su-viet-nam-ctcp.htm)"
+],
+"key_facts": [
+"CFO 2024 của REE = 3.783,526 tỷ đồng [REE_BCTN2024]",
+"REE có BCTC hợp nhất kiểm toán năm 2024 công bố tháng 03/2025 [REE]",
+"Doanh thu thuần 2024 của PLX = 284.028 tỷ đồng [tinnhanhchungkhoan]",
+"LNST 2024 của PLX = 3.161,15 tỷ đồng (hợp nhất, đã kiểm toán) [Petrolimex]",
+"Biên lợi nhuận ròng 2024 của PLX = khoảng 1,11% [tính từ Petrolimex/tinnhanhchungkhoan]",
+"Biên lợi nhuận gộp 2024 của PLX = khoảng 5,6% [PLX_BCTN/Investing]",
+"GVR là Tập đoàn Công nghiệp Cao su Việt Nam, mã HOSE: GVR [Vietstock]",
+"Chỉ tiêu chấm chính = ROA 2022, 2023, 2024 của REE, GVR, PLX [database/Vietstock]",
+"Chỉ tiêu chấm chính = ROE 2022, 2023, 2024 của REE, GVR, PLX [database/Vietstock]",
+"Chỉ tiêu chấm chính = biên lợi nhuận ròng 2022, 2023, 2024 của REE, GVR, PLX [database/BCTC]",
+"PLX có biên ròng 2024 thấp hơn đáng kể doanh nghiệp hạ tầng như REE do đặc thù phân phối xăng dầu [Petrolimex/REE]"
+],
+"negative_facts": [
+"KHÔNG xếp PLX tốt nhất chỉ vì doanh thu lớn nhất",
+"KHÔNG dùng CFO để thay ROA/ROE nếu câu hỏi yêu cầu hiệu quả tài sản/vốn",
+"KHÔNG trộn ROA một năm với ROA bình quân 3 năm"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "D-031",
+"question": "So sánh VNM và PNJ năm 2024 theo biên lợi nhuận gộp, biên lợi nhuận ròng và ROE để xem doanh nghiệp tiêu dùng nào tạo lợi nhuận hiệu quả hơn.",
+"category": "D. Compare",
+"expected_tools": [
+"database"
+],
+"expected_entities": [
+"VNM",
+"PNJ"
+],
+"expected_timeframe": "2024",
+"scope": "multi_company",
+"style": "compare",
+"persona": "analyst — muốn ranking, peer comparison",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, VNM tạo lợi nhuận hiệu quả hơn PNJ nếu xét biên lợi nhuận ròng và ROE. VNM có biên lợi nhuận ròng 15,3% và ROE 26,1% theo BCTN 2024. PNJ đạt LNST 2.113 tỷ đồng và biên lợi nhuận ròng 5,6%, giảm từ 5,9% năm 2023 do chi phí nguyên liệu, chi phí vận hành và cạnh tranh tăng. Về biên gộp, VNM thường có mức cao và ổn định nhờ ngành sữa; PNJ có biên gộp bị ảnh hưởng bởi tỷ trọng vàng 24K, trong khi mảng trang sức có biên tốt hơn. Kết luận: VNM vượt PNJ rõ rệt về biên ròng và ROE; PNJ có hiệu quả tốt trong bán lẻ trang sức nhưng biên ròng thấp hơn đáng kể do đặc thù ngành vàng/trang sức.",
+"sources": [],
+"web_sources": [
+"[https://static2.vietstock.vn/vietstock/2025/3/21/20250321_vnm_250321_annual_report_2024.pdf](https://static2.vietstock.vn/vietstock/2025/3/21/20250321_vnm_250321_annual_report_2024.pdf)",
+"[https://www.vinamilk.com.vn/en/investor/reports/annual](https://www.vinamilk.com.vn/en/investor/reports/annual)",
+"[https://www.pnj.com.vn/quan-he-co-dong/bao-cao-thuong-nien-en/](https://www.pnj.com.vn/quan-he-co-dong/bao-cao-thuong-nien-en/)",
+"[https://static2.vietstock.vn/vietstock/2025/4/18/20250418_pnj_250418_annual_report_2024.pdf](https://static2.vietstock.vn/vietstock/2025/4/18/20250418_pnj_250418_annual_report_2024.pdf)",
+"[https://www.pnj.com.vn/quan-he-co-dong/bao-cao-tai-chinh-en/](https://www.pnj.com.vn/quan-he-co-dong/bao-cao-tai-chinh-en/)"
+],
+"key_facts": [
+"Biên lợi nhuận ròng 2024 của VNM = 15,3% [VNM_BCTN2024]",
+"ROE 2024 của VNM = 26,1% [VNM_BCTN2024]",
+"Biên lợi nhuận ròng 2023 của VNM = 14,9% [VNM_BCTN2024]",
+"ROE 2023 của VNM = 25,8% [VNM_BCTN2024]",
+"LNST 2024 của PNJ = 2.113 tỷ đồng [PNJ_BCTN2024]",
+"Biên lợi nhuận ròng 2024 của PNJ = 5,6% [PNJ_BCTN2024]",
+"Biên lợi nhuận ròng 2023 của PNJ = 5,9% [PNJ_BCTN2024]",
+"Biên lợi nhuận ròng của PNJ giảm gần 0,4 điểm % năm 2024 so với 2023 [PNJ_BCTN2024]",
+"VNM cao hơn PNJ về biên lợi nhuận ròng 2024: 15,3% so với 5,6% [VNM/PNJ_BCTN2024]",
+"VNM cao hơn PNJ về ROE 2024 nếu PNJ không có ROE vượt 26,1% trong database [VNM/PNJ_BCTN2024]",
+"Chỉ tiêu cần lấy thêm từ database = biên lợi nhuận gộp 2024 của VNM và PNJ [database/BCTC]"
+],
+"negative_facts": [
+"KHÔNG nhầm biên ròng PNJ 5,6% với biên gộp",
+"KHÔNG kết luận PNJ tốt hơn VNM chỉ vì tăng trưởng doanh thu hoặc giá vàng",
+"KHÔNG dùng ROE VNM 22,5% nếu BCTN ghi ROE 26,1%"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "D-032",
+"question": "FPT và REE năm 2024: so sánh ROE, dòng tiền kinh doanh và mức nợ vay để đánh giá doanh nghiệp nào có chất lượng tài chính tốt hơn.",
+"category": "D. Compare",
+"expected_tools": [
+"database"
+],
+"expected_entities": [
+"FPT",
+"REE"
+],
+"expected_timeframe": "2024",
+"scope": "multi_company",
+"style": "compare",
+"persona": "analyst — muốn ranking, peer comparison",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, FPT có chất lượng tài chính tốt hơn REE nếu ưu tiên ROE, tăng trưởng lợi nhuận và mô hình ít thâm dụng vốn hơn. FPT công bố BCTN 2024 và báo cáo lưu chuyển tiền tệ trong BCTC hợp nhất; các benchmark trước dùng doanh thu 2024 khoảng 62.849 tỷ đồng và tăng trưởng 19,4% YoY, nhưng cần đối chiếu trực tiếp từ BCTN/BCTC FPT trong database để chấm. REE có dòng tiền kinh doanh rất tốt năm 2024, CFO đạt 3.783,5 tỷ đồng theo BCTN/BCTC, nhưng mô hình điện-nước-bất động sản cho thuê thường đi kèm nợ vay và tài sản cố định lớn hơn FPT. Vì vậy, FPT thường thắng về ROE và mức đòn bẩy nhẹ hơn; REE thắng hoặc rất mạnh về CFO tuyệt đối. Kết luận chấm nên dựa trên ba chỉ tiêu: ROE 2024, CFO 2024, nợ vay tài chính cuối 2024.",
+"sources": [],
+"web_sources": [
+"[https://fpt.com/en/ir/report](https://fpt.com/en/ir/report)",
+"[https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2025/april/20250402---fpt---annual-report-2024.pdf](https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2025/april/20250402---fpt---annual-report-2024.pdf)",
+"[https://www.vndirect.com.vn/FPT_Update_20241003.pdf](https://www.vndirect.com.vn/FPT_Update_20241003.pdf)",
+"[https://www.reecorp.com/danh-muc-bao-cao/bao-cao-tai-chinh/](https://www.reecorp.com/danh-muc-bao-cao/bao-cao-tai-chinh/)",
+"[https://cmsv5.fiingroup.vn/medialib/FG/2025/2025-03/2025-03-19/20250319_REE-250319-Annual-Report-2024.pdf](https://cmsv5.fiingroup.vn/medialib/FG/2025/2025-03/2025-03-19/20250319_REE-250319-Annual-Report-2024.pdf)"
+],
+"key_facts": [
+"FPT có BCTN 2024 công bố trên trang IR [FPT]",
+"FPT có BCTC hợp nhất năm 2024 trong BCTN 2024 [FPT]",
+"Dòng tiền từ HĐKD 2024 của REE = 3.783,526 tỷ đồng [REE_BCTN2024]",
+"REE có BCTC hợp nhất kiểm toán năm 2024 công bố tháng 03/2025 [REE]",
+"Chi phí tài chính quý gần nhất của REE theo 24hmoney = 174 tỷ đồng [24hmoney]",
+"Chi phí tiền lãi quý gần nhất của REE theo 24hmoney = 172,4 tỷ đồng [24hmoney]",
+"Chỉ tiêu chấm chính = ROE 2024 của FPT và REE [database/BCTC]",
+"Chỉ tiêu chấm chính = CFO 2024 của FPT và REE [database/BCTC]",
+"Chỉ tiêu chấm chính = nợ vay tài chính ngắn hạn + dài hạn cuối 2024 của FPT và REE [database/BCTC]",
+"FPT có mô hình công nghệ/dịch vụ ít thâm dụng tài sản hơn REE [FPT/REE BCTN]",
+"REE có mô hình hạ tầng điện-nước-bất động sản cho thuê thâm dụng vốn hơn FPT [REE_BCTN2024]"
+],
+"negative_facts": [
+"KHÔNG kết luận chất lượng tài chính chỉ bằng CFO tuyệt đối",
+"KHÔNG dùng chi phí tài chính một quý của REE làm chi phí tài chính cả năm",
+"KHÔNG bỏ qua nợ vay khi so doanh nghiệp hạ tầng với doanh nghiệp công nghệ"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "D-033",
+"question": "HPG và DPM năm 2024: doanh nghiệp chu kỳ nào có biên gộp, lợi nhuận sau thuế và dòng tiền kinh doanh tốt hơn?",
+"category": "D. Compare",
+"expected_tools": [
+"database"
+],
+"expected_entities": [
+"HPG",
+"DPM"
+],
+"expected_timeframe": "2024",
+"scope": "multi_company",
+"style": "compare",
+"persona": "analyst — muốn ranking, peer comparison",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, HPG vượt DPM rõ rệt về quy mô lợi nhuận sau thuế và khả năng phục hồi chu kỳ. HPG ghi nhận doanh thu trên 140.000 tỷ đồng và LNST trên 12.000 tỷ đồng, tăng mạnh so với 2023. DPM có doanh thu khoảng 13.496 tỷ đồng, LNST khoảng 594 tỷ đồng và biên gộp khoảng 14,1% theo BSI; theo bảng thực hiện kế hoạch trong BCTN DPM, LNST năm 2024 là 517,61 tỷ đồng. Về biên gộp, DPM có biên khoảng 14,1%, còn HPG cần lấy lợi nhuận gộp/doanh thu thuần từ BCTC hợp nhất kiểm toán 2024 để tính chính xác. Về dòng tiền kinh doanh, cần lấy CFO 2024 trực tiếp từ báo cáo lưu chuyển tiền tệ. Với các số đã verify, HPG tốt hơn DPM về LNST và quy mô kinh doanh; kết luận biên gộp và CFO phải chấm bằng database.",
+"sources": [],
+"web_sources": [
+"[https://www.hoaphat.com.vn/quan-he-co-dong/bao-cao-thuong-nien](https://www.hoaphat.com.vn/quan-he-co-dong/bao-cao-thuong-nien)",
+"[https://cmsv5.fiingroup.vn/medialib/FG/2025/2025-04/2025-04-17/20250417_HPG-250417-Annual-Report-2024.pdf](https://cmsv5.fiingroup.vn/medialib/FG/2025/2025-04/2025-04-17/20250417_HPG-250417-Annual-Report-2024.pdf)",
+"[https://dpm.vn/BCTN-DPM-2024/bao-cao-hoat-dong-nam-2024.html](https://dpm.vn/BCTN-DPM-2024/bao-cao-hoat-dong-nam-2024.html)",
+"[https://www.bsi.com.vn/public/file/dpm-report-20250324_1742953145.pdf](https://www.bsi.com.vn/public/file/dpm-report-20250324_1742953145.pdf)"
+],
+"key_facts": [
+"Doanh thu 2024 của HPG = trên 140.000 tỷ đồng [HPG_BCTN2024]",
+"LNST 2024 của HPG = trên 12.000 tỷ đồng [HPG_BCTN2024]",
+"Doanh thu 2023 của HPG = 120.355 tỷ đồng [HPG_BCTN2023]",
+"LNST 2023 của HPG = 6.800 tỷ đồng [HPG_BCTN2023]",
+"Doanh thu 2024 của DPM = 13.496 tỷ đồng [BSI]",
+"LNST 2024 của DPM = 594 tỷ đồng [BSI]",
+"Biên lợi nhuận gộp 2024 của DPM = 14,1% [BSI]",
+"LNST 2024 theo bảng thực hiện kế hoạch của DPM = 517,61 tỷ đồng [DPM_BCTN2024]",
+"Lợi nhuận trước thuế 2024 theo bảng thực hiện kế hoạch của DPM = 615,03 tỷ đồng [DPM_BCTN2024]",
+"HPG cao hơn DPM về LNST 2024: trên 12.000 tỷ đồng so với 594 tỷ đồng theo BSI [HPG_BCTN2024/BSI]",
+"Chỉ tiêu cần lấy thêm từ database = biên gộp 2024 của HPG [database/BCTC]",
+"Chỉ tiêu cần lấy thêm từ database = CFO 2024 của HPG và DPM [database/BCTC]"
+],
+"negative_facts": [
+"KHÔNG kết luận biên gộp HPG cao hơn DPM nếu chưa tính từ lợi nhuận gộp/doanh thu thuần",
+"KHÔNG dùng LNST DPM 517,61 tỷ và 594 tỷ lẫn lộn nếu không ghi rõ nguồn/cách trình bày",
+"KHÔNG đánh giá dòng tiền kinh doanh bằng LNST"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+}
+]

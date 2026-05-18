@@ -1,0 +1,568 @@
+[
+{
+"id": "F-024",
+"question": "Ngành chứng khoán gần đây có tin mới nào về nâng hạng thị trường, hệ thống KRX hoặc thanh khoản đột biến?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"securities_sector",
+"market_upgrade",
+"KRX",
+"market_liquidity"
+],
+"expected_timeframe": "gần đây",
+"scope": "sector",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Gần đây, ngành chứng khoán Việt Nam có tin nổi bật về nâng hạng và thanh khoản. FTSE Russell xác nhận nâng hạng thị trường chứng khoán Việt Nam lên nhóm thị trường mới nổi thứ cấp từ ngày 21/09/2026; lộ trình thêm tỷ trọng cổ phiếu Việt Nam vào rổ chỉ số được chia thành nhiều giai đoạn từ tháng 09/2026 đến tháng 09/2027 [web:cafef]. Về KRX, hệ thống giao dịch mới đã được HOSE thông báo chính thức vận hành từ ngày 05/05/2025, nên trong giai đoạn gần đây không còn là sự kiện vận hành mới mà chủ yếu là nền tảng hỗ trợ nâng hạng/thanh khoản [web:cafef]. Về thanh khoản, CafeF ngày 11/05/2026 ghi nhận sau nâng hạng, nhóm công ty chứng khoán được kỳ vọng hưởng lợi từ dòng vốn ngoại, thanh khoản cải thiện và làn sóng huy động vốn mới [web:cafef].",
+"sources": [],
+"web_sources": [
+"[https://cafef.vn/chinh-thuc-xac-nhan-lo-trinh-nang-hang-thi-truong-chung-khoan-viet-nam-188260408050730246.chn](https://cafef.vn/chinh-thuc-xac-nhan-lo-trinh-nang-hang-thi-truong-chung-khoan-viet-nam-188260408050730246.chn)",
+"[https://cafef.vn/dang-sau-buoc-ngoat-lich-su-nang-hang-thi-truong-chung-khoan-viet-nam-188260408133836611.chn](https://cafef.vn/dang-sau-buoc-ngoat-lich-su-nang-hang-thi-truong-chung-khoan-viet-nam-188260408133836611.chn)",
+"[https://cafef.vn/nong-chinh-thuc-van-hanh-he-thong-krx-tu-ngay-5-5-188250424144007694.chn](https://cafef.vn/nong-chinh-thuc-van-hanh-he-thong-krx-tu-ngay-5-5-188250424144007694.chn)",
+"[https://cafef.vn/thanh-khoan.html](https://cafef.vn/thanh-khoan.html)",
+"[https://cafef.vn/du-lieu/report/nang-hang-thi-truong-mot-chu-ky-dang-thuc-giac-69d35af000673bb2e79ba884.chn](https://cafef.vn/du-lieu/report/nang-hang-thi-truong-mot-chu-ky-dang-thuc-giac-69d35af000673bb2e79ba884.chn)"
+],
+"key_facts": [
+"FTSE Russell xác nhận nâng hạng chứng khoán Việt Nam lên thị trường mới nổi thứ cấp từ ngày 21/09/2026 [cafef]",
+"Giai đoạn đầu từ tháng 09/2026, tỷ trọng cổ phiếu Việt Nam được thêm vào ở mức 10% [cafef]",
+"Tỷ trọng cổ phiếu Việt Nam trong lộ trình FTSE tăng thêm 20% vào tháng 03/2027 [cafef]",
+"Tỷ trọng cổ phiếu Việt Nam trong lộ trình FTSE tăng thêm 35% vào tháng 06/2027 [cafef]",
+"Tỷ trọng cổ phiếu Việt Nam trong lộ trình FTSE hoàn tất với 35% còn lại vào tháng 09/2027 [cafef]",
+"CafeF dẫn ước tính hơn 1 tỷ USD có thể được giải ngân từ các quỹ ETF sau nâng hạng [cafef]",
+"HOSE thông báo hệ thống KRX chính thức vận hành từ ngày 05/05/2025 [cafef]",
+"CafeF ngày 11/05/2026 ghi nhận ngành chứng khoán được kỳ vọng hưởng lợi từ dòng vốn ngoại, thanh khoản cải thiện và làn sóng huy động vốn mới sau nâng hạng [cafef]",
+"VN-Index ngày 07/04/2026 đóng cửa ở 1.677,54 điểm, tăng 2,55 điểm, trước thời điểm FTSE công bố nâng hạng [cafef]",
+"Khối ngoại ngày 07/04/2026 bán ròng hơn 780 tỷ đồng, tập trung vào TCB, MBB, HDB, ACB, SSI [cafef]"
+],
+"negative_facts": [
+"KHÔNG nói KRX mới vận hành trong năm 2026; nguồn xác nhận vận hành từ 05/05/2025",
+"KHÔNG nói FTSE thêm ngay 100% tỷ trọng cổ phiếu Việt Nam từ tháng 09/2026; lộ trình chia nhiều giai đoạn",
+"KHÔNG bịa thanh khoản đột biến nếu không có số liệu GTGD/KLGD cụ thể"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-025",
+"question": "Ngành thép Việt Nam trong tháng này có tin gì về thuế chống bán phá giá, giá thép hoặc xuất khẩu?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"steel_sector",
+"anti_dumping_tax",
+"steel_price",
+"export"
+],
+"expected_timeframe": "tháng này",
+"scope": "sector",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Trong tháng 05/2026, ngành thép Việt Nam có tin đáng chú ý về điều tra chống bán phá giá từ nước ngoài. Vietstock đưa tin Úc điều tra chống bán phá giá thép mạ Việt Nam, trong đó Hoa Sen và Nam Kim được gọi tên [web:vietstock]. Trước đó, Việt Nam cũng đã có các quyết định phòng vệ thương mại quan trọng trong năm 2026: Bộ Công Thương gia hạn biện pháp chống bán phá giá với thép cán nguội Trung Quốc thêm 5 năm, hiệu lực đến ngày 27/12/2030 [web:vietstock]; đồng thời CafeF ghi nhận quyết định áp thuế chống bán phá giá 27,83% với thép HRC khổ rộng từ Trung Quốc, có hiệu lực từ ngày 17/04/2026 [web:cafef]. Không tìm thấy tin tháng 05/2026 đáng tin cậy về một đợt tăng/giảm giá thép nội địa có số liệu thống nhất toàn ngành.",
+"sources": [],
+"web_sources": [
+"[https://vietstock.vn/2026/05/uc-dieu-tra-chong-ban-pha-gia-thep-ma-viet-nam-hoa-sen-va-nam-kim-bi-goi-ten-737-1440681.htm](https://vietstock.vn/2026/05/uc-dieu-tra-chong-ban-pha-gia-thep-ma-viet-nam-hoa-sen-va-nam-kim-bi-goi-ten-737-1440681.htm)",
+"[https://vietstock.vn/2026/01/viet-nam-gia-han-thue-chong-ban-pha-gia-voi-thep-can-nguoi-trung-quoc-them-5-nam-742-1387402.htm](https://vietstock.vn/2026/01/viet-nam-gia-han-thue-chong-ban-pha-gia-voi-thep-can-nguoi-trung-quoc-them-5-nam-742-1387402.htm)",
+"[https://cafef.vn/chong-ban-pha-gia.html](https://cafef.vn/chong-ban-pha-gia.html)",
+"[https://danviet.vn/doanh-nghiep-thep-viet-lao-dao-giua-ma-tran-thue-chong-ban-pha-gia-d1426217.html](https://danviet.vn/doanh-nghiep-thep-viet-lao-dao-giua-ma-tran-thue-chong-ban-pha-gia-d1426217.html)"
+],
+"key_facts": [
+"Úc điều tra chống bán phá giá thép mạ Việt Nam trong tháng 05/2026 [vietstock]",
+"Hoa Sen và Nam Kim được gọi tên trong vụ Úc điều tra chống bán phá giá thép mạ Việt Nam [vietstock]",
+"Bộ Công Thương ban hành Quyết định số 3765/QĐ-BCT về gia hạn biện pháp chống bán phá giá với thép cán nguội Trung Quốc [vietstock]",
+"Biện pháp chống bán phá giá với thép cán nguội Trung Quốc được gia hạn thêm 5 năm [vietstock]",
+"Biện pháp chống bán phá giá với thép cán nguội Trung Quốc có hiệu lực đến ngày 27/12/2030 [vietstock]",
+"Việt Nam áp thuế chống bán phá giá 27,83% với thép HRC khổ rộng từ Trung Quốc [cafef]",
+"Quyết định áp thuế chống bán phá giá 27,83% với thép HRC có hiệu lực từ ngày 17/04/2026 [cafef]",
+"Doanh nghiệp thép Việt Nam đối mặt làn sóng điều tra phòng vệ thương mại từ Mỹ, EU đến Úc trong năm 2026 [danviet]",
+"Không tìm thấy số liệu giá thép nội địa tháng 05/2026 thống nhất toàn ngành từ nguồn uy tín đã tra [vietstock/cafef]"
+],
+"negative_facts": [
+"KHÔNG nhầm thuế chống bán phá giá Việt Nam áp lên thép Trung Quốc với vụ Úc điều tra thép Việt Nam",
+"KHÔNG nói Hoa Sen/Nam Kim đã bị áp thuế cuối cùng nếu nguồn chỉ nói bị điều tra",
+"KHÔNG bịa mức giá thép nội địa tháng 05/2026 nếu không có nguồn định lượng"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-026",
+"question": "Ngành bán lẻ tuần này có tin bất ngờ nào về sức mua, đóng cửa chuỗi hoặc cạnh tranh giá không?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"retail_sector",
+"consumer_demand",
+"store_closure",
+"price_competition"
+],
+"expected_timeframe": "tuần này",
+"scope": "sector",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Trong tuần 11/05–18/05/2026, tin đáng chú ý của ngành bán lẻ là sức mua nội địa tiếp tục phục hồi, thay vì có sự kiện đóng cửa chuỗi lớn hay cạnh tranh giá bất thường. Thời báo Tài chính Việt Nam ngày 12/05/2026 dẫn số liệu Cục Thống kê: tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng tháng 04/2026 ước đạt 646,3 nghìn tỷ đồng, tăng 1,7% so với tháng trước và tăng 12,1% so với cùng kỳ [web:thoibaotaichinh]. Lũy kế 4 tháng 2026 đạt khoảng 2.546,6 nghìn tỷ đồng, tăng 11,1% YoY; loại trừ yếu tố giá tăng 6,3% [web:thoibaotaichinh][web:vietnamplus]. Không tìm thấy tin uy tín trong tuần này về một vụ đóng cửa chuỗi lớn hay cuộc chiến giá đột biến toàn ngành.",
+"sources": [],
+"web_sources": [
+"[https://thoibaotaichinhvietnam.vn/ban-le-bat-tang-suc-mua-noi-dia-tro-thanh-diem-tua-tang-truong-196969-196969.html](https://thoibaotaichinhvietnam.vn/ban-le-bat-tang-suc-mua-noi-dia-tro-thanh-diem-tua-tang-truong-196969-196969.html)",
+"[https://www.vietnamplus.vn/tong-muc-ban-le-hang-hoa-va-doanh-thu-dich-vu-tieu-dung-tang-111-post1108865.vnp](https://www.vietnamplus.vn/tong-muc-ban-le-hang-hoa-va-doanh-thu-dich-vu-tieu-dung-tang-111-post1108865.vnp)",
+"[https://cafef.vn/du-lieu/report/bao-cao-nganh-ban-le-63c4fd97e64c254f3a9f7590.chn](https://cafef.vn/du-lieu/report/bao-cao-nganh-ban-le-63c4fd97e64c254f3a9f7590.chn)",
+"[https://cafef.vn/du-lieu/report/cap-nhat-nganh-ban-le-63c5000ae64c254f3aa0e005.chn](https://cafef.vn/du-lieu/report/cap-nhat-nganh-ban-le-63c5000ae64c254f3aa0e005.chn)"
+],
+"key_facts": [
+"Tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng tháng 04/2026 = 646,3 nghìn tỷ đồng [thoibaotaichinh]",
+"Tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng tháng 04/2026 tăng 1,7% so với tháng 03/2026 [thoibaotaichinh]",
+"Tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng tháng 04/2026 tăng 12,1% YoY [thoibaotaichinh]",
+"Tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng 4 tháng đầu năm 2026 = khoảng 2.546,6 nghìn tỷ đồng [thoibaotaichinh/vietnamplus]",
+"Tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng 4 tháng đầu năm 2026 tăng 11,1% YoY [thoibaotaichinh/vietnamplus]",
+"Tăng trưởng bán lẻ 4 tháng đầu năm 2026 sau khi loại trừ yếu tố giá = khoảng 6,3% YoY [thoibaotaichinh/vietnamplus]",
+"Doanh thu dịch vụ lưu trú, ăn uống 4 tháng đầu năm 2026 = 317,4 nghìn tỷ đồng [vietnamplus]",
+"Doanh thu dịch vụ lưu trú, ăn uống 4 tháng đầu năm 2026 tăng 13,4% YoY [vietnamplus]",
+"Doanh thu du lịch lữ hành 4 tháng đầu năm 2026 = 31,9 nghìn tỷ đồng [vietnamplus]",
+"Doanh thu du lịch lữ hành 4 tháng đầu năm 2026 tăng 12,1% YoY [vietnamplus]",
+"Không tìm thấy tin uy tín trong tuần 11/05–18/05/2026 về đóng cửa chuỗi lớn trong ngành bán lẻ [cafef/vietstock/thoibaotaichinh]",
+"Không tìm thấy tin uy tín trong tuần 11/05–18/05/2026 về cạnh tranh giá đột biến toàn ngành bán lẻ [cafef/vietstock/thoibaotaichinh]"
+],
+"negative_facts": [
+"KHÔNG bịa tin đóng cửa chuỗi nếu không có nguồn",
+"KHÔNG nhầm doanh thu bán lẻ 4 tháng với doanh thu riêng tháng 04/2026",
+"KHÔNG dùng tăng trưởng danh nghĩa 11,1% thay cho tăng trưởng thực 6,3% nếu câu hỏi hỏi sức mua thực"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-027",
+"question": "Ngành dầu khí gần đây có tin gì về giá dầu, dự án LNG hoặc thay đổi chính sách năng lượng năm 2026?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"oil_gas_sector",
+"oil_price",
+"LNG",
+"energy_policy"
+],
+"expected_timeframe": "2026",
+"scope": "sector",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Trong năm 2026, ngành dầu khí có các tin nổi bật về LNG, giá dầu và chính sách năng lượng. Báo cáo ngành dầu khí 1H/2026 của VCBS trên CafeF ngày 17/05/2026 nhấn mạnh triển vọng dầu khí - LNG - năng lượng tái tạo [web:cafef]. Báo cáo ngành dầu khí trên Vietstock cho biết nguồn cung dầu thế giới được EIA dự báo tăng trung bình 2,5 triệu thùng/ngày trong năm 2026, lên khoảng 108,7 triệu thùng/ngày [web:vietstock]. Về LNG, PV GAS ký các thỏa thuận LNG quy mô lớn ngày 03/04/2026 để cung ứng khí cho các trung tâm điện lực Quảng Trạch II, Quảng Trạch III, Vũng Áng III và các hộ tiêu thụ công nghiệp lân cận [web:pvgas]. Về chính sách năng lượng, các báo cáo ngành nhấn mạnh Việt Nam tiếp tục tập trung nâng cao tự chủ nguồn cung và phát triển các dự án khí/LNG trong giai đoạn 2026 [web:vietstock].",
+"sources": [],
+"web_sources": [
+"[https://cafef.vn/du-lieu/report/bao-cao-nganh-dau-khi-1h2026-trien-vong-dau-khi-lng-nang-luong-tai-tao-6964634f9b1c91c6dd5db217.chn](https://cafef.vn/du-lieu/report/bao-cao-nganh-dau-khi-1h2026-trien-vong-dau-khi-lng-nang-luong-tai-tao-6964634f9b1c91c6dd5db217.chn)",
+"[https://finance.vietstock.vn/bao-cao-phan-tich/18509/bao-cao-nganh-dau-khi-trien-vong-dau-khi-lng-nang-luong-tai-tao.htm](https://finance.vietstock.vn/bao-cao-phan-tich/18509/bao-cao-nganh-dau-khi-trien-vong-dau-khi-lng-nang-luong-tai-tao.htm)",
+"[https://static1.vietstock.vn/edocs/19524/BAO_CAO_NGANH_DAU_KHI_032026_2e1ff2aa60_compressed.pdf](https://static1.vietstock.vn/edocs/19524/BAO_CAO_NGANH_DAU_KHI_032026_2e1ff2aa60_compressed.pdf)",
+"[https://www.pvgas.com.vn/bai-viet/pv-gas-ky-ket-cac-thoa-thuan-lng-quy-mo-lon-mo-rong-ha-tang-cung-ung-khi-cho-cac-trung-tam-dien-luc-trong-diem](https://www.pvgas.com.vn/bai-viet/pv-gas-ky-ket-cac-thoa-thuan-lng-quy-mo-lon-mo-rong-ha-tang-cung-ung-khi-cho-cac-trung-tam-dien-luc-trong-diem)",
+"[https://www.psi.vn/uploads/bao-cao/PSI_Bao%20cao%20nganh%20Dau%20khi_Q1.2026.pdf](https://www.psi.vn/uploads/bao-cao/PSI_Bao%20cao%20nganh%20Dau%20khi_Q1.2026.pdf)"
+],
+"key_facts": [
+"CafeF công bố báo cáo ngành dầu khí 1H/2026 về dầu khí - LNG - năng lượng tái tạo ngày 17/05/2026 [cafef]",
+"EIA dự báo nguồn cung dầu thế giới năm 2026 tăng trung bình 2,5 triệu thùng/ngày [vietstock]",
+"EIA dự báo nguồn cung dầu thế giới năm 2026 đạt khoảng 108,7 triệu thùng/ngày [vietstock]",
+"Nguồn cung dầu ngoài OPEC+ dự kiến đóng góp 1,2 triệu thùng/ngày trong năm 2026 [vietstock]",
+"IEA dự báo nguồn cung dầu toàn cầu năm 2025 tăng khoảng 3,1 triệu thùng/ngày [vietstock]",
+"PV GAS ký các thỏa thuận LNG quy mô lớn ngày 03/04/2026 [pvgas]",
+"Các thỏa thuận LNG của PV GAS hướng tới cung cấp LNG cho Quảng Trạch II, Quảng Trạch III và Vũng Áng III [pvgas]",
+"PV GAS tiếp nhận chuyến LNG DAPENG PRINCESS ngày 03/04/2026 với khoảng 32.700 tấn LNG [vietstock]",
+"PV GAS tiếp nhận chuyến LNG KOOL BLIZZARD ngày 08/04/2026 với khoảng 27.300 tấn LNG [vietstock]",
+"Báo cáo Vietstock tháng 03/2026 nêu nhu cầu năng lượng Việt Nam dự kiến tăng vừa phải khoảng 3%/năm [vietstock]",
+"Chính sách năng lượng Việt Nam năm 2026 tiếp tục tập trung nâng cao tự chủ nguồn cung [vietstock]",
+"Chính phủ kỳ vọng sản lượng dầu ổn định hoặc tăng 5-10% nhờ các dự án mới như khí Lô B Ô Môn và mở rộng Block B-C [vietstock]"
+],
+"negative_facts": [
+"KHÔNG nhầm dự báo nguồn cung dầu thế giới với sản lượng dầu của Việt Nam",
+"KHÔNG nói các thỏa thuận LNG của PV GAS là dự án đã phát điện thương mại",
+"KHÔNG bịa giá dầu spot nếu không có nguồn ngày cụ thể"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-028",
+"question": "Ngành điện tháng này có tin mới về giá điện, thiếu điện hoặc tiến độ các dự án nguồn điện lớn không?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"power_sector",
+"electricity_price",
+"power_shortage",
+"power_projects"
+],
+"expected_timeframe": "tháng này",
+"scope": "sector",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Trong tháng 05/2026, tin nổi bật của ngành điện là tiêu thụ điện lập đỉnh mới do nắng nóng, chưa thấy quyết định giá điện mới. Vietstock ngày 17/05/2026 đưa tin tiêu thụ điện lập đỉnh mới, với sản lượng điện tiêu thụ theo miền Bắc/Trung/Nam lần lượt 557/108/487 triệu kWh, tương ứng 48,4%/9,4%/42,2% hệ thống điện quốc gia [web:vietstock]. Trước đó, ngày 13/05/2026 cũng thiết lập kỷ lục mới với công suất 52.487 MW và sản lượng 1,103 tỷ kWh [web:vietstock]. Tại TP.HCM, tuần 11–17/05/2026 được dự báo tiêu thụ 1,3 tỷ kWh, cao hơn 1,78% so với tuần trước [web:vietstock]. Về dự án nguồn điện, các báo cáo tháng 05/2026 tiếp tục nhắc đến chu kỳ đầu tư nguồn điện lớn, trong đó PPC có kế hoạch đầu tư dự án điện linh hoạt công suất 1.200 MW [web:cafef].",
+"sources": [],
+"web_sources": [
+"[https://vietstock.vn/2026/05/tieu-thu-dien-lap-dinh-moi-khuyen-nghi-nguoi-dan-su-dung-dien-tiet-kiem-34-1443437.htm](https://vietstock.vn/2026/05/tieu-thu-dien-lap-dinh-moi-khuyen-nghi-nguoi-dan-su-dung-dien-tiet-kiem-34-1443437.htm)",
+"[https://vietstock.vn/2026/05/tieu-thu-dien-tai-tphcm-tiep-tuc-tang-cao-do-nang-nong-keo-dai-768-1442477.htm](https://vietstock.vn/2026/05/tieu-thu-dien-tai-tphcm-tiep-tuc-tang-cao-do-nang-nong-keo-dai-768-1442477.htm)",
+"[https://cafef.vn/du-lieu/report/cap-nhat-nganh-dien-buoc-ngoat-chu-ky-5-nam-69c1071da20492a62227acdd.chn](https://cafef.vn/du-lieu/report/cap-nhat-nganh-dien-buoc-ngoat-chu-ky-5-nam-69c1071da20492a62227acdd.chn)",
+"[https://vietstock.vn/2026/03/goc-nhin-dau-tu-2026-nganh-dien-chinh-sach-mo-loi-cho-chu-ky-moi-582-1402179.htm](https://vietstock.vn/2026/03/goc-nhin-dau-tu-2026-nganh-dien-chinh-sach-mo-loi-cho-chu-ky-moi-582-1402179.htm)",
+"[https://cafef.vn/chu-tich-evn-neu-nam-nay-khong-dau-tu-thi-5-nam-sau-se-thieu-dien-188260327225058569.chn](https://cafef.vn/chu-tich-evn-neu-nam-nay-khong-dau-tu-thi-5-nam-sau-se-thieu-dien-188260327225058569.chn)"
+],
+"key_facts": [
+"Tiêu thụ điện toàn quốc lập đỉnh mới trong tháng 05/2026 [vietstock]",
+"Sản lượng điện tiêu thụ miền Bắc tại thời điểm lập đỉnh = 557 triệu kWh [vietstock]",
+"Sản lượng điện tiêu thụ miền Trung tại thời điểm lập đỉnh = 108 triệu kWh [vietstock]",
+"Sản lượng điện tiêu thụ miền Nam tại thời điểm lập đỉnh = 487 triệu kWh [vietstock]",
+"Tỷ trọng tiêu thụ điện miền Bắc tại thời điểm lập đỉnh = 48,4% hệ thống điện quốc gia [vietstock]",
+"Tỷ trọng tiêu thụ điện miền Trung tại thời điểm lập đỉnh = 9,4% hệ thống điện quốc gia [vietstock]",
+"Tỷ trọng tiêu thụ điện miền Nam tại thời điểm lập đỉnh = 42,2% hệ thống điện quốc gia [vietstock]",
+"Ngày 13/05/2026, công suất tiêu thụ điện thiết lập kỷ lục mới = 52.487 MW [vietstock]",
+"Ngày 13/05/2026, sản lượng điện tiêu thụ = 1,103 tỷ kWh [vietstock]",
+"Tiêu thụ điện TP.HCM tuần 04/05–10/05/2026 = 1,282 tỷ kWh [vietstock]",
+"Dự báo tiêu thụ điện TP.HCM tuần 11/05–17/05/2026 = 1,3 tỷ kWh [vietstock]",
+"Dự báo tiêu thụ điện TP.HCM tuần 11/05–17/05/2026 cao hơn 1,78% so với tuần trước [vietstock]",
+"PPC có kế hoạch đầu tư dự án điện linh hoạt công suất 1.200 MW [cafef]",
+"Không tìm thấy quyết định điều chỉnh giá điện mới trong tháng 05/2026 từ nguồn uy tín đã tra [vietstock/cafef]"
+],
+"negative_facts": [
+"KHÔNG nói đã thiếu điện diện rộng nếu nguồn chỉ nói tiêu thụ lập đỉnh và khuyến nghị tiết kiệm",
+"KHÔNG bịa quyết định tăng giá điện tháng 05/2026 nếu không có công bố",
+"KHÔNG nhầm sản lượng điện tiêu thụ theo ngày với sản lượng điện theo tháng"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-029",
+"question": "Ngành phân bón năm 2026 có tin nóng nào về giá ure, thuế xuất khẩu hoặc nguồn cung khí đầu vào không?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"fertilizer_sector",
+"urea_price",
+"export_tax",
+"gas_supply"
+],
+"expected_timeframe": "2026",
+"scope": "sector",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Trong năm 2026, ngành phân bón có nhiều tin nóng về giá ure và xuất khẩu. CafeF ngày 28/04/2026 cho biết giá ure thế giới tăng mạnh, có thời điểm tăng tới 80%, tạo cú hích cho xuất khẩu và lợi nhuận doanh nghiệp phân bón; xuất khẩu phân bón Việt Nam 3 tháng đầu năm đạt khoảng 810.000–820.000 tấn, giá trị hơn 360 triệu USD, tăng gần 35% về lượng và gần 60% về giá trị [web:cafef]. Vietstock ngày 12/03/2026 đưa tin giá ure giao dịch New Orleans tăng thêm 50–80 USD/tấn ngắn lên 520–550 USD/tấn ngắn trong ngày 01/03/2026, trong khi giá từ một nhà sản xuất lớn tăng 13% lên 550 USD/tấn từ mức 485–490 USD/tấn [web:vietstock]. Về thuế, ngành phân bón kiến nghị giảm thuế xuất khẩu từ 5% xuống 0% để tăng sức cạnh tranh [web:cafef]. Về khí đầu vào, các báo cáo ngành cho rằng nhóm sản xuất ure như DCM/DPM hưởng lợi từ giá ure tăng nhưng vẫn cần theo dõi biến động nguồn khí/chi phí khí đầu vào [web:vietstock].",
+"sources": [],
+"web_sources": [
+"[https://cafef.vn/gia-phan-bon-tang-manh-doanh-nghiep-ke-khoc-nguoi-cuoi-188260428063713288.chn](https://cafef.vn/gia-phan-bon-tang-manh-doanh-nghiep-ke-khoc-nguoi-cuoi-188260428063713288.chn)",
+"[https://finance.vietstock.vn/bao-cao-phan-tich/19542/bao-cao-nganh-phan-bon-gia-ban-ure-trung-binh-tang-manh-ho-tro-mo-rong-lnst-nam-2026.htm](https://finance.vietstock.vn/bao-cao-phan-tich/19542/bao-cao-nganh-phan-bon-gia-ban-ure-trung-binh-tang-manh-ho-tro-mo-rong-lnst-nam-2026.htm)",
+"[https://vietstock.vn/2026/03/gia-ure-tang-vot-vi-thien-nga-den-doanh-nghiep-phan-bon-chiu-tac-dong-ra-sao-118-1410927.htm](https://vietstock.vn/2026/03/gia-ure-tang-vot-vi-thien-nga-den-doanh-nghiep-phan-bon-chiu-tac-dong-ra-sao-118-1410927.htm)",
+"[https://cafef.vn/cang-thang-trung-dong-phan-bon-trong-nuoc-tang-nong-san-lai-giam-sau-chuyen-gi-dang-xay-ra-188260407222744677.chn](https://cafef.vn/cang-thang-trung-dong-phan-bon-trong-nuoc-tang-nong-san-lai-giam-sau-chuyen-gi-dang-xay-ra-188260407222744677.chn)",
+"[https://vietstock.vn/2026/04/dpm-day-manh-xuat-khau-ure-ky-thuat-tan-dung-co-hoi-gia-the-gioi-tang-cao-737-1425013.htm](https://vietstock.vn/2026/04/dpm-day-manh-xuat-khau-ure-ky-thuat-tan-dung-co-hoi-gia-the-gioi-tang-cao-737-1425013.htm)"
+],
+"key_facts": [
+"Giá ure thế giới năm 2026 có thời điểm tăng tới 80% [cafef]",
+"Xuất khẩu phân bón Việt Nam 3 tháng đầu năm 2026 = khoảng 810.000-820.000 tấn [cafef]",
+"Giá trị xuất khẩu phân bón Việt Nam 3 tháng đầu năm 2026 = hơn 360 triệu USD [cafef]",
+"Lượng xuất khẩu phân bón Việt Nam 3 tháng đầu năm 2026 tăng gần 35% YoY [cafef]",
+"Giá trị xuất khẩu phân bón Việt Nam 3 tháng đầu năm 2026 tăng gần 60% YoY [cafef]",
+"Giá ure giao dịch trên sà lan tại New Orleans tăng thêm 50-80 USD/tấn ngắn trong ngày 01/03/2026 [vietstock]",
+"Giá ure giao dịch trên sà lan tại New Orleans đạt 520-550 USD/tấn ngắn ngày 01/03/2026 [vietstock]",
+"Giá từ một nhà sản xuất ure lớn tăng 13% lên 550 USD/tấn từ mức 485-490 USD/tấn [vietstock]",
+"Ngành phân bón kiến nghị giảm thuế xuất khẩu từ 5% xuống 0% trong tháng 04/2026 [cafef]",
+"DPM triển khai đơn hàng xuất khẩu 3.300 tấn ure kỹ thuật trong tháng 04/2026 [vietstock]",
+"Giá đơn hàng xuất khẩu ure kỹ thuật của DPM = 900 USD/tấn FOB Phú Mỹ [vietstock]",
+"Báo cáo Vietstock kỳ vọng doanh nghiệp đầu ngành như DCM và DPM ghi nhận LNST tăng 55-70% trong kịch bản cơ sở năm 2026 [vietstock]"
+],
+"negative_facts": [
+"KHÔNG nói thuế xuất khẩu đã giảm về 0% nếu nguồn chỉ nói kiến nghị",
+"KHÔNG nhầm giá ure kỹ thuật 900 USD/tấn FOB Phú Mỹ với giá ure đại trà",
+"KHÔNG bỏ qua rủi ro chi phí khí đầu vào khi đánh giá doanh nghiệp ure"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-030",
+"question": "Thị trường chứng khoán Việt Nam tuần này có sự kiện bất ngờ nào ảnh hưởng mạnh đến nhóm VN30 không?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"VN30",
+"Vietnam_stock_market",
+"market_event"
+],
+"expected_timeframe": "tuần này",
+"scope": "macro",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Trong tuần 11/05–18/05/2026, sự kiện bất ngờ tác động mạnh nhất đến nhóm vốn hóa lớn/VN30 là thông tin VinFast tái cấu trúc mảng sản xuất, kéo cổ phiếu VIC bứt phá. Ngày 13/05/2026, VinFast công bố kế hoạch tái cấu trúc, chuyển nhượng mảng sản xuất xe tại Việt Nam với giá trị 530 triệu USD [web:cafef]. Sau tin này, VIC lập đỉnh lịch sử trong phiên 14/05/2026 và vốn hóa Vingroup tiến sát 1,8 triệu tỷ đồng, tạo ảnh hưởng lớn đến nhóm cổ phiếu vốn hóa lớn và tâm lý thị trường [web:vietnambiz][web:nhadautu]. Ngoài ra, thị trường trong tuần cũng có trạng thái rung lắc/chốt lời quanh vùng đỉnh, với VN-Index có phiên lùi về dưới 1.900 điểm ngày 11/05/2026 [web:thoibaotaichinh].",
+"sources": [],
+"web_sources": [
+"[https://cafef.vn/nong-vinfast-cong-bo-ke-hoach-tai-cau-truc-se-thoai-mang-san-xuat-voi-gia-tri-530-trieu-usd-giu-lai-tai-san-tri-tue-va-mang-luoi-ban-hang-188260513093251089.chn](https://cafef.vn/nong-vinfast-cong-bo-ke-hoach-tai-cau-truc-se-thoai-mang-san-xuat-voi-gia-tri-530-trieu-usd-giu-lai-tai-san-tri-tue-va-mang-luoi-ban-hang-188260513093251089.chn)",
+"[https://vietnambiz.vn/vic-lap-dinh-lich-su-sau-tin-tai-cau-truc-vinfast-2026514151040448.htm](https://vietnambiz.vn/vic-lap-dinh-lich-su-sau-tin-tai-cau-truc-vinfast-2026514151040448.htm)",
+"[https://nhadautu.vn/sau-thong-tin-vinfast-tai-cau-truc-co-phieu-vic-vuot-dinh-d104987.html](https://nhadautu.vn/sau-thong-tin-vinfast-tai-cau-truc-co-phieu-vic-vuot-dinh-d104987.html)",
+"[https://thoibaotaichinhvietnam.vn/chung-khoan-ngay-115-thi-truong-rung-lac-manh-tai-vung-dinh-vn-index-lui-ve-duoi-1900-diem-197133.html](https://thoibaotaichinhvietnam.vn/chung-khoan-ngay-115-thi-truong-rung-lac-manh-tai-vung-dinh-vn-index-lui-ve-duoi-1900-diem-197133.html)",
+"[https://cafef.vn/du-lieu/tracuulichsu2/4/vn30/11/05/2026.chn](https://cafef.vn/du-lieu/tracuulichsu2/4/vn30/11/05/2026.chn)"
+],
+"key_facts": [
+"VinFast công bố kế hoạch tái cấu trúc mảng sản xuất ngày 13/05/2026 [cafef]",
+"Giá trị chuyển nhượng/thoái mảng sản xuất xe VinFast tại Việt Nam = 530 triệu USD [cafef]",
+"VinFast chuyển sang mô hình asset-light tại thị trường Việt Nam [cafef]",
+"VinFast giữ lại tài sản trí tuệ, mạng lưới bán hàng, bảo hành và hậu mãi sau tái cấu trúc [cafef]",
+"Cổ phiếu VIC lập đỉnh lịch sử trong phiên 14/05/2026 sau tin tái cấu trúc VinFast [vietnambiz]",
+"Vốn hóa Vingroup tiến sát 1,8 triệu tỷ đồng sau tin tái cấu trúc VinFast [vietnambiz/nhadautu]",
+"VN-Index lùi về dưới 1.900 điểm trong phiên 11/05/2026 do rung lắc/chốt lời vùng đỉnh [thoibaotaichinh]",
+"VN30 ngày 11/05/2026 ghi nhận tổng mua 25.051.133 cổ phiếu theo dữ liệu CafeF [cafef]",
+"VN30 ngày 11/05/2026 ghi nhận tổng bán 47.866.632 cổ phiếu theo dữ liệu CafeF [cafef]",
+"Chênh lệch mua-bán VN30 ngày 11/05/2026 = -22.815.499 cổ phiếu [cafef]"
+],
+"negative_facts": [
+"KHÔNG nói VinFast bán toàn bộ thương hiệu; nguồn chỉ nói tái cấu trúc/thoái mảng sản xuất",
+"KHÔNG nhầm sự kiện VIC/VinFast với sự kiện tái cơ cấu rổ VN30 nếu không có nguồn",
+"KHÔNG bịa mức tăng/giảm VN30 nếu không có dữ liệu chỉ số cụ thể"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "I-001",
+"history": [
+{
+"role": "user",
+"content": "Doanh thu VNM Q2/2024 là bao nhiêu?"
+},
+{
+"role": "assistant",
+"content": "Doanh thu VNM Q2/2024 đạt khoảng hơn 15 nghìn tỷ đồng, cần đối chiếu thêm báo cáo tài chính để lấy số chính xác."
+}
+],
+"question": "Còn lợi nhuận sau thuế thì sao?",
+"category": "I. Multi-turn",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"VNM"
+],
+"expected_timeframe": "Q2/2024",
+"scope": "company",
+"style": "lookup",
+"persona": "retail",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Với ngữ cảnh câu trước đang hỏi VNM quý 2/2024, lợi nhuận sau thuế hợp nhất quý II/2024 của Vinamilk đạt 2.695 tỷ đồng, tăng 20,9% so với cùng kỳ [web:baochinhphu]. Lũy kế 6 tháng đầu năm 2024, lợi nhuận sau thuế hợp nhất đạt 4.903 tỷ đồng, tăng 18,6% so với cùng kỳ và hoàn thành 52,3% kế hoạch năm [web:baochinhphu]. Một số nguồn thị trường cũng ghi nhận lợi nhuận ròng quý II/2024 khoảng 2.671 tỷ đồng; để làm gold benchmark nên ưu tiên chỉ tiêu đúng câu hỏi là LNST hợp nhất 2.695 tỷ đồng theo thông cáo/BCTC [web:vneconomy].",
+"sources": [
+"VNM_BCTN24.pdf"
+],
+"web_sources": [
+"[https://baochinhphu.vn/doanh-thu-quy-ii-2024-cua-vinamilk-lap-dinh-moi-102240731143240518.htm](https://baochinhphu.vn/doanh-thu-quy-ii-2024-cua-vinamilk-lap-dinh-moi-102240731143240518.htm)",
+"[https://vietstock.vn/2024/07/vnm-bctc-hop-nhat-quy-2-nam-2024-737-1214571.htm](https://vietstock.vn/2024/07/vnm-bctc-hop-nhat-quy-2-nam-2024-737-1214571.htm)",
+"[https://vneconomy.vn/ket-qua-kinh-doanh-quy-2-2024-khoi-sac-khoi-ngoai-gom-vnm.htm](https://vneconomy.vn/ket-qua-kinh-doanh-quy-2-2024-khoi-sac-khoi-ngoai-gom-vnm.htm)",
+"[https://24hmoney.vn/news/vinamilk-vnm-dat-doanh-thu-ky-luc-trong-quy-ii-2024-loi-nhuan-hop-nhat-tang-truong-hon-20-c1a2345139.html](https://24hmoney.vn/news/vinamilk-vnm-dat-doanh-thu-ky-luc-trong-quy-ii-2024-loi-nhuan-hop-nhat-tang-truong-hon-20-c1a2345139.html)"
+],
+"key_facts": [
+"LNST hợp nhất Q2/2024 của VNM = 2.695 tỷ đồng [baochinhphu]",
+"LNST hợp nhất Q2/2024 của VNM tăng 20,9% YoY [baochinhphu]",
+"LNST hợp nhất 6T2024 của VNM = 4.903 tỷ đồng [baochinhphu]",
+"LNST hợp nhất 6T2024 của VNM tăng 18,6% YoY [baochinhphu]",
+"LNST hợp nhất 6T2024 của VNM hoàn thành 52,3% kế hoạch năm [baochinhphu]",
+"Biên lợi nhuận gộp Q2/2024 của VNM = 42,4% [baochinhphu]",
+"Doanh thu thuần Q2/2024 của VNM = 16.655 tỷ đồng [vneconomy]",
+"Doanh thu thuần Q2/2024 của VNM tăng 9,5% YoY [vneconomy]",
+"Lợi nhuận ròng Q2/2024 của VNM = 2.671 tỷ đồng [vneconomy]",
+"Tổng tài sản VNM tại cuối Q2/2024 = 54.194 tỷ đồng [baochinhphu]",
+"Nợ vay/tổng tài sản VNM tại cuối Q2/2024 = 14,7% [baochinhphu]"
+],
+"negative_facts": [
+"KHÔNG nói tài liệu/web không có số liệu Q2/2024; đã verify được LNST hợp nhất Q2/2024",
+"KHÔNG dùng LNST cả năm 2024 = 9.453 tỷ đồng để trả lời câu follow-up Q2/2024",
+"KHÔNG nhầm LNST hợp nhất 2.695 tỷ đồng với lợi nhuận ròng 2.671 tỷ đồng"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "I-002",
+"history": [
+{
+"role": "user",
+"content": "Phân tích FPT năm 2024 theo doanh thu, lợi nhuận và biên lợi nhuận ròng."
+},
+{
+"role": "assistant",
+"content": "FPT năm 2024 nhìn chung tăng trưởng tích cực ở doanh thu và lợi nhuận, biên lợi nhuận duy trì tốt nhờ mảng công nghệ."
+}
+],
+"question": "Tách thêm theo từng mảng kinh doanh chính được không?",
+"category": "I. Multi-turn",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"FPT"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Có. Với ngữ cảnh phân tích FPT năm 2024, có thể tách theo các mảng chính từ báo cáo kết quả 12M2024 và BCTN 2024. Toàn tập đoàn đạt doanh thu 62.849 tỷ đồng và lợi nhuận trước thuế 11.071 tỷ đồng, tăng lần lượt 19,4% và 20,3% YoY [web:cafef]. Trong khối Công nghệ, dịch vụ CNTT trong nước đạt doanh thu 8.157 tỷ đồng và LNTT 460 tỷ đồng, tăng lần lượt 13,9% và 21,1% [web:fpt]. Mảng Viễn thông đạt doanh thu 16.906 tỷ đồng và LNTT 3.420 tỷ đồng, tăng lần lượt 11,3% và 18,1% [web:fpt]. Mảng Giáo dục đạt doanh thu 7.088 tỷ đồng, tăng 15,1% [web:fpt]. Vì vậy, stage 2 nói không có số tuyệt đối của Viễn thông/Giáo dục là chưa đầy đủ; có thể verify được doanh thu Viễn thông, LNTT Viễn thông và doanh thu Giáo dục, nhưng chưa nên bịa LNTT riêng của Giáo dục nếu nguồn không nêu.",
+"sources": [
+"FPT_BCTN24.pdf"
+],
+"web_sources": [
+"[https://cafef.vn/fpt-lai-truoc-thue-ky-luc-hon-11000-ty-nam-2024-eps-tang-truong-gan-22-188250124085643033.chn](https://cafef.vn/fpt-lai-truoc-thue-ky-luc-hon-11000-ty-nam-2024-eps-tang-truong-gan-22-188250124085643033.chn)",
+"[https://fpt.com/-/media/project/fpt-corporation/fpt/ir/report/tabs/financial-statements/financial/2024/fpt_earnings-report-12m2024.pdf](https://fpt.com/-/media/project/fpt-corporation/fpt/ir/report/tabs/financial-statements/financial/2024/fpt_earnings-report-12m2024.pdf)",
+"[https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2025/april/20250402---fpt---annual-report-2024.pdf](https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2025/april/20250402---fpt---annual-report-2024.pdf)",
+"[https://www.vietnamplus.vn/doanh-thu-nam-2024-cua-fpt-dat-gan-63000-ty-dong-tang-194-so-voi-cung-ky-post1009135.vnp](https://www.vietnamplus.vn/doanh-thu-nam-2024-cua-fpt-dat-gan-63000-ty-dong-tang-194-so-voi-cung-ky-post1009135.vnp)"
+],
+"key_facts": [
+"Doanh thu hợp nhất 2024 của FPT = 62.849 tỷ đồng [cafef]",
+"Doanh thu hợp nhất 2024 của FPT tăng 19,4% YoY [cafef]",
+"LNTT hợp nhất 2024 của FPT = 11.071 tỷ đồng [cafef]",
+"LNTT hợp nhất 2024 của FPT tăng 20,3% YoY [cafef]",
+"LNST thuộc cổ đông công ty mẹ 2024 của FPT = 7.849 tỷ đồng [vietnamplus]",
+"LNST thuộc cổ đông công ty mẹ 2024 của FPT tăng 21,4% YoY [vietnamplus]",
+"EPS 2024 của FPT = 4.940 đồng/cp [vietnamplus]",
+"Doanh thu dịch vụ CNTT trong nước 2024 của FPT = 8.157 tỷ đồng [fpt]",
+"Doanh thu dịch vụ CNTT trong nước 2024 của FPT tăng 13,9% YoY [fpt]",
+"LNTT dịch vụ CNTT trong nước 2024 của FPT = 460 tỷ đồng [fpt]",
+"LNTT dịch vụ CNTT trong nước 2024 của FPT tăng 21,1% YoY [fpt]",
+"Doanh thu Made-by-FPT 2024 = 2.267 tỷ đồng [fpt]",
+"Doanh thu Made-by-FPT 2024 tăng 31% YoY [fpt]",
+"Doanh thu dịch vụ Viễn thông 2024 của FPT = 16.906 tỷ đồng [fpt]",
+"LNTT dịch vụ Viễn thông 2024 của FPT = 3.420 tỷ đồng [fpt]",
+"Doanh thu dịch vụ Viễn thông 2024 của FPT tăng 11,3% YoY [fpt]",
+"LNTT dịch vụ Viễn thông 2024 của FPT tăng 18,1% YoY [fpt]",
+"Doanh thu broadband 2024 của FPT = 8.800 tỷ đồng [fpt]",
+"Doanh thu nhóm khác trong Viễn thông 2024 của FPT = 8.106 tỷ đồng [fpt]",
+"Doanh thu Giáo dục 2024 của FPT = 7.088 tỷ đồng [fpt]",
+"Doanh thu Giáo dục 2024 của FPT tăng 15,1% YoY [fpt]"
+],
+"negative_facts": [
+"KHÔNG nói nguồn không có số tuyệt đối Viễn thông; đã verify được doanh thu 16.906 tỷ đồng và LNTT 3.420 tỷ đồng",
+"KHÔNG bịa LNTT riêng của Giáo dục nếu nguồn chỉ nêu doanh thu",
+"KHÔNG nhầm doanh thu dịch vụ CNTT trong nước 8.157 tỷ đồng với toàn khối Công nghệ toàn cầu"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "I-003",
+"history": [
+{
+"role": "user",
+"content": "So sánh HPG và DGC giai đoạn 2022-2024 về doanh thu và lợi nhuận sau thuế."
+},
+{
+"role": "assistant",
+"content": "Hai doanh nghiệp đều mang tính chu kỳ, trong đó biến động lợi nhuận phụ thuộc nhiều vào giá bán và chi phí đầu vào."
+}
+],
+"question": "Vậy bên nào biến động biên lợi nhuận mạnh hơn?",
+"category": "I. Multi-turn",
+"expected_tools": [
+"database"
+],
+"expected_entities": [
+"HPG",
+"DGC"
+],
+"expected_timeframe": "2022-2024",
+"scope": "multi_company",
+"style": "compare",
+"persona": "analyst",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Có thể trả lời được từ dữ liệu công khai: DGC biến động biên lợi nhuận mạnh hơn HPG nếu xét cả giai đoạn 2022-2024, đặc biệt ở biên lợi nhuận ròng. DGC đi từ năm đỉnh chu kỳ 2022 với doanh thu 14.444,1 tỷ đồng và LNST 6.040,5 tỷ đồng, tương ứng biên LNST khoảng 41,8%, xuống 31,9% năm 2023 và 30,3% năm 2024 [web:danviet][web:abs]. Biên lợi nhuận gộp DGC cũng giảm từ mức đỉnh 46,7% năm 2022 xuống 35,3% năm 2023 và 35,0% năm 2024 [web:vdsc][web:abs]. HPG biến động theo chu kỳ thép nhưng biên thấp hơn và biên ròng ít co hẹp hơn trong giai đoạn này: biên LNST 2022 khoảng 5,9% với doanh thu 142.771 tỷ đồng và LNST 8.444 tỷ đồng; năm 2023 doanh thu 120.355 tỷ đồng và LNST 6.800 tỷ đồng, biên ròng khoảng 5,7%; năm 2024 doanh thu thuần 138.855 tỷ đồng, LNST 12.020 tỷ đồng, biên ròng khoảng 8,7% [web:hoaphat][web:nhsv]. Vì vậy, kết luận gold nên là: DGC biến động mạnh hơn, do rơi từ nền biên rất cao năm 2022 về mức thấp hơn trong 2023-2024; HPG phục hồi biên trong 2024 sau đáy 2023.",
+"sources": [
+"HPG_BCTN22.pdf",
+"HPG_BCTN23.pdf",
+"DGC_BCTN24.pdf"
+],
+"web_sources": [
+"[https://file.hoaphat.com.vn/hoaphat-com-vn/2023/03/20230320-hpg-bao-cao-thuong-nien-nam-2022.pdf](https://file.hoaphat.com.vn/hoaphat-com-vn/2023/03/20230320-hpg-bao-cao-thuong-nien-nam-2022.pdf)",
+"[https://file.hoaphat.com.vn/hoaphat-com-vn/2024/05/bao-cao-thuong-nien-2023.pdf](https://file.hoaphat.com.vn/hoaphat-com-vn/2024/05/bao-cao-thuong-nien-2023.pdf)",
+"[https://file.hoaphat.com.vn/hoaphat-com-vn/2025/03/tong-quan-tinh-hinh-kinh-doanh-q4-2024-2.pdf](https://file.hoaphat.com.vn/hoaphat-com-vn/2025/03/tong-quan-tinh-hinh-kinh-doanh-q4-2024-2.pdf)",
+"[https://nhsv.vn/uploadfile/source/Ph%C3%A2n%20t%C3%ADch%20doanh%20nghi%E1%BB%87p/Baocaocapnhat_HPG_2024Q4_VN.pdf](https://nhsv.vn/uploadfile/source/Ph%C3%A2n%20t%C3%ADch%20doanh%20nghi%E1%BB%87p/Baocaocapnhat_HPG_2024Q4_VN.pdf)",
+"[https://etime.danviet.vn/hoa-chat-duc-giang-dgc-bao-lai-di-lui-trong-quy-4-2022-dat-hon-1000-ty-dong-20230119080405642-d109651.html](https://etime.danviet.vn/hoa-chat-duc-giang-dgc-bao-lai-di-lui-trong-quy-4-2022-dat-hon-1000-ty-dong-20230119080405642-d109651.html)",
+"[https://www.abs.vn/wp-content/uploads/2025/04/DGC_250401_DHCD.pdf](https://www.abs.vn/wp-content/uploads/2025/04/DGC_250401_DHCD.pdf)",
+"[https://www2.vdsc.com.vn/data/api/app/file-storage/30ee653d-8514-4ed0-8e35-08ddc589e029/DGC_CompanyReport_Jul2025.pdf](https://www2.vdsc.com.vn/data/api/app/file-storage/30ee653d-8514-4ed0-8e35-08ddc589e029/DGC_CompanyReport_Jul2025.pdf)"
+],
+"key_facts": [
+"Doanh thu 2022 của HPG = 142.771 tỷ đồng [abs/hoaphat]",
+"LNST 2022 của HPG = 8.444 tỷ đồng [abs/hoaphat]",
+"Biên LNST 2022 của HPG = khoảng 5,9% [tính từ doanh thu và LNST]",
+"Doanh thu 2023 của HPG = 120.355 tỷ đồng [hoaphat]",
+"LNST 2023 của HPG = 6.800 tỷ đồng [hoaphat]",
+"Biên LNST 2023 của HPG = khoảng 5,7% [tính từ doanh thu và LNST]",
+"Doanh thu thuần 2024 của HPG = 138.855 tỷ đồng [nhsv]",
+"LNST 2024 của HPG = 12.020 tỷ đồng [nhsv]",
+"Biên LNST 2024 của HPG = khoảng 8,7% [tính từ doanh thu và LNST]",
+"Biên lợi nhuận gộp 2024 của HPG = 13,3% [nhsv/hoaphat]",
+"Biên lợi nhuận gộp 2023 của HPG = 10,9% [nhsv]",
+"Doanh thu 2022 của DGC = 14.444,1 tỷ đồng [danviet]",
+"LNST 2022 của DGC = 6.040,5 tỷ đồng [danviet]",
+"Biên LNST 2022 của DGC = khoảng 41,8% [tính từ doanh thu và LNST]",
+"Biên lợi nhuận gộp 2022 của DGC = 46,7% [vdsc]",
+"Doanh thu thuần 2023 của DGC = 9.748 tỷ đồng [abs]",
+"LNST sau lợi ích cổ đông thiểu số 2023 của DGC = 3.110 tỷ đồng [abs]",
+"Biên LNST 2023 của DGC = 31,9% [abs]",
+"Biên lợi nhuận gộp 2023 của DGC = 35,3% [abs]",
+"Doanh thu thuần 2024 của DGC = 9.865 tỷ đồng [abs]",
+"LNST sau lợi ích cổ đông thiểu số 2024 của DGC = 2.987 tỷ đồng [abs]",
+"Biên LNST 2024 của DGC = 30,3% [abs]",
+"Biên lợi nhuận gộp 2024 của DGC = 35,0% [abs]",
+"Biên LNST của DGC giảm khoảng 11,5 điểm phần trăm từ 2022 đến 2024 [tính từ key_facts]",
+"Biên LNST của HPG tăng khoảng 2,8 điểm phần trăm từ 2022 đến 2024 [tính từ key_facts]",
+"Kết luận so sánh 2022-2024: DGC biến động biên lợi nhuận mạnh hơn HPG [tính từ key_facts]"
+],
+"negative_facts": [
+"KHÔNG kết luận unanswerable; dữ liệu công khai đủ để so sánh",
+"KHÔNG dùng riêng biên gộp HPG 2022 nếu chưa verify chắc chắn; có thể kết luận bằng biên LNST đã tính được",
+"KHÔNG nhầm LNST sau lợi ích CĐTS của DGC với LNST hợp nhất trước lợi ích CĐTS nếu nguồn phân biệt"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+}
+]

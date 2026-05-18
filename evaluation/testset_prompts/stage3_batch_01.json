@@ -1,0 +1,235 @@
+
+[
+  {
+    "id": "A-003",
+    "question": "P/E là gì vậy ạ? Khi đọc báo cáo về FPT thì P/E cao hay thấp thường nói lên điều gì?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "P/E",
+      "FPT"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "A-005",
+    "question": "NIM của ngân hàng là gì? Em thấy VCB hay được phân tích bằng NIM nên muốn hiểu bản chất chỉ số này.",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "NIM",
+      "VCB"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "A-009",
+    "question": "P/B là gì? Với cổ phiếu ngân hàng như BID hoặc ACB thì chỉ số này thường được hiểu ra sao?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "P/B",
+      "BID",
+      "ACB"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "A-011",
+    "question": "EBITDA là gì ạ? Em thấy khi phân tích GAS hay PLX có lúc dùng EBITDA thay vì lợi nhuận ròng.",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "EBITDA",
+      "GAS",
+      "PLX"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "A-012",
+    "question": "Vốn hóa thị trường là gì? Nó có phải là giá trị thật của công ty như VIC không?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "market_cap",
+      "VIC"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "A-013",
+    "question": "Free cash flow là gì và vì sao nhà đầu tư quan tâm đến dòng tiền tự do?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "free_cash_flow"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "A-014",
+    "question": "Hàng tồn kho trong báo cáo tài chính là gì? Với PNJ thì khoản mục này nên được hiểu thế nào?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "inventory",
+      "PNJ"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "A-019",
+    "question": "Chi phí bán hàng là gì? Với doanh nghiệp bán lẻ như MWG thì khoản này phản ánh điều gì?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "selling_expenses",
+      "MWG"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "A-020",
+    "question": "Nợ xấu của ngân hàng là gì? Khi học về MBB thì em nên hiểu tỷ lệ nợ xấu như thế nào?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "non_performing_loan",
+      "MBB"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "A-022",
+    "question": "Book value là gì? Với cổ phiếu chứng khoán như SSI hay VND thì giá trị sổ sách có ý nghĩa gì?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "book_value",
+      "SSI",
+      "VND"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  }
+]

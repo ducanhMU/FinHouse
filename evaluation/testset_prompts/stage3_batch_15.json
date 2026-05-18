@@ -1,0 +1,240 @@
+
+[
+  {
+    "id": "D-024",
+    "question": "HPG, DGC và DCM trong giai đoạn 2022-2024: cổ phiếu chu kỳ nào có lợi nhuận biến động mạnh nhất?",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "HPG",
+      "DGC",
+      "DCM"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-025",
+    "question": "VIC, VHM và KDH giai đoạn 2022-2024: doanh nghiệp bất động sản nào giảm đòn bẩy tài chính rõ nhất?",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "VIC",
+      "VHM",
+      "KDH"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-026",
+    "question": "SSI, VND và HCM từ 2022 đến 2024: so sánh ROE, lợi nhuận sau thuế và vốn chủ sở hữu để xếp hạng hiệu quả công ty chứng khoán.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "SSI",
+      "VND",
+      "HCM"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-027",
+    "question": "GAS, PLX và POW giai đoạn 2022-2024: doanh nghiệp năng lượng nào giữ dòng tiền kinh doanh ổn định nhất?",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "GAS",
+      "PLX",
+      "POW"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-028",
+    "question": "SAB, MSN và VNM giai đoạn 2022-2024: so sánh xu hướng biên gộp để đánh giá sức mạnh định giá của nhóm tiêu dùng.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "SAB",
+      "MSN",
+      "VNM"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-029",
+    "question": "DPM, DCM và DGC trong 2022-2024: xếp hạng theo khả năng chuyển lợi nhuận kế toán thành dòng tiền kinh doanh.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "DPM",
+      "DCM",
+      "DGC"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-030",
+    "question": "REE, GVR và PLX giai đoạn 2022-2024: so sánh ROA, ROE và biên lợi nhuận ròng để xem doanh nghiệp nào sử dụng tài sản hiệu quả hơn.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "REE",
+      "GVR",
+      "PLX"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-031",
+    "question": "So sánh VNM và PNJ năm 2024 theo biên lợi nhuận gộp, biên lợi nhuận ròng và ROE để xem doanh nghiệp tiêu dùng nào tạo lợi nhuận hiệu quả hơn.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "VNM",
+      "PNJ"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-032",
+    "question": "FPT và REE năm 2024: so sánh ROE, dòng tiền kinh doanh và mức nợ vay để đánh giá doanh nghiệp nào có chất lượng tài chính tốt hơn.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "FPT",
+      "REE"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-033",
+    "question": "HPG và DPM năm 2024: doanh nghiệp chu kỳ nào có biên gộp, lợi nhuận sau thuế và dòng tiền kinh doanh tốt hơn?",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "HPG",
+      "DPM"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  }
+]

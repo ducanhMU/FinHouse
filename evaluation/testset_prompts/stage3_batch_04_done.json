@@ -1,0 +1,456 @@
+[
+  {
+    "id": "B-014",
+    "question": "GAS năm 2024 dòng tiền từ hoạt động kinh doanh bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "GAS"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, lưu chuyển tiền thuần từ hoạt động kinh doanh hợp nhất của PV GAS (GAS) đạt 9.035 tỷ đồng [1][web:pvgas]. Con số này giảm so với mức 13.827 tỷ đồng năm 2023 [1]. Trong cùng năm, GAS ghi nhận doanh thu thuần hợp nhất khoảng 103.564 tỷ đồng và lợi nhuận sau thuế khoảng 10.590 tỷ đồng [web:dnse][web:baomoi].",
+    "sources": [
+      "GAS_BCTN24.pdf"
+    ],
+    "web_sources": [
+      "[https://www.pvgas.com.vn/quan-he-co-%C4%91ong/bao-cao-thuong-nien-nam-2024](https://www.pvgas.com.vn/quan-he-co-%C4%91ong/bao-cao-thuong-nien-nam-2024)",
+      "[https://www.pvgas.com.vn/quan-he-co-%C4%91ong/bao-cao-tai-chinh-nam-2024-hop-nhat](https://www.pvgas.com.vn/quan-he-co-%C4%91ong/bao-cao-tai-chinh-nam-2024-hop-nhat)",
+      "[https://www.dnse.com.vn/senses/tin-tuc/pv-gas-at-doanh-thu-cao-nhat-lich-su-moi-ngay-thu-ve-khoang-4-ty-ong-lai-tien-gui-ngan-hang-34093880](https://www.dnse.com.vn/senses/tin-tuc/pv-gas-at-doanh-thu-cao-nhat-lich-su-moi-ngay-thu-ve-khoang-4-ty-ong-lai-tien-gui-ngan-hang-34093880)",
+      "[https://baomoi.com/doanh-thu-tang-vot-nhung-loi-nhuan-ca-nam-2024-cua-pv-gas-gas-lai-di-lui-c51354774.epi](https://baomoi.com/doanh-thu-tang-vot-nhung-loi-nhuan-ca-nam-2024-cua-pv-gas-gas-lai-di-lui-c51354774.epi)"
+    ],
+    "key_facts": [
+      "Dòng tiền HĐKD 2024 của GAS = 9.035 tỷ đồng (hợp nhất) [pvgas]",
+      "Dòng tiền HĐKD 2023 của GAS = 13.827 tỷ đồng (hợp nhất) [pvgas]",
+      "Dòng tiền HĐKD 2024 của GAS giảm so với năm 2023 [pvgas]",
+      "Doanh thu thuần 2024 của GAS = 103.564 tỷ đồng (hợp nhất) [dnse]",
+      "Tăng trưởng doanh thu thuần 2024 của GAS = 15% YoY [dnse]",
+      "LNST 2024 của GAS = 10.590 tỷ đồng (hợp nhất) [dnse]",
+      "Tăng trưởng LNST 2024 của GAS = -10% YoY [dnse]",
+      "Lãi từ tiền gửi, tiền cho vay năm 2024 của GAS = hơn 1.466 tỷ đồng [dnse]"
+    ],
+    "negative_facts": [
+      "KHÔNG lấy nhầm dòng tiền từ hoạt động đầu tư hoặc hoạt động tài chính",
+      "KHÔNG lấy số 13.827 tỷ đồng của năm 2023 làm dòng tiền HĐKD 2024",
+      "KHÔNG nhầm dòng tiền HĐKD với lợi nhuận sau thuế"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-015",
+    "question": "PNJ 2024 hàng tồn kho cuối kỳ bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "PNJ"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Tại ngày 31/12/2024, hàng tồn kho cuối kỳ của PNJ đạt 13.015 tỷ đồng theo giá trị thuần sau dự phòng giảm giá hàng tồn kho [web:pnj][web:daibieunhandan]. Giá gốc hàng tồn kho là 13.074.586.927.914 đồng và dự phòng giảm giá hàng tồn kho là 59.416.450.603 đồng, nên giá trị thuần xấp xỉ 13.015 tỷ đồng [web:pnj]. Trong cơ cấu tồn kho, thành phẩm khoảng 8.466 tỷ đồng và hàng hóa khoảng 3.677 tỷ đồng [web:daibieunhandan].",
+    "sources": [],
+    "web_sources": [
+      "[https://cdn.pnj.io/images/quan-he-co-dong/2025/20250416-PNJ-Bao-cao-thuong-nien-2024-vi.pdf](https://cdn.pnj.io/images/quan-he-co-dong/2025/20250416-PNJ-Bao-cao-thuong-nien-2024-vi.pdf)",
+      "[https://static2.vietstock.vn/data/HOSE/2024/BCTN/VN/PNJ_Baocaothuongnien_2024.pdf](https://static2.vietstock.vn/data/HOSE/2024/BCTN/VN/PNJ_Baocaothuongnien_2024.pdf)",
+      "[https://daibieunhandan.vn/giua-con-sot-vang-cat-trong-kho-hon-12-000-ty-thanh-pham-hang-hoa-nhung-pnj-gay-bat-ngo-khi-bao-doanh-thu-va-loi-nhuan-sut-giam-10370318.html](https://daibieunhandan.vn/giua-con-sot-vang-cat-trong-kho-hon-12-000-ty-thanh-pham-hang-hoa-nhung-pnj-gay-bat-ngo-khi-bao-doanh-thu-va-loi-nhuan-sut-giam-10370318.html)",
+      "[https://www.pnj.com.vn/quan-he-co-dong/bao-cao-thuong-nien/](https://www.pnj.com.vn/quan-he-co-dong/bao-cao-thuong-nien/)",
+      "[https://www.pnj.com.vn/quan-he-co-dong/bao-cao-tai-chinh/](https://www.pnj.com.vn/quan-he-co-dong/bao-cao-tai-chinh/)"
+    ],
+    "key_facts": [
+      "Hàng tồn kho cuối kỳ 31/12/2024 của PNJ = 13.015 tỷ đồng (hợp nhất, giá trị thuần) [pnj]",
+      "Giá gốc hàng tồn kho tại 31/12/2024 của PNJ = 13.074.586.927.914 đồng [pnj]",
+      "Dự phòng giảm giá hàng tồn kho tại 31/12/2024 của PNJ = 59.416.450.603 đồng [pnj]",
+      "Hàng tồn kho cuối kỳ 31/12/2023 của PNJ = khoảng 10.941 tỷ đồng (giá trị thuần) [pnj]",
+      "Hàng tồn kho 31/12/2024 của PNJ tăng khoảng 19% so với năm 2023 [daibieunhandan]",
+      "Thành phẩm trong hàng tồn kho 31/12/2024 của PNJ = hơn 8.466 tỷ đồng [daibieunhandan]",
+      "Hàng hóa trong hàng tồn kho 31/12/2024 của PNJ = hơn 3.677 tỷ đồng [daibieunhandan]",
+      "Nguyên vật liệu trong hàng tồn kho 31/12/2024 của PNJ = gần 635 tỷ đồng [daibieunhandan]",
+      "Hàng tồn kho luân chuyển dùng làm tài sản thế chấp tại 31/12/2024 của PNJ = 2.930 tỷ đồng [pnj]",
+      "Hàng tồn kho luân chuyển dùng làm tài sản thế chấp tại 31/12/2023 của PNJ = 3.990 tỷ đồng [pnj]"
+    ],
+    "negative_facts": [
+      "KHÔNG nhầm giá gốc hàng tồn kho 13.074,6 tỷ đồng với giá trị thuần 13.015 tỷ đồng",
+      "KHÔNG dùng số hàng tồn kho thế chấp 2.930 tỷ đồng làm tổng hàng tồn kho",
+      "KHÔNG lấy số liệu hàng tồn kho riêng lẻ nếu câu hỏi yêu cầu PNJ hợp nhất"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-016",
+    "question": "SSI năm 2024 vốn chủ sở hữu là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "SSI"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Tính đến cuối năm 2024, vốn chủ sở hữu của CTCP Chứng khoán SSI đạt hơn 26.827 tỷ đồng [1][web:ssi]. Tổng tài sản cuối năm 2024 đạt hơn 73.507 tỷ đồng; vốn chủ sở hữu tăng khoảng 15% so với năm 2023, khi SSI ghi nhận vốn chủ sở hữu khoảng 23.241 tỷ đồng [1][web:ssi].",
+    "sources": [
+      "SSI_BCTN24.pdf"
+    ],
+    "web_sources": [
+      "[https://www.ssi.com.vn/upload/files/IR/Reports/SSI_BCTN2024_VN.pdf](https://www.ssi.com.vn/upload/files/IR/Reports/SSI_BCTN2024_VN.pdf)",
+      "[https://www.ssi.com.vn/upload/files/IR/5_20250327_SSI_Cac_Bao_cao_va_To_trinh_Reports_and_Submissions_AGM2025.pdf](https://www.ssi.com.vn/upload/files/IR/5_20250327_SSI_Cac_Bao_cao_va_To_trinh_Reports_and_Submissions_AGM2025.pdf)",
+      "[https://www.ssi.com.vn/quan-he-nha-dau-tu/bao-cao-thuong-nien](https://www.ssi.com.vn/quan-he-nha-dau-tu/bao-cao-thuong-nien)",
+      "[https://vietstock.vn/2025/04/ssi-bao-cao-thuong-nien-nam-2024-737-1293307.htm](https://vietstock.vn/2025/04/ssi-bao-cao-thuong-nien-nam-2024-737-1293307.htm)"
+    ],
+    "key_facts": [
+      "Vốn chủ sở hữu tại 31/12/2024 của SSI = hơn 26.827 tỷ đồng [ssi]",
+      "Tổng tài sản tại 31/12/2024 của SSI = hơn 73.507 tỷ đồng [ssi]",
+      "Vốn chủ sở hữu tại 31/12/2023 của SSI = khoảng 23.241 tỷ đồng [SSI_BCTN24]",
+      "Tăng trưởng vốn chủ sở hữu 2024 của SSI = khoảng 15% YoY [SSI_BCTN24]",
+      "SSI đứng số 1 về quy mô vốn chủ sở hữu trong nhóm công ty chứng khoán theo BCTN 2024 [SSI_BCTN24]"
+    ],
+    "negative_facts": [
+      "KHÔNG lấy nhầm vốn chủ sở hữu 2023 khoảng 23.241 tỷ đồng làm vốn chủ sở hữu 2024",
+      "KHÔNG nhầm vốn chủ sở hữu 26.827 tỷ đồng với tổng tài sản 73.507 tỷ đồng",
+      "KHÔNG ghi thiếu đơn vị tỷ đồng"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-017",
+    "question": "DGC năm 2024 biên lợi nhuận ròng bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "DGC"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, DGC ghi nhận doanh thu thuần 9.864 tỷ đồng và lợi nhuận sau thuế 3.107 tỷ đồng [1][web:dnse]. Theo công thức biên lợi nhuận ròng = lợi nhuận sau thuế / doanh thu thuần, biên lợi nhuận ròng năm 2024 của DGC xấp xỉ 31,50%. Con số này phù hợp với đáp án 31,5% nếu làm tròn một chữ số thập phân.",
+    "sources": [
+      "DGC_BCTN24.pdf"
+    ],
+    "web_sources": [
+      "[https://ducgiangchem.vn/category/quan-he-co-dong/bao-cao-thuong-nien/](https://ducgiangchem.vn/category/quan-he-co-dong/bao-cao-thuong-nien/)",
+      "[https://vietstock.vn/2025/03/dgc-bao-cao-thuong-nien-nam-2024-737-1281776.htm](https://vietstock.vn/2025/03/dgc-bao-cao-thuong-nien-nam-2024-737-1281776.htm)",
+      "[https://www.dnse.com.vn/senses/tin-tuc/chu-tich-hoa-chat-uc-giang-dgc-noi-ve-da-bs-kha-nang-lai-1000-ty-toi-khong-hao-hung-gi-voi-bs-nhung-co-at-thi-toi-phai-lam-35016985](https://www.dnse.com.vn/senses/tin-tuc/chu-tich-hoa-chat-uc-giang-dgc-noi-ve-da-bs-kha-nang-lai-1000-ty-toi-khong-hao-hung-gi-voi-bs-nhung-co-at-thi-toi-phai-lam-35016985)",
+      "[https://image.vfs.com.vn/cmsupload/VFS-Bao-cao-ngan-doanh-nghiep-DGC.pdf](https://image.vfs.com.vn/cmsupload/VFS-Bao-cao-ngan-doanh-nghiep-DGC.pdf)",
+      "[https://doanhnhan.baophapluat.vn/hoa-chat-duc-giang-dgc-bao-lai-quy-iv2024-tang-nhe-co-hon-10500-ty-dong-tien-dau-tu-tai-chinh-ngan-han-80402.html](https://doanhnhan.baophapluat.vn/hoa-chat-duc-giang-dgc-bao-lai-quy-iv2024-tang-nhe-co-hon-10500-ty-dong-tien-dau-tu-tai-chinh-ngan-han-80402.html)"
+    ],
+    "key_facts": [
+      "Doanh thu thuần 2024 của DGC = 9.864 tỷ đồng [dnse]",
+      "LNST 2024 của DGC = 3.107 tỷ đồng [dnse]",
+      "Biên lợi nhuận ròng 2024 của DGC = 31,50% theo phép tính 3.107 / 9.864 [dnse]",
+      "Tăng trưởng doanh thu thuần 2024 của DGC = 1,2% YoY [dnse]",
+      "Tăng trưởng LNST 2024 của DGC = -4,5% YoY [dnse]",
+      "Doanh thu thuần 2024 của DGC = 9.864,97 tỷ đồng theo báo cáo phân tích VFS [vfs]",
+      "DGC hoàn thành 96,76% mục tiêu doanh thu năm 2024 [baophapluat]",
+      "DGC vượt nhẹ mục tiêu lợi nhuận sau thuế năm 2024 [baophapluat]"
+    ],
+    "negative_facts": [
+      "KHÔNG lấy nhầm biên lợi nhuận ròng 2023 khoảng 33,36% làm năm 2024",
+      "KHÔNG tính biên lợi nhuận ròng bằng lợi nhuận trước thuế / doanh thu",
+      "KHÔNG nhầm doanh thu thuần với tổng doanh thu"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-018",
+    "question": "DPM 2024 P/B bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "DPM"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Không xác định được một con số P/B năm 2024 duy nhất cho Đạm Phú Mỹ (DPM) từ nguồn uy tín tính đến 2026-05-18, do P/B phụ thuộc ngày chốt giá cổ phiếu và giá trị sổ sách dùng để tính [web:vietstock][web:cafef]. DPM đã công bố Báo cáo thường niên năm 2024 (Vietstock ghi nhận ngày 17/04/2025, CafeF ngày 16/04/2025), có bản online và PDF trên website doanh nghiệp [web:dpm][web:vietstock][web:cafef]. Để có P/B 2024 chính xác cần lấy giá trị sổ sách mỗi cổ phiếu từ BCTC kiểm toán 2024 và giá đóng cửa tại một ngày xác định.",
+    "sources": [],
+    "web_sources": [
+      "[https://dpm.vn/bao-cao-thuong-nien/bao-cao-thuong-nien-nam-2024-1236](https://dpm.vn/bao-cao-thuong-nien/bao-cao-thuong-nien-nam-2024-1236)",
+      "[https://dpm.vn/BCTN-DPM-2024/index.html](https://dpm.vn/BCTN-DPM-2024/index.html)",
+      "[https://dpm.vn/BCTN-DPM-2024/pdf/BCTN-DPM-2024.pdf](https://dpm.vn/BCTN-DPM-2024/pdf/BCTN-DPM-2024.pdf)",
+      "[https://vietstock.vn/2025/04/dpm-bao-cao-thuong-nien-nam-2024-737-1296995.htm](https://vietstock.vn/2025/04/dpm-bao-cao-thuong-nien-nam-2024-737-1296995.htm)",
+      "[https://cafef.vn/du-lieu/DPM-2173716/dpm-bao-cao-thuong-nien-2024.chn](https://cafef.vn/du-lieu/DPM-2173716/dpm-bao-cao-thuong-nien-2024.chn)"
+    ],
+    "key_facts": [
+      "không verify được một P/B duy nhất cho DPM năm 2024 từ nguồn uy tín tính đến 2026-05-18 vì P/B phụ thuộc ngày giá cổ phiếu và giá trị sổ sách dùng để tính",
+      "DPM công bố Báo cáo thường niên năm 2024 trên website doanh nghiệp [dpm]",
+      "DPM có Báo cáo thường niên 2024 dạng online và PDF [dpm]",
+      "Vietstock ghi nhận DPM công bố Báo cáo thường niên năm 2024 ngày 17/04/2025 [vietstock]",
+      "CafeF ghi nhận DPM công bố Báo cáo thường niên 2024 ngày 16/04/2025 [cafef]"
+    ],
+    "negative_facts": [
+      "KHÔNG dùng P/B hiện tại năm 2026 để trả lời P/B năm 2024",
+      "KHÔNG đưa một P/B 2024 nếu không nêu rõ ngày giá cổ phiếu và BVPS dùng để tính",
+      "KHÔNG nhầm P/B với P/E"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": false,
+    "corrected": false
+  },
+  {
+    "id": "B-019",
+    "question": "Vinamilk năm 2023 EPS bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VNM"
+    ],
+    "expected_timeframe": "2023",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2023, lãi cơ bản trên cổ phiếu (EPS) của Vinamilk (VNM) theo báo cáo tài chính VAS đạt 3.796 đồng/cổ phiếu [1][web:vinamilk]. Theo báo cáo thường niên phiên bản tiếng Anh/IFRS, EPS năm 2023 đạt 3.885 đồng/cổ phiếu [web:vinamilk]. Khi dùng cho benchmark, cần ghi rõ chuẩn mực: VAS = 3.796 đồng/cp, IFRS = 3.885 đồng/cp.",
+    "sources": [
+      "VNM_BCTN23.pdf"
+    ],
+    "web_sources": [
+      "[https://www.vinamilk.com.vn/bao-cao-thuong-nien/bao-cao/2023/index.html](https://www.vinamilk.com.vn/bao-cao-thuong-nien/bao-cao/2023/index.html)",
+      "[https://www.vinamilk.com.vn/bao-cao-thuong-nien/bao-cao/2023/_astro/Vinamilk%20BCTN%202023.nwYxiaAn.pdf](https://www.vinamilk.com.vn/bao-cao-thuong-nien/bao-cao/2023/_astro/Vinamilk%20BCTN%202023.nwYxiaAn.pdf)",
+      "[https://www.vinamilk.com.vn/bao-cao-thuong-nien/bao-cao/2023/_astro/VINAMILK-ANNUAL-REPORT-2023.CA8i9BsJ.pdf](https://www.vinamilk.com.vn/bao-cao-thuong-nien/bao-cao/2023/_astro/VINAMILK-ANNUAL-REPORT-2023.CA8i9BsJ.pdf)",
+      "[https://www.vinamilk.com.vn/investor/reports/annual](https://www.vinamilk.com.vn/investor/reports/annual)"
+    ],
+    "key_facts": [
+      "EPS 2023 của VNM theo VAS = 3.796 đồng/cổ phiếu [vinamilk]",
+      "EPS 2023 của VNM theo IFRS = 3.885 đồng/cổ phiếu [vinamilk]",
+      "EPS VAS và EPS IFRS của VNM năm 2023 khác nhau do chuẩn mực kế toán khác nhau [vinamilk]",
+      "Vinamilk công bố Báo cáo thường niên 2023 trên website nhà đầu tư [vinamilk]",
+      "Vinamilk có bản Báo cáo thường niên 2023 tiếng Việt và tiếng Anh [vinamilk]"
+    ],
+    "negative_facts": [
+      "KHÔNG lấy nhầm EPS 2022 = 3.632 đồng/cổ phiếu làm EPS 2023",
+      "KHÔNG trộn EPS VAS 3.796 đồng với EPS IFRS 3.885 đồng mà không ghi chuẩn mực",
+      "KHÔNG nhầm EPS với cổ tức tiền mặt"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-020",
+    "question": "FPT 2023 ROE là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "FPT"
+    ],
+    "expected_timeframe": "2023",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2023, ROE của FPT đạt 27,9%, tăng 20 điểm cơ bản so với mức 27,7% năm 2022 [1][web:fpt]. Báo cáo thường niên 2023 của FPT cũng ghi nhận ROA năm 2023 là 13,6%, vì vậy cần tránh nhầm ROA với ROE [1][web:fpt].",
+    "sources": [
+      "FPT_BCTN23.pdf"
+    ],
+    "web_sources": [
+      "[https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2024/march/cbtt_2023-fpt-bctn-vn.pdf](https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2024/march/cbtt_2023-fpt-bctn-vn.pdf)",
+      "[https://fpt.com/vi/nha-dau-tu/bao-cao-thuong-nien](https://fpt.com/vi/nha-dau-tu/bao-cao-thuong-nien)",
+      "[https://vietstock.vn/2024/03/fpt-bao-cao-thuong-nien-nam-2023-737-1169096.htm](https://vietstock.vn/2024/03/fpt-bao-cao-thuong-nien-nam-2023-737-1169096.htm)"
+    ],
+    "key_facts": [
+      "ROE 2023 của FPT = 27,9% [fpt]",
+      "ROE 2022 của FPT = 27,7% [fpt]",
+      "ROE 2023 của FPT tăng 20 điểm cơ bản so với năm 2022 [fpt]",
+      "ROA 2023 của FPT = 13,6% [fpt]",
+      "FPT công bố Báo cáo thường niên 2023 tháng 03/2024 [fpt]",
+      "Vietstock ghi nhận FPT công bố Báo cáo thường niên 2023 ngày 27/03/2024 [vietstock]"
+    ],
+    "negative_facts": [
+      "KHÔNG lấy nhầm ROE 2022 = 27,7% làm ROE 2023",
+      "KHÔNG nhầm ROA 2023 = 13,6% với ROE 2023 = 27,9%",
+      "KHÔNG nói ROE tăng 20% vì đúng là tăng 20 điểm cơ bản"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-021",
+    "question": "HPG năm 2023 lợi nhuận sau thuế bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "HPG"
+    ],
+    "expected_timeframe": "2023",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2023, lợi nhuận sau thuế của Tập đoàn Hòa Phát (HPG) đạt 6.800 tỷ đồng [1][web:hoaphat]. Cùng năm, HPG ghi nhận doanh thu 120.355 tỷ đồng, giảm 16% so với năm trước; lợi nhuận sau thuế hoàn thành 85% kế hoạch năm [web:hoaphat][web:vneconomy].",
+    "sources": [
+      "HPG_BCTN23.pdf"
+    ],
+    "web_sources": [
+      "[https://www.hoaphat.com.vn/tin-tuc/hoa-phat-dat-6-800-ty-dong-loi-nhuan-sau-thue-trong-nam-2023.html](https://www.hoaphat.com.vn/tin-tuc/hoa-phat-dat-6-800-ty-dong-loi-nhuan-sau-thue-trong-nam-2023.html)",
+      "[https://file.hoaphat.com.vn/hoaphat-com-vn/2024/05/bao-cao-thuong-nien-2023.pdf](https://file.hoaphat.com.vn/hoaphat-com-vn/2024/05/bao-cao-thuong-nien-2023.pdf)",
+      "[https://vneconomy.vn/nam-2023-hoa-phat-bao-lai-dat-6-800-ty-dong-loi-nhuan-hoan-thanh-85-ke-hoach-nam.htm](https://vneconomy.vn/nam-2023-hoa-phat-bao-lai-dat-6-800-ty-dong-loi-nhuan-hoan-thanh-85-ke-hoach-nam.htm)",
+      "[https://www.tinnhanhchungkhoan.vn/hoa-phat-hpg-dat-6800-ty-dong-loi-nhuan-sau-thue-trong-nam-2023-post338249.html](https://www.tinnhanhchungkhoan.vn/hoa-phat-hpg-dat-6800-ty-dong-loi-nhuan-sau-thue-trong-nam-2023-post338249.html)"
+    ],
+    "key_facts": [
+      "LNST 2023 của HPG = 6.800 tỷ đồng [hoaphat]",
+      "Doanh thu 2023 của HPG = 120.355 tỷ đồng [hoaphat]",
+      "Tăng trưởng doanh thu 2023 của HPG = -16% YoY [hoaphat]",
+      "HPG hoàn thành 85% kế hoạch lợi nhuận năm 2023 [hoaphat]",
+      "Lợi nhuận sau thuế quý IV/2023 của HPG = 2.969 tỷ đồng [hoaphat]",
+      "Doanh thu quý IV/2023 của HPG = 34.925 tỷ đồng [hoaphat]",
+      "Sản lượng thép thô 2023 của HPG = 6,7 triệu tấn [tinnhanhchungkhoan]",
+      "Sản lượng bán hàng thép HRC, thép xây dựng, thép chất lượng cao và phôi thép 2023 của HPG = 6,72 triệu tấn [tinnhanhchungkhoan]"
+    ],
+    "negative_facts": [
+      "KHÔNG lấy nhầm lợi nhuận trước thuế 2023 làm lợi nhuận sau thuế",
+      "KHÔNG lấy nhầm LNST 2022 = 8.444 tỷ đồng làm LNST 2023",
+      "KHÔNG nhầm doanh thu 120.355 tỷ đồng với lợi nhuận sau thuế 6.800 tỷ đồng"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-022",
+    "question": "VCB 2023 P/B bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VCB"
+    ],
+    "expected_timeframe": "2023",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Không xác định được một con số P/B năm 2023 duy nhất cho Vietcombank (VCB) từ nguồn uy tín tính đến 2026-05-18, do P/B phụ thuộc ngày chốt giá cổ phiếu và giá trị sổ sách dùng để tính [web:vietcombank]. Theo Báo cáo thường niên 2023 công bố trên cổng quan hệ nhà đầu tư: lợi nhuận trước thuế 2023 đạt 41,2 nghìn tỷ đồng, ROAE khoảng 21,99%, tổng tài sản tại 31/12/2023 hơn 1,84 triệu tỷ đồng, dư nợ tín dụng khoảng 1,28 triệu tỷ đồng (+10,8% so với cuối 2022) [web:vietcombank]. Cần giá trị sổ sách mỗi cổ phiếu từ vốn chủ sở hữu cuối 2023 và giá cổ phiếu tại một ngày xác định để tính P/B.",
+    "sources": [],
+    "web_sources": [
+      "[https://portal.vietcombank.com.vn/VCBDigital/2023/BCTN/vi/](https://portal.vietcombank.com.vn/VCBDigital/2023/BCTN/vi/)",
+      "[https://portal.vietcombank.com.vn/VCBDigital/2023/BCTN/pdf/vi/Bao-cao-thuong-nien.pdf](https://portal.vietcombank.com.vn/VCBDigital/2023/BCTN/pdf/vi/Bao-cao-thuong-nien.pdf)",
+      "[https://static2.vietstock.vn/vietstock/2024/4/17/20240417_20240417___vcb___bao_cao_thuong_nien_nam_2023.pdf](https://static2.vietstock.vn/vietstock/2024/4/17/20240417_20240417___vcb___bao_cao_thuong_nien_nam_2023.pdf)",
+      "[https://portal.vietcombank.com.vn/VCBDigital/2023/BCTN/vi/quan-tri-doanh-nghiep/](https://portal.vietcombank.com.vn/VCBDigital/2023/BCTN/vi/quan-tri-doanh-nghiep/)",
+      "[https://portal.vietcombank.com.vn/VCBDigital/2023/BCTN/en/](https://portal.vietcombank.com.vn/VCBDigital/2023/BCTN/en/)"
+    ],
+    "key_facts": [
+      "không verify được một P/B duy nhất cho VCB năm 2023 từ nguồn uy tín tính đến 2026-05-18 vì P/B phụ thuộc ngày giá cổ phiếu và giá trị sổ sách dùng để tính",
+      "Vietcombank công bố Báo cáo thường niên 2023 trên cổng quan hệ nhà đầu tư [vietcombank]",
+      "Lợi nhuận trước thuế 2023 của VCB = 41,2 nghìn tỷ đồng [vietcombank]",
+      "ROAE 2023 của VCB = khoảng 21,99% [vietcombank]",
+      "Tổng tài sản tại 31/12/2023 của VCB = hơn 1,84 triệu tỷ đồng [vietcombank]",
+      "Dư nợ tín dụng tại 31/12/2023 của VCB = khoảng 1,28 triệu tỷ đồng [vietcombank]",
+      "Tăng trưởng dư nợ tín dụng 2023 của VCB = 10,8% so với cuối năm 2022 [vietcombank]"
+    ],
+    "negative_facts": [
+      "KHÔNG dùng P/B hiện tại năm 2026 để trả lời P/B năm 2023",
+      "KHÔNG đưa P/B 2023 nếu không nêu rõ ngày giá cổ phiếu và BVPS dùng để tính",
+      "KHÔNG nhầm P/B với P/E hoặc ROE"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": false,
+    "corrected": false
+  },
+  {
+    "id": "B-023",
+    "question": "VHM năm 2023 cổ tức bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VHM"
+    ],
+    "expected_timeframe": "2023",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "VHM không chi trả cổ tức cho năm tài chính 2023; HĐQT/ban lãnh đạo cho biết công ty giữ lại lợi nhuận năm 2022 và 2023 để chuẩn bị nguồn vốn trong bối cảnh thị trường bất động sản còn khó khăn [web:nhadautu][web:dnse]. Thông tin sau đó cũng xác nhận VHM không chi trả cổ tức cho các năm 2022-2024; lần gần nhất trước đó VHM trả cổ tức là cho năm tài chính 2021 [web:cafef].",
+    "sources": [],
+    "web_sources": [
+      "[https://nhadautu.vn/ceo-vinhomes-noi-ly-do-lai-lon-nhung-chua-chia-co-tuc-d85366.html](https://nhadautu.vn/ceo-vinhomes-noi-ly-do-lai-lon-nhung-chua-chia-co-tuc-d85366.html)",
+      "[https://www.dnse.com.vn/senses/tin-tuc/ceo-vinhomes-noi-ly-do-lai-lon-nhung-chua-chia-co-tuc-33703124](https://www.dnse.com.vn/senses/tin-tuc/ceo-vinhomes-noi-ly-do-lai-lon-nhung-chua-chia-co-tuc-33703124)",
+      "[https://cafef.vn/vinhomes-chi-24600-ty-tra-co-tuc-tien-mat-60-trong-luc-lam-hang-loat-du-an-khung-nhat-lich-su-tien-co-cang-188260427225907088.chn](https://cafef.vn/vinhomes-chi-24600-ty-tra-co-tuc-tien-mat-60-trong-luc-lam-hang-loat-du-an-khung-nhat-lich-su-tien-co-cang-188260427225907088.chn)",
+      "[https://gcp-cdn.vinhomes.vn/cms-data/20240425%20-%20VHM%20-%20CBTT%20Bien%20ban%20hop%20va%20Nghi%20quyet%20DHDCD%20TN2024_F_1717059573.pdf](https://gcp-cdn.vinhomes.vn/cms-data/20240425%20-%20VHM%20-%20CBTT%20Bien%20ban%20hop%20va%20Nghi%20quyet%20DHDCD%20TN2024_F_1717059573.pdf)",
+      "[https://vn.investing.com/equities/vinhomes-dividends](https://vn.investing.com/equities/vinhomes-dividends)"
+    ],
+    "key_facts": [
+      "Cổ tức năm tài chính 2023 của VHM = 0 đồng/cổ phiếu [nhadautu]",
+      "VHM không chia cổ tức cho năm 2023 [nhadautu]",
+      "VHM giữ lại lợi nhuận năm 2023 để chuẩn bị nguồn vốn và cơ hội đầu tư [nhadautu]",
+      "VHM không chi trả cổ tức cho các năm 2022-2024 theo CafeF [cafef]",
+      "Lần gần nhất trước đó VHM trả cổ tức là cho năm tài chính 2021 [cafef]",
+      "Cổ tức tiền mặt cho năm tài chính 2021 của VHM = 2.000 đồng/cổ phiếu [cafef]"
+    ],
+    "negative_facts": [
+      "KHÔNG bịa cổ tức tiền mặt cho năm tài chính 2023 của VHM",
+      "KHÔNG nhầm cổ tức năm 2026 hoặc kế hoạch 2026 với cổ tức năm 2023",
+      "KHÔNG nhầm cổ tức năm tài chính 2021 với năm tài chính 2023"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  }
+]

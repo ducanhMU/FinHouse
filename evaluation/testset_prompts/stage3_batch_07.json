@@ -1,0 +1,248 @@
+
+[
+  {
+    "id": "B-044",
+    "question": "BID năm 2024 tỷ lệ nợ xấu bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "BID"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-045",
+    "question": "ACB 2024 NIM là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "ACB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-046",
+    "question": "MBB năm 2024 P/B bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "MBB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, hệ số giá trên giá trị sổ sách (P/B) của Ngân hàng Quân Đội (MBB) đạt 1,14 lần. Mức P/B này đã tăng 13,2% so với con số 1,01 lần của năm 2023.",
+    "sources": [
+      "MBB_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "P/B MBB 2024 = 1,14 lần",
+      "Tăng 13,2% so với năm 2023 (1,01 lần)"
+    ],
+    "negative_facts": [
+      "Lấy nhầm P/B của năm 2023 (1,01 lần)"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "B-047",
+    "question": "VHM 2024 lợi nhuận sau thuế thuộc cổ đông công ty mẹ bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VHM"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, lợi nhuận sau thuế thuộc về cổ đông công ty mẹ của Vinhomes (VHM) đạt 31.801 tỷ đồng. Con số này ghi nhận sự sụt giảm nhẹ so với mức 33.371 tỷ đồng đạt được trong năm 2023.",
+    "sources": [
+      "VHM_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Lợi nhuận sau thuế thuộc về cổ đông công ty mẹ VHM 2024 = 31.801 tỷ đồng",
+      "Giảm so với năm 2023 (33.371 tỷ đồng)"
+    ],
+    "negative_facts": [
+      "Lấy nhầm số liệu của lợi nhuận sau thuế hợp nhất (35.072 tỷ đồng)",
+      "Lấy nhầm số liệu của năm 2023"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "B-048",
+    "question": "TCB năm 2024 lợi nhuận trước thuế là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "TCB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-049",
+    "question": "POW năm 2023 doanh thu thuần bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "POW"
+    ],
+    "expected_timeframe": "2023",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-050",
+    "question": "GVR 2023 EPS bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "GVR"
+    ],
+    "expected_timeframe": "2023",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-051",
+    "question": "KDH năm 2023 lãi sau thuế bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "KDH"
+    ],
+    "expected_timeframe": "2023",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-052",
+    "question": "REE 2023 ROE là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "REE"
+    ],
+    "expected_timeframe": "2023",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-053",
+    "question": "VND năm 2023 P/E bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VND"
+    ],
+    "expected_timeframe": "2023",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  }
+]

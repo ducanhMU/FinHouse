@@ -1,0 +1,280 @@
+
+[
+  {
+    "id": "C-034",
+    "question": "KDH năm 2024 có cải thiện chất lượng lợi nhuận không, nếu nhìn vào doanh thu, lợi nhuận sau thuế, biên gộp và hàng tồn kho bất động sản?",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "KDH"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "C-035",
+    "question": "REE năm 2024: phân tích đóng góp từ mảng điện, nước và bất động sản vào doanh thu, lợi nhuận sau thuế và biên lợi nhuận.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "REE"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "C-036",
+    "question": "SSI giai đoạn 2022-2024: phân tích doanh thu hoạt động, lợi nhuận sau thuế, ROE và dư nợ cho vay margin để đánh giá chu kỳ ngành chứng khoán.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "SSI"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Kết quả kinh doanh của CTCP Chứng khoán SSI (SSI) trong giai đoạn 2022-2024 phản ánh rõ nét tính chu kỳ của ngành chứng khoán, có sự đồng pha lớn với thanh khoản và điểm số của thị trường chung:\n\n- **Năm 2022 (Đáy chu kỳ - Thị trường sụt giảm):** Doanh thu thuần của SSI đạt 6.517 tỷ đồng, lợi nhuận sau thuế giảm mạnh xuống mức 1.698 tỷ đồng và ROE chỉ đạt 7,6%. Đây là giai đoạn thị trường đối mặt với nhiều khó khăn, thanh khoản sụt giảm mạnh, kéo theo hiệu quả kinh doanh của toàn ngành đi xuống.\n\n- **Năm 2023 (Giai đoạn phục hồi):** Sự nhạy bén trong việc nắm bắt thị trường giúp SSI ghi nhận doanh thu thuần phục hồi lên 7.281 tỷ đồng, lợi nhuận sau thuế đạt 2.294 tỷ đồng và ROE cải thiện ở mức 9,87%. Tổng dư nợ cho vay (bao gồm cho vay hoạt động ký quỹ và ứng trước tiền bán) tính đến cuối năm 2023 đạt 15.134 tỷ đồng, tăng 36,9% so với cuối năm 2022. Công ty đã chủ động chuẩn bị nguồn lực tài chính dồi dào để đáp ứng kịp thời nhu cầu đòn bẩy khi thị trường khởi sắc trở lại.\n\n- **Năm 2024 (Giai đoạn bứt phá):** Với đà tăng trưởng mạnh mẽ của thị trường, doanh thu thuần bứt phá lên 8.711 tỷ đồng, lợi nhuận sau thuế đạt 2.845 tỷ đồng, và ROE tiếp tục tăng lên mức 10,67%. Đáng chú ý, hoạt động cho vay ký quỹ (margin) là một động lực lớn với dư nợ margin bình quân trong năm đạt 17.745 tỷ đồng, tăng trưởng 41% so với năm trước. Kết quả này thể hiện sự gia tăng vòng quay giao dịch và nhu cầu đòn bẩy tài chính tăng cao từ nhà đầu tư, qua đó thúc đẩy lợi nhuận cốt lõi của công ty.",
+    "sources": [
+      "SSI_BCTN22.pdf",
+      "SSI_BCTN23.pdf",
+      "SSI_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Năm 2022: Doanh thu thuần 6.517 tỷ, LNST 1.698 tỷ, ROE 7,6%",
+      "Năm 2023: Doanh thu thuần 7.281 tỷ, LNST 2.294 tỷ, ROE 9,87%. Dư nợ cho vay tăng 36,9% lên 15.134 tỷ đồng",
+      "Năm 2024: Doanh thu thuần 8.711 tỷ, LNST 2.845 tỷ, ROE 10,67%. Dư nợ margin bình quân tăng 41% đạt 17.745 tỷ đồng",
+      "Biến động của các chỉ số tỷ lệ thuận với chu kỳ bùng nổ, sụt giảm và phục hồi của thị trường chứng khoán"
+    ],
+    "negative_facts": [
+      "Nhận định rằng ngành chứng khoán miễn nhiễm với sự biến động thanh khoản thị trường",
+      "Sử dụng sai số liệu lợi nhuận hoặc doanh thu thuần các năm"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "C-037",
+    "question": "VND từ 2022 đến 2024: doanh thu môi giới, lãi từ tài sản tài chính, lợi nhuận sau thuế và vốn chủ sở hữu biến động như thế nào?",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VND"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "C-038",
+    "question": "HCM giai đoạn 2022-2024: phân tích lợi nhuận sau thuế, ROE, doanh thu môi giới và hoạt động tự doanh để xem động lực tăng trưởng đến từ đâu.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "HCM"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "C-039",
+    "question": "MBB trong Q1-Q4/2024: lợi nhuận trước thuế, NIM, CASA và nợ xấu theo quý cho thấy áp lực lợi nhuận nằm ở quý nào?",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "MBB"
+    ],
+    "expected_timeframe": "Q1-Q4/2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "C-040",
+    "question": "SAB Q1-Q4/2024: phân tích doanh thu, lợi nhuận sau thuế, biên gộp và chi phí bán hàng theo quý để nhận diện mùa vụ tiêu thụ bia.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "SAB"
+    ],
+    "expected_timeframe": "Q1-Q4/2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-001",
+    "question": "So sánh VNM, SAB và MSN năm 2024 theo doanh thu, biên lợi nhuận gộp và lợi nhuận sau thuế; doanh nghiệp nào có chất lượng lợi nhuận tốt nhất?",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "VNM",
+      "SAB",
+      "MSN"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "So sánh các doanh nghiệp trong năm 2024 dựa trên dữ liệu hiện có:\n- **VNM:** Doanh thu thuần đạt 61.824 tỷ đồng, lợi nhuận sau thuế đạt 9.453 tỷ đồng (quy mô lợi nhuận tuyệt đối lớn nhất). Tuy nhiên, các tài liệu chưa cung cấp dữ liệu biên lợi nhuận gộp cụ thể của năm 2024 để so sánh chi tiết.\n- **SAB:** Doanh thu thuần đạt 31.872 tỷ đồng, lợi nhuận sau thuế đạt 4.494 tỷ đồng. Biên lợi nhuận gộp ở mức 29,23%.\n- **MSN:** Tài liệu hiện tại chỉ cung cấp số liệu chi tiết của công ty con cốt lõi là Masan Consumer (MCH). Theo đó, Masan Consumer ghi nhận doanh thu thuần 30.897 tỷ đồng, lợi nhuận sau thuế 7.920 tỷ đồng, với lợi nhuận gộp 14.404 tỷ đồng (tương ứng biên lợi nhuận gộp đạt mức rất cao là 46,6%).\n\n**Đánh giá:** Xét trên các số liệu có sẵn, Masan Consumer (thuộc MSN) có chất lượng lợi nhuận tốt nhất với biên lợi nhuận gộp vượt trội (46,6%), tạo ra 7.920 tỷ đồng lợi nhuận ròng trên nền doanh thu tương đương SAB. VNM dù có quy mô lợi nhuận lớn nhất nhưng thiếu số liệu biên gộp để xếp hạng toàn diện.",
+    "sources": [
+      "Conversation History",
+      "MSN_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "VNM 2024: Doanh thu 61.824 tỷ đồng, LNST 9.453 tỷ đồng (chưa có số liệu biên LNG 2024)",
+      "SAB 2024: Doanh thu 31.872 tỷ đồng, LNST 4.494 tỷ đồng, Biên LNG 29,23%",
+      "Masan Consumer 2024: Doanh thu 30.897 tỷ đồng, LNST 7.920 tỷ đồng, Biên LNG 46,6%",
+      "Masan Consumer có biên lợi nhuận gộp cao nhất"
+    ],
+    "negative_facts": [
+      "Bịa đặt số liệu biên lợi nhuận gộp năm 2024 của VNM",
+      "Lấy số liệu của Masan Consumer (MCH) gán trực tiếp làm số liệu hợp nhất của tập đoàn Masan Group (MSN) mà không giải thích"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "D-002",
+    "question": "Ranking FPT, MWG và PNJ năm 2024 theo tăng trưởng doanh thu và biên lợi nhuận ròng.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "FPT",
+      "MWG",
+      "PNJ"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": "Dựa trên các tài liệu hiện có, xếp hạng giữa FPT và MWG trong năm 2024 (chưa có dữ liệu cho PNJ) như sau:\n\n**1. Tăng trưởng doanh thu:**\n- **FPT (Hạng 1):** Tăng trưởng 19,4% (đạt 62.849 tỷ đồng).\n- **MWG (Hạng 2):** Tăng trưởng 14% (đạt 134.000 tỷ đồng).\n\n**2. Biên lợi nhuận ròng:**\n- **FPT (Hạng 1):** Duy trì ở mức cao xấp xỉ 15% (lợi nhuận sau thuế 9.427 tỷ đồng).\n- **MWG (Hạng 2):** Đạt 2,8% (đang trong quá trình phục hồi, lợi nhuận ròng đạt 3.733 tỷ đồng).\n\nTài liệu không cung cấp dữ liệu năm 2024 cho PNJ nên không thể đưa vào bảng xếp hạng.",
+    "sources": [
+      "Conversation History"
+    ],
+    "key_facts": [
+      "Tăng trưởng doanh thu: FPT (19,4%) > MWG (14%)",
+      "Biên lợi nhuận ròng: FPT (~15%) > MWG (2,8%)",
+      "Thiếu dữ liệu của PNJ"
+    ],
+    "negative_facts": [
+      "Xếp hạng PNJ dù không có dữ liệu",
+      "Xếp MWG cao hơn FPT về tăng trưởng doanh thu"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "D-003",
+    "question": "VCB, BID, TCB, ACB và MBB năm 2024 ngân hàng nào có ROE cao nhất và nợ xấu thấp nhất?",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "VCB",
+      "BID",
+      "TCB",
+      "ACB",
+      "MBB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": "Dựa trên các số liệu hiện có của năm 2024, xếp hạng các ngân hàng như sau:\n\n**1. Về Tỷ suất sinh lời trên vốn chủ sở hữu (ROE):**\n- **ACB** đứng đầu với ROE đạt 21,75%.\n- **MBB** bám sát ở vị trí thứ hai với ROE đạt 21,5%.\n- **VCB** ghi nhận ROE ở mức 20,0%.\n- **BIDV (BID)** có ROE là 19,52%.\n*(Tài liệu chưa cung cấp dữ liệu ROE năm 2024 của TCB).* \n\n**2. Về Tỷ lệ nợ xấu:**\n- **BIDV (BID)** kiểm soát nợ xấu thấp nhất trong các ngân hàng có dữ liệu, ở mức 1,27%.\n- **ACB** ghi nhận tỷ lệ nợ xấu ở mức 1,49%.\n- **MBB** có tỷ lệ nợ xấu ở mức 1,6%.\n*(Tài liệu chưa cung cấp dữ liệu nợ xấu năm 2024 của VCB và TCB).* \n\nNhư vậy, trong nhóm các ngân hàng có đủ số liệu, **ACB** là ngân hàng có ROE cao nhất, trong khi **BIDV** có tỷ lệ nợ xấu thấp nhất.",
+    "sources": [
+      "Conversation History",
+      "MBB_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "ROE: ACB (21,75%) > MBB (21,5%) > VCB (20,0%) > BID (19,52%)",
+      "Nợ xấu: BID (1,27%) < ACB (1,49%) < MBB (1,6%)",
+      "Thiếu dữ liệu về TCB (và thiếu dữ liệu nợ xấu 2024 của VCB)"
+    ],
+    "negative_facts": [
+      "Bịa đặt số liệu ROE và nợ xấu của TCB năm 2024",
+      "Khẳng định VCB có nợ xấu thấp nhất năm 2024 trong khi không có dữ liệu chứng minh"
+    ],
+    "unanswerable": false
+  }
+]

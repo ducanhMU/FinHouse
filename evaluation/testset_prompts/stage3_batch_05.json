@@ -1,0 +1,241 @@
+
+[
+  {
+    "id": "B-024",
+    "question": "MSN 2023 P/E là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "MSN"
+    ],
+    "expected_timeframe": "2023",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-025",
+    "question": "Doanh thu Q1/2024 của MWG bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "MWG"
+    ],
+    "expected_timeframe": "Q1/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-026",
+    "question": "TCB quý 2/2024 lãi trước thuế bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "TCB"
+    ],
+    "expected_timeframe": "Q2/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-027",
+    "question": "ACB Q3/2024 EPS bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "ACB"
+    ],
+    "expected_timeframe": "Q3/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-028",
+    "question": "MBB quý 4/2024 ROE là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "MBB"
+    ],
+    "expected_timeframe": "Q4/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-029",
+    "question": "SSI Q2/2024 lợi nhuận ròng bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "SSI"
+    ],
+    "expected_timeframe": "Q2/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-030",
+    "question": "DPM quý 3/2024 doanh thu bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "DPM"
+    ],
+    "expected_timeframe": "Q3/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-031",
+    "question": "PLX năm 2024 lợi nhuận sau thuế bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "PLX"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, lợi nhuận sau thuế hợp nhất của Tập đoàn Xăng dầu Việt Nam (PLX) đạt hơn 3.161 tỷ đồng. Trong đó, lợi nhuận sau thuế thuộc về cổ đông của công ty mẹ ghi nhận ở mức gần 2.890 tỷ đồng.",
+    "sources": [
+      "PLX_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Lợi nhuận sau thuế hợp nhất PLX 2024 = 3.161 tỷ đồng",
+      "Lợi nhuận thuộc cổ đông công ty mẹ = 2.890 tỷ đồng"
+    ],
+    "negative_facts": [
+      "Lấy nhầm số liệu của năm 2023 (3.077 tỷ đồng)",
+      "Nhầm lẫn giữa lợi nhuận hợp nhất và lợi nhuận của công ty mẹ"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "B-032",
+    "question": "POW 2024 EPS là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "POW"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-033",
+    "question": "GVR năm 2024 ROE bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "GVR"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  }
+]

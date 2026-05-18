@@ -1,0 +1,300 @@
+
+[
+  {
+    "id": "F-024",
+    "question": "Ngành chứng khoán gần đây có tin mới nào về nâng hạng thị trường, hệ thống KRX hoặc thanh khoản đột biến?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "securities_sector",
+      "market_upgrade",
+      "KRX",
+      "market_liquidity"
+    ],
+    "expected_timeframe": "gần đây",
+    "scope": "sector",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-025",
+    "question": "Ngành thép Việt Nam trong tháng này có tin gì về thuế chống bán phá giá, giá thép hoặc xuất khẩu?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "steel_sector",
+      "anti_dumping_tax",
+      "steel_price",
+      "export"
+    ],
+    "expected_timeframe": "tháng này",
+    "scope": "sector",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-026",
+    "question": "Ngành bán lẻ tuần này có tin bất ngờ nào về sức mua, đóng cửa chuỗi hoặc cạnh tranh giá không?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "retail_sector",
+      "consumer_demand",
+      "store_closure",
+      "price_competition"
+    ],
+    "expected_timeframe": "tuần này",
+    "scope": "sector",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-027",
+    "question": "Ngành dầu khí gần đây có tin gì về giá dầu, dự án LNG hoặc thay đổi chính sách năng lượng năm 2026?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "oil_gas_sector",
+      "oil_price",
+      "LNG",
+      "energy_policy"
+    ],
+    "expected_timeframe": "2026",
+    "scope": "sector",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-028",
+    "question": "Ngành điện tháng này có tin mới về giá điện, thiếu điện hoặc tiến độ các dự án nguồn điện lớn không?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "power_sector",
+      "electricity_price",
+      "power_shortage",
+      "power_projects"
+    ],
+    "expected_timeframe": "tháng này",
+    "scope": "sector",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-029",
+    "question": "Ngành phân bón năm 2026 có tin nóng nào về giá ure, thuế xuất khẩu hoặc nguồn cung khí đầu vào không?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "fertilizer_sector",
+      "urea_price",
+      "export_tax",
+      "gas_supply"
+    ],
+    "expected_timeframe": "2026",
+    "scope": "sector",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-030",
+    "question": "Thị trường chứng khoán Việt Nam tuần này có sự kiện bất ngờ nào ảnh hưởng mạnh đến nhóm VN30 không?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "VN30",
+      "Vietnam_stock_market",
+      "market_event"
+    ],
+    "expected_timeframe": "tuần này",
+    "scope": "macro",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "I-001",
+    "history": [
+      {
+        "role": "user",
+        "content": "Doanh thu VNM Q2/2024 là bao nhiêu?"
+      },
+      {
+        "role": "assistant",
+        "content": "Doanh thu VNM Q2/2024 đạt khoảng hơn 15 nghìn tỷ đồng, cần đối chiếu thêm báo cáo tài chính để lấy số chính xác."
+      }
+    ],
+    "question": "Còn lợi nhuận sau thuế thì sao?",
+    "category": "I. Multi-turn",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VNM"
+    ],
+    "expected_timeframe": "Q2/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Dựa trên các tài liệu được cung cấp (Báo cáo thường niên của VNM), không có số liệu chi tiết về lợi nhuận sau thuế của VNM cụ thể cho quý 2/2024. Tài liệu chỉ cung cấp số liệu tổng lợi nhuận sau thuế hợp nhất của cả năm 2024 là 9.453 tỷ đồng.",
+    "sources": [
+      "VNM_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Lợi nhuận sau thuế hợp nhất cả năm 2024 của VNM là 9.453 tỷ đồng.",
+      "Tài liệu không có số liệu bóc tách cho quý 2/2024."
+    ],
+    "negative_facts": [
+      "Cung cấp số liệu lợi nhuận quý 2/2024 tự bịa đặt."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "I-002",
+    "history": [
+      {
+        "role": "user",
+        "content": "Phân tích FPT năm 2024 theo doanh thu, lợi nhuận và biên lợi nhuận ròng."
+      },
+      {
+        "role": "assistant",
+        "content": "FPT năm 2024 nhìn chung tăng trưởng tích cực ở doanh thu và lợi nhuận, biên lợi nhuận duy trì tốt nhờ mảng công nghệ."
+      }
+    ],
+    "question": "Tách thêm theo từng mảng kinh doanh chính được không?",
+    "category": "I. Multi-turn",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "FPT"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": "Dựa trên các tài liệu hiện có, các mảng kinh doanh của FPT trong năm 2024 đều ghi nhận sự tăng trưởng hai chữ số. Cụ thể về đóng góp của các mảng kinh doanh chính:\n\n- **Khối Công nghệ:** Đây là mảng kinh doanh trụ cột, ghi nhận mức tăng trưởng doanh thu 24,4% so với cùng kỳ. Khối này chiếm 62,2% tổng doanh thu và 47,2% tổng lợi nhuận trước thuế của toàn Tập đoàn. Tính riêng mảng Dịch vụ CNTT cho thị trường trong nước, doanh thu đạt 8.157 tỷ đồng (tăng 13,9%) và lợi nhuận trước thuế đạt 461 tỷ đồng (tăng 21,1%).\n- **Khối Viễn thông và Giáo dục:** Tuy tài liệu không nêu chi tiết các con số doanh thu và lợi nhuận tuyệt đối của hai khối này trong năm 2024, nhưng có ghi nhận rằng tất cả các khối kinh doanh của FPT (bao gồm Công nghệ, Viễn thông, Giáo dục) đều đạt mức tăng trưởng hai chữ số trong năm.",
+    "sources": [
+      "FPT_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Tất cả các khối kinh doanh của FPT năm 2024 đều tăng trưởng hai chữ số.",
+      "Khối Công nghệ tăng trưởng doanh thu 24,4%, đóng góp 62,2% tổng doanh thu và 47,2% tổng LNTT toàn Tập đoàn.",
+      "Dịch vụ CNTT trong nước đạt 8.157 tỷ đồng doanh thu và 461 tỷ đồng LNTT."
+    ],
+    "negative_facts": [
+      "Khẳng định có đầy đủ số liệu lợi nhuận ròng của cả 3 mảng Viễn thông, Giáo dục, Công nghệ trong năm 2024 từ nguồn cung cấp."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "I-003",
+    "history": [
+      {
+        "role": "user",
+        "content": "So sánh HPG và DGC giai đoạn 2022-2024 về doanh thu và lợi nhuận sau thuế."
+      },
+      {
+        "role": "assistant",
+        "content": "Hai doanh nghiệp đều mang tính chu kỳ, trong đó biến động lợi nhuận phụ thuộc nhiều vào giá bán và chi phí đầu vào."
+      }
+    ],
+    "question": "Vậy bên nào biến động biên lợi nhuận mạnh hơn?",
+    "category": "I. Multi-turn",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "HPG",
+      "DGC"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Dựa trên các tài liệu được cung cấp, không có đủ số liệu tài chính chi tiết của DGC (doanh thu, giá vốn, lợi nhuận) cũng như số liệu tài chính năm 2024 của HPG để có thể tính toán và so sánh biến động biên lợi nhuận giữa hai doanh nghiệp này trong toàn bộ giai đoạn 2022-2024. \n\nTài liệu chỉ cung cấp dữ liệu của HPG trong năm 2022 và 2023 (với biên lợi nhuận gộp lần lượt xấp xỉ 11,8% và 10,8%,), nhưng không có dữ liệu đối ứng của DGC để đưa ra kết luận.",
+    "sources": [
+      "HPG_BCTN22.pdf",
+      "HPG_BCTN23.pdf",
+      "DGC_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Thiếu dữ liệu doanh thu và lợi nhuận của DGC trong giai đoạn 2022-2024.",
+      "Thiếu dữ liệu Báo cáo tài chính của HPG năm 2024."
+    ],
+    "negative_facts": [
+      "Bịa đặt các con số biên lợi nhuận cho DGC để thực hiện so sánh."
+    ],
+    "unanswerable": false
+  }
+]

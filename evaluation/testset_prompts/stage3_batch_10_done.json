@@ -1,0 +1,521 @@
+[
+{
+"id": "C-014",
+"question": "GAS năm 2024: phân tích doanh thu, lợi nhuận sau thuế, dòng tiền kinh doanh và biên lợi nhuận để đánh giá tính ổn định của kết quả.",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"GAS"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Kết quả năm 2024 của PV GAS (GAS) cho thấy doanh thu tăng nhưng khả năng chuyển hóa thành lợi nhuận và dòng tiền suy yếu. Doanh thu thuần hợp nhất đạt 103.564 tỷ đồng, tăng so với năm 2023, trong khi lợi nhuận sau thuế giảm còn 10.590 tỷ đồng [1][web:PV GAS]. Biên lợi nhuận ròng theo đó thu hẹp về khoảng 10,2%, thấp hơn mức khoảng 13,0% năm 2023. Dòng tiền thuần từ hoạt động kinh doanh cũng giảm từ 13.827 tỷ đồng năm 2023 xuống 9.035 tỷ đồng năm 2024 [1][web:PV GAS]. Vì vậy, kết quả năm 2024 chưa thể xem là ổn định tuyệt đối: doanh thu tăng nhờ quy mô bán hàng/giá trị hàng hóa, nhưng biên lợi nhuận và dòng tiền kinh doanh đều suy giảm.",
+"sources": [
+"GAS_BCTN24.pdf"
+],
+"web_sources": [
+"[https://www.pvgas.com.vn/quan-he-co-%C4%91ong/bao-cao-thuong-nien-nam-2024](https://www.pvgas.com.vn/quan-he-co-%C4%91ong/bao-cao-thuong-nien-nam-2024)",
+"[https://www.pvgas.com.vn/bai-viet/bao-cao-thuong-nien-nam-2024](https://www.pvgas.com.vn/bai-viet/bao-cao-thuong-nien-nam-2024)"
+],
+"key_facts": [
+"Doanh thu thuần hợp nhất 2024 của GAS = 103.564 tỷ đồng [GAS_BCTN24][PV GAS]",
+"Lợi nhuận sau thuế 2024 của GAS = 10.590 tỷ đồng [GAS_BCTN24][PV GAS]",
+"Lợi nhuận sau thuế 2023 của GAS = 11.793 tỷ đồng [GAS_BCTN24]",
+"Biên lợi nhuận ròng 2024 của GAS = khoảng 10,2% [tính từ LNST 10.590 tỷ đồng / doanh thu thuần 103.564 tỷ đồng]",
+"Biên lợi nhuận ròng 2023 của GAS = khoảng 13,0% [GAS_BCTN24]",
+"Dòng tiền thuần từ hoạt động kinh doanh 2024 của GAS = 9.035 tỷ đồng [GAS_BCTN24][PV GAS]",
+"Dòng tiền thuần từ hoạt động kinh doanh 2023 của GAS = 13.827 tỷ đồng [GAS_BCTN24]",
+"Dòng tiền kinh doanh 2024 của GAS giảm 4.792 tỷ đồng so với năm 2023 [GAS_BCTN24]"
+],
+"negative_facts": [
+"KHÔNG kết luận rằng tăng trưởng của GAS năm 2024 rất ổn định nếu biên ròng và dòng tiền kinh doanh đều giảm",
+"KHÔNG dùng sai số liệu dòng tiền kinh doanh thành dòng tiền đầu tư",
+"KHÔNG nhầm doanh thu thuần 103.564 tỷ đồng với lợi nhuận sau thuế"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "C-015",
+"question": "PNJ năm 2024 tăng trưởng có bền không khi xét doanh thu, lợi nhuận ròng, biên gộp, hàng tồn kho và dòng tiền kinh doanh?",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"PNJ"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, PNJ tăng trưởng doanh thu và lợi nhuận nhưng chất lượng tăng trưởng cần nhìn thận trọng vì dòng tiền kinh doanh yếu. Doanh thu thuần đạt 37.823 tỷ đồng, tăng 14,1%, và lợi nhuận sau thuế đạt khoảng 2.113–2.115 tỷ đồng, tăng khoảng 7,2%–7,3% [web:PNJ][web:BCTN PNJ]. Biên lợi nhuận gộp duy trì quanh vùng 18%, cho thấy áp lực từ giá vàng nguyên liệu và cơ cấu doanh thu vàng miếng khiến lợi nhuận không tăng nhanh bằng doanh thu [web:SHS]. Điểm kém bền vững là lưu chuyển tiền thuần từ hoạt động kinh doanh năm 2024 chỉ đạt 83 tỷ đồng, giảm mạnh so với 1.508 tỷ đồng năm 2023, phản ánh áp lực vốn lưu động/hàng tồn kho [web:BCTN PNJ]. Vì vậy, tăng trưởng của PNJ năm 2024 là tích cực về quy mô và lợi nhuận kế toán, nhưng chưa thật sự “bền” nếu xét chất lượng dòng tiền.",
+"sources": [],
+"web_sources": [
+"[https://www.pnj.com.vn/blog/pnj-dat-doanh-thu-37-823-ty-trong-nam-2024/](https://www.pnj.com.vn/blog/pnj-dat-doanh-thu-37-823-ty-trong-nam-2024/)",
+"[https://static2.vietstock.vn/data/HOSE/2024/BCTN/VN/PNJ_Baocaothuongnien_2024.pdf](https://static2.vietstock.vn/data/HOSE/2024/BCTN/VN/PNJ_Baocaothuongnien_2024.pdf)",
+"[https://cdn.pnj.io/images/quan-he-co-dong/2025/12-Bao-cao-ket-qua-hoat-dong-kinh-doanh-nam-2024-trong-Cong-ty.pdf](https://cdn.pnj.io/images/quan-he-co-dong/2025/12-Bao-cao-ket-qua-hoat-dong-kinh-doanh-nam-2024-trong-Cong-ty.pdf)",
+"[https://www.shs.com.vn/Sites/QuoteVN/SiteRoot/reportattach/20250314_11409_PNJ%20Initial%20report.pdf](https://www.shs.com.vn/Sites/QuoteVN/SiteRoot/reportattach/20250314_11409_PNJ%20Initial%20report.pdf)",
+"[https://www.bsi.com.vn/public/file/pnj-q42024-20250218_1739929430.pdf](https://www.bsi.com.vn/public/file/pnj-q42024-20250218_1739929430.pdf)"
+],
+"key_facts": [
+"Doanh thu thuần 2024 của PNJ = 37.823 tỷ đồng [PNJ]",
+"Tăng trưởng doanh thu thuần 2024 của PNJ = +14,1% YoY [PNJ]",
+"Lợi nhuận sau thuế 2024 của PNJ = 2.115 tỷ đồng [PNJ]",
+"Tăng trưởng lợi nhuận sau thuế 2024 của PNJ = +7,3% YoY [PNJ]",
+"Biên lợi nhuận gộp 2024 của PNJ = quanh 18% [SHS]",
+"Doanh thu bán lẻ trang sức 2024 của PNJ = 22.089 tỷ đồng [BSI]",
+"Doanh thu bán sỉ 2024 của PNJ = 3.782 tỷ đồng [BSI]",
+"Doanh thu vàng miếng 2024 của PNJ = 11.649 tỷ đồng [BSI]",
+"Lưu chuyển tiền thuần từ hoạt động kinh doanh 2024 của PNJ = 83.185.174.755 đồng [BCTN PNJ]",
+"Lưu chuyển tiền thuần từ hoạt động kinh doanh 2023 của PNJ = 1.507.741.471.093 đồng [BCTN PNJ]",
+"Dòng tiền kinh doanh 2024 của PNJ giảm khoảng 1.425 tỷ đồng so với năm 2023 [BCTN PNJ]"
+],
+"negative_facts": [
+"KHÔNG kết luận tăng trưởng hoàn toàn bền vững nếu dòng tiền kinh doanh giảm mạnh",
+"KHÔNG nhầm lợi nhuận sau thuế 2.115 tỷ đồng với doanh thu 37.823 tỷ đồng",
+"KHÔNG bỏ qua ảnh hưởng của giá vàng và cơ cấu doanh thu vàng miếng lên biên gộp"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "C-016",
+"question": "Phân tích xu hướng VNM giai đoạn 2022-2024: doanh thu, lợi nhuận sau thuế, biên lợi nhuận gộp và ROE thay đổi như thế nào?",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"VNM"
+],
+"expected_timeframe": "2022-2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Giai đoạn 2022-2024, Vinamilk (VNM) tăng trưởng chậm về doanh thu nhưng phục hồi dần về lợi nhuận và biên gộp. Doanh thu thuần tăng nhẹ từ 59.956 tỷ đồng năm 2022 lên khoảng 60.479 tỷ đồng năm 2023 và khoảng 61.783 tỷ đồng năm 2024 [1][web:Vinamilk]. Lợi nhuận sau thuế tăng liên tục từ 8.578 tỷ đồng năm 2022 lên 9.019 tỷ đồng năm 2023 và 9.453 tỷ đồng năm 2024 [1][web:Vinamilk]. Biên lợi nhuận gộp không thiếu dữ liệu như stage 2: năm 2022 khoảng 39,85%, năm 2023 khoảng 40,7% và năm 2024 khoảng 41,9%, cho thấy cải thiện nhờ giá nguyên vật liệu sữa thuận lợi hơn và kiểm soát chi phí. ROE duy trì cao, quanh 26,1% năm 2022, 25,8% năm 2023 và khoảng 26,1%–26,6% năm 2024 tùy cách tính bình quân vốn chủ sở hữu.",
+"sources": [
+"VNM_BCTN22.pdf",
+"VNM_BCTN25.pdf",
+"Conversation History"
+],
+"web_sources": [
+"[https://www.vinamilk.com.vn/investor/reports/annual](https://www.vinamilk.com.vn/investor/reports/annual)",
+"[https://www.vinamilk.com.vn/bao-cao-thuong-nien/bao-cao/2024/doc/vi/full-bao-cao.pdf](https://www.vinamilk.com.vn/bao-cao-thuong-nien/bao-cao/2024/doc/vi/full-bao-cao.pdf)",
+"[https://www.vinamilk.com.vn/bao-cao-thuong-nien/bao-cao/2023/index.html](https://www.vinamilk.com.vn/bao-cao-thuong-nien/bao-cao/2023/index.html)"
+],
+"key_facts": [
+"Doanh thu thuần 2022 của VNM = 59.956 tỷ đồng [VNM_BCTN22][Vinamilk]",
+"Doanh thu thuần 2023 của VNM = khoảng 60.479 tỷ đồng [Vinamilk]",
+"Doanh thu thuần 2024 của VNM = khoảng 61.783 tỷ đồng [VNM_BCTN24][Vinamilk]",
+"Lợi nhuận sau thuế 2022 của VNM = 8.578 tỷ đồng [VNM_BCTN22]",
+"Lợi nhuận sau thuế 2023 của VNM = 9.019 tỷ đồng [Vinamilk]",
+"Lợi nhuận sau thuế 2024 của VNM = 9.453 tỷ đồng [VNM_BCTN24][Vinamilk]",
+"Biên lợi nhuận gộp 2022 của VNM = khoảng 39,85% [tính từ LNG 23.897 tỷ đồng / DTT 59.956 tỷ đồng]",
+"Biên lợi nhuận gộp 2023 của VNM = khoảng 40,7% [Vinamilk]",
+"Biên lợi nhuận gộp 2024 của VNM = khoảng 41,9% [Vinamilk]",
+"ROE 2022 của VNM = 26,1% [VNM_BCTN22]",
+"ROE 2023 của VNM = 25,8% [Vinamilk]",
+"ROE 2024 của VNM = khoảng 26,1%–26,6% [Vinamilk]"
+],
+"negative_facts": [
+"KHÔNG nói thiếu dữ liệu biên lợi nhuận gộp 2023-2024 nếu BCTN đã có đủ doanh thu thuần và lợi nhuận gộp",
+"KHÔNG cho rằng lợi nhuận sau thuế của VNM suy giảm trong giai đoạn 2022-2024",
+"KHÔNG nhầm tổng doanh thu 61.824 tỷ đồng với doanh thu thuần khoảng 61.783 tỷ đồng năm 2024"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "C-017",
+"question": "FPT giai đoạn 2022-2024: phân rã tăng trưởng doanh thu và lợi nhuận theo các mảng chính để xem mảng nào kéo ROE lên.",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"FPT"
+],
+"expected_timeframe": "2022-2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Giai đoạn 2022-2024, FPT tăng trưởng đều cả doanh thu, lợi nhuận và ROE. Doanh thu thuần tăng từ 44.010 tỷ đồng năm 2022 lên 52.618 tỷ đồng năm 2023 và 62.849 tỷ đồng năm 2024; lợi nhuận sau thuế tăng từ 6.491 tỷ đồng lên 7.788 tỷ đồng và 9.427 tỷ đồng [1][web:FPT]. ROE cải thiện từ 27,7% năm 2022 lên 27,9% năm 2023 và 28,5% năm 2024 [1][web:FPT]. Động lực chính là Khối Công nghệ, đặc biệt mảng Dịch vụ CNTT thị trường nước ngoài: doanh thu mảng này tăng từ khoảng 18.915 tỷ đồng năm 2022 lên khoảng 24.288 tỷ đồng năm 2023 và khoảng 30.952–30.953 tỷ đồng năm 2024. Mảng Viễn thông vẫn đóng góp dòng tiền và lợi nhuận ổn định, nhưng không phải động lực tăng trưởng nhanh nhất kéo ROE lên.",
+"sources": [
+"FPT_BCTN22.pdf",
+"FPT_BCTN23.pdf",
+"FPT_BCTN24.pdf",
+"Conversation History"
+],
+"web_sources": [
+"[https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2023/march/bctn2022_20230327.pdf](https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2023/march/bctn2022_20230327.pdf)",
+"[https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2024/march/cbtt_2023-fpt-bctn-vn.pdf](https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2024/march/cbtt_2023-fpt-bctn-vn.pdf)",
+"[https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2025/april/20250402---fpt---bao-cao-thuong-nien-nam-2024.pdf](https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2025/april/20250402---fpt---bao-cao-thuong-nien-nam-2024.pdf)",
+"[https://fpt.com/vi/nha-dau-tu/bao-cao-thuong-nien](https://fpt.com/vi/nha-dau-tu/bao-cao-thuong-nien)",
+"[https://stockkisvn.vn/bao-cao-tai-chinh-fpt/](https://stockkisvn.vn/bao-cao-tai-chinh-fpt/)"
+],
+"key_facts": [
+"Doanh thu thuần 2022 của FPT = 44.010 tỷ đồng [FPT_BCTN22]",
+"Doanh thu thuần 2023 của FPT = 52.618 tỷ đồng [FPT_BCTN23]",
+"Doanh thu thuần 2024 của FPT = 62.849 tỷ đồng [FPT_BCTN24]",
+"Lợi nhuận sau thuế 2022 của FPT = 6.491 tỷ đồng [FPT_BCTN22]",
+"Lợi nhuận sau thuế 2023 của FPT = 7.788 tỷ đồng [FPT_BCTN23]",
+"Lợi nhuận sau thuế 2024 của FPT = 9.427 tỷ đồng [FPT_BCTN24]",
+"ROE 2022 của FPT = 27,7% [FPT_BCTN22]",
+"ROE 2023 của FPT = 27,9% [FPT_BCTN23]",
+"ROE 2024 của FPT = 28,5% [FPT_BCTN24]",
+"Doanh thu Dịch vụ CNTT thị trường nước ngoài 2022 của FPT = 18.915 tỷ đồng [FPT_BCTN22]",
+"Doanh thu Dịch vụ CNTT thị trường nước ngoài 2024 của FPT = khoảng 30.952–30.953 tỷ đồng [FPT_BCTN24][KIS]",
+"Khối Công nghệ chiếm 62,2% tổng doanh thu 2024 của FPT [FPT_BCTN24]"
+],
+"negative_facts": [
+"KHÔNG cho rằng mảng Viễn thông là động lực chính kéo ROE lên cao nhất",
+"KHÔNG dùng sai doanh thu hoặc lợi nhuận của các năm 2022-2024",
+"KHÔNG nhầm doanh thu CNTT nước ngoài với toàn bộ doanh thu Khối Công nghệ"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "C-018",
+"question": "HPG từ 2022 đến 2024: chu kỳ ngành thép thể hiện thế nào qua doanh thu, biên gộp, lợi nhuận sau thuế và nợ vay?",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"HPG"
+],
+"expected_timeframe": "2022-2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Giai đoạn 2022-2024 của Hòa Phát (HPG) phản ánh rất rõ chu kỳ ngành thép: suy giảm sâu năm 2023 rồi phục hồi năm 2024. Năm 2022, doanh thu thuần đạt 141.409 tỷ đồng, lợi nhuận gộp 16.763 tỷ đồng, biên gộp khoảng 11,9% và lợi nhuận sau thuế 8.444 tỷ đồng [1][web:HPG]. Năm 2023 là đáy chu kỳ với doanh thu thuần 118.953 tỷ đồng, lợi nhuận gộp 12.937 tỷ đồng, biên gộp khoảng 10,9% và lợi nhuận sau thuế 6.800 tỷ đồng [1][web:HPG]. Sang năm 2024, doanh thu thuần phục hồi lên 138.855 tỷ đồng, lợi nhuận sau thuế đạt 12.020 tỷ đồng và biên gộp cải thiện lên khoảng 13,3% [web:HPG]. Về nợ vay, điểm tích cực là HPG chủ động giảm tỷ trọng dư nợ vay bằng USD từ 16% năm 2023 xuống 3% năm 2024, giảm rủi ro tỷ giá trong khi vẫn đầu tư Dung Quất 2.",
+"sources": [
+"HPG_BCTN22.pdf",
+"HPG_BCTN23.pdf",
+"Conversation History"
+],
+"web_sources": [
+"[https://www.hoaphat.com.vn/quan-he-co-dong/bao-cao-thuong-nien](https://www.hoaphat.com.vn/quan-he-co-dong/bao-cao-thuong-nien)",
+"[https://file.hoaphat.com.vn/hoaphat-com-vn/2025/04/bao-cao-thuong-nien-hpg-2024.pdf](https://file.hoaphat.com.vn/hoaphat-com-vn/2025/04/bao-cao-thuong-nien-hpg-2024.pdf)",
+"[https://cdn.24hmoney.vn/medialib/Crawler/2024/2024-04/2024-04-10/20240410_20240410-HPG-Bao-cao-thuong-nien-2023-1-.pdf](https://cdn.24hmoney.vn/medialib/Crawler/2024/2024-04/2024-04-10/20240410_20240410-HPG-Bao-cao-thuong-nien-2023-1-.pdf)",
+"[https://finance.vietstock.vn/hpg/financials.htm?languageid=1&tab=BCTT](https://finance.vietstock.vn/hpg/financials.htm?languageid=1&tab=BCTT)"
+],
+"key_facts": [
+"Doanh thu thuần 2022 của HPG = 141.409 tỷ đồng [HPG_BCTN22]",
+"Lợi nhuận gộp 2022 của HPG = 16.763 tỷ đồng [HPG_BCTN22]",
+"Biên lợi nhuận gộp 2022 của HPG = khoảng 11,9% [tính từ LNG 16.763 tỷ đồng / DTT 141.409 tỷ đồng]",
+"Lợi nhuận sau thuế 2022 của HPG = 8.444 tỷ đồng [HPG_BCTN22]",
+"Doanh thu thuần 2023 của HPG = 118.953 tỷ đồng [HPG_BCTN23]",
+"Lợi nhuận gộp 2023 của HPG = 12.937 tỷ đồng [HPG_BCTN23]",
+"Biên lợi nhuận gộp 2023 của HPG = khoảng 10,9% [tính từ LNG 12.937 tỷ đồng / DTT 118.953 tỷ đồng]",
+"Lợi nhuận sau thuế 2023 của HPG = 6.800 tỷ đồng [HPG_BCTN23]",
+"Doanh thu thuần 2024 của HPG = 138.855 tỷ đồng [HPG_BCTN24]",
+"Lợi nhuận sau thuế hợp nhất 2024 của HPG = 12.020 tỷ đồng [HPG]",
+"Biên lợi nhuận gộp 2024 của HPG = khoảng 13,3% [HPG_BCTN24]",
+"Tỷ trọng vay USD của HPG năm 2023 = 16% [HPG_BCTN24]",
+"Tỷ trọng vay USD của HPG năm 2024 = 3% [HPG_BCTN24]"
+],
+"negative_facts": [
+"KHÔNG nhận định ngành thép tăng trưởng liên tục không ngừng từ 2022 đến 2024",
+"KHÔNG nêu sai số liệu nợ vay USD tăng lên gây rủi ro tỷ giá trong năm 2024",
+"KHÔNG nhầm doanh thu hợp nhất công bố hơn 140.000 tỷ với doanh thu thuần 138.855 tỷ đồng"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "C-019",
+"question": "MWG giai đoạn 2022-2024: phân tích sự thay đổi doanh thu, lợi nhuận, biên ròng và hiệu quả kiểm soát chi phí bán hàng.",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"MWG"
+],
+"expected_timeframe": "2022-2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Giai đoạn 2022-2024 của MWG là câu chuyện suy giảm mạnh năm 2023 rồi phục hồi nhờ tái cấu trúc năm 2024. Năm 2022, doanh thu thuần đạt khoảng 133.405 tỷ đồng và lợi nhuận sau thuế đạt 4.102 tỷ đồng, tương ứng biên ròng khoảng 3,1% [1][web:MWG]. Năm 2023, sức mua yếu khiến doanh thu giảm còn khoảng 118.280 tỷ đồng, lợi nhuận sau thuế chỉ còn 168 tỷ đồng và biên ròng rơi về khoảng 0,14% [1][web:MWG]. Năm 2024, doanh thu thuần phục hồi lên 134.341 tỷ đồng, tăng 13,6%, lợi nhuận sau thuế khoảng 3.722 tỷ đồng và biên ròng phục hồi về khoảng 2,8% [web:MWG][web:MBS]. Hiệu quả kiểm soát chi phí thể hiện ở tỷ lệ SG&A/doanh thu giảm còn 17,5%, giảm 1,3 điểm % so với năm trước; động lực chính là đóng/thu hẹp điểm bán kém hiệu quả và tối ưu vận hành, không phải mở rộng ồ ạt.",
+"sources": [
+"MWG_BCTN25.pdf",
+"Conversation History"
+],
+"web_sources": [
+"[https://mwg.vn/bao-cao](https://mwg.vn/bao-cao)",
+"[https://cdnv2.tgdd.vn/mwgvn/ir/2024/4/mwg---bao-cao-thuong-nien-2023-12.pdf](https://cdnv2.tgdd.vn/mwgvn/ir/2024/4/mwg---bao-cao-thuong-nien-2023-12.pdf)",
+"[https://cdnv2.tgdd.vn/mwgvn/investorrelations/files/posts/2025/4/0/0f/a3/0fa382bf41923f80607007ebcf9500ed.pdf](https://cdnv2.tgdd.vn/mwgvn/investorrelations/files/posts/2025/4/0/0f/a3/0fa382bf41923f80607007ebcf9500ed.pdf)",
+"[https://www.mbs.com.vn/media/qkkpyvbv/mwg_update_20250324.pdf](https://www.mbs.com.vn/media/qkkpyvbv/mwg_update_20250324.pdf)",
+"[https://vietstock.vn/2025/04/mwg-bao-cao-thuong-nien-nam-2024-737-1292654.htm](https://vietstock.vn/2025/04/mwg-bao-cao-thuong-nien-nam-2024-737-1292654.htm)"
+],
+"key_facts": [
+"Doanh thu thuần 2022 của MWG = khoảng 133.405 tỷ đồng [MWG_BCTN]",
+"Lợi nhuận sau thuế 2022 của MWG = 4.102 tỷ đồng [MWG_BCTN]",
+"Biên lợi nhuận ròng 2022 của MWG = khoảng 3,1% [tính từ LNST 4.102 tỷ đồng / doanh thu 133.405 tỷ đồng]",
+"Doanh thu thuần 2023 của MWG = khoảng 118.280 tỷ đồng [MWG_BCTN23]",
+"Lợi nhuận sau thuế 2023 của MWG = 168 tỷ đồng [MWG_BCTN23]",
+"Biên lợi nhuận ròng 2023 của MWG = khoảng 0,14% [tính từ LNST 168 tỷ đồng / doanh thu 118.280 tỷ đồng]",
+"Doanh thu thuần 2024 của MWG = 134.341 tỷ đồng [MWG_BCTN24]",
+"Tăng trưởng doanh thu thuần 2024 của MWG = +13,6% YoY [MWG_BCTN24]",
+"Lợi nhuận sau thuế 2024 của MWG = khoảng 3.722 tỷ đồng [MBS]",
+"Biên lợi nhuận ròng 2024 của MWG = khoảng 2,8% [MBS]",
+"SG&A/doanh thu 2024 của MWG = 17,5% [MBS]",
+"SG&A/doanh thu 2024 của MWG giảm 1,3 điểm % YoY [MBS]"
+],
+"negative_facts": [
+"KHÔNG bỏ qua sự sụt giảm nghiêm trọng của năm 2023",
+"KHÔNG đánh giá sai nguyên nhân phục hồi năm 2024 là nhờ mở ồ ạt điểm bán mới",
+"KHÔNG dùng doanh thu 134.000 tỷ đồng nếu cần số chính xác hơn là 134.341 tỷ đồng"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "C-020",
+"question": "VCB 2022-2024: đánh giá xu hướng lợi nhuận trước thuế, NIM, nợ xấu và ROE để xem ngân hàng còn duy trì lợi thế chất lượng tài sản không.",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"VCB"
+],
+"expected_timeframe": "2022-2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Giai đoạn 2022-2024, Vietcombank (VCB) vẫn duy trì lợi thế chất lượng tài sản, dù ROE và NIM có xu hướng giảm khi môi trường lãi suất thay đổi và vốn chủ sở hữu tăng. Lợi nhuận trước thuế tăng từ khoảng 37.359 tỷ đồng năm 2022 lên 41.243 tỷ đồng năm 2023 và 42.236 tỷ đồng năm 2024 [web:VCB]. ROE giảm từ 24,44% năm 2022 xuống 21,99% năm 2023 và khoảng 20,0% năm 2024 [1][web:VCB]. NIM giảm từ 3,00% năm 2023 xuống 2,86% năm 2024 [web:VCB]. Chất lượng tài sản vẫn nổi bật: tỷ lệ nợ xấu quanh 0,99% năm 2023 và 0,96%–0,97% năm 2024; tỷ lệ bao phủ nợ xấu năm 2024 khoảng 223%, không phải 259%. Vì vậy, VCB vẫn giữ lợi thế chất lượng tài sản, nhưng lợi thế sinh lời không còn mở rộng mạnh như giai đoạn trước.",
+"sources": [
+"VCB_BCTN22.pdf",
+"VCB_BCTN23.pdf",
+"MBB_BCTN25.pdf"
+],
+"web_sources": [
+"[https://portal.vietcombank.com.vn/VCBDigital/2023/BCTN/vi/](https://portal.vietcombank.com.vn/VCBDigital/2023/BCTN/vi/)",
+"[https://static2.vietstock.vn/vietstock/2025/4/18/20250418_20250417___vcb___cbtt_bao_cao_thuong_nien_nam_2024.pdf](https://static2.vietstock.vn/vietstock/2025/4/18/20250418_20250417___vcb___cbtt_bao_cao_thuong_nien_nam_2024.pdf)",
+"[https://portal.vietcombank.com.vn/VCBDigital/2023/BCTN/vi/chi-so-tai-chinh-co-ban-2020-2024/](https://portal.vietcombank.com.vn/VCBDigital/2023/BCTN/vi/chi-so-tai-chinh-co-ban-2020-2024/)",
+"[https://www.vietcombank.com.vn/-/media/Project/VCB-Sites/VCB/Nha-Dau-tu/Files/BC-dinh-ky/BC-thuong-nien/2024/EN_VCB-Annual-Report-2024_Full_250426_FN_compressed.pdf](https://www.vietcombank.com.vn/-/media/Project/VCB-Sites/VCB/Nha-Dau-tu/Files/BC-dinh-ky/BC-thuong-nien/2024/EN_VCB-Annual-Report-2024_Full_250426_FN_compressed.pdf)"
+],
+"key_facts": [
+"Lợi nhuận trước thuế 2022 của VCB = khoảng 37.359 tỷ đồng [VCB_BCTN22]",
+"Lợi nhuận trước thuế 2023 của VCB = khoảng 41.243 tỷ đồng [VCB_BCTN23]",
+"Lợi nhuận trước thuế 2024 của VCB = 42.236 tỷ đồng [VCB_BCTN24]",
+"ROE 2022 của VCB = 24,44% [VCB_BCTN22]",
+"ROE 2023 của VCB = 21,99% [VCB_BCTN23]",
+"ROE 2024 của VCB = khoảng 20,0% [VCB_BCTN24]",
+"NIM 2023 của VCB = 3,00% [VCB_BCTN24]",
+"NIM 2024 của VCB = 2,86% [VCB_BCTN24]",
+"Tỷ lệ nợ xấu 2023 của VCB = khoảng 0,99% [VCB_BCTN23]",
+"Tỷ lệ nợ xấu 2024 của VCB = khoảng 0,96%–0,97% [VCB_BCTN24]",
+"Tỷ lệ bao phủ nợ xấu 2024 của VCB = khoảng 223% [VCB_BCTN24]",
+"Dư nợ tín dụng 2024 của VCB = gần 1,5 triệu tỷ đồng [VCB_BCTN24]"
+],
+"negative_facts": [
+"KHÔNG cho rằng nợ xấu của VCB đang gia tăng mất kiểm soát",
+"KHÔNG dùng LLR 259% cho năm 2024 nếu BCTN 2024 ghi khoảng 223%",
+"KHÔNG nói NIM tăng trong năm 2024 vì NIM giảm từ 3,00% xuống 2,86%"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "C-021",
+"question": "VHM giai đoạn 2022-2024 có biến động lợi nhuận do bàn giao dự án hay do biên lợi nhuận? Phân tích doanh thu, lợi nhuận, biên gộp và nợ vay.",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"VHM"
+],
+"expected_timeframe": "2022-2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Giai đoạn 2022-2024, biến động lợi nhuận của VHM chủ yếu đến từ quy mô bàn giao dự án, trong khi biên lợi nhuận gộp thực tế giảm dần. Năm 2022, doanh thu thuần đạt 62.393 tỷ đồng, lợi nhuận gộp 31.909 tỷ đồng và biên gộp khoảng 51,1% [1][web:Vinhomes]. Năm 2023, doanh thu thuần tăng mạnh lên 103.556 tỷ đồng nhưng biên gộp giảm còn 34,48%; LNST thuộc cổ đông công ty mẹ đạt 33.371 tỷ đồng [1]. Năm 2024, doanh thu thuần hợp nhất theo công bố chính thức đạt 102.045 tỷ đồng, doanh thu thuần hợp nhất điều chỉnh đạt 141.812 tỷ đồng, LNST hợp nhất đạt 35.052 tỷ đồng và biên gộp giảm tiếp về 32,22% [web:Vinhomes]. Vì vậy, lợi nhuận duy trì cao nhờ khối lượng bàn giao và doanh thu điều chỉnh lớn, không phải do biên gộp cải thiện. Đòn bẩy năm 2024 vẫn được kiểm soát với nợ ròng/tổng tài sản 8,35% và nợ ròng/vốn chủ sở hữu 21,35%.",
+"sources": [
+"VHM_BCTN22.pdf",
+"VHM_BCTN24.pdf",
+"Conversation History"
+],
+"web_sources": [
+"[https://vinhomes.vn/vi/bao-cao-thuong-nien](https://vinhomes.vn/vi/bao-cao-thuong-nien)",
+"[https://vinhomes.vn/vi/bao-cao-tai-chinh](https://vinhomes.vn/vi/bao-cao-tai-chinh)",
+"[https://gcp-cdn.vinhomes.vn/cms-data/ENG%20Vinhomes%20AR%202024_250411_compressed.pdf](https://gcp-cdn.vinhomes.vn/cms-data/ENG%20Vinhomes%20AR%202024_250411_compressed.pdf)",
+"[https://static2.vietstock.vn/vietstock/2025/4/14/20250414_20250412___vhm___vinhomes_ar_2024.pdf](https://static2.vietstock.vn/vietstock/2025/4/14/20250414_20250412___vhm___vinhomes_ar_2024.pdf)",
+"[https://cafef.vn/vinhomes-lai-14-ty-usd-trong-nam-2024-doanh-thu-chua-ghi-nhan-dat-hon-94000-ty-dong-188250124114732171.chn](https://cafef.vn/vinhomes-lai-14-ty-usd-trong-nam-2024-doanh-thu-chua-ghi-nhan-dat-hon-94000-ty-dong-188250124114732171.chn)"
+],
+"key_facts": [
+"Doanh thu thuần 2022 của VHM = 62.393 tỷ đồng [VHM_BCTN22]",
+"Lợi nhuận gộp 2022 của VHM = 31.909 tỷ đồng [VHM_BCTN22]",
+"Biên lợi nhuận gộp 2022 của VHM = khoảng 51,1% [VHM_BCTN22]",
+"Tổng nợ vay 2022 của VHM = 36.206 tỷ đồng [VHM_BCTN22]",
+"Doanh thu thuần 2023 của VHM = 103.556 tỷ đồng [VHM_BCTN24]",
+"Biên lợi nhuận gộp 2023 của VHM = 34,48% [VHM_BCTN24]",
+"LNST thuộc cổ đông công ty mẹ 2023 của VHM = 33.371 tỷ đồng [VHM_BCTN24]",
+"Doanh thu thuần hợp nhất 2024 của VHM = 102.045 tỷ đồng [Vinhomes]",
+"Doanh thu thuần hợp nhất điều chỉnh 2024 của VHM = 141.812 tỷ đồng [Vinhomes]",
+"Lợi nhuận sau thuế hợp nhất 2024 của VHM = 35.052 tỷ đồng [Vinhomes]",
+"Biên lợi nhuận gộp 2024 của VHM = 32,22% [VHM_BCTN24]",
+"Nợ ròng/Tổng tài sản 2024 của VHM = 8,35% [VHM_BCTN24]",
+"Nợ ròng/Vốn chủ sở hữu 2024 của VHM = 21,35% [VHM_BCTN24]"
+],
+"negative_facts": [
+"KHÔNG cho rằng lợi nhuận tăng là do biên lợi nhuận gộp liên tục cải thiện qua các năm",
+"KHÔNG dùng doanh thu thuần bán hàng 102.323 tỷ đồng nếu nguồn chính thức Vinhomes công bố 102.045 tỷ đồng",
+"KHÔNG nhầm LNST hợp nhất 35.052 tỷ đồng với LNST thuộc cổ đông công ty mẹ 31.801 tỷ đồng"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "C-022",
+"question": "MSN 2022-2024: phân tích doanh thu, EBITDA, lợi nhuận ròng và đòn bẩy để đánh giá quá trình tái cơ cấu có hiệu quả không.",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"MSN"
+],
+"expected_timeframe": "2022-2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Giai đoạn 2022-2024, tái cơ cấu của Masan Group (MSN) bắt đầu cho thấy hiệu quả rõ hơn trong năm 2024, dù đòn bẩy vẫn là điểm cần theo dõi. Doanh thu thuần năm 2024 đạt 83.178 tỷ đồng, tăng 6,3% YoY; EBITDA đạt 15.921 tỷ đồng, tăng 19,3%, cho thấy biên EBITDA cải thiện nhanh hơn doanh thu [web:Masan]. Lợi nhuận sau thuế sau lợi ích cổ đông thiểu số năm 2024 đạt 1.990 tỷ đồng, tăng 377,5% YoY; lợi nhuận sau thuế toàn tập đoàn đạt khoảng 4.272 tỷ đồng [web:Masan][web:Vietstock]. Về đòn bẩy, nợ ròng/LTM EBITDA giảm từ 3,9 lần cuối 2023 xuống 3,3 lần tại 2Q2024, phản ánh nỗ lực giảm áp lực tài chính. So với giai đoạn 2022-2023, năm 2024 là năm quá trình tái cơ cấu có tín hiệu tích cực hơn: mảng tiêu dùng - bán lẻ cải thiện lợi nhuận và WinCommerce tiến gần/đạt điểm hòa vốn EBITDA, nhưng mức nợ vẫn còn cao nên chưa thể xem là hoàn tất tái cơ cấu.",
+"sources": [],
+"web_sources": [
+"[https://www.masangroup.com/vi/investor-relations.html](https://www.masangroup.com/vi/investor-relations.html)",
+"[https://cafef1.mediacdn.vn/download/250425/msn-bao-cao-thuong-nien-nam-2024-0.pdf](https://cafef1.mediacdn.vn/download/250425/msn-bao-cao-thuong-nien-nam-2024-0.pdf)",
+"[https://static2.vietstock.vn/vietstock/2025/4/28/20250426_msn_250426_annual_report_2024.pdf](https://static2.vietstock.vn/vietstock/2025/4/28/20250426_msn_250426_annual_report_2024.pdf)",
+"[https://www.masangroup.com/news/press-releases/Masan-Profit-of-4Q2024-increased-nearly-14-fold-YoY.html](https://www.masangroup.com/news/press-releases/Masan-Profit-of-4Q2024-increased-nearly-14-fold-YoY.html)",
+"[https://www.masangroup.com/news/masan-news/Masan-Group-Releases-Accounts-For-Q4-And-FY2024.html](https://www.masangroup.com/news/masan-news/Masan-Group-Releases-Accounts-For-Q4-And-FY2024.html)",
+"[https://masangroup-cms-production.s3-ap-southeast-1.amazonaws.com/iblock/4e6/4e6a96311dc50ad319a392d2f3d968a5/c419037e874fb1779133f0b1d42db0fa.pdf](https://masangroup-cms-production.s3-ap-southeast-1.amazonaws.com/iblock/4e6/4e6a96311dc50ad319a392d2f3d968a5/c419037e874fb1779133f0b1d42db0fa.pdf)"
+],
+"key_facts": [
+"Doanh thu thuần 2024 của MSN = 83.178 tỷ đồng [Masan]",
+"Tăng trưởng doanh thu thuần 2024 của MSN = +6,3% YoY [Masan]",
+"EBITDA 2024 của MSN = 15.921 tỷ đồng [Masan]",
+"Tăng trưởng EBITDA 2024 của MSN = +19,3% YoY [Masan]",
+"EBITDA Q4/2024 của MSN = 4.580 tỷ đồng [Masan]",
+"Tăng trưởng EBITDA Q4/2024 của MSN = +44,6% YoY [Masan]",
+"Lợi nhuận sau thuế sau lợi ích cổ đông thiểu số 2024 của MSN = 1.990 tỷ đồng [Masan]",
+"Tăng trưởng lợi nhuận sau thuế sau lợi ích cổ đông thiểu số 2024 của MSN = +377,5% YoY [Masan]",
+"Lợi nhuận sau thuế 2024 của MSN = 4.272 tỷ đồng [Vietstock]",
+"Tăng trưởng lợi nhuận sau thuế 2024 của MSN = +128% YoY [Vietstock]",
+"Nợ ròng/LTM EBITDA của MSN tại cuối 2023 = 3,9 lần [Masan]",
+"Nợ ròng/LTM EBITDA của MSN tại 2Q2024 = 3,3 lần [Masan]"
+],
+"negative_facts": [
+"KHÔNG nhầm NPAT-MI 1.990 tỷ đồng với LNST toàn tập đoàn 4.272 tỷ đồng",
+"KHÔNG kết luận tái cơ cấu đã hoàn tất vì nợ ròng/EBITDA vẫn còn cao",
+"KHÔNG cho rằng tăng trưởng 2024 chỉ đến từ yếu tố một lần nếu EBITDA mảng cốt lõi tăng mạnh"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "C-023",
+"question": "DGC giai đoạn 2022-2024: lợi nhuận giảm hay phục hồi theo chu kỳ hóa chất? Phân tích doanh thu, biên gộp, lợi nhuận sau thuế và tiền mặt ròng.",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"DGC"
+],
+"expected_timeframe": "2022-2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Giai đoạn 2022-2024 của DGC cho thấy lợi nhuận đã giảm mạnh khỏi đỉnh chu kỳ hóa chất năm 2022, sau đó đi ngang/chưa phục hồi rõ trong năm 2024. Năm 2024, doanh thu đạt khoảng 9.865 tỷ đồng, lợi nhuận gộp 3.449 tỷ đồng và biên lợi nhuận gộp 35,0%, gần như đi ngang so với 35,3% năm 2023 [web:ABS]. Lợi nhuận sau thuế năm 2024 đạt khoảng 2.989 tỷ đồng, giảm nhẹ khoảng 3,6% so với năm 2023 [web:DNSE]. So với năm 2022, mức lợi nhuận này thấp hơn đáng kể do giá phốt pho vàng và các sản phẩm hóa chất hạ nhiệt khỏi nền cao. Dù lợi nhuận chưa phục hồi về đỉnh, bảng cân đối vẫn là điểm mạnh: DGC có tiền mặt dồi dào, nợ vay thấp và trạng thái tiền mặt ròng, giúp doanh nghiệp có dư địa đầu tư dự án mới như Nghi Sơn mà không chịu áp lực tài chính lớn.",
+"sources": [],
+"web_sources": [
+"[https://ducgiangchem.vn/category/quan-he-co-dong/bao-cao-thuong-nien/](https://ducgiangchem.vn/category/quan-he-co-dong/bao-cao-thuong-nien/)",
+"[https://ducgiangchem.vn/en/english-2024-audited-financial-statements/](https://ducgiangchem.vn/en/english-2024-audited-financial-statements/)",
+"[https://vietstock.vn/2025/03/dgc-bao-cao-thuong-nien-nam-2024-737-1281776.htm](https://vietstock.vn/2025/03/dgc-bao-cao-thuong-nien-nam-2024-737-1281776.htm)",
+"[https://www.abs.vn/wp-content/uploads/2025/04/DGC_250401_DHCD.pdf](https://www.abs.vn/wp-content/uploads/2025/04/DGC_250401_DHCD.pdf)",
+"[https://www.dnse.com.vn/senses/tin-tuc/bctc-quy-42024-dgc-loi-nhuan-q42024-tang-545-so-voi-cung-ky-lai-74949-ty-ong-34090161](https://www.dnse.com.vn/senses/tin-tuc/bctc-quy-42024-dgc-loi-nhuan-q42024-tang-545-so-voi-cung-ky-lai-74949-ty-ong-34090161)",
+"[https://www.shs.com.vn/Sites/QuoteVN/SiteRoot/reportattach/20250313_14830_DGC%2025.pdf](https://www.shs.com.vn/Sites/QuoteVN/SiteRoot/reportattach/20250313_14830_DGC%2025.pdf)"
+],
+"key_facts": [
+"Doanh thu 2024 của DGC = 9.865,3 tỷ đồng [DNSE]",
+"Lợi nhuận sau thuế 2024 của DGC = 2.988,83 tỷ đồng [DNSE]",
+"Tăng trưởng doanh thu 2024 của DGC = +1,2% YoY [DNSE]",
+"Tăng trưởng lợi nhuận sau thuế 2024 của DGC = -3,59% YoY [DNSE]",
+"Lợi nhuận gộp 2024 của DGC = 3.449 tỷ đồng [ABS]",
+"Tăng trưởng lợi nhuận gộp 2024 của DGC = +0,4% YoY [ABS]",
+"Biên lợi nhuận gộp 2024 của DGC = 35,0% [ABS]",
+"Biên lợi nhuận gộp 2023 của DGC = 35,3% [ABS]",
+"Chi phí bán hàng và quản lý doanh nghiệp 2024 của DGC = 618 tỷ đồng [ABS]",
+"Tăng trưởng chi phí bán hàng và quản lý doanh nghiệp 2024 của DGC = +6,3% YoY [ABS]",
+"Doanh thu tài chính 2024 của DGC = 649 tỷ đồng [ABS]",
+"Chi phí tài chính 2024 của DGC = 69 tỷ đồng [ABS]",
+"DGC có tiền mặt dồi dào, nợ vay thấp và trả cổ tức đều đặn qua các năm [SHS]"
+],
+"negative_facts": [
+"KHÔNG nói lợi nhuận DGC đã phục hồi về đỉnh năm 2022 nếu LNST 2024 vẫn thấp hơn nhiều so với đỉnh chu kỳ",
+"KHÔNG nhầm biên lợi nhuận gộp 35,0% với biên lợi nhuận ròng",
+"KHÔNG bỏ qua trạng thái tài chính mạnh/tiền mặt ròng khi đánh giá rủi ro chu kỳ"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+}
+]

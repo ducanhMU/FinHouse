@@ -1,0 +1,505 @@
+[
+{
+"id": "C-004",
+"question": "MWG năm 2024 có cải thiện hiệu quả vận hành không, xét theo doanh thu, lợi nhuận ròng, biên lợi nhuận và chi phí bán hàng?",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"MWG"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, hiệu quả vận hành của Thế Giới Di Động (MWG) cải thiện rõ rệt sau tái cấu trúc. Doanh thu thuần hợp nhất đạt 134.341 tỷ đồng, tăng 13,6% so với năm 2023 và hoàn thành 107% kế hoạch doanh thu [1][web:MWG]. Lợi nhuận sau thuế đạt khoảng 3.722 tỷ đồng, tăng khoảng 22 lần so với nền thấp năm 2023, kéo biên lợi nhuận ròng lên khoảng 2,8% [web:MBS]. Chi phí SG&A/doanh thu giảm còn khoảng 17,5%, thấp hơn 1,3 điểm % so với năm trước; điều này cho thấy tăng trưởng lợi nhuận không chỉ đến từ doanh thu mà chủ yếu từ tối ưu vận hành, đóng/thu hẹp điểm bán kém hiệu quả và cải thiện doanh thu trên mỗi cửa hàng hiện hữu.",
+"sources": [
+"MWG_BCTN24.pdf",
+"MWG_BCTN25.pdf"
+],
+"web_sources": [
+"[https://cdnv2.tgdd.vn/mwgvn/investorrelations/files/posts/2025/4/0/0f/a3/0fa382bf41923f80607007ebcf9500ed.pdf](https://cdnv2.tgdd.vn/mwgvn/investorrelations/files/posts/2025/4/0/0f/a3/0fa382bf41923f80607007ebcf9500ed.pdf)",
+"[https://cdnv2.tgdd.vn/mwgvn/investorrelations/files/posts/2025/1/3035/82/23/82238142d2a514a6e6ab0a2d296b01e1.pdf](https://cdnv2.tgdd.vn/mwgvn/investorrelations/files/posts/2025/1/3035/82/23/82238142d2a514a6e6ab0a2d296b01e1.pdf)",
+"[https://www.mbs.com.vn/media/qkkpyvbv/mwg_update_20250324.pdf](https://www.mbs.com.vn/media/qkkpyvbv/mwg_update_20250324.pdf)",
+"[https://vietstock.vn/2025/04/mwg-bao-cao-thuong-nien-nam-2024-737-1292654.htm](https://vietstock.vn/2025/04/mwg-bao-cao-thuong-nien-nam-2024-737-1292654.htm)"
+],
+"key_facts": [
+"Doanh thu thuần hợp nhất 2024 của MWG = 134.341 tỷ đồng [MWG]",
+"Tăng trưởng doanh thu thuần hợp nhất 2024 của MWG = +13,6% YoY [MWG]",
+"Tỷ lệ hoàn thành kế hoạch doanh thu 2024 của MWG = 107% [MWG]",
+"Lợi nhuận sau thuế 2024 của MWG = khoảng 3.722 tỷ đồng [MBS]",
+"Tăng trưởng lợi nhuận sau thuế 2024 của MWG = khoảng 22 lần YoY [MBS]",
+"Biên lợi nhuận ròng 2024 của MWG = khoảng 2,8% [tính từ LNST 3.722 tỷ đồng / doanh thu 134.341 tỷ đồng]",
+"SG&A/doanh thu 2024 của MWG = 17,5% [MBS]",
+"SG&A/doanh thu 2024 của MWG giảm 1,3 điểm % YoY [MBS]",
+"Doanh thu thuần 2023 của MWG = khoảng 118.280 tỷ đồng [MWG]",
+"Lợi nhuận sau thuế 2023 của MWG = 168 tỷ đồng [MWG]"
+],
+"negative_facts": [
+"KHÔNG lấy nhầm biên lợi nhuận 4,5% của năm 2025 gắn cho 2024",
+"KHÔNG phủ nhận sự cải thiện hiệu quả vận hành sau tái cấu trúc",
+"KHÔNG dùng lợi nhuận 3.700 tỷ đồng như số tuyệt đối nếu nguồn đã kiểm chứng ghi khoảng 3.722 tỷ đồng"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "C-005",
+"question": "Phân tích VCB năm 2024 qua tăng trưởng tín dụng, thu nhập lãi thuần, NIM, nợ xấu và chi phí dự phòng.",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"VCB"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, Vietcombank (VCB) duy trì chất lượng tài sản tốt nhưng biên sinh lời chịu áp lực. Thu nhập lãi thuần đạt 55.406 tỷ đồng, tăng nhẹ so với 53.614 tỷ đồng năm 2023; NIM giảm từ 3,00% xuống 2,86% [web:VCB]. Tín dụng tiếp tục mở rộng khi tỷ lệ cho vay khách hàng/tổng tài sản tăng từ 69,1% lên 69,5%, trong bối cảnh tổng tài sản tăng lên 2.085.874 tỷ đồng [web:VCB]. Chất lượng tài sản vẫn thuộc nhóm tốt nhất ngành: tỷ lệ nợ xấu khoảng 0,96%–0,97% và tỷ lệ bao phủ nợ xấu đạt khoảng 223% [web:VCB]. Chi phí dự phòng rủi ro tín dụng giảm còn 3.315 tỷ đồng từ 4.530 tỷ đồng năm 2023, giúp hỗ trợ lợi nhuận trước thuế đạt 42.236 tỷ đồng, tăng khoảng 2%.",
+"sources": [],
+"web_sources": [
+"[https://www.vietcombank.com.vn/-/media/Project/VCB-Sites/VCB/Nha-Dau-tu/Files/BC-dinh-ky/BC-thuong-nien/2024/EN_VCB-Annual-Report-2024_Full_250426_FN_compressed.pdf](https://www.vietcombank.com.vn/-/media/Project/VCB-Sites/VCB/Nha-Dau-tu/Files/BC-dinh-ky/BC-thuong-nien/2024/EN_VCB-Annual-Report-2024_Full_250426_FN_compressed.pdf)",
+"[https://portal.vietcombank.com.vn/VCBDigital/2023/BCTN/vi/chi-so-tai-chinh-co-ban-2020-2024/](https://portal.vietcombank.com.vn/VCBDigital/2023/BCTN/vi/chi-so-tai-chinh-co-ban-2020-2024/)",
+"[https://www.mbs.com.vn/media/c2xesdug/vcb_bccn_20240813.pdf](https://www.mbs.com.vn/media/c2xesdug/vcb_bccn_20240813.pdf)",
+"[https://www.vietcap.com.vn/api/cms-api/uploads/file/202412/VCB-20241202-BUY.pdf](https://www.vietcap.com.vn/api/cms-api/uploads/file/202412/VCB-20241202-BUY.pdf)"
+],
+"key_facts": [
+"Thu nhập lãi thuần 2024 của VCB = 55.406 tỷ đồng [VCB]",
+"Thu nhập lãi thuần 2023 của VCB = 53.614 tỷ đồng [VCB]",
+"NIM 2024 của VCB = 2,86% [VCB]",
+"NIM 2023 của VCB = 3,00% [VCB]",
+"Tỷ lệ nợ xấu 2024 của VCB = 0,96% [VCB]",
+"Tỷ lệ nợ xấu 2023 của VCB = 0,99% [VCB]",
+"Tỷ lệ bao phủ nợ xấu 2024 của VCB = khoảng 223% [VCB]",
+"Chi phí dự phòng rủi ro tín dụng 2024 của VCB = 3.315 tỷ đồng [VCB]",
+"Chi phí dự phòng rủi ro tín dụng 2023 của VCB = 4.530 tỷ đồng [VCB]",
+"Lợi nhuận trước thuế 2024 của VCB = 42.236 tỷ đồng [VCB]",
+"Tăng trưởng lợi nhuận trước thuế 2024 của VCB = khoảng +2% YoY [VCB]",
+"Tổng tài sản 2024 của VCB = 2.085.874 tỷ đồng [VCB]",
+"Cho vay khách hàng/Tổng tài sản 2024 của VCB = 69,5% [VCB]"
+],
+"negative_facts": [
+"KHÔNG nói NIM của VCB tăng trong năm 2024",
+"KHÔNG dùng tỷ lệ nợ xấu 1,20% của 6T/2024 thay cho số cuối năm 2024",
+"KHÔNG nhầm chi phí dự phòng 3.315 tỷ đồng với số dự phòng cụ thể phát sinh trong thuyết minh"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "C-006",
+"question": "BID năm 2024: lợi nhuận trước thuế, NIM, tỷ lệ nợ xấu và dự phòng cho thấy chất lượng tài sản đang cải thiện hay xấu đi?",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"BID"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, BIDV (BID) tăng trưởng lợi nhuận tốt nhưng chất lượng tài sản không thể kết luận là cải thiện hoàn toàn. Lợi nhuận trước thuế hợp nhất đạt 31.985 tỷ đồng, tăng 15,9% so với 2023 [1][web:BIDV]. Tỷ lệ nợ xấu cuối năm 2024 là 1,27%, cao hơn mức 1,12% năm 2023, cho thấy áp lực chất lượng tài sản tăng nhẹ [1][web:BIDV]. Tuy nhiên, ngân hàng vẫn duy trì bộ đệm dự phòng tương đối vững với tỷ lệ bao phủ nợ xấu khối ngân hàng thương mại khoảng 133% [1][web:BIDV]. NIM 2024 không được tìm thấy trực tiếp trong BCTN công khai đã kiểm tra, nên không nên bịa số NIM; có thể kết luận thận trọng rằng lợi nhuận tăng nhưng nợ xấu tăng nhẹ, còn bộ đệm dự phòng vẫn giúp giảm rủi ro.",
+"sources": [
+"BID_BCTN24.pdf"
+],
+"web_sources": [
+"[https://bidv.com.vn/wps/wcm/connect/2961231d-3291-4326-89b6-7350d04c496c/BIDV%2BAnnual%2BReport%2B2024.FNL.pdf](https://bidv.com.vn/wps/wcm/connect/2961231d-3291-4326-89b6-7350d04c496c/BIDV%2BAnnual%2BReport%2B2024.FNL.pdf)",
+"[https://bidv.com.vn/en/quan-he-nha-dau-tu/bao-cao-va-tai-lieu/annualreport/2025/bctn%2B2024](https://bidv.com.vn/en/quan-he-nha-dau-tu/bao-cao-va-tai-lieu/annualreport/2025/bctn%2B2024)",
+"[https://bidv.com.vn/wps/wcm/connect/82ab7c2f-349c-463b-a0a5-f08bee9972cf/BIDV%2BInvestor%2BPresentation%2B2024.pdf](https://bidv.com.vn/wps/wcm/connect/82ab7c2f-349c-463b-a0a5-f08bee9972cf/BIDV%2BInvestor%2BPresentation%2B2024.pdf)",
+"[https://baophapluat.vn/nam-2024-tong-tai-san-cua-bidv-vuot-100-ty-usd-loi-nhuan-truoc-thue-hon-11-ty-usd-post537176.html](https://baophapluat.vn/nam-2024-tong-tai-san-cua-bidv-vuot-100-ty-usd-loi-nhuan-truoc-thue-hon-11-ty-usd-post537176.html)"
+],
+"key_facts": [
+"Lợi nhuận trước thuế hợp nhất 2024 của BID = 31.985 tỷ đồng [BIDV]",
+"Tăng trưởng lợi nhuận trước thuế hợp nhất 2024 của BID = +15,9% YoY [BIDV]",
+"Tỷ lệ nợ xấu 31/12/2024 của BID = 1,27% [BIDV]",
+"Tỷ lệ nợ xấu 2023 của BID = 1,12% [BIDV]",
+"Tỷ lệ bao phủ nợ xấu khối ngân hàng thương mại 2024 của BID = 133% [BIDV]",
+"ROA 2024 của BID = 1,01% [BIDV]",
+"ROE 2024 của BID = 19,52% [BIDV]",
+"Dư nợ cho vay 31/12/2024 của BID = 2.056.082 tỷ đồng [BIDV Investor Presentation]",
+"Tăng trưởng cho vay 2024 của BID = +15,7% so với cuối 2023 [BIDV Investor Presentation]",
+"Tổng tài sản 31/12/2024 của BID = trên 2,7 triệu tỷ đồng [BIDV]"
+],
+"negative_facts": [
+"KHÔNG bịa đặt số liệu NIM 2024 nếu nguồn chính thức không công bố rõ",
+"KHÔNG nhận định sai rằng tỷ lệ nợ xấu đang giảm",
+"KHÔNG bỏ qua việc tỷ lệ bao phủ nợ xấu vẫn duy trì trên 100%"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "C-007",
+"question": "VHM 2024 nên được nhìn thế nào qua doanh thu bàn giao, lợi nhuận sau thuế, biên gộp và đòn bẩy tài chính?",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"VHM"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, Vinhomes (VHM) vẫn duy trì lợi nhuận lớn nhưng cần nhìn rõ sự khác biệt giữa doanh thu kế toán và doanh thu điều chỉnh. Doanh thu thuần hợp nhất đạt 102.045 tỷ đồng, còn doanh thu thuần hợp nhất điều chỉnh, bao gồm hoạt động của Vinhomes và các hợp đồng hợp tác kinh doanh, đạt 141.812 tỷ đồng, tăng 13% so với 2023 [web:Vinhomes]. Lợi nhuận sau thuế hợp nhất đạt 35.052 tỷ đồng, hoàn thành kế hoạch năm [web:Vinhomes]. Biên lợi nhuận gộp theo BCTN đạt khoảng 32,22%, giảm so với 34,48% năm 2023 nhưng vẫn là mức cao. Về đòn bẩy, VHM duy trì cấu trúc vốn tương đối an toàn với nợ ròng/tổng tài sản 8,35% và nợ ròng/vốn chủ sở hữu 21,35%, nhưng mức này có tăng do bước vào chu kỳ phát triển đại dự án mới.",
+"sources": [
+"VHM_BCTN24.pdf"
+],
+"web_sources": [
+"[https://vinhomes.vn/en/bao-cao-tai-chinh](https://vinhomes.vn/en/bao-cao-tai-chinh)",
+"[https://vinhomes.vn/vi/bao-cao-tai-chinh](https://vinhomes.vn/vi/bao-cao-tai-chinh)",
+"[https://gcp-cdn.vinhomes.vn/cms-data/ENG%20Vinhomes%20AR%202024_250411_compressed.pdf](https://gcp-cdn.vinhomes.vn/cms-data/ENG%20Vinhomes%20AR%202024_250411_compressed.pdf)",
+"[https://static2.vietstock.vn/vietstock/2025/4/14/20250414_20250412___vhm___vinhomes_ar_2024.pdf](https://static2.vietstock.vn/vietstock/2025/4/14/20250414_20250412___vhm___vinhomes_ar_2024.pdf)",
+"[https://cafef.vn/vinhomes-lai-14-ty-usd-trong-nam-2024-doanh-thu-chua-ghi-nhan-dat-hon-94000-ty-dong-188250124114732171.chn](https://cafef.vn/vinhomes-lai-14-ty-usd-trong-nam-2024-doanh-thu-chua-ghi-nhan-dat-hon-94000-ty-dong-188250124114732171.chn)"
+],
+"key_facts": [
+"Doanh thu thuần hợp nhất 2024 của VHM = 102.045 tỷ đồng [Vinhomes]",
+"Doanh thu thuần hợp nhất điều chỉnh 2024 của VHM = 141.812 tỷ đồng [Vinhomes]",
+"Tăng trưởng doanh thu thuần hợp nhất điều chỉnh 2024 của VHM = +13% YoY [Vinhomes]",
+"Lợi nhuận sau thuế hợp nhất 2024 của VHM = 35.052 tỷ đồng [Vinhomes]",
+"LNST thuộc cổ đông công ty mẹ 2024 của VHM = 31.801 tỷ đồng [VHM_BCTN24]",
+"Biên lợi nhuận gộp 2024 của VHM = 32,22% [VHM_BCTN24]",
+"Biên lợi nhuận gộp 2023 của VHM = 34,48% [VHM_BCTN24]",
+"Nợ ròng/Tổng tài sản 2024 của VHM = 8,35% [VHM_BCTN24]",
+"Nợ ròng/Vốn chủ sở hữu 2024 của VHM = 21,35% [VHM_BCTN24]",
+"Doanh thu chưa ghi nhận cuối năm 2024 của VHM = hơn 94.000 tỷ đồng [cafef]"
+],
+"negative_facts": [
+"KHÔNG dùng doanh thu thuần bán hàng ra bên ngoài 102.323 tỷ đồng nếu nguồn chính thức Vinhomes công bố 102.045 tỷ đồng",
+"KHÔNG dùng doanh thu quy đổi 125.943 tỷ đồng nếu nguồn chính thức công bố doanh thu điều chỉnh 141.812 tỷ đồng",
+"KHÔNG nhầm LNST hợp nhất 35.052 tỷ đồng với LNST thuộc cổ đông công ty mẹ 31.801 tỷ đồng"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "C-008",
+"question": "Đánh giá VIC năm 2024 dựa trên doanh thu hợp nhất, lỗ/lãi sau thuế, dòng tiền kinh doanh và mức nợ vay.",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"VIC"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, Vingroup (VIC) tăng trưởng doanh thu và chuyển biến tích cực về lợi nhuận, nhưng vẫn cần theo dõi đòn bẩy và nhu cầu vốn lớn. Theo công bố kết quả kinh doanh, tổng doanh thu thuần hợp nhất cả năm đạt 192.159 tỷ đồng, tăng 19,0%; lợi nhuận trước thuế đạt 16.724 tỷ đồng và lợi nhuận sau thuế đạt 5.251 tỷ đồng, tăng 155,4% so với năm 2023 [web:Vingroup][web:TBTCVN]. Theo báo cáo thường niên/BCTC, doanh thu thuần theo báo cáo tài chính hợp nhất đạt khoảng 189.068 tỷ đồng và lợi nhuận sau thuế khoảng 5.276 tỷ đồng [web:KIS]. Dòng tiền thuần từ hoạt động kinh doanh năm 2024 dương khoảng 20.846 tỷ đồng, cải thiện mạnh so với mức âm 20.012 tỷ đồng năm 2023 [web:Vingroup]. Tổng tài sản cuối năm đạt khoảng 839.216 tỷ đồng; mức nợ vay vẫn lớn do Vingroup tiếp tục đầu tư vào bất động sản, xe điện và các lĩnh vực công nghiệp.",
+"sources": [],
+"web_sources": [
+"[https://ircdn.vingroup.net/storage/Uploads/0_Bao%20cao%20thuong%20nien/2024/ENG_%20Vingroup%20AR24_250418.pdf](https://ircdn.vingroup.net/storage/Uploads/0_Bao%20cao%20thuong%20nien/2024/ENG_%20Vingroup%20AR24_250418.pdf)",
+"[https://ircdn.vingroup.net/storage/Uploads/0_Bao%20cao%20thuong%20nien/2024/VIE_%20Vingroup%20AR24_250418.pdf](https://ircdn.vingroup.net/storage/Uploads/0_Bao%20cao%20thuong%20nien/2024/VIE_%20Vingroup%20AR24_250418.pdf)",
+"[https://thoibaotaichinhvietnam.vn/vingroup-dat-5251-ty-dong-loi-nhuan-sau-thue-nam-2024-169387.html](https://thoibaotaichinhvietnam.vn/vingroup-dat-5251-ty-dong-loi-nhuan-sau-thue-nam-2024-169387.html)",
+"[https://vietnamfinance.vn/nam-2024-cua-vingroup-doanh-thu-cao-nhat-lich-su-lai-sau-thue-5241-ty-vuot-ke-hoach-nam-d121810.html](https://vietnamfinance.vn/nam-2024-cua-vingroup-doanh-thu-cao-nhat-lich-su-lai-sau-thue-5241-ty-vuot-ke-hoach-nam-d121810.html)",
+"[https://stockkisvn.vn/bao-cao-tai-chinh-vingroup/](https://stockkisvn.vn/bao-cao-tai-chinh-vingroup/)",
+"[https://vingroup.net/en/investor-relations/financial-statement/2024](https://vingroup.net/en/investor-relations/financial-statement/2024)"
+],
+"key_facts": [
+"Tổng doanh thu thuần hợp nhất 2024 của VIC theo công bố kết quả kinh doanh = 192.159 tỷ đồng [TBTCVN]",
+"Tăng trưởng tổng doanh thu thuần hợp nhất 2024 của VIC = +19,0% YoY [TBTCVN]",
+"Lợi nhuận trước thuế 2024 của VIC = 16.724 tỷ đồng [TBTCVN]",
+"Lợi nhuận sau thuế 2024 của VIC theo công bố kết quả kinh doanh = 5.251 tỷ đồng [TBTCVN]",
+"Tăng trưởng lợi nhuận sau thuế 2024 của VIC = +155,4% YoY [TBTCVN]",
+"Doanh thu thuần theo BCTC hợp nhất 2024 của VIC = 189.068 tỷ đồng [KIS]",
+"Lợi nhuận sau thuế theo BCTC hợp nhất 2024 của VIC = 5.276 tỷ đồng [KIS]",
+"Dòng tiền thuần từ hoạt động kinh doanh 2024 của VIC = 20.846 tỷ đồng [Vingroup]",
+"Dòng tiền thuần từ hoạt động kinh doanh 2023 của VIC = âm 20.012 tỷ đồng [Vingroup]",
+"Tổng tài sản 31/12/2024 của VIC = 839.216 tỷ đồng [VietnamFinance]",
+"Tăng trưởng tổng tài sản 31/12/2024 của VIC = +25,7% so với đầu kỳ [VietnamFinance]"
+],
+"negative_facts": [
+"KHÔNG nói VIC lỗ sau thuế năm 2024 vì nguồn công bố ghi lãi sau thuế",
+"KHÔNG nhầm dòng tiền kinh doanh dương 20.846 tỷ đồng với dòng tiền đầu tư âm",
+"KHÔNG trộn doanh thu công bố kết quả kinh doanh 192.159 tỷ đồng với doanh thu thuần BCTC 189.068 tỷ đồng mà không ghi rõ nguồn/cách trình bày"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "C-009",
+"question": "MSN năm 2024 tăng trưởng có đến từ mảng cốt lõi không, nếu phân tích doanh thu, EBITDA, lợi nhuận ròng và nợ vay?",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"MSN"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, tăng trưởng của Masan Group (MSN) chủ yếu đến từ các mảng cốt lõi tiêu dùng - bán lẻ hơn là yếu tố một lần. Doanh thu thuần năm 2024 đạt 83.178 tỷ đồng, tăng 6,3% so với cùng kỳ [web:MSN]. EBITDA đạt 15.921 tỷ đồng, tăng 19,3%, trong đó Masan cho biết động lực đến từ đà tăng lợi nhuận của các mảng tiêu dùng - bán lẻ [web:Masan]. Lợi nhuận sau thuế sau lợi ích cổ đông thiểu số đạt khoảng 1.990 tỷ đồng, tăng 377,5% YoY; lợi nhuận sau thuế toàn tập đoàn đạt 4.272 tỷ đồng, tăng 128% YoY [web:Masan][web:Vietstock]. Về nợ vay, tỷ lệ nợ ròng/LTM EBITDA đã giảm từ 3,9 lần cuối 2023 xuống 3,3 lần tại 2Q2024 và tiếp tục là biến số cần theo dõi do MSN vẫn dùng đòn bẩy đáng kể.",
+"sources": [],
+"web_sources": [
+"[https://www.masangroup.com/vi/investor-relations.html](https://www.masangroup.com/vi/investor-relations.html)",
+"[https://cafef1.mediacdn.vn/download/250425/msn-bao-cao-thuong-nien-nam-2024-0.pdf](https://cafef1.mediacdn.vn/download/250425/msn-bao-cao-thuong-nien-nam-2024-0.pdf)",
+"[https://static2.vietstock.vn/vietstock/2025/4/28/20250426_msn_250426_annual_report_2024.pdf](https://static2.vietstock.vn/vietstock/2025/4/28/20250426_msn_250426_annual_report_2024.pdf)",
+"[https://www.masangroup.com/news/press-releases/Masan-Profit-of-4Q2024-increased-nearly-14-fold-YoY.html](https://www.masangroup.com/news/press-releases/Masan-Profit-of-4Q2024-increased-nearly-14-fold-YoY.html)",
+"[https://www.masangroup.com/news/masan-news/Masan-Group-Releases-Accounts-For-Q4-And-FY2024.html](https://www.masangroup.com/news/masan-news/Masan-Group-Releases-Accounts-For-Q4-And-FY2024.html)",
+"[https://masangroup-cms-production.s3-ap-southeast-1.amazonaws.com/iblock/8ea/8ea84ffa9166d5a6fb77a99474212ad6/9ed0ca68be17da0ef9021aba88adbc07.pdf](https://masangroup-cms-production.s3-ap-southeast-1.amazonaws.com/iblock/8ea/8ea84ffa9166d5a6fb77a99474212ad6/9ed0ca68be17da0ef9021aba88adbc07.pdf)"
+],
+"key_facts": [
+"Doanh thu thuần 2024 của MSN = 83.178 tỷ đồng [MSN]",
+"Tăng trưởng doanh thu thuần 2024 của MSN = +6,3% YoY [MSN]",
+"EBITDA 2024 của MSN = 15.921 tỷ đồng [Masan]",
+"Tăng trưởng EBITDA 2024 của MSN = +19,3% YoY [Masan]",
+"EBITDA Q4/2024 của MSN = 4.580 tỷ đồng [Masan]",
+"Tăng trưởng EBITDA Q4/2024 của MSN = +44,6% YoY [Masan]",
+"Lợi nhuận sau thuế sau lợi ích cổ đông thiểu số 2024 của MSN = 1.990 tỷ đồng [Masan]",
+"Tăng trưởng lợi nhuận sau thuế sau lợi ích cổ đông thiểu số 2024 của MSN = +377,5% YoY [Masan]",
+"Lợi nhuận sau thuế 2024 của MSN = 4.272 tỷ đồng [Vietstock]",
+"Tăng trưởng lợi nhuận sau thuế 2024 của MSN = +128% YoY [Vietstock]",
+"Nợ ròng/LTM EBITDA của MSN tại 2Q2024 = 3,3 lần [Masan]",
+"Nợ ròng/LTM EBITDA của MSN tại 4Q2023 = 3,9 lần [Masan]"
+],
+"negative_facts": [
+"KHÔNG kết luận tăng trưởng chỉ đến từ lợi nhuận tài chính một lần",
+"KHÔNG nhầm NPAT-MI 1.990 tỷ đồng với LNST toàn tập đoàn 4.272 tỷ đồng",
+"KHÔNG bỏ qua rủi ro đòn bẩy dù tỷ lệ nợ ròng/EBITDA đã giảm"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "C-010",
+"question": "TCB năm 2024: phân tích ROE, CASA, NIM, nợ xấu và lợi nhuận trước thuế để đánh giá sức khỏe ngân hàng.",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"TCB"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, Techcombank (TCB) duy trì sức khỏe tài chính tốt với lợi nhuận trước thuế đạt 27,5 nghìn tỷ đồng, tăng 20,3% YoY [web:Techcombank]. ROE duy trì quanh 15,6%, còn CASA đạt 40,9%, thuộc nhóm cao nhất ngành, giúp hỗ trợ chi phí vốn [web:Techcombank][web:FPTS]. NIM của TCB đạt khoảng 4,2%, thuộc nhóm dẫn đầu trong so sánh với các ngân hàng niêm yết lớn [web:MBB]. Chất lượng tài sản cần theo dõi nhưng chưa xấu nghiêm trọng: tỷ lệ nợ xấu cuối năm ở quanh 1,14%–1,17% tùy cách tính nguồn, trong khi CAR Basel II đạt 15,3%, tạo bộ đệm vốn tốt. Nhìn chung, TCB tăng trưởng lợi nhuận dựa trên CASA cao, NIM tốt và vốn mạnh, nhưng cần giám sát nợ xấu bất động sản/khách hàng doanh nghiệp.",
+"sources": [],
+"web_sources": [
+"[https://techcombank.com/content/dam/techcombank/public-site/documents/techcombank-thong-cao-bao-chi-kqkd-fy24.pdf](https://techcombank.com/content/dam/techcombank/public-site/documents/techcombank-thong-cao-bao-chi-kqkd-fy24.pdf)",
+"[https://techcombank.com/content/dam/techcombank/public-site/documents/bao-cao-thuong-nien-nam-2024-vie.pdf](https://techcombank.com/content/dam/techcombank/public-site/documents/bao-cao-thuong-nien-nam-2024-vie.pdf)",
+"[https://file.fpts.com.vn/FileStore2/File/2025/04/09/20250409_TCB_250409_Annual_Report_2024.pdf](https://file.fpts.com.vn/FileStore2/File/2025/04/09/20250409_TCB_250409_Annual_Report_2024.pdf)",
+"[https://techcombank.com/en/investors/financial-information/highlights](https://techcombank.com/en/investors/financial-information/highlights)",
+"[https://static2.vietstock.vn/vietstock/2025/4/25/20250423_mbb_250423_annual_report_2024.pdf](https://static2.vietstock.vn/vietstock/2025/4/25/20250423_mbb_250423_annual_report_2024.pdf)",
+"[https://masvn.com/api/attachment/file/1731313891763-20241111_TCB_2024_EN_Final.pdf](https://masvn.com/api/attachment/file/1731313891763-20241111_TCB_2024_EN_Final.pdf)"
+],
+"key_facts": [
+"Lợi nhuận trước thuế 2024 của TCB = 27,5 nghìn tỷ đồng [Techcombank]",
+"Tăng trưởng lợi nhuận trước thuế 2024 của TCB = +20,3% YoY [Techcombank]",
+"Tổng thu nhập hoạt động 2024 của TCB = 47,0 nghìn tỷ đồng [Techcombank]",
+"Tăng trưởng tổng thu nhập hoạt động 2024 của TCB = +17,3% YoY [Techcombank]",
+"CASA 2024 của TCB = 40,9% [Techcombank]",
+"Số dư CASA 2024 của TCB bao gồm Sinh lời tự động = gần 231 nghìn tỷ đồng [Techcombank]",
+"CAR Basel II 2024 của TCB = 15,3% [Techcombank]",
+"NIM 2024 của TCB = khoảng 4,2% [MBB peer comparison]",
+"ROE 2024 của TCB = khoảng 15,6% [MBB peer comparison]",
+"CASA 3Q2024 của TCB = 36,5% theo báo cáo tài chính [Mirae Asset]",
+"CASA 3Q2024 của TCB bao gồm auto-earnings deposits = 40,5% [Mirae Asset]"
+],
+"negative_facts": [
+"KHÔNG nhầm CASA 40,9% với tỷ lệ tiền gửi không kỳ hạn theo cách tính không gồm Sinh lời tự động",
+"KHÔNG dùng NIM 3Q2024 làm số cả năm nếu không ghi rõ kỳ",
+"KHÔNG đánh giá ngân hàng chỉ bằng tăng trưởng LNTT mà bỏ qua nợ xấu và CAR"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "C-011",
+"question": "ACB năm 2024 có duy trì được chất lượng lợi nhuận không, xét theo thu nhập lãi thuần, NIM, CIR, nợ xấu và ROE?",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"ACB"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, chất lượng lợi nhuận của ACB nhìn chung vẫn tốt nhưng tăng trưởng không quá đột biến. Thu nhập lãi thuần đạt khoảng 27.794–27.795 tỷ đồng, tăng so với 24.959 tỷ đồng năm trước [1][web:ACB]. NIM năm 2024 có thể xác nhận ở khoảng 4,0% theo BCTN/nguồn công khai, vì vậy cần sửa nhận định stage 2 rằng chưa có số liệu NIM. CIR giảm nhẹ về 32,5%, cho thấy kiểm soát chi phí tốt [1]. Tỷ lệ nợ xấu cuối năm khoảng 1,49%–1,50%, cao hơn năm trước nhưng vẫn ở mức kiểm soát; ROE duy trì khoảng 21,75%–22%, phản ánh khả năng sinh lời cao so với mặt bằng ngành.",
+"sources": [
+"ACB_BCTN24.pdf",
+"Conversation History"
+],
+"web_sources": [
+"[https://acb.com.vn/nha-dau-tu/bao-cao-thuong-nien-2024](https://acb.com.vn/nha-dau-tu/bao-cao-thuong-nien-2024)",
+"[https://acb.com.vn/acbwebsite/files/BCTN_2024.pdf](https://acb.com.vn/acbwebsite/files/BCTN_2024.pdf)",
+"[https://vietnambiz.vn/acb-lai-ky-luc-hon-21000-ty-trong-nam-2024-no-xau-tang-gan-47-2025122124754276.htm](https://vietnambiz.vn/acb-lai-ky-luc-hon-21000-ty-trong-nam-2024-no-xau-tang-gan-47-2025122124754276.htm)",
+"[https://mekongasean.vn/acb-nam-2024-loi-nhuan-can-moc-21000-ty-dong-roe-on-dinh-22-37747.html](https://mekongasean.vn/acb-nam-2024-loi-nhuan-can-moc-21000-ty-dong-roe-on-dinh-22-37747.html)",
+"[https://www.mbs.com.vn/media/2irpa0en/acb_update_20241107_eng.pdf](https://www.mbs.com.vn/media/2irpa0en/acb_update_20241107_eng.pdf)"
+],
+"key_facts": [
+"Thu nhập lãi thuần 2024 của ACB = khoảng 27.794–27.795 tỷ đồng [ACB][vietnambiz]",
+"Thu nhập lãi thuần 2023 của ACB = 24.959 tỷ đồng [ACB_BCTN24]",
+"NIM 2024 của ACB = khoảng 4,0% [ACB]",
+"NIM 9T/2024 của ACB = 3,8% [MBS]",
+"CIR 2024 của ACB = 32,5% [ACB_BCTN24]",
+"Tỷ lệ nợ xấu cuối năm 2024 của ACB = khoảng 1,49%–1,50% [ACB][vietnambiz]",
+"Dư nợ xấu cuối năm 2024 của ACB = khoảng 8.650 tỷ đồng [ACB_BCTN24]",
+"ROE 2024 của ACB = khoảng 21,75%–22% [ACB_BCTN24][mekongasean]",
+"Lợi nhuận trước thuế 2024 của ACB = 21.006 tỷ đồng [vietnambiz]",
+"Lợi nhuận sau thuế 2024 của ACB = 16.790 tỷ đồng [vietnambiz]"
+],
+"negative_facts": [
+"KHÔNG nói chưa có số liệu NIM năm 2024 nếu đã dùng nguồn ACB/BCTN công khai có NIM khoảng 4,0%",
+"KHÔNG cho rằng tỷ lệ nợ xấu giảm so với năm 2023",
+"KHÔNG nhầm CIR với CASA"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "C-012",
+"question": "MBB 2024: nhìn nhanh nhưng đủ sâu về lợi nhuận trước thuế, tăng trưởng tín dụng, NIM, nợ xấu và bộ đệm dự phòng.",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"MBB"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, MB (MBB) tiếp tục tăng trưởng quy mô nhanh với tín dụng mở rộng mạnh, nhưng bộ đệm dự phòng suy giảm so với các năm trước. Lợi nhuận trước thuế hợp nhất theo BCTN đạt 27.639 tỷ đồng, tăng 12% YoY; một số nguồn tổng hợp BCTC ghi mức 28.829 tỷ đồng, cần ghi rõ phạm vi/cách trình bày khi sử dụng [1][web:MBB]. Tổng tín dụng bao gồm trái phiếu doanh nghiệp đạt hơn 811 nghìn tỷ đồng, tăng 24,5%; riêng tăng trưởng tín dụng theo phân bổ SBV đạt 24,33% [1][web:MBB]. NIM năm 2024 đạt 4,1%, thuộc nhóm cao trong ngành. Tỷ lệ nợ xấu cuối năm là 1,6%, đạt mục tiêu dưới 2%; tỷ lệ bao phủ nợ xấu riêng ngân hàng khoảng 95%, không phải 92,2% theo số chưa verify chắc chắn.",
+"sources": [
+"MBB_BCTN24.pdf",
+"MBB_BCTN25.pdf"
+],
+"web_sources": [
+"[https://www.mbbank.com.vn/chi-tiet/thong-bao/bao-cao-thuong-nien-2024-2025-6-6-15-48-23/5405](https://www.mbbank.com.vn/chi-tiet/thong-bao/bao-cao-thuong-nien-2024-2025-6-6-15-48-23/5405)",
+"[https://static2.vietstock.vn/vietstock/2025/4/25/20250423_mbb_250423_annual_report_2024.pdf](https://static2.vietstock.vn/vietstock/2025/4/25/20250423_mbb_250423_annual_report_2024.pdf)",
+"[https://vietstock.vn/2025/04/mbb-bao-cao-thuong-nien-nam-2024-737-1299341.htm](https://vietstock.vn/2025/04/mbb-bao-cao-thuong-nien-nam-2024-737-1299341.htm)",
+"[https://vnba.org.vn/vi/ngan-hang-mb-lai-hon-28-829-ty-dong-trong-nam-2024-16671.htm](https://vnba.org.vn/vi/ngan-hang-mb-lai-hon-28-829-ty-dong-trong-nam-2024-16671.htm)",
+"[https://masvn.com/api/attachment/file/1739848176141-EN_MBB_Report_MUA_MAS_4Q24_ed_S.pdf](https://masvn.com/api/attachment/file/1739848176141-EN_MBB_Report_MUA_MAS_4Q24_ed_S.pdf)"
+],
+"key_facts": [
+"Lợi nhuận trước thuế hợp nhất 2024 của MBB theo BCTN = 27.639 tỷ đồng [MBB]",
+"Tăng trưởng lợi nhuận trước thuế hợp nhất 2024 của MBB theo BCTN = +12% YoY [MBB]",
+"Lợi nhuận trước thuế 2024 của MBB theo nguồn tổng hợp BCTC = 28.829 tỷ đồng [VNBA]",
+"Tổng tín dụng gồm trái phiếu doanh nghiệp 2024 của MBB = trên 811 nghìn tỷ đồng [MBB]",
+"Tăng trưởng tổng tín dụng gồm trái phiếu doanh nghiệp 2024 của MBB = +24,5% [MBB]",
+"Tăng trưởng tín dụng theo phân bổ SBV 2024 của MBB = 24,33% [MBB]",
+"NIM 2024 của MBB = 4,1% [MBB]",
+"ROE 2024 của MBB = 21,5% [MBB]",
+"Tỷ lệ nợ xấu cuối năm 2024 của MBB = 1,6% [MBB]",
+"Tỷ lệ nợ xấu pre-CIC 2024 của MBB = 1,43% [MBB]",
+"Tỷ lệ bao phủ nợ xấu riêng ngân hàng 2024 của MBB = 95% [MBB]",
+"Tổng tài sản 2024 của MBB = trên 1 triệu tỷ đồng [MBB]"
+],
+"negative_facts": [
+"KHÔNG nêu sai NIM thành 4,9%",
+"KHÔNG nhận định nợ xấu giảm mạnh trong năm 2024 vì tỷ lệ cuối năm vẫn khoảng 1,6%",
+"KHÔNG dùng tỷ lệ bao phủ 92,2% nếu nguồn BCTN MBB ghi 95% cho riêng ngân hàng"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "C-013",
+"question": "SAB năm 2024 đang gặp vấn đề ở tăng trưởng sản lượng, biên lợi nhuận hay chi phí? Phân tích dựa trên doanh thu, lợi nhuận, biên gộp và biên ròng.",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"SAB"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, SABECO (SAB) không gặp vấn đề lớn ở doanh thu, vì doanh thu thuần tăng lên 31.872 tỷ đồng từ 30.461 tỷ đồng năm 2023 [1][web:SAB]. Điểm cần chú ý nằm ở biên lợi nhuận gộp: giá vốn hàng bán tăng lên 22.554 tỷ đồng khiến biên gộp giảm nhẹ từ 29,84% xuống 29,23% [1]. Tuy nhiên, SAB kiểm soát chi phí bán hàng tốt khi chi phí bán hàng giảm từ 4.479 tỷ đồng xuống 4.041 tỷ đồng, giúp lợi nhuận sau thuế tăng lên 4.494 tỷ đồng và biên lợi nhuận ròng cải thiện từ 13,96% lên 14,10%. Vì vậy, vấn đề chính năm 2024 là áp lực biên gộp/giá vốn, còn chi phí bán hàng lại là yếu tố hỗ trợ lợi nhuận.",
+"sources": [
+"SAB_BCTN24.pdf"
+],
+"web_sources": [
+"[https://www.sabeco.com.vn/en-US/investors/financial-information/annual-reports](https://www.sabeco.com.vn/en-US/investors/financial-information/annual-reports)",
+"[https://www.sabeco.com.vn/Data/Sites/1/media/ir/reports/annualreport/sabeco-ar-2024.pdf](https://www.sabeco.com.vn/Data/Sites/1/media/ir/reports/annualreport/sabeco-ar-2024.pdf)",
+"[https://static2.vietstock.vn/vietstock/2025/4/3/20250403_20250402___sab___sabeco___ar_2024___vn.pdf](https://static2.vietstock.vn/vietstock/2025/4/3/20250403_20250402___sab___sabeco___ar_2024___vn.pdf)",
+"[https://vietstock.vn/2025/04/sab-bao-cao-thuong-nien-nam-2024-737-1290602.htm](https://vietstock.vn/2025/04/sab-bao-cao-thuong-nien-nam-2024-737-1290602.htm)"
+],
+"key_facts": [
+"Doanh thu thuần 2024 của SAB = 31.872 tỷ đồng [SAB_BCTN24]",
+"Doanh thu thuần 2023 của SAB = 30.461 tỷ đồng [SAB_BCTN24]",
+"Lợi nhuận sau thuế 2024 của SAB = 4.494 tỷ đồng [SAB_BCTN24]",
+"Giá vốn hàng bán 2024 của SAB = 22.554 tỷ đồng [SAB_BCTN24]",
+"Biên lợi nhuận gộp 2024 của SAB = 29,23% [SAB_BCTN24]",
+"Biên lợi nhuận gộp 2023 của SAB = 29,84% [SAB_BCTN24]",
+"Chi phí bán hàng 2024 của SAB = 4.041 tỷ đồng [SAB_BCTN24]",
+"Chi phí bán hàng 2023 của SAB = 4.479 tỷ đồng [SAB_BCTN24]",
+"Biên lợi nhuận ròng 2024 của SAB = 14,10% [SAB_BCTN24]",
+"Biên lợi nhuận ròng 2023 của SAB = 13,96% [SAB_BCTN24]"
+],
+"negative_facts": [
+"KHÔNG cho rằng SABECO gặp vấn đề lớn về sụt giảm doanh thu năm 2024",
+"KHÔNG tính sai biên lợi nhuận gộp và biên lợi nhuận ròng",
+"KHÔNG nói chi phí bán hàng là nguyên nhân làm lợi nhuận giảm vì chi phí bán hàng thực tế giảm"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+}
+]

@@ -1,0 +1,477 @@
+[
+  {
+    "id": "B-024",
+    "question": "MSN 2023 P/E là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "MSN"
+    ],
+    "expected_timeframe": "2023",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Không xác định được một con số P/E năm 2023 duy nhất cho Masan (MSN) từ nguồn uy tín tính đến 2026-05-18, do P/E phụ thuộc ngày chốt giá cổ phiếu và EPS dùng để tính [web:vietstock][web:cafef]. Các số trên CafeF ngày 15/05/2026 là dữ liệu hiện tại chứ không phải năm 2023: P/E 22,55 lần, EPS 3,44 nghìn đồng/cổ phiếu, giá 77.500 đồng/cổ phiếu [web:cafef]. Vietstock và CafeF có trang tài chính MSN nhưng không xác nhận trực tiếp P/E năm 2023; cần EPS 2023 từ BCTC kiểm toán và giá đóng cửa tại một ngày năm 2023.",
+    "sources": [],
+    "web_sources": [
+      "[https://finance.vietstock.vn/MSN-ctcp-tap-doan-masan.htm](https://finance.vietstock.vn/MSN-ctcp-tap-doan-masan.htm)",
+      "[https://cafef.vn/du-lieu/hose/msn-cong-ty-co-phan-tap-doan-masan.chn](https://cafef.vn/du-lieu/hose/msn-cong-ty-co-phan-tap-doan-masan.chn)",
+      "[https://cafef.vn/du-lieu/du-lieu/hose/MSN-bao-cao-tai-chinh.chn](https://cafef.vn/du-lieu/du-lieu/hose/MSN-bao-cao-tai-chinh.chn)",
+      "[https://m.cafef.vn/du-lieu/hose/msn-lich-su-gia.chn](https://m.cafef.vn/du-lieu/hose/msn-lich-su-gia.chn)",
+      "[https://m.cafef.vn/du-lieu/tai-bao-cao-tai-chinh/msn.chn](https://m.cafef.vn/du-lieu/tai-bao-cao-tai-chinh/msn.chn)"
+    ],
+    "key_facts": [
+      "không verify được một P/E duy nhất cho MSN năm 2023 từ nguồn uy tín tính đến 2026-05-18 vì P/E phụ thuộc ngày giá cổ phiếu, EPS dùng để tính và dữ liệu giá tại thời điểm đo",
+      "P/E hiện tại của MSN tại CafeF ngày 15/05/2026 = 22,55 lần, không phải P/E năm 2023 [cafef]",
+      "EPS hiện tại của MSN tại CafeF ngày 15/05/2026 = 3,44 nghìn đồng/cổ phiếu, không phải EPS năm 2023 [cafef]",
+      "Giá cổ phiếu MSN tại CafeF chiều 15/05/2026 = 77.500 đồng/cổ phiếu, không phải giá năm 2023 [cafef]",
+      "Vietstock có trang tài chính MSN nhưng kết quả web không xác nhận trực tiếp P/E năm 2023 [vietstock]",
+      "CafeF có trang báo cáo tài chính MSN nhưng kết quả web không xác nhận trực tiếp P/E năm 2023 [cafef]"
+    ],
+    "negative_facts": [
+      "KHÔNG dùng P/E hiện tại năm 2026 để trả lời P/E năm 2023",
+      "KHÔNG đưa P/E 2023 nếu không nêu rõ ngày giá cổ phiếu và EPS dùng để tính",
+      "KHÔNG nhầm P/E với P/B hoặc EV/EBITDA"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": false,
+    "corrected": false
+  },
+  {
+    "id": "B-025",
+    "question": "Doanh thu Q1/2024 của MWG bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "MWG"
+    ],
+    "expected_timeframe": "Q1/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Quý 1/2024, MWG ghi nhận doanh thu thuần 31.486 tỷ đồng theo số liệu so sánh trong BCTC quý 1/2025 [web:vneconomy]. Các nguồn tin tại thời điểm công bố Q1/2024 cũng ghi nhận MWG đạt hơn 31,4 nghìn tỷ đồng doanh thu thuần, tăng khoảng 16,5% so với cùng kỳ và hoàn thành khoảng 25% kế hoạch doanh thu năm 2024 là 125 nghìn tỷ đồng [web:vietstock].",
+    "sources": [],
+    "web_sources": [
+      "[https://vneconomy.vn/quy-1-2024-mwg-bao-lai-sau-thue-tang-71-nhan-su-tang-them-hon-1-000-nguoi.htm](https://vneconomy.vn/quy-1-2024-mwg-bao-lai-sau-thue-tang-71-nhan-su-tang-them-hon-1-000-nguoi.htm)",
+      "[https://vietstock.vn/2024/04/quy-1-doanh-thu-mwg-hon-31-ngan-ty-dong-bach-hoa-xanh-duy-tri-diem-hoa-von-hoat-dong-cot-loi-737-1184976.htm](https://vietstock.vn/2024/04/quy-1-doanh-thu-mwg-hon-31-ngan-ty-dong-bach-hoa-xanh-duy-tri-diem-hoa-von-hoat-dong-cot-loi-737-1184976.htm)",
+      "[https://cafef.vn/lanh-dao-mwg-ket-qua-kinh-doanh-quy-1-kha-quan-bach-hoa-xanh-co-lai-tham-chi-lai-4-chu-so-trong-khoang-2-nam-toi-188240413144251032.chn](https://cafef.vn/lanh-dao-mwg-ket-qua-kinh-doanh-quy-1-kha-quan-bach-hoa-xanh-co-lai-tham-chi-lai-4-chu-so-trong-khoang-2-nam-toi-188240413144251032.chn)",
+      "[https://thitruongtaichinhtiente.vn/mwg-doanh-thu-quy-i-2024-khoang-31-500-ty-dong-loi-nhuan-co-cu-xoay-chuyen-ngoan-muc-so-voi-cung-ky-58347.html](https://thitruongtaichinhtiente.vn/mwg-doanh-thu-quy-i-2024-khoang-31-500-ty-dong-loi-nhuan-co-cu-xoay-chuyen-ngoan-muc-so-voi-cung-ky-58347.html)"
+    ],
+    "key_facts": [
+      "Doanh thu thuần Q1/2024 của MWG = 31.486 tỷ đồng [vneconomy]",
+      "Doanh thu thuần Q1/2024 của MWG = hơn 31,4 nghìn tỷ đồng [vietstock]",
+      "Tăng trưởng doanh thu thuần Q1/2024 của MWG = 16,5% YoY [vietstock]",
+      "MWG hoàn thành 25% kế hoạch doanh thu năm 2024 sau Q1/2024 [vietstock]",
+      "Kế hoạch doanh thu năm 2024 của MWG = 125.000 tỷ đồng [vietstock]",
+      "Doanh thu Q1/2024 ước tính của MWG được lãnh đạo công ty nêu tại ĐHĐCĐ = khoảng 31.500 tỷ đồng [cafef]",
+      "Tăng trưởng doanh thu Q1/2024 ước tính của MWG theo lãnh đạo công ty = khoảng 17% YoY [cafef]",
+      "Điện Máy Xanh đóng góp 46,2% doanh thu MWG Q1/2024 [vietstock]",
+      "Bách Hóa Xanh đóng góp 29,1% doanh thu MWG Q1/2024 [vietstock]",
+      "Thế Giới Di Động, bao gồm TopZone, đóng góp 21,6% doanh thu MWG Q1/2024 [vietstock]"
+    ],
+    "negative_facts": [
+      "KHÔNG dùng doanh thu Q1/2025 = 36.135 tỷ đồng để trả lời Q1/2024",
+      "KHÔNG nhầm số 31.500 tỷ đồng ước tính tại ĐHĐCĐ với số BCTC 31.486 tỷ đồng",
+      "KHÔNG nhầm doanh thu thuần với lợi nhuận sau thuế"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-026",
+    "question": "TCB quý 2/2024 lãi trước thuế bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "TCB"
+    ],
+    "expected_timeframe": "Q2/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Quý 2/2024, Techcombank (TCB) ghi nhận lợi nhuận trước thuế 7.827 tỷ đồng [web:techcombank]. Trong cùng quý, thu nhập lãi thuần đạt 9.478 tỷ đồng, tổng thu nhập hoạt động đạt 13.420 tỷ đồng, chi phí hoạt động đạt 3.949 tỷ đồng và chi phí dự phòng đạt 1.644 tỷ đồng [web:techcombank][web:dnse].",
+    "sources": [],
+    "web_sources": [
+      "[https://techcombank.com/content/dam/techcombank/public-site/documents/techcombank-cong-bo-kqkd-2q24.pdf](https://techcombank.com/content/dam/techcombank/public-site/documents/techcombank-cong-bo-kqkd-2q24.pdf)",
+      "[https://www.dnse.com.vn/senses/tin-tuc/bctc-quy-22024-tcb-ngan-hang-ngan-hang-tmcp-ky-thuong-viet-nam-tang-truong-3868-trong-nua-dau-nam-dat-1241436-ty-dong-33851275](https://www.dnse.com.vn/senses/tin-tuc/bctc-quy-22024-tcb-ngan-hang-ngan-hang-tmcp-ky-thuong-viet-nam-tang-truong-3868-trong-nua-dau-nam-dat-1241436-ty-dong-33851275)",
+      "[https://vneconomy.vn/2024-techcombank-dat-loi-nhuan-truoc-thue-hon-27-5-nghin-ty-tang-20-3-so-voi-cung-ky.htm](https://vneconomy.vn/2024-techcombank-dat-loi-nhuan-truoc-thue-hon-27-5-nghin-ty-tang-20-3-so-voi-cung-ky.htm)",
+      "[https://www.tinnhanhchungkhoan.vn/nam-2024-techcombank-tcb-bao-lai-truoc-thue-loi-nhuan-truoc-thue-dat-27500-ty-dong-tang-truong-hon-20-ty-le-casa-409-post362213.html](https://www.tinnhanhchungkhoan.vn/nam-2024-techcombank-tcb-bao-lai-truoc-thue-loi-nhuan-truoc-thue-dat-27500-ty-dong-tang-truong-hon-20-ty-le-casa-409-post362213.html)"
+    ],
+    "key_facts": [
+      "LNTT Q2/2024 của TCB = 7.827 tỷ đồng [techcombank]",
+      "Thu nhập lãi thuần Q2/2024 của TCB = 9.478 tỷ đồng [techcombank]",
+      "Tổng thu nhập hoạt động Q2/2024 của TCB = 13.420 tỷ đồng [techcombank]",
+      "Chi phí hoạt động Q2/2024 của TCB = 3.949 tỷ đồng [techcombank]",
+      "Chi phí dự phòng Q2/2024 của TCB = 1.644 tỷ đồng [techcombank]",
+      "Thu nhập lãi thuần Q2/2024 của TCB = 9.477,93 tỷ đồng theo DNSE [dnse]",
+      "Tăng trưởng thu nhập lãi thuần Q2/2024 của TCB = 50,57% YoY [dnse]",
+      "Tổng thu nhập hoạt động Q2/2024 của TCB = 13.419,7 tỷ đồng theo DNSE [dnse]",
+      "Tăng trưởng tổng thu nhập hoạt động Q2/2024 của TCB = 43,91% YoY [dnse]",
+      "CIR Q2/2024 của TCB = 29,43% [dnse]"
+    ],
+    "negative_facts": [
+      "KHÔNG dùng LNTT cả năm 2024 = hơn 27.500 tỷ đồng để trả lời quý 2/2024",
+      "KHÔNG nhầm tổng thu nhập hoạt động 13.420 tỷ đồng với lợi nhuận trước thuế 7.827 tỷ đồng",
+      "KHÔNG nhầm lợi nhuận lũy kế 6 tháng với lợi nhuận riêng quý 2"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-027",
+    "question": "ACB Q3/2024 EPS bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "ACB"
+    ],
+    "expected_timeframe": "Q3/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Không xác định được EPS riêng quý 3/2024 của ACB từ nguồn uy tín tính đến 2026-05-18 [web:vietstock]. ACB công bố BCTC hợp nhất quý 3/2024 ngày 24/10/2024 với lợi nhuận trước thuế quý 3 đạt 4.844 tỷ đồng, lợi nhuận sau thuế 3.870,4 tỷ đồng; lũy kế 9 tháng 2024 lợi nhuận trước thuế 15.300 tỷ đồng, lợi nhuận sau thuế 12.244,4 tỷ đồng [web:cafef][web:dnse]. Tỷ lệ nợ xấu cuối quý 3/2024 là 1,49%, tỷ lệ bao phủ nợ xấu 80,49% [web:bsi][web:dnse]. Theo Báo cáo thường niên 2024, EPS cả năm 2024 là 3.669 đồng/cổ phiếu (2023: 3.559 đồng) — đây là EPS cả năm, không phải riêng quý 3 [web:acb].",
+    "sources": [],
+    "web_sources": [
+      "[https://vietstock.vn/2024/10/acb-bctc-hop-nhat-quy-3-nam-2024-737-1239567.htm](https://vietstock.vn/2024/10/acb-bctc-hop-nhat-quy-3-nam-2024-737-1239567.htm)",
+      "[https://vietstock.vn/2024/10/acb-bctc-quy-3-nam-2024-737-1239566.htm](https://vietstock.vn/2024/10/acb-bctc-quy-3-nam-2024-737-1239566.htm)",
+      "[https://cafef.vn/bctc-quy-3-2024-sang-ngay-24-10-nhieu-cai-ten-bao-lai-tang-bang-lan-loi-nhuan-cua-mot-cong-ty-bao-hiem-giam-sau-188241024010110308.chn](https://cafef.vn/bctc-quy-3-2024-sang-ngay-24-10-nhieu-cai-ten-bao-lai-tang-bang-lan-loi-nhuan-cua-mot-cong-ty-bao-hiem-giam-sau-188241024010110308.chn)",
+      "[https://www.dnse.com.vn/senses/tin-tuc/bctc-quy-32024-acb-loi-nhuan-at-38704-ty-ong-giam-414-so-voi-cung-ky-33946252](https://www.dnse.com.vn/senses/tin-tuc/bctc-quy-32024-acb-loi-nhuan-at-38704-ty-ong-giam-414-so-voi-cung-ky-33946252)",
+      "[https://www.bsi.com.vn/public/file/acb-earning-flash-q3-2024-20241025_1730096446.pdf](https://www.bsi.com.vn/public/file/acb-earning-flash-q3-2024-20241025_1730096446.pdf)",
+      "[https://acb.com.vn/acbwebsite/files/BCTN_2024.pdf](https://acb.com.vn/acbwebsite/files/BCTN_2024.pdf)"
+    ],
+    "key_facts": [
+      "không verify được EPS riêng Q3/2024 của ACB từ nguồn uy tín tính đến 2026-05-18",
+      "ACB công bố BCTC hợp nhất quý 3/2024 ngày 24/10/2024 [vietstock]",
+      "LNTT Q3/2024 của ACB = 4.844 tỷ đồng [cafef]",
+      "LNST Q3/2024 của ACB = 3.870,4 tỷ đồng [dnse]",
+      "Lũy kế LNTT 9 tháng 2024 của ACB = 15.300 tỷ đồng [cafef]",
+      "Lũy kế LNST 9 tháng 2024 của ACB = 12.244,4 tỷ đồng [dnse]",
+      "Tỷ lệ nợ xấu cuối Q3/2024 của ACB = 1,49% [bsi]",
+      "Tỷ lệ bao phủ nợ xấu cuối Q3/2024 của ACB = 80,49% [dnse]",
+      "EPS năm 2024 của ACB = 3.669 đồng/cổ phiếu theo BCTN 2024, không phải EPS riêng Q3/2024 [acb]",
+      "EPS năm 2023 của ACB = 3.559 đồng/cổ phiếu theo BCTN 2024 [acb]"
+    ],
+    "negative_facts": [
+      "KHÔNG dùng EPS năm 2024 = 3.669 đồng/cổ phiếu để trả lời EPS riêng Q3/2024",
+      "KHÔNG nhầm LNST Q3/2024 = 3.870,4 tỷ đồng với EPS",
+      "KHÔNG tự tính EPS Q3/2024 nếu thiếu số cổ phiếu bình quân gia quyền và định nghĩa kỳ tính"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": false,
+    "corrected": false
+  },
+  {
+    "id": "B-028",
+    "question": "MBB quý 4/2024 ROE là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "MBB"
+    ],
+    "expected_timeframe": "Q4/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Không xác định được ROE riêng quý 4/2024 của MBB từ nguồn uy tín tính đến 2026-05-18 [web:mbbank]. MBB công bố BCTC hợp nhất và riêng lẻ quý 4/2024 ngày 24/01/2025: lợi nhuận sau thuế quý 4 khoảng 6.284 tỷ đồng theo DNSE (+26,03% YoY) đến 6.382 tỷ đồng theo MASVN, lợi nhuận trước thuế quý 4 khoảng 8.093 tỷ đồng; lũy kế lợi nhuận sau thuế cả năm 2024 đạt 22.633,76 tỷ đồng [web:dnse][web:masvn]. Tỷ lệ nợ xấu cuối quý 4/2024 là 1,62%, bao phủ nợ xấu 92,25% [web:dnse]. ROE cả năm 2024 khoảng 22,1% theo SHS — là ROE cả năm, không phải riêng quý 4 [web:shs].",
+    "sources": [],
+    "web_sources": [
+      "[https://www.mbbank.com.vn/chi-tiet/thong-bao/bao-cao-tai-chinh-hop-nhat-va-rieng-le-quy-42024-2025-1-24-20-49-47/5133](https://www.mbbank.com.vn/chi-tiet/thong-bao/bao-cao-tai-chinh-hop-nhat-va-rieng-le-quy-42024-2025-1-24-20-49-47/5133)",
+      "[https://vietstock.vn/2025/02/mbb-bctc-tom-tat-hop-nhat-quy-4-nam-2024-737-1267954.htm](https://vietstock.vn/2025/02/mbb-bctc-tom-tat-hop-nhat-quy-4-nam-2024-737-1267954.htm)",
+      "[https://vietstock.vn/2025/02/mbb-mbb-cbtt-bao-cao-tai-chinh-hop-nhat-va-rieng-le-quy-42024-ban-tieng-viet-737-1268600.htm](https://vietstock.vn/2025/02/mbb-mbb-cbtt-bao-cao-tai-chinh-hop-nhat-va-rieng-le-quy-42024-ban-tieng-viet-737-1268600.htm)",
+      "[https://www.dnse.com.vn/senses/tin-tuc/bctc-quy-42024-mbb-loi-nhuan-at-628415-ty-ong-tang-2603-so-voi-cung-ky-34091665](https://www.dnse.com.vn/senses/tin-tuc/bctc-quy-42024-mbb-loi-nhuan-at-628415-ty-ong-tang-2603-so-voi-cung-ky-34091665)",
+      "[https://masvn.com/api/attachment/file/1739528853645-VN_MBB_Report_MUA_MAS_4Q24_N_Q_N_2025.pdf](https://masvn.com/api/attachment/file/1739528853645-VN_MBB_Report_MUA_MAS_4Q24_N_Q_N_2025.pdf)",
+      "[https://s3-storage.shs.com.vn/shs-website/Sites/QuoteVN/SiteRoot/reportattach/20250707_112847_BAO%20CAO%20PHAN%20TICH%20MBB%2004%2007%202025.pdf](https://s3-storage.shs.com.vn/shs-website/Sites/QuoteVN/SiteRoot/reportattach/20250707_112847_BAO%20CAO%20PHAN%20TICH%20MBB%2004%2007%202025.pdf)"
+    ],
+    "key_facts": [
+      "không verify được ROE riêng Q4/2024 của MBB từ nguồn uy tín tính đến 2026-05-18",
+      "MBB công bố BCTC hợp nhất và riêng lẻ quý 4/2024 ngày 24/01/2025 [mbbank]",
+      "LNST Q4/2024 của MBB = 6.284,15 tỷ đồng theo DNSE [dnse]",
+      "LNST Q4/2024 của MBB tăng 26,03% YoY [dnse]",
+      "LNTT Q4/2024 của MBB = 8.093 tỷ đồng theo MASVN [masvn]",
+      "LNST Q4/2024 của MBB = 6.382 tỷ đồng theo MASVN [masvn]",
+      "Lũy kế LNST cả năm 2024 của MBB = 22.633,76 tỷ đồng [dnse]",
+      "Tỷ lệ nợ xấu cuối Q4/2024 của MBB = 1,62% [dnse]",
+      "Tỷ lệ bao phủ nợ xấu cuối Q4/2024 của MBB = 92,25% [dnse]",
+      "ROE năm 2024 của MBB = 22,1% theo báo cáo SHS, không phải ROE riêng Q4/2024 [shs]"
+    ],
+    "negative_facts": [
+      "KHÔNG dùng ROE năm 2024 = 22,1% để trả lời ROE riêng Q4/2024",
+      "KHÔNG nhầm LNST Q4/2024 với ROE",
+      "KHÔNG tự tính ROE quý nếu thiếu vốn chủ sở hữu bình quân và quy ước annualized hay non-annualized"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": false,
+    "corrected": false
+  },
+  {
+    "id": "B-029",
+    "question": "SSI Q2/2024 lợi nhuận ròng bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "SSI"
+    ],
+    "expected_timeframe": "Q2/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Quý 2/2024, SSI ghi nhận lợi nhuận sau thuế hơn 835 tỷ đồng theo số liệu báo chí từ BCTC riêng quý 2/2024 [web:danviet]. Nếu dùng số hợp nhất ước tính, SSI công bố lợi nhuận trước thuế hợp nhất quý 2/2024 đạt 1.060 tỷ đồng và lũy kế 6 tháng 2024 đạt 2.002 tỷ đồng lợi nhuận trước thuế [web:ssi]. Vì câu hỏi hỏi “lợi nhuận ròng”, gold fact nên dùng LNST quý 2/2024 = hơn 835 tỷ đồng nếu phạm vi là công ty mẹ/riêng lẻ.",
+    "sources": [],
+    "web_sources": [
+      "[https://etime.danviet.vn/kqkd-quy-ii-2024-chung-khoan-ssi-bao-lai-quy-cao-thu-2-lich-su-tang-59-20240719140954101-d119429.html](https://etime.danviet.vn/kqkd-quy-ii-2024-chung-khoan-ssi-bao-lai-quy-cao-thu-2-lich-su-tang-59-20240719140954101-d119429.html)",
+      "[https://tapchicongthuong.vn/chung-khoan-ssi--lai-quy-2-tang-59-giu-vung-vi-the-top-thi-phan-moi-gioi-tren-hose-123847.htm](https://tapchicongthuong.vn/chung-khoan-ssi--lai-quy-2-tang-59-giu-vung-vi-the-top-thi-phan-moi-gioi-tren-hose-123847.htm)",
+      "[https://www.tinnhanhchungkhoan.vn/lai-truoc-thue-quy-ii2024-cua-ssi-dat-hon-1000-ty-dong-tu-doanh-gom-manh-vpb-post349725.html](https://www.tinnhanhchungkhoan.vn/lai-truoc-thue-quy-ii2024-cua-ssi-dat-hon-1000-ty-dong-tu-doanh-gom-manh-vpb-post349725.html)",
+      "[https://www.ssi.com.vn/tin-tuc/tin-tuc-chung/chung-khoan-ssi-cong-bo-kqkd-rieng-6-thang-dau-nam-2024-bao-lai-truoc-thue-2002-ty-dong](https://www.ssi.com.vn/tin-tuc/tin-tuc-chung/chung-khoan-ssi-cong-bo-kqkd-rieng-6-thang-dau-nam-2024-bao-lai-truoc-thue-2002-ty-dong)",
+      "[https://www.ssi.com.vn/upload/files/IR/20240725_SSI_Bao_cao_tai_chinh_hop_nhat_Quy_2_nam_2024.pdf](https://www.ssi.com.vn/upload/files/IR/20240725_SSI_Bao_cao_tai_chinh_hop_nhat_Quy_2_nam_2024.pdf)",
+      "[https://www.ssi.com.vn/quan-he-nha-dau-tu/cong-bo-thong-tin/chi-tiet/cong-bo-bao-cao-tai-chinh-hop-nhat-quy-2-nam-2024](https://www.ssi.com.vn/quan-he-nha-dau-tu/cong-bo-thong-tin/chi-tiet/cong-bo-bao-cao-tai-chinh-hop-nhat-quy-2-nam-2024)"
+    ],
+    "key_facts": [
+      "LNST Q2/2024 của SSI = hơn 835 tỷ đồng (BCTC riêng) [danviet]",
+      "LNTT Q2/2024 của SSI = 1.041 tỷ đồng (BCTC riêng) [tapchicongthuong]",
+      "Tăng trưởng LNTT Q2/2024 của SSI = 59% YoY [tapchicongthuong]",
+      "Tăng trưởng LNST Q2/2024 của SSI = 59% YoY [danviet]",
+      "Doanh thu Q2/2024 của SSI = 2.311 tỷ đồng (BCTC riêng) [tapchicongthuong]",
+      "Doanh thu hợp nhất ước tính Q2/2024 của SSI = 2.368 tỷ đồng [ssi]",
+      "LNTT hợp nhất ước tính Q2/2024 của SSI = 1.060 tỷ đồng [ssi]",
+      "Tổng doanh thu hợp nhất lũy kế 6T/2024 của SSI = 4.381 tỷ đồng [ssi]",
+      "LNTT hợp nhất lũy kế 6T/2024 của SSI = 2.002 tỷ đồng [ssi]",
+      "SSI hoàn thành 59% chỉ tiêu lợi nhuận năm 2024 sau 6T/2024 [ssi]"
+    ],
+    "negative_facts": [
+      "KHÔNG nhầm lợi nhuận trước thuế 1.041 tỷ đồng với lợi nhuận sau thuế hơn 835 tỷ đồng",
+      "KHÔNG nhầm số hợp nhất ước tính LNTT 1.060 tỷ đồng với lợi nhuận ròng",
+      "KHÔNG dùng số Q2/2025 để trả lời Q2/2024"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-030",
+    "question": "DPM quý 3/2024 doanh thu bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "DPM"
+    ],
+    "expected_timeframe": "Q3/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Không verify được chính xác doanh thu riêng quý 3/2024 của DPM từ nguồn web ở bước kiểm tra; các nguồn công khai tìm được xác nhận DPM công bố BCTC quý 3/2024 và cho biết lũy kế 9 tháng 2024 doanh thu đạt 10.332,1 tỷ đồng, tăng 1,42% so với cùng kỳ [web:dpm][web:dnse]. DNSE cũng ghi nhận doanh thu quý 3/2024 giảm 4,31% so với cùng kỳ nhưng không hiển thị trực tiếp giá trị doanh thu quý trong kết quả web. Vì câu hỏi yêu cầu con số doanh thu Q3/2024, item nên để unanswerable nếu không đọc trực tiếp BCTC đính kèm hoặc database nội bộ.",
+    "sources": [],
+    "web_sources": [
+      "[https://dpm.vn/bao-cao-tai-chinh/bao-cao-tai-chinh-quy-32024-713](https://dpm.vn/bao-cao-tai-chinh/bao-cao-tai-chinh-quy-32024-713)",
+      "[https://www.dnse.com.vn/senses/tin-tuc/bctc-quy-32024-dpm-loi-nhuan-q32024-at-6299-ty-ong-giam-161-so-voi-cung-ky-33949626](https://www.dnse.com.vn/senses/tin-tuc/bctc-quy-32024-dpm-loi-nhuan-q32024-at-6299-ty-ong-giam-161-so-voi-cung-ky-33949626)",
+      "[https://rs.nguoiquansat.vn/bcpt/DPM/DPM_39_14622_58.pdf](https://rs.nguoiquansat.vn/bcpt/DPM/DPM_39_14622_58.pdf)",
+      "[https://www.bsi.com.vn/public/file/dpm-report-20250324_1742953145.pdf](https://www.bsi.com.vn/public/file/dpm-report-20250324_1742953145.pdf)",
+      "[https://dpm.vn/BCTN-DPM-2024/pdf/BCTN-DPM-2024.pdf](https://dpm.vn/BCTN-DPM-2024/pdf/BCTN-DPM-2024.pdf)"
+    ],
+    "key_facts": [
+      "không verify được doanh thu riêng Q3/2024 của DPM từ nguồn web uy tín tính đến 2026-05-18",
+      "DPM công bố BCTC quý 3/2024 trên website doanh nghiệp [dpm]",
+      "Doanh thu lũy kế 9T/2024 của DPM = 10.332,1 tỷ đồng [dnse]",
+      "Tăng trưởng doanh thu lũy kế 9T/2024 của DPM = 1,42% YoY [dnse]",
+      "LNST Q3/2024 của DPM = 62,99 tỷ đồng [dnse]",
+      "Tăng trưởng LNST Q3/2024 của DPM = -1,61% YoY [dnse]",
+      "Doanh thu Q3/2024 của DPM giảm 4,31% YoY theo DNSE [dnse]",
+      "LNST lũy kế 9T/2024 của DPM = 557,76 tỷ đồng [dnse]",
+      "Tăng trưởng LNST lũy kế 9T/2024 của DPM = 31,24% YoY [dnse]",
+      "Tổng doanh thu năm 2024 của DPM = 13.496 tỷ đồng theo báo cáo BSI [bsi]"
+    ],
+    "negative_facts": [
+      "KHÔNG dùng doanh thu 9T/2024 = 10.332,1 tỷ đồng để trả lời doanh thu riêng Q3/2024",
+      "KHÔNG nhầm LNST Q3/2024 = 62,99 tỷ đồng với doanh thu Q3/2024",
+      "KHÔNG tự suy doanh thu Q3 nếu thiếu doanh thu 6T/2024 cùng chuẩn hợp nhất"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": false,
+    "corrected": false
+  },
+  {
+    "id": "B-031",
+    "question": "PLX năm 2024 lợi nhuận sau thuế bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "PLX"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, lợi nhuận sau thuế hợp nhất của Tập đoàn Xăng dầu Việt Nam (Petrolimex, PLX) đạt khoảng 3.161-3.163 tỷ đồng tùy nguồn làm tròn [1][web:bnews]. Trong đó, lợi nhuận sau thuế thuộc cổ đông công ty mẹ đạt gần 2.890 tỷ đồng theo dữ liệu stage 2 từ BCTN 2024 [1]. Với benchmark, có thể dùng LNST hợp nhất 2024 = 3.161 tỷ đồng nếu bám BCTN, đồng thời ghi chú nguồn báo chí làm tròn 3.163 tỷ đồng.",
+    "sources": [
+      "PLX_BCTN24.pdf"
+    ],
+    "web_sources": [
+      "[https://files.petrolimex.com.vn/pdfs/411192eaba4c473bb029d581831bfa03/a85cfd4c378b4c1fb477b1f7a220cde3/B%C3%A1o%20c%C3%A1o%20t%C3%A0i%20ch%C3%ADnh%20h%E1%BB%A3p%20nh%E1%BA%A5t%20n%C4%83m%202024_0001.pdf](https://files.petrolimex.com.vn/pdfs/411192eaba4c473bb029d581831bfa03/a85cfd4c378b4c1fb477b1f7a220cde3/B%C3%A1o%20c%C3%A1o%20t%C3%A0i%20ch%C3%ADnh%20h%E1%BB%A3p%20nh%E1%BA%A5t%20n%C4%83m%202024_0001.pdf)",
+      "[https://bnews.vn/loi-nhuan-sau-thue-nam-2024-petrolimex-van-tang-du-chiu-tac-dong-bat-loi-cua-ty-gia/361402.html](https://bnews.vn/loi-nhuan-sau-thue-nam-2024-petrolimex-van-tang-du-chiu-tac-dong-bat-loi-cua-ty-gia/361402.html)",
+      "[https://baomoi.com/loi-nhuan-sau-thue-nam-2024-petrolimex-van-tang-du-chiu-tac-dong-bat-loi-cua-ty-gia-c51344245.epi](https://baomoi.com/loi-nhuan-sau-thue-nam-2024-petrolimex-van-tang-du-chiu-tac-dong-bat-loi-cua-ty-gia-c51344245.epi)",
+      "[https://www.tinnhanhchungkhoan.vn/quy-i2024-petrolimex-plx-bao-lai-sau-thue-1133-ty-dong-tang-70-post344512.html](https://www.tinnhanhchungkhoan.vn/quy-i2024-petrolimex-plx-bao-lai-sau-thue-1133-ty-dong-tang-70-post344512.html)"
+    ],
+    "key_facts": [
+      "LNST hợp nhất 2024 của PLX = 3.161 tỷ đồng theo BCTN/stage 2 [PLX_BCTN24]",
+      "LNST hợp nhất 2024 của PLX = 3.163 tỷ đồng theo BNews, do làm tròn/nguồn báo chí [bnews]",
+      "LNST hợp nhất 2024 của PLX tăng khoảng 3% YoY theo BNews [bnews]",
+      "LNST thuộc cổ đông công ty mẹ 2024 của PLX = gần 2.890 tỷ đồng [PLX_BCTN24]",
+      "PLX đặt kế hoạch doanh thu hợp nhất 2024 = 188.000 tỷ đồng [tinnhanhchungkhoan]",
+      "PLX đặt kế hoạch lợi nhuận hợp nhất trước thuế 2024 = 2.900 tỷ đồng [tinnhanhchungkhoan]",
+      "LNST Q1/2024 của PLX = 1.133 tỷ đồng [tinnhanhchungkhoan]",
+      "Tăng trưởng LNST Q1/2024 của PLX = 70% YoY [tinnhanhchungkhoan]"
+    ],
+    "negative_facts": [
+      "KHÔNG lấy nhầm LNST 2023 = khoảng 3.077 tỷ đồng làm LNST 2024",
+      "KHÔNG nhầm LNST hợp nhất 3.161 tỷ đồng với LNST thuộc cổ đông công ty mẹ gần 2.890 tỷ đồng",
+      "KHÔNG nhầm lợi nhuận trước thuế kế hoạch 2.900 tỷ đồng với lợi nhuận sau thuế thực hiện"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-032",
+    "question": "POW 2024 EPS là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "POW"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Không xác định được EPS năm 2024 của PV Power (POW) từ nguồn uy tín tính đến 2026-05-18 [web:vietstock][web:cafef]. POW công bố Báo cáo thường niên năm 2024 ngày 18/04/2025 [web:pvpower][web:vietstock][web:cafef]. POW vận hành 7 nhà máy điện với tổng công suất lắp đặt 4.205 MW [web:vietstock]. Trên InvestingPro, EPS cơ bản trung bình 5 năm là 580,01 đồng/cổ phiếu — là số bình quân nhiều năm, không phải EPS riêng năm 2024 [web:investing]. Cần lợi nhuận phân bổ cho cổ đông phổ thông và số cổ phiếu bình quân gia quyền 2024 từ BCTC kiểm toán để có EPS 2024 chính xác.",
+    "sources": [],
+    "web_sources": [
+      "[https://pvpower.vn/vi/post/bao-cao-thuong-nien-nam-2024-6343.htm](https://pvpower.vn/vi/post/bao-cao-thuong-nien-nam-2024-6343.htm)",
+      "[https://vietstock.vn/2025/04/pow-bao-cao-thuong-nien-nam-2024-737-1297875.htm](https://vietstock.vn/2025/04/pow-bao-cao-thuong-nien-nam-2024-737-1297875.htm)",
+      "[https://cafef.vn/du-lieu/pow-2176968/pow-bao-cao-thuong-nien-nam-2024.chn](https://cafef.vn/du-lieu/pow-2176968/pow-bao-cao-thuong-nien-nam-2024.chn)",
+      "[https://finance.vietstock.vn/POW-tong-cong-ty-dien-luc-dau-khi-viet-nam-ctcp.htm](https://finance.vietstock.vn/POW-tong-cong-ty-dien-luc-dau-khi-viet-nam-ctcp.htm)",
+      "[https://vn.investing.com/pro/HOSE%3APOW/explorer/eps_basic_cont](https://vn.investing.com/pro/HOSE%3APOW/explorer/eps_basic_cont)",
+      "[https://static.tcbs.com.vn/oneclick/POW.pdf](https://static.tcbs.com.vn/oneclick/POW.pdf)"
+    ],
+    "key_facts": [
+      "không verify được EPS năm 2024 của POW từ nguồn uy tín tính đến 2026-05-18",
+      "PV Power công bố Báo cáo thường niên năm 2024 ngày 18/04/2025 [pvpower]",
+      "Vietstock ghi nhận POW công bố Báo cáo thường niên năm 2024 ngày 18/04/2025 [vietstock]",
+      "CafeF ghi nhận POW công bố Báo cáo thường niên năm 2024 ngày 18/04/2025 [cafef]",
+      "POW quản lý vận hành 7 nhà máy điện theo mô tả Vietstock [vietstock]",
+      "Tổng công suất lắp đặt của các nhà máy điện POW = 4.205 MW theo Vietstock [vietstock]",
+      "EPS cơ bản trung bình 5 năm của POW trên InvestingPro = 580,01 đồng/cổ phiếu, không phải EPS năm 2024 [investing]"
+    ],
+    "negative_facts": [
+      "KHÔNG dùng EPS trung bình 5 năm = 580,01 đồng/cổ phiếu để trả lời EPS 2024",
+      "KHÔNG dùng EPS dự phóng của báo cáo phân tích năm 2023 để trả lời EPS thực tế 2024",
+      "KHÔNG tự tính EPS nếu thiếu lợi nhuận phân bổ cho cổ đông phổ thông và số cổ phiếu bình quân gia quyền"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": false,
+    "corrected": false
+  },
+  {
+    "id": "B-033",
+    "question": "GVR năm 2024 ROE bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "GVR"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Không xác định được ROE năm 2024 của GVR (Tập đoàn Công nghiệp Cao su Việt Nam) từ nguồn uy tín tính đến 2026-05-18 [web:vietstock]. GVR công bố Báo cáo thường niên năm 2024 (Vietstock ghi nhận ngày 21/04/2025) [web:vrg][web:vietstock]. Doanh thu thuần 2024 đạt 26.254 tỷ đồng (+18,5% đến +19% YoY), lợi nhuận sau thuế 5.103 tỷ đồng (+hơn 51% YoY); GVR hoàn thành 105% kế hoạch doanh thu và 148% kế hoạch lợi nhuận năm 2024 [web:dnse][web:baophapluat]. Cần vốn chủ sở hữu bình quân 2024 theo chuẩn hợp nhất để tính ROE chính xác.",
+    "sources": [],
+    "web_sources": [
+      "[https://vrg.vn/wp-content/uploads/2025/07/20250420-GVR-Bao-cao-thuong-nien-nam-2024-Final.pdf?x69457=](https://vrg.vn/wp-content/uploads/2025/07/20250420-GVR-Bao-cao-thuong-nien-nam-2024-Final.pdf?x69457=)",
+      "[https://vrg.vn/quan-he-co-dong/bao-cao-thuong-nien/](https://vrg.vn/quan-he-co-dong/bao-cao-thuong-nien/)",
+      "[https://vietstock.vn/2025/04/gvr-duong-dan-bao-cao-thuong-nien-nam-2024-737-1298904.htm](https://vietstock.vn/2025/04/gvr-duong-dan-bao-cao-thuong-nien-nam-2024-737-1298904.htm)",
+      "[https://cafef.vn/du-lieu/gvr-2185901/gvr-duong-dan-bao-cao-thuong-nien-nam-2024.chn](https://cafef.vn/du-lieu/gvr-2185901/gvr-duong-dan-bao-cao-thuong-nien-nam-2024.chn)",
+      "[https://www.dnse.com.vn/senses/tin-tuc/cao-su-viet-nam-gvr-thang-lon-nam-2024-du-kien-gia-mu-cao-su-nam-nay-tang-165-34095569](https://www.dnse.com.vn/senses/tin-tuc/cao-su-viet-nam-gvr-thang-lon-nam-2024-du-kien-gia-mu-cao-su-nam-nay-tang-165-34095569)",
+      "[https://doanhnhan.baophapluat.vn/tap-doan-cong-nghiep-cao-su-viet-nam-gvr-bao-lai-ca-nam-2024-vuot-5100-ty-dong-80455.html](https://doanhnhan.baophapluat.vn/tap-doan-cong-nghiep-cao-su-viet-nam-gvr-bao-lai-ca-nam-2024-vuot-5100-ty-dong-80455.html)"
+    ],
+    "key_facts": [
+      "không verify được ROE năm 2024 của GVR từ nguồn uy tín tính đến 2026-05-18",
+      "GVR công bố Báo cáo thường niên năm 2024 trên website Tập đoàn Công nghiệp Cao su Việt Nam [vrg]",
+      "Vietstock ghi nhận GVR công bố đường dẫn Báo cáo thường niên năm 2024 ngày 21/04/2025 [vietstock]",
+      "Doanh thu thuần 2024 của GVR = 26.254 tỷ đồng [dnse]",
+      "Tăng trưởng doanh thu thuần 2024 của GVR = 19% theo DNSE [dnse]",
+      "LNST 2024 của GVR = 5.103 tỷ đồng [dnse]",
+      "Tăng trưởng LNST 2024 của GVR = hơn 51% YoY [dnse]",
+      "GVR hoàn thành 105% mục tiêu doanh thu năm 2024 [dnse]",
+      "GVR hoàn thành 148% mục tiêu lợi nhuận năm 2024 [dnse]",
+      "Doanh thu thuần 2024 của GVR = 26.254 tỷ đồng và tăng 18,5% theo Báo Pháp Luật [baophapluat]"
+    ],
+    "negative_facts": [
+      "KHÔNG tự tính ROE nếu thiếu vốn chủ sở hữu bình quân theo cùng chuẩn hợp nhất",
+      "KHÔNG nhầm LNST 5.103 tỷ đồng với ROE",
+      "KHÔNG dùng ROE hiện tại trên các trang dữ liệu nếu không xác nhận đó là ROE năm 2024"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": false,
+    "corrected": false
+  }
+]

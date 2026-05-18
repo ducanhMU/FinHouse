@@ -1,0 +1,241 @@
+
+[
+  {
+    "id": "B-034",
+    "question": "KDH 2024 P/E bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "KDH"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-035",
+    "question": "REE năm 2024 cổ tức tiền mặt bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "REE"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-036",
+    "question": "VND năm 2024 vốn chủ sở hữu bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VND"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-037",
+    "question": "HCM 2024 EPS bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "HCM"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-038",
+    "question": "DCM năm 2024 doanh thu thuần là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "DCM"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-039",
+    "question": "VIC năm 2024 P/B là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VIC"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-040",
+    "question": "SAB 2024 biên lợi nhuận ròng bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "SAB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-041",
+    "question": "GAS năm 2024 ROA là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "GAS"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, tỷ suất lợi nhuận ròng trên tổng tài sản (ROA) của PV GAS (GAS) đạt 12%,. Mức tỷ suất này ghi nhận sự sụt giảm nhẹ so với con số 14% của năm 2023,.",
+    "sources": [
+      "GAS_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "ROA GAS 2024 = 12%",
+      "Giảm so với năm 2023 (14%)"
+    ],
+    "negative_facts": [
+      "Lấy nhầm số liệu của năm 2023 (14%)",
+      "Nhầm lẫn giữa ROA (12%) và ROE (17%)"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "B-042",
+    "question": "PNJ 2024 lãi ròng bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "PNJ"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-043",
+    "question": "DGC 2024 cổ tức bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "DGC"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  }
+]

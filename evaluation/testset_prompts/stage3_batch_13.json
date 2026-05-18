@@ -1,0 +1,273 @@
+
+[
+  {
+    "id": "D-004",
+    "question": "So sánh HPG, DGC, DCM và DPM năm 2024 về biên gộp, lợi nhuận sau thuế và dòng tiền kinh doanh để xem doanh nghiệp chu kỳ nào phòng thủ tốt hơn.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "HPG",
+      "DGC",
+      "DCM",
+      "DPM"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-005",
+    "question": "VHM, VIC và KDH năm 2024: công ty bất động sản nào có đòn bẩy tài chính thấp hơn nhưng vẫn giữ được biên lợi nhuận tốt?",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "VHM",
+      "VIC",
+      "KDH"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-006",
+    "question": "GAS, PLX và POW năm 2024 khác nhau thế nào về doanh thu, lợi nhuận ròng và dòng tiền từ hoạt động kinh doanh?",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "GAS",
+      "PLX",
+      "POW"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": "So sánh GAS và PLX năm 2024 (chưa có đủ dữ liệu cho POW):\n- **Doanh thu**: PLX vượt trội với doanh thu thuần đạt 284.017 tỷ đồng, cao gấp 2,7 lần so với mức 103.564 tỷ đồng của GAS.\n- **Lợi nhuận ròng**: Mặc dù doanh thu thấp hơn, GAS lại có lợi nhuận sau thuế cao hơn gấp 3,3 lần so với PLX, đạt 10.590 tỷ đồng (so với 3.161 tỷ đồng của PLX).\n- **Dòng tiền từ hoạt động kinh doanh**: GAS có chất lượng dòng tiền kinh doanh tốt hơn nhiều, đạt 9.035 tỷ đồng, cao gấp gần 3,8 lần so với mức 2.372 tỷ đồng của PLX.\n\n**Đánh giá**: Dù PLX dẫn đầu về quy mô doanh thu, GAS lại cho thấy hiệu quả sinh lời và khả năng tạo tiền từ hoạt động kinh doanh vượt trội hơn hẳn.",
+    "sources": [
+      "GAS_BCTN24.pdf",
+      "Conversation History"
+    ],
+    "key_facts": [
+      "Doanh thu thuần 2024: PLX (284.017 tỷ) > GAS (103.564 tỷ)",
+      "Lợi nhuận ròng 2024: GAS (10.590 tỷ) > PLX (3.161 tỷ)",
+      "Dòng tiền HĐKD 2024: GAS (9.035 tỷ) > PLX (2.372 tỷ)",
+      "Thiếu dữ liệu của POW"
+    ],
+    "negative_facts": [
+      "Bịa đặt số liệu của POW năm 2024",
+      "Cho rằng PLX có lợi nhuận ròng cao hơn GAS do doanh thu lớn hơn"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "D-007",
+    "question": "So sánh SSI, VND và HCM năm 2024 theo lợi nhuận sau thuế, ROE và quy mô vốn chủ sở hữu.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "SSI",
+      "VND",
+      "HCM"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-008",
+    "question": "REE, POW và GAS năm 2024: doanh nghiệp nào có hiệu quả sinh lời trên tài sản tốt hơn nếu xét ROA, biên ròng và dòng tiền kinh doanh?",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "REE",
+      "POW",
+      "GAS"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-009",
+    "question": "FPT và VNM năm 2024: cổ phiếu nào có profile chất lượng hơn nếu so ROE, EPS, biên lợi nhuận ròng và tăng trưởng doanh thu?",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "FPT",
+      "VNM"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "So sánh FPT và VNM trong năm 2024:\n- **Tăng trưởng doanh thu**: FPT thể hiện động lực tăng trưởng mạnh mẽ với 19,4% (đạt 62.849 tỷ đồng), trong khi VNM có mức tăng trưởng thấp hơn, đạt 61.824 tỷ đồng.\n- **Biên lợi nhuận ròng**: Cả hai doanh nghiệp đều duy trì mức biên lợi nhuận ròng khá tương đồng, quanh mức 15% (FPT đạt xấp xỉ 15% với lợi nhuận 9.427 tỷ đồng; VNM đạt xấp xỉ 15,3% với lợi nhuận 9.453 tỷ đồng).\n- **ROE**: FPT vượt trội hơn với tỷ suất sinh lời trên vốn chủ sở hữu đạt 28,5%, cao hơn mức 26,1% của VNM.\n- **EPS**: Lãi cơ bản trên cổ phiếu của FPT năm 2024 đạt 4.944 đồng (chưa có dữ liệu EPS chi tiết của VNM năm 2024 để so sánh).\n\n**Đánh giá**: FPT có profile chất lượng hơn trong năm 2024. Nhờ duy trì được mức biên lợi nhuận cao song song với tốc độ tăng trưởng doanh thu gần 20%, FPT đã tối ưu hóa hiệu quả sử dụng vốn tốt hơn (ROE 28,5%), cho thấy động lực tăng trưởng cốt lõi hấp dẫn hơn so với VNM.",
+    "sources": [
+      "FPT_BCTN24.pdf",
+      "Conversation History"
+    ],
+    "key_facts": [
+      "Tăng trưởng doanh thu: FPT (19,4%) cao hơn VNM",
+      "Biên lợi nhuận ròng: Cả hai tương đương nhau, quanh mức 15%",
+      "ROE: FPT (28,5%) > VNM (26,1%)",
+      "EPS FPT đạt 4.944 đồng (chưa có dữ liệu VNM 2024)"
+    ],
+    "negative_facts": [
+      "Bịa đặt số liệu EPS năm 2024 của VNM",
+      "Cho rằng VNM có tăng trưởng doanh thu cao hơn FPT"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "D-010",
+    "question": "HPG và GVR năm 2024 bên nào dùng đòn bẩy hiệu quả hơn nếu so nợ vay, ROE và lợi nhuận sau thuế?",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "HPG",
+      "GVR"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "So sánh HPG và GVR năm 2024:\n- **Nợ vay và đòn bẩy**: HPG sử dụng đòn bẩy tài chính cao hơn đáng kể với tỷ lệ nợ phải trả trên vốn chủ sở hữu ở mức 95,8% (nợ phải trả 109.842 tỷ đồng, vốn chủ sở hữu 114.647 tỷ đồng). Trong khi đó, GVR duy trì mức đòn bẩy thấp hơn với tỷ lệ Nợ/Vốn chủ sở hữu đạt 42,79%.\n- **Lợi nhuận sau thuế và ROE**: Nhờ sử dụng đòn bẩy lớn trong giai đoạn phục hồi, HPG tạo ra mức lợi nhuận sau thuế rất cao đạt 12.020 tỷ đồng, tương ứng với ROE là 10,5%. Ngược lại, GVR đạt lợi nhuận sau thuế 3.372 tỷ đồng và có ROE thấp hơn do ít sử dụng đòn bẩy.\n\n**Đánh giá**: HPG sử dụng đòn bẩy hiệu quả hơn. Mặc dù có cơ cấu nợ vay cao hơn, HPG đã tận dụng thành công dòng vốn này để tài trợ cho tài sản và chu kỳ phục hồi, mang lại quy mô lợi nhuận tuyệt đối khổng lồ và mức sinh lời trên vốn chủ sở hữu (ROE 10,5%) hấp dẫn hơn so với GVR.",
+    "sources": [
+      "HPG_BCTN24.pdf",
+      "GVR_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Đòn bẩy: HPG (~95,8% Nợ phải trả/VCSH) > GVR (42,79% Nợ/VCSH)",
+      "Lợi nhuận sau thuế: HPG (12.020 tỷ đồng) > GVR (3.372 tỷ đồng)",
+      "ROE: HPG đạt 10,5%",
+      "HPG dùng đòn bẩy hiệu quả hơn để tạo ra lợi nhuận tuyệt đối lớn"
+    ],
+    "negative_facts": [
+      "Lấy nhầm số liệu lợi nhuận sau thuế của các năm trước",
+      "Đánh giá sai rằng GVR dùng đòn bẩy hiệu quả hơn HPG"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "D-011",
+    "question": "TCB, ACB và MBB năm 2024 ngân hàng nào có NIM tốt hơn và chi phí dự phòng thấp hơn tương đối?",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "TCB",
+      "ACB",
+      "MBB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-012",
+    "question": "So sánh VCB và BID năm 2024 theo lợi nhuận trước thuế, ROA, ROE và tỷ lệ nợ xấu.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "VCB",
+      "BID"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-013",
+    "question": "MWG và PNJ năm 2024: bên nào vận hành bán lẻ hiệu quả hơn nếu xét doanh thu trên tài sản, biên ròng và hàng tồn kho?",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "MWG",
+      "PNJ"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  }
+]

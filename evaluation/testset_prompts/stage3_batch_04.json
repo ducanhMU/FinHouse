@@ -1,0 +1,283 @@
+
+[
+  {
+    "id": "B-014",
+    "question": "GAS năm 2024 dòng tiền từ hoạt động kinh doanh bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "GAS"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, lưu chuyển tiền thuần từ hoạt động kinh doanh hợp nhất của PV GAS (GAS) đạt 9.035 tỷ đồng. Con số này giảm so với mức 13.827 tỷ đồng của năm 2023.",
+    "sources": [
+      "GAS_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Dòng tiền HĐKD GAS 2024 = 9.035 tỷ đồng",
+      "Giảm so với năm 2023"
+    ],
+    "negative_facts": [
+      "Lấy nhầm dòng tiền từ hoạt động đầu tư hoặc hoạt động tài chính",
+      "Nêu sai số liệu dòng tiền của năm 2023 thành 2024"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "B-015",
+    "question": "PNJ 2024 hàng tồn kho cuối kỳ bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "PNJ"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-016",
+    "question": "SSI năm 2024 vốn chủ sở hữu là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "SSI"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Tính đến cuối năm 2024, vốn chủ sở hữu của Công ty Cổ phần Chứng khoán SSI đạt mức 26.827 tỷ đồng,. Mức vốn này tăng 15% so với năm 2023, giúp SSI tiếp tục giữ vững vị trí số 1 về quy mô vốn chủ sở hữu trong nhóm các công ty chứng khoán trên thị trường,.",
+    "sources": [
+      "SSI_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Vốn chủ sở hữu SSI 2024 = 26.827 tỷ đồng",
+      "Tăng 15% so với năm 2023",
+      "Đứng số 1 thị trường về quy mô vốn chủ sở hữu"
+    ],
+    "negative_facts": [
+      "Lấy nhầm số liệu của năm 2023 (23.241 tỷ đồng)",
+      "Nhầm lẫn với số liệu tổng tài sản (73.507 tỷ đồng)"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "B-017",
+    "question": "DGC năm 2024 biên lợi nhuận ròng bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "DGC"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, biên lợi nhuận ròng (tỷ suất lợi nhuận sau thuế trên doanh thu thuần) của Tập đoàn Hóa chất Đức Giang (DGC) đạt 31,5%. Trong năm, công ty ghi nhận doanh thu thuần đạt 9.864 tỷ đồng và lợi nhuận sau thuế đạt 3.107 tỷ đồng.",
+    "sources": [
+      "DGC_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Biên lợi nhuận ròng DGC 2024 = 31,5%",
+      "Lợi nhuận sau thuế = 3.107 tỷ đồng",
+      "Doanh thu thuần = 9.864 tỷ đồng"
+    ],
+    "negative_facts": [
+      "Lấy nhầm số liệu của năm 2023 (33,36%)",
+      "Tính sai tỷ lệ do nhầm lợi nhuận trước thuế"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "B-018",
+    "question": "DPM 2024 P/B bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "DPM"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-019",
+    "question": "Vinamilk năm 2023 EPS bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VNM"
+    ],
+    "expected_timeframe": "2023",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2023, lãi cơ bản trên cổ phiếu (EPS) của Vinamilk (VNM) đạt 3.796 đồng theo chuẩn mực kế toán Việt Nam (VAS),. Nếu tính toán dựa trên chuẩn mực báo cáo tài chính quốc tế (IFRS), EPS năm 2023 của Vinamilk đạt 3.885 đồng.",
+    "sources": [
+      "VNM_BCTN23.pdf"
+    ],
+    "key_facts": [
+      "EPS VNM 2023 theo VAS = 3.796 đồng",
+      "EPS VNM 2023 theo IFRS = 3.885 đồng"
+    ],
+    "negative_facts": [
+      "Lấy nhầm số liệu của năm 2022 (3.632 đồng)",
+      "Không làm rõ sự khác biệt giữa hai chuẩn mực VAS và IFRS"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "B-020",
+    "question": "FPT 2023 ROE là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "FPT"
+    ],
+    "expected_timeframe": "2023",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2023, tỷ suất sinh lời trên vốn chủ sở hữu (ROE) của FPT đạt 27,9%,. Mức ROE này tăng nhẹ 20 điểm cơ bản so với mức 27,7% của năm 2022, qua đó tiếp tục phản ánh khả năng sử dụng vốn hiệu quả của công ty.",
+    "sources": [
+      "FPT_BCTN23.pdf"
+    ],
+    "key_facts": [
+      "ROE FPT 2023 = 27,9%",
+      "Tăng 20 điểm cơ bản so với năm 2022 (27,7%)"
+    ],
+    "negative_facts": [
+      "Lấy nhầm số liệu ROE của năm 2022 (27,7%)",
+      "Nhầm lẫn số liệu ROA (13,6%) với ROE"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "B-021",
+    "question": "HPG năm 2023 lợi nhuận sau thuế bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "HPG"
+    ],
+    "expected_timeframe": "2023",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2023, lợi nhuận sau thuế của Tập đoàn Hòa Phát (HPG) đạt 6.800 tỷ đồng. Mức lợi nhuận này ghi nhận sự sụt giảm so với con số 8.444 tỷ đồng của năm 2022.",
+    "sources": [
+      "HPG_BCTN23.pdf"
+    ],
+    "key_facts": [
+      "Lợi nhuận sau thuế HPG 2023 = 6.800 tỷ đồng",
+      "Giảm so với năm 2022 (8.444 tỷ đồng)"
+    ],
+    "negative_facts": [
+      "Lấy nhầm số liệu lợi nhuận trước thuế (7.792 tỷ đồng)",
+      "Lấy nhầm số liệu lợi nhuận sau thuế của năm 2022"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "B-022",
+    "question": "VCB 2023 P/B bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VCB"
+    ],
+    "expected_timeframe": "2023",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-023",
+    "question": "VHM năm 2023 cổ tức bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VHM"
+    ],
+    "expected_timeframe": "2023",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  }
+]

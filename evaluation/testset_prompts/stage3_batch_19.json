@@ -1,0 +1,341 @@
+
+[
+  {
+    "id": "E-024",
+    "question": "Năm 2025, đầu tư công và hạ tầng có thể tạo cơ hội cho những ngành nào, và rủi ro giải ngân chậm cần đánh giá thế nào?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "public_investment",
+      "infrastructure",
+      "construction_materials",
+      "industrial_real_estate",
+      "disbursement_risk"
+    ],
+    "expected_timeframe": "outlook 2025",
+    "scope": "macro",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2025, đầu tư công tiếp tục được xác định là động lực tăng trưởng trọng yếu của nền kinh tế với kế hoạch vốn đầu tư phát triển lên đến 826 nghìn tỷ đồng (tăng khoảng 17% so với năm trước),. Việc đẩy mạnh giải ngân tập trung vào các dự án hạ tầng chiến lược như cao tốc Bắc - Nam, Sân bay Long Thành, Đường vành đai 4 (Hà Nội) và các tuyến đường sắt, metro sẽ tạo cơ hội lan tỏa mạnh mẽ đến các nhóm ngành:\n\n1. **Ngành Xây dựng và Vật liệu xây dựng (Thép, Xi măng, Đá, Nhựa đường)**: Là nhóm hưởng lợi trực tiếp và sớm nhất nhờ khối lượng thi công khổng lồ từ các đại dự án hạ tầng, giúp các nhà thầu gia tăng doanh thu và các nhà sản xuất tiêu thụ được lượng lớn vật liệu [Conversation History].\n2. **Bất động sản Khu công nghiệp và Dân cư**: Hạ tầng giao thông hoàn thiện giúp tăng cường tính kết nối liên vùng, giảm chi phí logistics, từ đó tạo nền tảng thu hút mạnh mẽ dòng vốn FDI vào các khu công nghiệp. Đồng thời, các dự án nhà ở quanh các trục hạ tầng giao thông mới cũng được hưởng lợi lớn nhờ giá trị quỹ đất gia tăng và thu hút sự quan tâm của người mua nhà, [Conversation History].\n\n**Đánh giá rủi ro giải ngân chậm**:\nMặc dù kế hoạch vốn ngân sách rất lớn, rủi ro giải ngân chậm (do vướng mắc trong khâu đền bù giải phóng mặt bằng, thiếu hụt nguồn vật liệu san lấp, hoặc thủ tục hành chính) có thể trở thành điểm nghẽn. Nếu rủi ro này xảy ra, nó sẽ làm đứt gãy dòng tiền của các nhà thầu xây dựng, gây áp lực lên chi phí tài chính, đồng thời làm chậm đà phục hồi nhu cầu của nhóm ngành vật liệu xây dựng và làm giảm hiệu ứng kích thích kinh tế lan tỏa.",
+    "sources": [
+      "SSI_BCTN24.pdf",
+      "VIC_BCTN24.pdf",
+      "VPB_BCTN25.pdf",
+      "Conversation History"
+    ],
+    "key_facts": [
+      "Kế hoạch đầu tư công 2025 là 826 nghìn tỷ đồng, tăng 17% so với năm trước, tập trung vào Sân bay Long Thành, cao tốc, Vành đai 4.",
+      "Tạo cơ hội trực tiếp cho ngành Xây dựng và Vật liệu xây dựng nhờ khối lượng thi công lớn.",
+      "Tạo cơ hội cho BĐS Khu công nghiệp (thu hút FDI do hạ tầng tốt hơn) và BĐS dân cư (tăng giá trị quỹ đất).",
+      "Rủi ro giải ngân chậm có thể làm tắc nghẽn dòng tiền của nhà thầu và giảm nhu cầu tiêu thụ vật liệu xây dựng."
+    ],
+    "negative_facts": [
+      "Cho rằng đầu tư công năm 2025 bị cắt giảm mạnh so với 2024.",
+      "Nhận định việc giải ngân chậm không gây ảnh hưởng gì đến các nhà thầu xây dựng."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-025",
+    "question": "Giai đoạn 2022-2024, ngành ngân hàng Việt Nam thay đổi thế nào về NIM, tăng trưởng tín dụng, nợ xấu và chi phí dự phòng?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "banking_sector",
+      "NIM",
+      "credit_growth",
+      "NPL",
+      "provision_expense"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": "Giai đoạn 2022-2024, ngành ngân hàng Việt Nam trải qua nhiều biến động mạnh mẽ dưới tác động của các yếu tố kinh tế vĩ mô, thể hiện rõ qua 4 khía cạnh:\n\n1. **Tăng trưởng tín dụng**: Tín dụng duy trì tốc độ tăng trưởng ổn định và bứt tốc mạnh về cuối giai đoạn. Bất chấp những khó khăn chung của nền kinh tế, tín dụng toàn ngành đạt mức 14% (năm 2022), 13,71% (năm 2023) và bứt phá lên 15,08% (năm 2024). Động lực chính đến từ sự chỉ đạo quyết liệt của Ngân hàng Nhà nước nhằm hướng dòng vốn vào sản xuất, xuất khẩu, đầu tư công và sự phục hồi dần của tổng cầu nội địa,, [Conversation History].\n\n2. **NIM (Biên lãi thuần)**: Chịu nhiều sức ép và có xu hướng thu hẹp. Trong giai đoạn 2023-2024, các ngân hàng phải chủ động giảm lãi suất cho vay để hỗ trợ doanh nghiệp phục hồi. Trong khi đó, chi phí huy động vốn (COF) chịu áp lực biến động mạnh do lãi suất huy động có thời điểm tăng vọt (cuối 2022 - đầu 2023) hoặc nhích tăng trở lại vào cuối năm 2024 do áp lực tỷ giá và thanh khoản, khiến NIM của nhiều ngân hàng sụt giảm, [Conversation History].\n\n3. **Nợ xấu (NPL)**: Chất lượng tài sản suy giảm rõ rệt. Tỷ lệ nợ xấu nội bảng toàn hệ thống đã tăng mạnh từ mức khoảng 2% (năm 2022) lên đến 4,55% vào cuối Quý 3/2024. Nguyên nhân cốt lõi là do sự phục hồi chậm của sức cầu tiêu dùng, khủng hoảng trên thị trường bất động sản và trái phiếu doanh nghiệp, cùng với việc các khoản nợ tiềm ẩn bộc lộ khi chính sách hoãn, giãn nợ (Thông tư 02) dần hết hiệu lực,, [Conversation History].\n\n4. **Chi phí dự phòng**: Để ứng phó với rủi ro nợ xấu gia tăng liên tục, các ngân hàng buộc phải chủ động đẩy mạnh trích lập dự phòng rủi ro tín dụng. Áp lực trích lập dự phòng lớn đã bào mòn đáng kể lợi nhuận của hệ thống ngân hàng trong giai đoạn 2023-2024 nhằm đảm bảo duy trì tỷ lệ bao phủ nợ xấu (LLR) và an toàn hệ thống, [Conversation History].",
+    "sources": [
+      "MBB_BCTN25.pdf",
+      "TCB_BCTN22.pdf",
+      "VPB_BCTN24.pdf",
+      "MBB_BCTN23.pdf",
+      "Conversation History"
+    ],
+    "key_facts": [
+      "Tăng trưởng tín dụng: Đạt 14% (2022), 13,71% (2023) và tăng tốc lên 15,08% (2024).",
+      "NIM: Chịu sức ép thu hẹp do ngân hàng phải giảm lãi suất cho vay hỗ trợ nền kinh tế trong khi chi phí vốn (COF) biến động.",
+      "Nợ xấu (NPL): Tăng mạnh từ ~2% (2022) lên 4,55% (cuối Q3/2024) do tiêu dùng và BĐS phục hồi chậm, hết hạn Thông tư 02.",
+      "Chi phí dự phòng: Tăng mạnh để bao phủ nợ xấu, gây áp lực trực tiếp làm giảm lợi nhuận của ngành."
+    ],
+    "negative_facts": [
+      "Cho rằng NIM của toàn ngành ngân hàng liên tục mở rộng kỷ lục trong giai đoạn 2022-2024.",
+      "Khẳng định nợ xấu giảm mạnh và không còn là mối lo ngại trong năm 2024."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-026",
+    "question": "Từ 2022 đến 2024, chu kỳ bất động sản Việt Nam chịu tác động ra sao từ trái phiếu doanh nghiệp, pháp lý dự án và lãi suất?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "real_estate_cycle",
+      "corporate_bond",
+      "legal_approval",
+      "interest_rate"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "macro",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Từ 2022 đến 2024, chu kỳ bất động sản Việt Nam chịu những biến động mạnh mẽ dưới sự cọ xát của ba yếu tố trọng yếu: trái phiếu doanh nghiệp, pháp lý dự án và môi trường lãi suất.\n\n1. **Năm 2022 (Giai đoạn thắt chặt và đóng băng)**: Nửa đầu năm thị trường vẫn tương đối hưng phấn nhưng đột ngột đảo chiều từ giữa quý II. Nguyên nhân chính là do chính sách thắt chặt tín dụng và môi trường lãi suất tăng mạnh để kiềm chế lạm phát. Đồng thời, những sự kiện sai phạm trên thị trường Trái phiếu doanh nghiệp (TPDN) và các quy định thắt chặt phát hành mới đã làm suy giảm nghiêm trọng niềm tin của nhà đầu tư, khiến thanh khoản thị trường đóng băng, nhiều dự án phải dừng thi công,,.\n\n2. **Năm 2023 (Giai đoạn tháo gỡ nhưng còn trầm lắng)**: Thị trường TPDN và bất động sản vẫn đóng băng trong nửa đầu năm. Dù Chính phủ đã ban hành Nghị định 08/2023 cho phép giãn/hoãn nợ TPDN, nhưng áp lực đáo hạn vẫn rất lớn,. Lãi suất cho vay mua nhà bắt đầu hạ nhiệt từ nửa cuối năm nhờ các đợt cắt giảm lãi suất điều hành của NHNN,, nhưng rào cản pháp lý của các dự án vẫn chưa được tháo gỡ triệt để khiến nguồn cung khan hiếm, người mua có tâm lý chờ đợi.\n\n3. **Năm 2024 (Giai đoạn chuyển mình và phục hồi)**: Nút thắt lớn nhất về pháp lý đã được gỡ bỏ khi các đạo luật quan trọng (Luật Đất đai, Luật Nhà ở, Luật Kinh doanh Bất động sản) chính thức có hiệu lực từ tháng 8/2024,. Môi trường lãi suất duy trì ở mức thấp, đi ngang đã giúp giảm áp lực chi phí tài chính cho cả chủ đầu tư và người mua nhà, từ đó giúp niềm tin quay trở lại và thanh khoản thị trường bắt đầu có những tín hiệu phục hồi rõ nét, dù đà tăng trưởng tại một số phân khúc chưa thực sự đồng đều do mặt bằng giá còn cao,.",
+    "sources": [
+      "VHM_BCTN22.pdf",
+      "SSI_BCTN23.pdf",
+      "MBB_BCTN24.pdf",
+      "HPG_BCTN22.pdf",
+      "VHM_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "2022: Thị trường đóng băng do lãi suất tăng cao, tín dụng thắt chặt và khủng hoảng niềm tin từ thị trường TPDN.",
+      "2023: NHNN hạ lãi suất, Nghị định 08 tháo gỡ một phần khó khăn TPDN nhưng rào cản pháp lý và sức cầu yếu khiến thị trường vẫn trầm lắng.",
+      "2024: Luật Đất đai, Luật Nhà ở, Luật Kinh doanh BĐS có hiệu lực kết hợp lãi suất thấp giúp khôi phục niềm tin và cải thiện thanh khoản thị trường."
+    ],
+    "negative_facts": [
+      "Cho rằng thị trường bất động sản bùng nổ liên tục từ 2022 đến 2024.",
+      "Nhận định lãi suất mua nhà liên tục tăng trong năm 2024 gây khó khăn cho thị trường."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-027",
+    "question": "Giai đoạn 2022-2024, nhóm thép và vật liệu xây dựng biến động lợi nhuận chủ yếu do nhu cầu, giá bán hay chi phí đầu vào?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "steel_sector",
+      "construction_materials",
+      "demand",
+      "selling_price",
+      "input_cost"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Trong giai đoạn 2022-2024, lợi nhuận của nhóm thép và vật liệu xây dựng (tiêu biểu như HPG) chịu sự chi phối mạnh mẽ từ sự kết hợp của cả ba yếu tố: nhu cầu, giá bán và chi phí đầu vào, với các biến động đặc trưng qua từng năm:\n\n1. **Năm 2022 (Lợi nhuận lao dốc do cả 3 yếu tố tiêu cực)**: Ngành thép đối mặt với một cú sốc đa chiều. Về nhu cầu và giá bán, thị trường bất động sản đóng băng đột ngột từ giữa năm khiến sản lượng tiêu thụ và giá bán thép xây dựng sụt giảm mạnh. Về chi phí đầu vào, giá nguyên vật liệu (than, quặng) duy trì ở mức cao do đứt gãy chuỗi cung ứng, kết hợp với tỷ giá USD/VND và lãi suất tăng phi mã khiến chi phí tài chính đội lên, dẫn đến nhiều doanh nghiệp lần đầu tiên ghi nhận các quý lỗ sâu kỷ lục,.\n\n2. **Năm 2023 (Phục hồi chậm do nhu cầu yếu)**: Chi phí đầu vào (giá nguyên vật liệu) đã bắt đầu ổn định hơn và giá thép xây dựng có sự hồi phục nhẹ. Tuy nhiên, lợi nhuận của các doanh nghiệp vẫn ở mức thấp do nhu cầu tiêu thụ trong nước và thế giới chưa phục hồi đáng kể, bị kìm hãm bởi lạm phát cao và suy thoái kinh tế. Sự bù đắp chủ yếu đến từ các nỗ lực giải ngân đầu tư công trong nước nhưng chưa đủ để tạo ra sự bứt phá.\n\n3. **Năm 2024 (Lợi nhuận cải thiện nhờ chi phí đầu vào giảm)**: Sức mua của thị trường trong nước và quốc tế tiếp tục duy trì ở mức thấp, giá bán không có nhiều động lực tăng trưởng do cạnh tranh. Tuy nhiên, biến động tích cực nhất là xu hướng giảm của giá nguyên vật liệu đầu vào trong suốt năm 2024. Việc hạ giá thành sản xuất đã giúp các doanh nghiệp trong ngành gia tăng đáng kể biên lợi nhuận gộp, qua đó cải thiện hiệu quả kinh doanh so với năm 2023. Mặc dù vậy, sự gia tăng tỷ giá trong năm 2024 vẫn duy trì một áp lực chi phí tài chính nhất định do các doanh nghiệp này có tỷ trọng nhập khẩu nguyên vật liệu rất lớn.",
+    "sources": [
+      "HPG_BCTN22.pdf",
+      "HPG_BCTN23.pdf",
+      "HPG_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "2022: Cầu và giá bán giảm mạnh (do BĐS đóng băng), chi phí đầu vào (nguyên liệu, tỷ giá) tăng vọt khiến lợi nhuận suy giảm kỷ lục.",
+      "2023: Giá nguyên liệu ổn định, giá bán nhích nhẹ nhưng nhu cầu tiêu thụ cả trong và ngoài nước đều rất yếu, kìm hãm sự phục hồi.",
+      "2024: Nhu cầu và giá bán vẫn chịu áp lực nhưng lợi nhuận được cải thiện nhờ giá nguyên vật liệu đầu vào giảm, giúp gia tăng biên lợi nhuận gộp."
+    ],
+    "negative_facts": [
+      "Nhận định lợi nhuận ngành thép năm 2024 bùng nổ nhờ giá bán thép trên thế giới tăng phi mã.",
+      "Cho rằng sự suy giảm của ngành thép trong năm 2022 hoàn toàn là do giá nguyên vật liệu giảm."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-028",
+    "question": "Vĩ mô Việt Nam giai đoạn 2022-2024: lạm phát, tỷ giá và lãi suất đã thay đổi môi trường định giá cổ phiếu như thế nào?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "Vietnam_macro",
+      "inflation",
+      "exchange_rate",
+      "interest_rate",
+      "equity_valuation"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "macro",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Trong giai đoạn 2022-2024, lạm phát, tỷ giá và lãi suất là ba biến số vĩ mô cốt lõi tạo ra những thay đổi sâu sắc lên môi trường định giá cổ phiếu tại Việt Nam:\n\n1. **Năm 2022 (Định giá sụt giảm sâu do thắt chặt tiền tệ)**: Lạm phát toàn cầu tăng kỷ lục buộc FED tăng lãi suất mạnh nhất trong nhiều thập kỷ, đẩy tỷ giá USD/VND lên cao. Để bảo vệ tỷ giá và kiềm chế lạm phát kỳ vọng, NHNN đã nâng lãi suất điều hành 2 lần. Môi trường lãi suất cao làm tăng chi phí chiết khấu dòng tiền của doanh nghiệp, đồng thời hút dòng tiền rút khỏi thị trường chứng khoán sang kênh tiết kiệm. Do đó, định giá thị trường (P/E) bị chiết khấu mạnh, VN-Index giảm 32,78% so với cuối năm 2021,.\n\n2. **Năm 2023 (Định giá rẻ kích hoạt dòng tiền, lãi suất giảm tạo bệ đỡ)**: Ngay từ đầu năm 2023, mức định giá P/E của thị trường đã rơi xuống mức rất hấp dẫn (chỉ khoảng 10,3 lần, thấp hơn 25% so với mức trung bình lịch sử). Việc lạm phát trong nước được kiểm soát (3,25%) đã tạo dư địa để NHNN đi ngược với xu hướng thắt chặt của thế giới, chủ động hạ lãi suất điều hành 4 lần,. Lãi suất tiết kiệm tạo đáy vào cuối năm giúp giảm chi phí cơ hội, thôi thúc dòng tiền cá nhân quay lại bắt đáy các nhóm cổ phiếu vừa và nhỏ, đẩy P/E thị trường mở rộng trở lại và giúp VN-Index hồi phục 12,2%,.\n\n3. **Năm 2024 (Định giá dựa vào phục hồi lợi nhuận thực tế)**: Trong năm 2024, lãi suất thị trường tạo đáy và có xu hướng tăng nhẹ về cuối năm (tăng khoảng 100 bps) do áp lực tỷ giá căng thẳng (VND mất giá 5% so với USD do DXY mạnh) và chênh lệch tăng trưởng tín dụng - huy động,. Tỷ giá cao kết hợp lãi suất Mỹ cao đã khiến khối ngoại bán ròng kỷ lục hơn 90.000 tỷ đồng, kìm hãm sự mở rộng của chỉ số. Tuy nhiên, thị trường vẫn duy trì được đà tăng trưởng do định giá được nâng đỡ bởi sự phục hồi lợi nhuận thực tế và bền vững của các doanh nghiệp niêm yết (tăng trưởng lợi nhuận quý sau cao hơn quý trước), giúp thị trường cân bằng trước các áp lực.",
+    "sources": [
+      "SSI_BCTN22.pdf",
+      "SSI_BCTN23.pdf",
+      "SSI_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "2022: Lãi suất tăng cao, tỷ giá căng thẳng khiến chi phí vốn tăng, P/E thị trường bị thu hẹp mạnh, VN-Index sụt giảm nghiêm trọng.",
+      "2023: NHNN hạ lãi suất điều hành, lạm phát ổn định tạo bệ đỡ cho dòng tiền quay lại thị trường, định giá P/E hấp dẫn giúp thị trường phục hồi.",
+      "2024: Áp lực tỷ giá và khối ngoại bán ròng kỷ lục gây khó khăn, nhưng lợi nhuận thực tế của doanh nghiệp phục hồi bền vững đóng vai trò neo giữ định giá cổ phiếu."
+    ],
+    "negative_facts": [
+      "Cho rằng lãi suất năm 2023 liên tục tăng đã bóp nghẹt thị trường chứng khoán.",
+      "Nhận định việc khối ngoại mua ròng liên tục trong năm 2024 là động lực duy nhất giúp định giá cổ phiếu tăng."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-029",
+    "question": "Giai đoạn 2022-2024, tiêu dùng nội địa Việt Nam phục hồi ra sao và tác động thế nào đến ngành bán lẻ, thực phẩm đồ uống và hàng xa xỉ?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "domestic_consumption",
+      "retail_sector",
+      "food_beverage_sector",
+      "luxury_goods"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "macro",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": "Sự phục hồi của tiêu dùng nội địa Việt Nam giai đoạn 2022-2024 có diễn biến hình chữ K và sự phân hóa rõ rệt, tác động trực tiếp đến chiến lược của các nhóm ngành:\n\n1. **Năm 2022 (Phục hồi nhanh nhưng đuối sức về cuối năm)**: Đầu năm, tiêu dùng bứt phá mạnh mẽ nhờ hiệu ứng mở cửa hậu Covid-19. Tuy nhiên, đến quý IV/2022, rủi ro lạm phát, lãi suất tăng và các doanh nghiệp sản xuất bị mất đơn hàng, cắt giảm lao động đã khiến thu nhập của người dân bị ảnh hưởng, tâm lý thắt chặt chi tiêu bắt đầu xuất hiện.\n\n2. **Năm 2023 (Tiêu dùng cẩn trọng và sự phân cực)**: Đây là năm đầy khó khăn khi người tiêu dùng duy trì tâm lý \"tiêu dùng cẩn trọng\". Điều này tác động rất khác nhau lên các nhóm ngành:\n- **Ngành bán lẻ (ICT, điện máy và xa xỉ phẩm)**: Gặp khủng hoảng nặng nề. Do thu nhập giảm, người dân mạnh tay cắt giảm các mặt hàng không thiết yếu, giá trị lớn như điện thoại, đồ điện máy. Các doanh nghiệp bán lẻ (như MWG) phải chuyển từ chiến lược mở rộng sang \"thắt lưng buộc bụng\", bảo vệ dòng tiền, đóng cửa hàng kém hiệu quả và cuốn vào cuộc chiến cạnh tranh giá khốc liệt.\n- **Ngành thực phẩm và đồ uống (FMCG)**: Chống chịu tốt hơn nhờ tính thiết yếu nhưng cũng ghi nhận sự thay đổi hành vi. Người tiêu dùng phân cực: một mặt tìm kiếm các sản phẩm thiết yếu giá rẻ, mặt khác vẫn sẵn sàng chi trả cho các sản phẩm mang lại \"giá trị tương xứng giá tiền\" (các sản phẩm cao cấp có lợi ích sức khỏe).\n\n3. **Năm 2024 (Phục hồi chậm rãi và tập trung vào chất lượng)**: Sức mua dần được cải thiện nhưng vẫn chưa quay lại mức trước đại dịch. Tổng mức bán lẻ hàng hóa tăng trưởng khoảng 9,2%. Ngành bán lẻ bắt đầu hái quả ngọt từ quá trình tái cấu trúc \"Giảm lượng - Tăng chất\", doanh thu trên mỗi điểm bán hiện hữu bắt đầu tăng. Trong ngành thực phẩm đồ uống, xu hướng tiêu dùng chuyển dịch sang kênh bán lẻ hiện đại (siêu thị mini) được củng cố. Ngành FMCG (như Masan Consumer) ghi nhận sự phục hồi và tăng trưởng doanh thu trở lại nhờ chiến lược phục vụ các nhu cầu thiết yếu và cao cấp hóa.",
+    "sources": [
+      "MWG_BCTN23.pdf",
+      "MSN_BCTN23.pdf",
+      "MWG_BCTN25.pdf",
+      "MSN_BCTN24.pdf",
+      "MWG_BTN22.pdf"
+    ],
+    "key_facts": [
+      "2022: Phục hồi mạnh mẽ nửa đầu năm nhưng nhanh chóng đuối sức vào quý IV do áp lực lạm phát và suy giảm thu nhập.",
+      "2023: Hình thành tâm lý \"tiêu dùng cẩn trọng\". Bán lẻ hàng không thiết yếu (điện máy, điện thoại, xa xỉ) suy giảm nghiêm trọng. Ngành FMCG phân cực mạnh vào hàng thiết yếu giá rẻ và các sản phẩm chất lượng mang lại giá trị gia tăng.",
+      "2024: Tiêu dùng phục hồi chậm. Ngành bán lẻ chuyển sang chiến lược \"giảm lượng, tăng chất\", tối ưu hiệu quả điểm bán. Ngành thực phẩm đồ uống hưởng lợi từ việc dịch chuyển sang các kênh bán lẻ hiện đại."
+    ],
+    "negative_facts": [
+      "Cho rằng tiêu dùng cho hàng xa xỉ và điện máy tăng trưởng bùng nổ không ngừng trong suốt 2022-2024.",
+      "Nhận định ngành thực phẩm và đồ uống bị người dân quay lưng hoàn toàn trong năm 2023."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-030",
+    "question": "Từ 2022 đến 2024, thanh khoản thị trường chứng khoán Việt Nam và mặt bằng lãi suất có mối quan hệ thế nào với lợi nhuận ngành chứng khoán?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "stock_market_liquidity",
+      "interest_rate",
+      "securities_sector_profit"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "macro",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Từ 2022 đến 2024, lợi nhuận của ngành chứng khoán Việt Nam thể hiện mối tương quan chặt chẽ với sự vận động của mặt bằng lãi suất và hệ quả kéo theo là thanh khoản thị trường:\n\n1. **Năm 2022 (Lãi suất tăng - Thanh khoản giảm - Lợi nhuận sụt giảm)**: Môi trường \"tiền rẻ\" trong đại dịch kết thúc khi lãi suất tăng mạnh để đối phó với lạm phát và tỷ giá. Lãi suất cao khiến chi phí vay margin trở nên đắt đỏ và dòng tiền chuyển hướng sang kênh tiết kiệm an toàn. Hậu quả là thanh khoản thị trường sụt giảm nghiêm trọng (Quý 4/2022 chỉ bằng 1/3 so với cùng kỳ 2021),. Sự khô cạn thanh khoản và sụt giảm của dư nợ cho vay ký quỹ đã trực tiếp ăn mòn doanh thu môi giới và thu nhập lãi vay, kéo theo lợi nhuận ngành chứng khoán sụt giảm mạnh.\n\n2. **Năm 2023 (Lãi suất giảm - Dòng tiền quay lại - Lợi nhuận phục hồi)**: NHNN liên tục hạ lãi suất điều hành, đưa mặt bằng lãi suất huy động về mức thấp lịch sử vào cuối năm. Môi trường lãi suất thấp đã làm giảm chi phí cơ hội, thôi thúc nhà đầu tư cá nhân rút tiền từ ngân hàng để quay lại thị trường chứng khoán. Mặc dù thanh khoản trung bình năm vẫn giảm 20% so với 2022 (do nửa đầu năm yếu), nhưng từ nửa cuối năm thanh khoản đã bùng nổ, kéo theo nhu cầu đòn bẩy tăng cao (như dư nợ margin của SSI tăng 32%),. Nhờ vậy, doanh thu từ môi giới và cho vay margin phục hồi, cải thiện bức tranh lợi nhuận cho các công ty chứng khoán.\n\n3. **Năm 2024 (Lãi suất đi ngang mức thấp - Thanh khoản bùng nổ - Lợi nhuận tăng trưởng mạnh)**: Mặt bằng lãi suất huy động dù có nhích nhẹ nhưng vẫn ở mức tương đối thấp so với quá khứ. Điều kiện tài chính nới lỏng này giúp thanh khoản trung bình mỗi phiên trong năm tăng 22,4% (đạt 18.685 tỷ đồng). Dư nợ margin tiếp tục mở rộng (chẳng hạn SSI ghi nhận dư nợ margin tăng khoảng 50% so với 2023). Lãi suất thấp, thanh khoản dồi dào và thị trường khởi sắc tạo điều kiện lý tưởng cho cả mảng môi giới, cho vay margin và tự doanh bứt phá, đóng góp trực tiếp vào mức tăng trưởng lợi nhuận vượt trội của các công ty chứng khoán trong năm 2024.",
+    "sources": [
+      "SSI_BCTN22.pdf",
+      "SSI_BCTN23.pdf",
+      "SSI_BCTN24.pdf",
+      "VRE_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "2022: Lãi suất tăng cao dẫn đến thanh khoản sụt giảm mạnh (đặc biệt cuối năm), kéo lùi doanh thu môi giới và margin, làm giảm lợi nhuận ngành.",
+      "2023: NHNN hạ lãi suất, kích thích dòng tiền nội quay lại trong nửa cuối năm, giúp dư nợ margin hồi phục, hỗ trợ đà phục hồi lợi nhuận.",
+      "2024: Môi trường lãi suất tiếp tục duy trì ở mức thấp, thanh khoản tăng mạnh 22,4%, dư nợ margin bùng nổ, giúp lợi nhuận các công ty chứng khoán tăng trưởng mạnh mẽ."
+    ],
+    "negative_facts": [
+      "Cho rằng môi trường lãi suất cao trong năm 2022 giúp các công ty chứng khoán thu lợi nhuận lớn từ việc cho vay margin.",
+      "Nhận định thanh khoản thị trường năm 2024 sụt giảm so với 2023 do lãi suất tiết kiệm quá hấp dẫn."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "F-001",
+    "question": "Tuần này VNM có tin gì mới đáng chú ý liên quan đến kết quả kinh doanh, cổ tức hoặc thay đổi lãnh đạo không?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "VNM"
+    ],
+    "expected_timeframe": "tuần này",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-002",
+    "question": "FPT trong tháng này có thông báo hợp đồng lớn, thương vụ AI hay tin quốc tế nào nổi bật không?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "FPT"
+    ],
+    "expected_timeframe": "tháng này",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-003",
+    "question": "HPG gần đây có tin gì về sản lượng thép, dự án Dung Quất 2 hoặc biến động giá thép không?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "HPG"
+    ],
+    "expected_timeframe": "gần đây",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  }
+]

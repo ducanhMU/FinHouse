@@ -1,0 +1,480 @@
+[
+{
+"id": "F-004",
+"question": "MWG tuần này có tin mới về Bách Hóa Xanh, đóng/mở cửa hàng hoặc biến động lợi nhuận không?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"MWG"
+],
+"expected_timeframe": "tuần này",
+"scope": "company",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Trong tuần 11/05–18/05/2026, MWG có tin mới đáng chú ý về Bách Hóa Xanh: chuỗi này chính thức đạt mốc 3.000 cửa hàng, tiếp tục mở rộng nhanh; trước đó tại buổi gặp gỡ nhà đầu tư ngày 08/05/2026, MWG cập nhật rằng Bách Hóa Xanh là động lực chính, các cửa hàng mở mới năm 2026 đã ghi nhận lợi nhuận hoạt động dương trực tiếp tại cửa hàng và mục tiêu lợi nhuận 2026 của Bách Hóa Xanh ít nhất gấp đôi năm 2025 [web:cafef][web:vietstock]. Không tìm thấy tin uy tín trong tuần này về việc MWG đóng cửa hàng hàng loạt.",
+"sources": [],
+"web_sources": [
+"[https://cafef.vn/bach-hoa-xanh-chinh-thuc-moc-3000-cua-hang-toc-do-mo-moi-chong-mat-188260517225910431.chn](https://cafef.vn/bach-hoa-xanh-chinh-thuc-moc-3000-cua-hang-toc-do-mo-moi-chong-mat-188260517225910431.chn)",
+"[https://cafef.vn/ga-de-trung-vang-dong-loat-bao-tin-vui-ctck-du-bao-mwg-vuot-ke-hoach-loi-nhuan-2026-188260511110426822.chn](https://cafef.vn/ga-de-trung-vang-dong-loat-bao-tin-vui-ctck-du-bao-mwg-vuot-ke-hoach-loi-nhuan-2026-188260511110426822.chn)",
+"[https://vietstock.vn/2026/05/bach-hoa-xanh-co-cua-hang-dau-tien-tai-ha-noi-737-1439439.htm](https://vietstock.vn/2026/05/bach-hoa-xanh-co-cua-hang-dau-tien-tai-ha-noi-737-1439439.htm)",
+"[https://cafef.vn/du-lieu/report/mwg-mua-loi-nhuan-lap-dinh-bach-hoa-xanh-tiep-tuc-la-dong-luc-chinh-6a06eaed0c16ac472bbb2dc9.chn](https://cafef.vn/du-lieu/report/mwg-mua-loi-nhuan-lap-dinh-bach-hoa-xanh-tiep-tuc-la-dong-luc-chinh-6a06eaed0c16ac472bbb2dc9.chn)"
+],
+"key_facts": [
+"Bách Hóa Xanh đạt mốc 3.000 cửa hàng ngày 17/05/2026 [cafef]",
+"MWG tổ chức gặp gỡ nhà đầu tư ngày 08/05/2026 để cập nhật hoạt động các chuỗi [cafef]",
+"Mục tiêu lợi nhuận 2026 của Bách Hóa Xanh = ít nhất gấp đôi năm 2025 [cafef]",
+"Các điểm bán Bách Hóa Xanh mở mới năm 2026 ghi nhận lợi nhuận hoạt động dương trực tiếp tại cửa hàng [vietstock]",
+"Số cửa hàng Bách Hóa Xanh mở mới trong Q1/2026 = 280 cửa hàng [vietstock]",
+"Tỷ trọng cửa hàng Bách Hóa Xanh mở mới năm 2026 tại miền Nam = 68% [vietstock]",
+"Tỷ trọng cửa hàng Bách Hóa Xanh mở mới năm 2026 tại miền Bắc = 18% [vietstock]",
+"Tỷ trọng cửa hàng Bách Hóa Xanh mở mới năm 2026 tại miền Trung = 14% [vietstock]",
+"Doanh thu Bách Hóa Xanh Q1/2026 = 13.100 tỷ đồng [cafef]",
+"Số cửa hàng Bách Hóa Xanh cuối Q1/2026 = 2.839 cửa hàng [cafef]"
+],
+"negative_facts": [
+"KHÔNG bịa tin MWG đóng cửa hàng hàng loạt trong tuần 11/05–18/05/2026 nếu không có nguồn uy tín",
+"KHÔNG nhầm mục tiêu lợi nhuận Bách Hóa Xanh với mục tiêu LNST hợp nhất MWG",
+"KHÔNG dùng tin ngoài khung 30 ngày nếu câu hỏi hỏi tin gần đây"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-005",
+"question": "VCB trong tháng này có tin gì mới về tăng vốn, cổ tức hoặc thay đổi nhân sự cấp cao?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"VCB"
+],
+"expected_timeframe": "tháng này",
+"scope": "company",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Trong tháng 05/2026, tin đáng chú ý của VCB liên quan đến vốn là Nghị quyết HĐQT phê duyệt phương án phát hành trái phiếu tăng vốn cấp 2 năm 2026, được CafeF ghi nhận khoảng 5 ngày trước 18/05/2026 [web:cafef]. Về cổ tức và tăng vốn cổ phần, Vietcombank trước đó tại ĐHĐCĐ 2026 cho biết đang chờ phê duyệt các phương án trả cổ tức khoảng 44.500 tỷ đồng và trình lộ trình tăng vốn điều lệ từ lợi nhuận để lại năm 2024–2025 [web:cafef]. Không tìm thấy tin uy tín trong tháng 05/2026 về thay đổi nhân sự cấp cao của VCB.",
+"sources": [],
+"web_sources": [
+"[https://cafef.vn/du-lieu/VCB-2886614/vcb-nghi-quyet-hdqt-ve-viec-phe-duyet-phuong-an-phat-hanh-trai-phieu-tang-von-cap-2-nam-2026.chn](https://cafef.vn/du-lieu/VCB-2886614/vcb-nghi-quyet-hdqt-ve-viec-phe-duyet-phuong-an-phat-hanh-trai-phieu-tang-von-cap-2-nam-2026.chn)",
+"[https://cafef.vn/chu-tich-vietcombank-ngan-hang-dang-cho-phe-duyet-cac-phuong-an-tra-co-tuc-khoang-44500-ty-dong-18826042416360087.chn](https://cafef.vn/chu-tich-vietcombank-ngan-hang-dang-cho-phe-duyet-cac-phuong-an-tra-co-tuc-khoang-44500-ty-dong-18826042416360087.chn)",
+"[https://vietstock.vn/2026/04/vietcombank-muon-tang-von-dieu-le-len-94238-ty-lap-ngan-hang-thanh-vien-tai-vifc-von-3000-ty-737-1422480.htm](https://vietstock.vn/2026/04/vietcombank-muon-tang-von-dieu-le-len-94238-ty-lap-ngan-hang-thanh-vien-tai-vifc-von-3000-ty-737-1422480.htm)",
+"[https://vietstock.vn/2026/04/vietcombank-tang-9-lai-truoc-thue-quy-1-no-nghi-ngo-tang-dot-bien-737-1436350.htm](https://vietstock.vn/2026/04/vietcombank-tang-9-lai-truoc-thue-quy-1-no-nghi-ngo-tang-dot-bien-737-1436350.htm)"
+],
+"key_facts": [
+"VCB phê duyệt phương án phát hành trái phiếu tăng vốn cấp 2 năm 2026 trong tháng 05/2026 [cafef]",
+"Vietcombank đang chờ phê duyệt các phương án trả cổ tức khoảng 44.500 tỷ đồng tính đến 24/04/2026 [cafef]",
+"VCB trình lộ trình tăng vốn điều lệ từ lợi nhuận để lại năm 2024 và 2025 [cafef]",
+"VCB dự kiến phát hành tối đa gần 1,07 tỷ cổ phiếu để tăng vốn điều lệ trong năm 2026 [vietstock]",
+"Giá trị phát hành tăng vốn điều lệ dự kiến của VCB năm 2026 = tối đa 10.687 tỷ đồng [vietstock]",
+"Vốn điều lệ VCB dự kiến tăng từ 83.557 tỷ đồng lên 94.238 tỷ đồng nếu phát hành thành công [vietstock]",
+"Lợi nhuận trước thuế Q1/2026 của VCB tăng 9% YoY [vietstock]",
+"Lãi từ dịch vụ Q1/2026 của VCB = 943 tỷ đồng, tăng 17% YoY [vietstock]",
+"Chi phí hoạt động Q1/2026 của VCB = 6.884 tỷ đồng, tăng 22% YoY [vietstock]",
+"Không tìm thấy tin uy tín trong tháng 05/2026 về thay đổi nhân sự cấp cao của VCB [cafef/vietstock]"
+],
+"negative_facts": [
+"KHÔNG khẳng định VCB đã hoàn tất trả cổ tức 44.500 tỷ đồng; nguồn chỉ nói đang chờ phê duyệt",
+"KHÔNG nhầm phát hành trái phiếu tăng vốn cấp 2 với phát hành cổ phiếu trả cổ tức",
+"KHÔNG bịa thay đổi nhân sự cấp cao nếu không có nguồn công bố"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-006",
+"question": "BID có sự kiện đáng chú ý nào trong năm 2026 về phát hành cổ phiếu, trái phiếu hoặc chiến lược ngân hàng số không?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"BID"
+],
+"expected_timeframe": "2026",
+"scope": "company",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Trong năm 2026, BIDV có nhiều sự kiện liên quan đến trái phiếu: ngày 23/04/2026 HĐQT BIDV ban hành Nghị quyết số 332/NQ-BIDV phê duyệt phương án phát hành trái phiếu tăng vốn theo hình thức riêng lẻ; CafeF/Vietstock ghi nhận các công bố liên quan trong đầu tháng 05/2026 [web:bidv][web:cafef]. Ngoài ra, BIDV chào bán gần 3.700 tỷ đồng trái phiếu ra công chúng và có phương án phát hành riêng lẻ quy mô lớn trong năm 2026 [web:cafef]. Về chiến lược số, nguồn chính thức BIDV mô tả định hướng trở thành định chế tài chính có nền tảng số tốt nhất Việt Nam, nhưng không tìm thấy trong nguồn uy tín một sự kiện chiến lược ngân hàng số cụ thể mới hơn trong khung 2026.",
+"sources": [],
+"web_sources": [
+"[https://bidv.com.vn/bidv/quan-he-nha-dau-tu/thong-tin-co-dong/congbothongtin/2026/cbtt%2Bphe%2Bduyet%2Bphuong%2Ban%2Bphat%2Bhanh%2Btrai%2Bphieu%2Btang%2Bvon%2Bcua%2Bbidv%2Btheo%2Bhinh%2Bthuc%2Brieng%2Ble](https://bidv.com.vn/bidv/quan-he-nha-dau-tu/thong-tin-co-dong/congbothongtin/2026/cbtt%2Bphe%2Bduyet%2Bphuong%2Ban%2Bphat%2Bhanh%2Btrai%2Bphieu%2Btang%2Bvon%2Bcua%2Bbidv%2Btheo%2Bhinh%2Bthuc%2Brieng%2Ble)",
+"[https://cafef.vn/du-lieu/bid122005-2877457/bid122005-phe-duyet-phuong-an-phat-hanh-trai-phieu-tang-von-cua-bidv-theo-hinh-thuc-rieng-le.chn](https://cafef.vn/du-lieu/bid122005-2877457/bid122005-phe-duyet-phuong-an-phat-hanh-trai-phieu-tang-von-cua-bidv-theo-hinh-thuc-rieng-le.chn)",
+"[https://cafef.vn/du-lieu/bid122005-2877471/bid122005-phe-duyet-phuong-an-phat-hanh-trai-phieu-cua-bidv-theo-hinh-thuc-rieng-le-trong-nam-2026.chn](https://cafef.vn/du-lieu/bid122005-2877471/bid122005-phe-duyet-phuong-an-phat-hanh-trai-phieu-cua-bidv-theo-hinh-thuc-rieng-le-trong-nam-2026.chn)",
+"[https://cafef.vn/ngan-hang-lon-nhat-viet-nam-chao-ban-gan-3700-ty-dong-trai-phieu-khong-tai-san-dam-bao-ra-cong-chung-188260426182915361.chn](https://cafef.vn/ngan-hang-lon-nhat-viet-nam-chao-ban-gan-3700-ty-dong-trai-phieu-khong-tai-san-dam-bao-ra-cong-chung-188260426182915361.chn)",
+"[https://bidv.com.vn/vn/trang-chu](https://bidv.com.vn/vn/trang-chu)"
+],
+"key_facts": [
+"BIDV ban hành Nghị quyết số 332/NQ-BIDV ngày 23/04/2026 phê duyệt phương án phát hành trái phiếu tăng vốn theo hình thức riêng lẻ [bidv]",
+"BIDV công bố thông tin phê duyệt phương án phát hành trái phiếu tăng vốn ngày 24/04/2026 [bidv]",
+"CafeF ghi nhận BID122005 phê duyệt phương án phát hành trái phiếu tăng vốn theo hình thức riêng lẻ ngày 01/05/2026 [cafef]",
+"CafeF ghi nhận BID122005 phê duyệt phương án phát hành trái phiếu theo hình thức riêng lẻ trong năm 2026 ngày 01/05/2026 [cafef]",
+"BIDV dự kiến phát hành tổng cộng 90 triệu trái phiếu ra công chúng [cafef]",
+"Mệnh giá trái phiếu BIDV chào bán ra công chúng = 100.000 đồng/trái phiếu [cafef]",
+"Giá trị huy động trái phiếu ra công chúng của BIDV năm 2026 = khoảng 3.700 tỷ đồng [cafef]",
+"BIDV công bố mục tiêu là định chế tài chính hàng đầu Đông Nam Á, có nền tảng số tốt nhất Việt Nam [bidv]",
+"Không tìm thấy sự kiện phát hành cổ phiếu BID mới trong năm 2026 từ nguồn uy tín đã tra [cafef/vietstock/bidv]"
+],
+"negative_facts": [
+"KHÔNG nhầm trái phiếu BIDV với cổ phiếu BID",
+"KHÔNG khẳng định có thương vụ cổ đông chiến lược mới nếu không có nguồn",
+"KHÔNG biến khẩu hiệu nền tảng số của BIDV thành sự kiện chiến lược mới nếu không có ngày công bố cụ thể"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-007",
+"question": "VHM tháng này có tin mới về mở bán dự án, pháp lý dự án hoặc giao dịch lớn nào không?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"VHM"
+],
+"expected_timeframe": "tháng này",
+"scope": "company",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Trong tháng 05/2026, VHM có tin đáng chú ý về pháp lý/mở bán dự án: 2.216 căn hộ tại dự án Happy Home Tràng Cát đủ điều kiện mở bán và cho thuê mua, được CafeF đưa tin ngày 08/05/2026 [web:cafef]. Ngoài ra, CafeF ngày 15/05/2026 đưa tin Vinhomes làm khu đô thị khoảng 7.800 tỷ đồng tại Hải Phòng, quy mô dân số khoảng 13.000 người và phải chuyển đổi khoảng 73,7 ha đất trồng lúa [web:cafef]. Không tìm thấy tin uy tín trong tháng 05/2026 về giao dịch M&A lớn của VHM.",
+"sources": [],
+"web_sources": [
+"[https://cafef.vn/hang-nghin-can-ho-vinhomes-co-gia-chi-tu-650-trieu-sap-mo-ban-188260508070838405.chn](https://cafef.vn/hang-nghin-can-ho-vinhomes-co-gia-chi-tu-650-trieu-sap-mo-ban-188260508070838405.chn)",
+"[https://cafef.vn/vinhomes-lam-khu-do-thi-7800-ty-dong-tai-que-nha-ty-phu-pham-nhat-vuong-188260515161400545.chn](https://cafef.vn/vinhomes-lam-khu-do-thi-7800-ty-dong-tai-que-nha-ty-phu-pham-nhat-vuong-188260515161400545.chn)",
+"[https://cafef.vn/dhcd-vinhomes-dat-muc-tieu-loi-nhuan-cao-nhat-lich-su-60000-ty-dongke-hoach-dua-loat-chinh-sach-bung-no-ta-thi-truong-188260421095246897.chn](https://cafef.vn/dhcd-vinhomes-dat-muc-tieu-loi-nhuan-cao-nhat-lich-su-60000-ty-dongke-hoach-dua-loat-chinh-sach-bung-no-ta-thi-truong-188260421095246897.chn)",
+"[https://vietstock.vn/2026/04/vhm-bien-ban-hop-va-nghi-quyet-dhdcd-thuong-nien-nam-2026-737-1432377.htm](https://vietstock.vn/2026/04/vhm-bien-ban-hop-va-nghi-quyet-dhdcd-thuong-nien-nam-2026-737-1432377.htm)"
+],
+"key_facts": [
+"Happy Home Tràng Cát có 2.216 căn hộ đủ điều kiện mở bán và cho thuê mua, công bố ngày 08/05/2026 [cafef]",
+"Giá căn hộ Happy Home Tràng Cát được đưa tin từ 650 triệu đồng/căn ngày 08/05/2026 [cafef]",
+"Vinhomes làm khu đô thị khoảng 7.800 tỷ đồng tại Hải Phòng, đưa tin ngày 15/05/2026 [cafef]",
+"Quy mô dân số dự án khu đô thị Vinhomes tại Hải Phòng = khoảng 13.000 người [cafef]",
+"Diện tích đất trồng lúa chuyển đổi cho dự án khu đô thị Vinhomes tại Hải Phòng = 73,7 ha [cafef]",
+"Số lô đất nhà ở liền kề tại dự án khu đô thị Vinhomes tại Hải Phòng = 197 lô [cafef]",
+"Vinhomes đặt kế hoạch doanh thu 2026 = 285.000 tỷ đồng [cafef]",
+"Vinhomes đặt kế hoạch LNST 2026 = 60.000 tỷ đồng [cafef]",
+"VHM công bố Biên bản họp và Nghị quyết ĐHĐCĐ thường niên 2026 ngày 23/04/2026 [vietstock]",
+"Không tìm thấy tin uy tín trong tháng 05/2026 về giao dịch M&A lớn của VHM [cafef/vietstock]"
+],
+"negative_facts": [
+"KHÔNG nhầm dự án Happy Home Tràng Cát với toàn bộ danh mục Vinhomes",
+"KHÔNG khẳng định đã mở bán thương mại nếu nguồn chỉ nói đủ điều kiện mở bán/cho thuê mua",
+"KHÔNG bịa giao dịch lớn nếu không có công bố"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-008",
+"question": "VIC gần đây có tin nóng gì về VinFast, huy động vốn hoặc thay đổi chiến lược tập đoàn?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"VIC"
+],
+"expected_timeframe": "gần đây",
+"scope": "company",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Gần đây, tin nóng nhất liên quan VIC là VinFast công bố kế hoạch tái cấu trúc mảng sản xuất ngày 13/05/2026, chuyển sang mô hình asset-light và thoái vốn khối sản xuất tại Việt Nam với giá trị 530 triệu USD [web:cafef]. CafeF cho biết khoảng 10.162,3 tỷ đồng, tương đương 404,8 triệu USD, trong giá trị này sẽ dùng để trả khoản nợ cũ cho Vingroup [web:cafef]. Sau tin tái cấu trúc, cổ phiếu VIC lập đỉnh lịch sử quanh phiên 14/05/2026, vốn hóa tiến sát 1,8 triệu tỷ đồng [web:vietnambiz][web:nhadautu]. Về chiến lược tập đoàn, tại ĐHĐCĐ 2026 Vingroup đặt mục tiêu doanh thu 485.000 tỷ đồng và LNST 35.000 tỷ đồng; VinFast đặt mục tiêu bàn giao 300.000 ô tô điện trong năm 2026 [web:vietstock].",
+"sources": [],
+"web_sources": [
+"[https://cafef.vn/nong-vinfast-cong-bo-ke-hoach-tai-cau-truc-se-thoai-mang-san-xuat-voi-gia-tri-530-trieu-usd-giu-lai-tai-san-tri-tue-va-mang-luoi-ban-hang-188260513093251089.chn](https://cafef.vn/nong-vinfast-cong-bo-ke-hoach-tai-cau-truc-se-thoai-mang-san-xuat-voi-gia-tri-530-trieu-usd-giu-lai-tai-san-tri-tue-va-mang-luoi-ban-hang-188260513093251089.chn)",
+"[https://cafef.vn/ai-mua-lai-mang-san-xuat-xe-cua-vinfast-18826051319315621.chn](https://cafef.vn/ai-mua-lai-mang-san-xuat-xe-cua-vinfast-18826051319315621.chn)",
+"[https://cafef.vn/vi-sao-vinfast-ra-gia-530-trieu-usd-khi-chuyen-nhuong-mang-san-xuat-xe-tai-viet-nam-188260514001327032.chn](https://cafef.vn/vi-sao-vinfast-ra-gia-530-trieu-usd-khi-chuyen-nhuong-mang-san-xuat-xe-tai-viet-nam-188260514001327032.chn)",
+"[https://vietnambiz.vn/vic-lap-dinh-lich-su-sau-tin-tai-cau-truc-vinfast-2026514151040448.htm](https://vietnambiz.vn/vic-lap-dinh-lich-su-sau-tin-tai-cau-truc-vinfast-2026514151040448.htm)",
+"[https://nhadautu.vn/sau-thong-tin-vinfast-tai-cau-truc-co-phieu-vic-vuot-dinh-d104987.html](https://nhadautu.vn/sau-thong-tin-vinfast-tai-cau-truc-co-phieu-vic-vuot-dinh-d104987.html)",
+"[https://vietstock.vn/2026/04/vingroup-dat-muc-tieu-but-pha-nam-2026-voi-loi-nhuan-sau-thue-35000-ty-dong-737-1431959.htm](https://vietstock.vn/2026/04/vingroup-dat-muc-tieu-but-pha-nam-2026-voi-loi-nhuan-sau-thue-35000-ty-dong-737-1431959.htm)"
+],
+"key_facts": [
+"VinFast công bố kế hoạch tái cấu trúc mảng sản xuất ngày 13/05/2026 [cafef]",
+"Giá trị thoái vốn/chuyển nhượng mảng sản xuất VinFast tại Việt Nam = 530 triệu USD [cafef]",
+"VinFast chuyển đổi sang mô hình asset-light tại thị trường Việt Nam [cafef]",
+"VinFast giữ lại tài sản trí tuệ, mạng lưới bán hàng, bảo hành và hậu mãi sau tái cấu trúc [cafef]",
+"Khoảng 10.162,3 tỷ đồng trong thương vụ VinFast sẽ dùng để trả khoản nợ cũ cho Vingroup [cafef]",
+"Khoảng 404,8 triệu USD trong thương vụ VinFast sẽ dùng để trả khoản nợ cũ cho Vingroup [cafef]",
+"Vingroup hoán đổi 10.000 tỷ đồng nợ vay thành vốn góp cổ phần ưu đãi trong quý II/2026 [cafef]",
+"Cổ phiếu VIC lập đỉnh lịch sử sau tin tái cấu trúc VinFast trong phiên 14/05/2026 [vietnambiz]",
+"Vốn hóa Vingroup tiến sát 1,8 triệu tỷ đồng sau tin tái cấu trúc VinFast [vietnambiz/nhadautu]",
+"Vingroup đặt mục tiêu doanh thu 2026 = 485.000 tỷ đồng [vietstock]",
+"Vingroup đặt mục tiêu LNST 2026 = 35.000 tỷ đồng [vietstock]",
+"VinFast đặt mục tiêu bàn giao 300.000 ô tô điện trong năm 2026 [vietstock]"
+],
+"negative_facts": [
+"KHÔNG nói VinFast bán toàn bộ thương hiệu; nguồn nói tái cấu trúc/thoái mảng sản xuất",
+"KHÔNG nhầm 530 triệu USD với doanh thu hoặc lợi nhuận của VIC",
+"KHÔNG khẳng định VIC đã nhận đủ tiền nếu nguồn chỉ nói kế hoạch/giao dịch đề xuất"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-009",
+"question": "MSN tuần này có tin gì về Masan Consumer, WinCommerce hoặc thương vụ M&A mới không?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"MSN"
+],
+"expected_timeframe": "tuần này",
+"scope": "company",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Trong tuần 11/05–18/05/2026, tin mới nổi bật liên quan MSN là Masan Consumer công bố doanh thu thuần 4 tháng đầu năm 2026 đạt 10.584 tỷ đồng, tăng 16,6% so với cùng kỳ [web:vietstock]. Trước đó, Masan công bố kết quả Q1/2026 với doanh thu thuần gần 24.020 tỷ đồng và LNST gần 1.974 tỷ đồng, lợi nhuận quý 1 cao nhất lịch sử [web:vietstock]. Về WinCommerce, tin gần nhất trong vòng 30 ngày cho biết doanh thu tháng 3/2026 đạt khoảng 3.492 tỷ đồng và lũy kế Q1/2026 đạt 11.363 tỷ đồng [web:vietstock]. Không tìm thấy tin uy tín trong tuần 11/05–18/05/2026 về thương vụ M&A mới của MSN.",
+"sources": [],
+"web_sources": [
+"[https://vietstock.vn/2026/05/doanh-thu-4-thang-mch-vuot-moc-10500-ty-nho-suc-hut-nganh-cot-loi-va-mo-rong-mang-luoi-737-1443633.htm](https://vietstock.vn/2026/05/doanh-thu-4-thang-mch-vuot-moc-10500-ty-nho-suc-hut-nganh-cot-loi-va-mo-rong-mang-luoi-737-1443633.htm)",
+"[https://masangroup.com/vi/news/Ung-pho-COVID-19-nganh-hang-tieu-dung-day-manh-kich-cau/MSN-Delivers-Record-1Q-Profit-Doubling-YoY.html](https://masangroup.com/vi/news/Ung-pho-COVID-19-nganh-hang-tieu-dung-day-manh-kich-cau/MSN-Delivers-Record-1Q-Profit-Doubling-YoY.html)",
+"[https://vietstock.vn/2026/05/masan-buoc-vao-chu-ky-tang-truong-moi-voi-loi-nhuan-quy-1-cao-nhat-lich-su-737-1436839.htm](https://vietstock.vn/2026/05/masan-buoc-vao-chu-ky-tang-truong-moi-voi-loi-nhuan-quy-1-cao-nhat-lich-su-737-1436839.htm)",
+"[https://vietstock.vn/2026/05/ceo-danny-le-loi-nhuan-tang-nhanh-hon-doanh-thu-masan-len-ke-hoach-ipo-wincommerce-737-1439078.htm](https://vietstock.vn/2026/05/ceo-danny-le-loi-nhuan-tang-nhanh-hon-doanh-thu-masan-len-ke-hoach-ipo-wincommerce-737-1439078.htm)",
+"[https://vietstock.vn/2026/04/wincommerce-khi-ban-le-hien-dai-buoc-vao-giai-doan-tang-truong-di-cung-loi-nhuan-737-1431131.htm](https://vietstock.vn/2026/04/wincommerce-khi-ban-le-hien-dai-buoc-vao-giai-doan-tang-truong-di-cung-loi-nhuan-737-1431131.htm)"
+],
+"key_facts": [
+"Doanh thu thuần 4 tháng đầu năm 2026 của Masan Consumer = 10.584 tỷ đồng [vietstock]",
+"Tăng trưởng doanh thu thuần 4 tháng đầu năm 2026 của Masan Consumer = 16,6% YoY [vietstock]",
+"Doanh thu thuần Q1/2026 của Masan Consumer = 8.472 tỷ đồng [masangroup]",
+"Tăng trưởng doanh thu thuần Q1/2026 của Masan Consumer = 13,1% YoY [masangroup]",
+"NPAT Pre-MI Q1/2026 của Masan Consumer = 1.800 tỷ đồng [masangroup]",
+"Biên lợi nhuận Q1/2026 của Masan Consumer = 21,2% [masangroup]",
+"Doanh thu thuần hợp nhất Q1/2026 của MSN = gần 24.020 tỷ đồng [vietstock]",
+"LNST hợp nhất Q1/2026 của MSN = gần 1.974 tỷ đồng [vietstock]",
+"Doanh thu WinCommerce tháng 3/2026 = khoảng 3.492 tỷ đồng, tăng 23,3% YoY [vietstock]",
+"Doanh thu WinCommerce Q1/2026 = 11.363 tỷ đồng, tăng 29,4% YoY [vietstock]",
+"MSN đưa ra lộ trình chuẩn bị IPO WinCommerce, đưa tin ngày 06/05/2026 [vietstock]",
+"Không tìm thấy tin uy tín trong tuần 11/05–18/05/2026 về thương vụ M&A mới của MSN [vietstock/masangroup]"
+],
+"negative_facts": [
+"KHÔNG bịa thương vụ M&A mới nếu không có nguồn công bố",
+"KHÔNG nhầm MCH với MSN hợp nhất",
+"KHÔNG nhầm kế hoạch IPO WinCommerce với thương vụ M&A đã hoàn tất"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-010",
+"question": "TCB tháng này có tin mới về cổ tức, room tín dụng hoặc biến động nợ xấu không?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"TCB"
+],
+"expected_timeframe": "tháng này",
+"scope": "company",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Trong tháng 05/2026, nguồn chính thức Techcombank công bố KQKD Q1/2026: tỷ lệ nợ xấu tăng nhẹ lên 1,16%, NPL trước CIC duy trì khoảng 1%, tỷ lệ bao phủ nợ xấu đạt 129,3% và chi phí tín dụng duy trì 0,6% [web:techcombank]. Về cổ tức, tin liên quan gần nhất là tại ĐHĐCĐ thường niên 2026 cuối tháng 04/2026, Techcombank công bố kết quả năm 2025 và các chỉ tiêu tài chính; không tìm thấy tin mới trong tháng 05/2026 về việc thay đổi phương án cổ tức. Về room/tăng trưởng tín dụng, Vietstock đưa tin tại ĐHĐCĐ 2026 rằng Techcombank đặt mục tiêu dư nợ tín dụng theo kịch bản kinh doanh 2026 và kiểm soát nợ xấu dưới 2%; không tìm thấy thông báo room tín dụng mới riêng trong tháng 05/2026.",
+"sources": [],
+"web_sources": [
+"[https://techcombank.com/content/dam/techcombank/public-site/documents/tcb-tcbs-cong-bo-kqkd-q12026.pdf](https://techcombank.com/content/dam/techcombank/public-site/documents/tcb-tcbs-cong-bo-kqkd-q12026.pdf)",
+"[https://techcombank.com/content/dam/techcombank/public-site/documents/1q26-press-release-vie-vf.pdf](https://techcombank.com/content/dam/techcombank/public-site/documents/1q26-press-release-vie-vf.pdf)",
+"[https://techcombank.com/content/dam/techcombank/public-site/documents/tcbc-dai-hoi-dong-co-dong-thuong-nien-tcb-2026.pdf](https://techcombank.com/content/dam/techcombank/public-site/documents/tcbc-dai-hoi-dong-co-dong-thuong-nien-tcb-2026.pdf)",
+"[https://vietstock.vn/2026/04/tong-giam-docjens-lottner-techcombank-hoan-toan-dap-ung-cac-tieu-chuan-basel-iii-737-1432619.htm](https://vietstock.vn/2026/04/tong-giam-docjens-lottner-techcombank-hoan-toan-dap-ung-cac-tieu-chuan-basel-iii-737-1432619.htm)"
+],
+"key_facts": [
+"Tỷ lệ nợ xấu Q1/2026 của TCB = 1,16% [techcombank]",
+"NPL trước CIC Q1/2026 của TCB = khoảng 1% [techcombank]",
+"Tỷ lệ bao phủ nợ xấu Q1/2026 của TCB = 129,3% [techcombank]",
+"Chi phí tín dụng Q1/2026 của TCB = 0,6% [techcombank]",
+"Lợi nhuận trước thuế Q1/2026 của TCB = gần 8.900 tỷ đồng [vietstock]",
+"Lợi nhuận trước thuế Q1/2026 của TCB tăng gần 23% YoY [vietstock]",
+"Tỷ lệ nợ xấu năm 2025 của TCB = 1,13% [techcombank]",
+"Tỷ lệ bao phủ nợ xấu cuối năm 2025 của TCB = 127,9% [techcombank]",
+"CAR năm 2025 của TCB = 14,6% [techcombank]",
+"Techcombank đặt mục tiêu kiểm soát tỷ lệ nợ xấu dưới 2% trong kế hoạch 2026 [vietstock]",
+"Không tìm thấy thông báo room tín dụng mới riêng của TCB trong tháng 05/2026 [techcombank/vietstock]",
+"Không tìm thấy thay đổi phương án cổ tức TCB mới trong tháng 05/2026 [techcombank/vietstock]"
+],
+"negative_facts": [
+"KHÔNG nói nợ xấu TCB giảm trong Q1/2026; nguồn chính thức nói tăng nhẹ lên 1,16%",
+"KHÔNG nhầm tỷ lệ bao phủ nợ xấu 129,3% với tỷ lệ nợ xấu",
+"KHÔNG bịa room tín dụng mới nếu không có thông báo riêng"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-011",
+"question": "ACB gần đây có sự kiện gì về đại hội cổ đông, kế hoạch lợi nhuận hoặc chia cổ tức năm 2026?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"ACB"
+],
+"expected_timeframe": "2026",
+"scope": "company",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "ACB tổ chức ĐHĐCĐ thường niên 2026 ngày 09/04/2026 và thông qua mục tiêu lợi nhuận trước thuế năm 2026 hơn 22.300 tỷ đồng [web:acb][web:cafef]. Ngân hàng dự kiến chia cổ tức tổng tỷ lệ 20% từ lợi nhuận năm 2025, gồm 13% bằng cổ phiếu và 7% bằng tiền mặt; tổng số tiền dùng chia cổ tức khoảng 10.273 tỷ đồng [web:vietstock]. ACB cũng dự kiến phát hành tối đa 667 triệu cổ phiếu để tăng vốn điều lệ lên hơn 58.000 tỷ đồng, thực hiện trong quý II/2026 [web:cafef].",
+"sources": [],
+"web_sources": [
+"[https://acb.com.vn/ve-chung-toi/dhcd-2026-acb-thong-qua-muc-tieu-loi-nhuan-hon-22300-ty-dong-kien-dinh-tang-truong-hai-hoa-giua-hieu-qua-an-toan](https://acb.com.vn/ve-chung-toi/dhcd-2026-acb-thong-qua-muc-tieu-loi-nhuan-hon-22300-ty-dong-kien-dinh-tang-truong-hai-hoa-giua-hieu-qua-an-toan)",
+"[https://cafef.vn/dhcd-acb-dat-muc-tieu-loi-nhuan-tren-22300-ty-dong-trong-nam-2026-chia-co-tuc-ca-tien-mat-lan-co-phieu-ngay-trong-quy-ii-va-tang-manh-von-dieu-le-188260409092402053.chn](https://cafef.vn/dhcd-acb-dat-muc-tieu-loi-nhuan-tren-22300-ty-dong-trong-nam-2026-chia-co-tuc-ca-tien-mat-lan-co-phieu-ngay-trong-quy-ii-va-tang-manh-von-dieu-le-188260409092402053.chn)",
+"[https://vietstock.vn/2026/04/dhdcd-acb-lai-truoc-thue-quy-1-dat-5400-ty-mang-bancassurance-tang-truong-33-737-1425022.htm](https://vietstock.vn/2026/04/dhdcd-acb-lai-truoc-thue-quy-1-dat-5400-ty-mang-bancassurance-tang-truong-33-737-1425022.htm)",
+"[https://cafef.vn/acb-don-luong-co-dong-ky-luc-den-du-dai-hoi-188260410102340802.chn](https://cafef.vn/acb-don-luong-co-dong-ky-luc-den-du-dai-hoi-188260410102340802.chn)",
+"[https://vietstock.vn/2026/04/acb-bien-ban-hop-va-nghi-quyet-dhdcd-thuong-nien-nam-2026-737-1426263.htm](https://vietstock.vn/2026/04/acb-bien-ban-hop-va-nghi-quyet-dhdcd-thuong-nien-nam-2026-737-1426263.htm)"
+],
+"key_facts": [
+"ACB tổ chức ĐHĐCĐ thường niên 2026 ngày 09/04/2026 [acb]",
+"Mục tiêu lợi nhuận trước thuế 2026 của ACB = hơn 22.300 tỷ đồng [acb/cafef]",
+"Lợi nhuận trước thuế Q1/2026 của ACB = 5.400 tỷ đồng [vietstock/cafef]",
+"Lợi nhuận trước thuế Q1/2026 của ACB tăng 17% YoY [cafef]",
+"ACB dự kiến chia cổ tức năm 2025 tổng tỷ lệ 20% trong năm 2026 [vietstock]",
+"Cổ tức tiền mặt ACB năm 2025 dự kiến = 7% [vietstock]",
+"Cổ tức bằng cổ phiếu ACB năm 2025 dự kiến = 13% [vietstock]",
+"Tổng số tiền dùng chia cổ tức ACB năm 2025 = 10.273 tỷ đồng [vietstock]",
+"ACB dự kiến phát hành tối đa 667 triệu cổ phiếu để tăng vốn điều lệ trong quý II/2026 [cafef]",
+"Vốn điều lệ ACB dự kiến tăng lên hơn 58.000 tỷ đồng sau chia cổ tức cổ phiếu [cafef]",
+"ACB dự kiến hoàn tất chia cổ tức trong tháng 5 và tháng 6/2026 sau khi được cơ quan quản lý chấp thuận [cafef]",
+"Cổ tức tiền mặt 7% của ACB dự kiến thực hiện tuần cuối tháng 5 hoặc tuần đầu tháng 6/2026 [cafef]"
+],
+"negative_facts": [
+"KHÔNG nhầm cổ tức 20% là toàn bộ bằng tiền mặt; gồm 7% tiền mặt và 13% cổ phiếu",
+"KHÔNG dùng kế hoạch lợi nhuận 2025 thay cho kế hoạch 2026",
+"KHÔNG khẳng định đã chi trả cổ tức nếu nguồn chỉ nói dự kiến sau phê duyệt"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-012",
+"question": "MBB tuần này có tin bất thường nào về tăng vốn, cổ đông chiến lược hoặc lợi nhuận quý mới nhất không?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"MBB"
+],
+"expected_timeframe": "tuần này",
+"scope": "company",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Trong tuần 11/05–18/05/2026 không tìm thấy tin bất thường mới, riêng lẻ và có nguồn uy tín về cổ đông chiến lược của MBB. Các tin gần nhất trong vòng 30 ngày tập trung vào kết quả Q1/2026 và kế hoạch tăng vốn: VNDIRECT cập nhật ngày 06/05/2026 rằng LNTT Q1/2026 của MBB đạt 24,1% dự phóng năm 2026, NII tăng 27,5% YoY, NIM còn 3,8%, nợ xấu giảm về 1,4% và tỷ lệ bao phủ nợ xấu tăng lên 92,2% [web:vietstock]. Trước đó, ĐHĐCĐ MB thông qua kế hoạch tăng vốn điều lệ lên khoảng 102.000–103.000 tỷ đồng thông qua cổ tức cổ phiếu 15% và phát hành quyền mua 10% [web:vietstock][web:mbbank].",
+"sources": [],
+"web_sources": [
+"[https://finance.vietstock.vn/bao-cao-phan-tich/20153/mbb-bao-cao-cap-nhat-kqkd-q12026.htm](https://finance.vietstock.vn/bao-cao-phan-tich/20153/mbb-bao-cao-cap-nhat-kqkd-q12026.htm)",
+"[https://vietstock.vn/2026/04/dhdcd-mb-lai-truoc-thue-quy-1-dat-9500-ty-dong-tang-hon-13-737-1428389.htm](https://vietstock.vn/2026/04/dhdcd-mb-lai-truoc-thue-quy-1-dat-9500-ty-dong-tang-hon-13-737-1428389.htm)",
+"[https://news.mbbank.com.vn/news/djai-hoi-djong-co-djong-mb-2026%3A-nang-tam-von-djieu-le-vuot-100.000-ty-djong-1776490268](https://news.mbbank.com.vn/news/djai-hoi-djong-co-djong-mb-2026%3A-nang-tam-von-djieu-le-vuot-100.000-ty-djong-1776490268)",
+"[https://finance.vietstock.vn/bao-cao-phan-tich/19853/mbb-bao-cao-cap-nhat-dhcd-2026.htm](https://finance.vietstock.vn/bao-cao-phan-tich/19853/mbb-bao-cao-cap-nhat-dhcd-2026.htm)",
+"[https://vietstock.vn/2026/03/mb-dat-muc-tieu-loi-nhuan-2026-tang-15-tang-von-len-gan-103000-ty-737-1419280.htm](https://vietstock.vn/2026/03/mb-dat-muc-tieu-loi-nhuan-2026-tang-15-tang-von-len-gan-103000-ty-737-1419280.htm)"
+],
+"key_facts": [
+"MBB có báo cáo cập nhật KQKD Q1/2026 ngày 06/05/2026 [vietstock]",
+"LNTT Q1/2026 của MBB đạt 24,1% dự phóng năm 2026 [vietstock]",
+"Thu nhập lãi thuần Q1/2026 của MBB tăng 27,5% YoY [vietstock]",
+"NIM Q1/2026 của MBB = 3,8% [vietstock]",
+"Tỷ lệ nợ xấu Q1/2026 của MBB = 1,4% [vietstock]",
+"Tỷ lệ bao phủ nợ xấu Q1/2026 của MBB = 92,2% [vietstock]",
+"Lợi nhuận trước thuế Q1/2026 của MBB = 9.500 tỷ đồng [vietstock]",
+"Lợi nhuận trước thuế Q1/2026 của MBB tăng hơn 13% YoY [vietstock]",
+"MBB thông qua kế hoạch tăng vốn điều lệ lên khoảng 102.000 tỷ đồng qua cổ tức cổ phiếu 15% và phát hành quyền mua 10% [vietstock]",
+"MBB dự kiến phát hành tối đa hơn 805 triệu cổ phiếu cho cổ đông hiện hữu theo tỷ lệ quyền mua 10:1 [vietstock]",
+"Giá chào bán cổ phiếu quyền mua MBB dự kiến = 10.000 đồng/cp [vietstock]",
+"Không tìm thấy tin uy tín trong tuần 11/05–18/05/2026 về cổ đông chiến lược mới của MBB [cafef/vietstock/mbbank]"
+],
+"negative_facts": [
+"KHÔNG bịa cổ đông chiến lược mới của MBB nếu không có công bố",
+"KHÔNG nhầm kế hoạch tăng vốn 102.000–103.000 tỷ đồng với vốn điều lệ hiện tại",
+"KHÔNG nhầm NIM 3,8% với tỷ lệ nợ xấu 1,4%"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-013",
+"question": "SAB tháng này có tin gì mới về tiêu thụ bia, chính sách thuế tiêu thụ đặc biệt hoặc cổ tức không?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"SAB"
+],
+"expected_timeframe": "tháng này",
+"scope": "company",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Trong tháng 05/2026, tin rõ nhất về SAB là cổ tức: Vietstock ngày 08/05/2026 đưa tin Sabeco chốt chia hơn 3.800 tỷ đồng cổ tức còn lại năm 2025, tỷ lệ 3.000 đồng/cp, dự kiến thanh toán ngày 28/08/2026; trước đó Sabeco đã tạm ứng 2.000 đồng/cp vào tháng 01/2026 [web:vietstock]. Về tiêu thụ bia và thuế tiêu thụ đặc biệt, không tìm thấy tin mới riêng trong tháng 05/2026 từ nguồn uy tín; nguồn gần nhất liên quan ĐHĐCĐ 2026 cho biết Sabeco đặt kế hoạch doanh thu thuần 2026 đạt 28.959 tỷ đồng và LNST 4.937 tỷ đồng, đồng thời duy trì kế hoạch cổ tức tiền mặt 50% [web:sabeco][web:cafef].",
+"sources": [],
+"web_sources": [
+"[https://vietstock.vn/2026/05/sabeco-chot-chia-hon-3800-ty-dong-co-tuc-vao-cuoi-thang-8-738-1440342.htm](https://vietstock.vn/2026/05/sabeco-chot-chia-hon-3800-ty-dong-co-tuc-vao-cuoi-thang-8-738-1440342.htm)",
+"[https://finance.vietstock.vn/SAB-tong-cong-ty-co-phan-bia-ruou-nuoc-giai-khat-sai-gon.htm?languageid=1&tab=BCTN](https://finance.vietstock.vn/SAB-tong-cong-ty-co-phan-bia-ruou-nuoc-giai-khat-sai-gon.htm?languageid=1&tab=BCTN)",
+"[https://www.sabeco.com.vn/truyen-thong/tin-tuc-su-kien/sau-chuyen-doi-doanh-nghiep-viet-khang-dinh-vi-the-tai-san-nha](https://www.sabeco.com.vn/truyen-thong/tin-tuc-su-kien/sau-chuyen-doi-doanh-nghiep-viet-khang-dinh-vi-the-tai-san-nha)",
+"[https://cafef.vn/mot-tai-lieu-he-lo-thoi-diem-gan-2000-ty-tu-dai-gia-viet-nam-ve-tui-ty-phu-thai-lan-188260402114733288.chn](https://cafef.vn/mot-tai-lieu-he-lo-thoi-diem-gan-2000-ty-tu-dai-gia-viet-nam-ve-tui-ty-phu-thai-lan-188260402114733288.chn)",
+"[https://thitruongtaichinhtiente.vn/sabeco-dat-muc-tieu-loi-nhuan-cao-nhat-4-nam-chia-co-tuc-tien-mat-ty-le-50-82388.html](https://thitruongtaichinhtiente.vn/sabeco-dat-muc-tieu-loi-nhuan-cao-nhat-4-nam-chia-co-tuc-tien-mat-ty-le-50-82388.html)"
+],
+"key_facts": [
+"Sabeco chốt chia cổ tức còn lại năm 2025 ngày 08/05/2026 [vietstock]",
+"Cổ tức còn lại năm 2025 của SAB = 3.000 đồng/cp [vietstock]",
+"Tổng tiền chi trả cổ tức còn lại năm 2025 của SAB = gần 3.848 tỷ đồng [vietstock]",
+"Ngày thanh toán cổ tức còn lại năm 2025 của SAB = 28/08/2026 [vietstock]",
+"SAB đã tạm ứng cổ tức năm 2025 = 2.000 đồng/cp trong tháng 01/2026 [vietstock]",
+"Tổng cổ tức tiền mặt năm 2025 của SAB = 5.000 đồng/cp [vietstock]",
+"Sabeco duy trì chi trả cổ tức 50% hai năm liên tiếp, công bố ngày 23/04/2026 [sabeco]",
+"Kế hoạch doanh thu thuần 2026 của Sabeco = 28.959 tỷ đồng [thitruongtaichinhtiente]",
+"Kế hoạch LNST 2026 của Sabeco = 4.937 tỷ đồng [thitruongtaichinhtiente]",
+"Kế hoạch doanh thu thuần 2026 của Sabeco tăng 12% so với năm 2025 [thitruongtaichinhtiente]",
+"Kế hoạch LNST 2026 của Sabeco tăng 8% so với năm 2025 [thitruongtaichinhtiente]",
+"Không tìm thấy tin mới riêng trong tháng 05/2026 về chính sách thuế tiêu thụ đặc biệt áp dụng trực tiếp cho SAB [cafef/vietstock/sabeco]"
+],
+"negative_facts": [
+"KHÔNG nhầm SAB với BSH hoặc doanh nghiệp bia khác",
+"KHÔNG nói cổ tức 3.000 đồng/cp là toàn bộ cổ tức năm 2025; đây là phần còn lại sau tạm ứng 2.000 đồng/cp",
+"KHÔNG bịa tin thuế tiêu thụ đặc biệt tháng 05/2026 nếu không có nguồn uy tín"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+}
+]

@@ -1,0 +1,284 @@
+
+[
+  {
+    "id": "D-034",
+    "question": "VCB và ACB năm 2024: ngân hàng nào có chất lượng sinh lời tốt hơn nếu so NIM, ROA, ROE và tỷ lệ nợ xấu?",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "VCB",
+      "ACB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-035",
+    "question": "BID và MBB năm 2024: so sánh lợi nhuận trước thuế, NIM, nợ xấu và chi phí dự phòng để xếp hạng sức khỏe tín dụng.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "BID",
+      "MBB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-036",
+    "question": "MSN và SAB năm 2024: so sánh doanh thu, biên gộp, biên ròng và dòng tiền kinh doanh để xem doanh nghiệp tiêu dùng nào phòng thủ tốt hơn.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "MSN",
+      "SAB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-037",
+    "question": "VIC và KDH năm 2024: so sánh nợ vay, hàng tồn kho, biên gộp và lợi nhuận sau thuế để đánh giá doanh nghiệp bất động sản nào rủi ro hơn.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "VIC",
+      "KDH"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-038",
+    "question": "TCB và VCB giai đoạn 2022-2024: so sánh xu hướng CASA, NIM, ROE và nợ xấu để xem ngân hàng nào giữ lợi thế sinh lời tốt hơn.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "TCB",
+      "VCB"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-039",
+    "question": "MWG và MSN giai đoạn 2022-2024: so sánh tăng trưởng doanh thu, biên lợi nhuận ròng và dòng tiền kinh doanh để đánh giá mô hình bán lẻ - tiêu dùng nào ổn định hơn.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "MWG",
+      "MSN"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "D-040",
+    "question": "POW, REE và GAS giai đoạn 2022-2024: xếp hạng theo mức độ ổn định lợi nhuận sau thuế, ROA và dòng tiền kinh doanh.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "POW",
+      "REE",
+      "GAS"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "E-001",
+    "question": "Ngành ngân hàng Việt Nam năm 2024 chịu tác động thế nào từ lãi suất thấp, tăng trưởng tín dụng và nợ xấu?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "banking_sector",
+      "interest_rate",
+      "credit_growth",
+      "NPL"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, ngành ngân hàng Việt Nam chịu tác động đa chiều từ ba yếu tố chính:\n\n1. **Lãi suất thấp**: Mặt bằng lãi suất huy động và cho vay giảm khoảng 0,3% - 0,4% so với cuối năm 2023, tạo điều kiện khơi thông nguồn vốn và hỗ trợ nền kinh tế. Tuy nhiên, việc duy trì lãi suất thấp cùng với việc lãi suất huy động bắt đầu tạo đáy và nhích tăng về cuối năm (tăng khoảng 100 điểm cơ bản) do áp lực tỷ giá và tăng trưởng huy động chậm hơn tín dụng, đã tạo sức ép thu hẹp biên lãi thuần (NIM) của các ngân hàng.\n2. **Tăng trưởng tín dụng**: Đây là động lực tăng trưởng mạnh mẽ nhất. Nhờ sự chỉ đạo quyết liệt của Ngân hàng Nhà nước và sự phục hồi của nền kinh tế (đặc biệt trong lĩnh vực sản xuất, xuất khẩu và đầu tư FDI), tín dụng toàn hệ thống đã bứt tốc mạnh về cuối năm, đạt mức tăng trưởng 15,08%, hoàn thành xuất sắc mục tiêu đề ra,.\n3. **Nợ xấu**: Chất lượng tài sản vẫn là rủi ro và thách thức lớn. Tỷ lệ nợ xấu nội bảng toàn hệ thống tiếp tục chịu áp lực, đứng ở mức 4,55% tính đến cuối tháng 9/2024. Nguyên nhân chính đến từ sự phục hồi chậm của sức cầu tiêu dùng và thị trường bất động sản, cùng với áp lực nợ xấu gia tăng khi các khoản nợ tiềm ẩn được cơ cấu theo Thông tư 02/2023/TT-NHNN hết hạn hoãn, giãn nợ.",
+    "sources": [
+      "CTG_BCTN24.pdf",
+      "MBB_BCTN23.pdf",
+      "MBB_BCTN24.pdf",
+      "SSI_BCTN24.pdf",
+      "VPB_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Lãi suất giảm 0,3% - 0,4%, gây sức ép lên NIM do lãi suất huy động tăng trở lại vào cuối năm.",
+      "Tăng trưởng tín dụng bứt phá đạt 15,08%, vượt mục tiêu NHNN.",
+      "Nợ xấu là rủi ro lớn, tỷ lệ nợ xấu nội bảng toàn hệ thống ở mức 4,55% vào cuối tháng 9/2024.",
+      "Thông tư 02 hết hạn cơ cấu nợ tạo áp lực nợ xấu tăng."
+    ],
+    "negative_facts": [
+      "Cho rằng lãi suất thấp giúp biên lãi thuần (NIM) của toàn ngành tăng mạnh.",
+      "Nhận định nợ xấu đã được giải quyết triệt để và giảm sâu trong năm 2024."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-002",
+    "question": "Phân tích ngành bất động sản dân cư năm 2024: thanh khoản thị trường, pháp lý dự án và mặt bằng lãi suất ảnh hưởng ra sao đến triển vọng ngành?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "real_estate_sector",
+      "housing_market",
+      "interest_rate",
+      "legal_approval"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Ngành bất động sản dân cư năm 2024 có sự chuyển biến tích cực nhưng quá trình phục hồi diễn ra chậm và chịu sự chi phối bởi ba yếu tố:\n\n1. **Pháp lý dự án**: Việc thông qua và chính thức áp dụng các bộ luật quan trọng (Luật Đất đai sửa đổi, Luật Nhà ở, Luật Kinh doanh Bất động sản) từ tháng 8/2024 là động lực then chốt giúp tháo gỡ vướng mắc pháp lý cho các dự án,. Yếu tố này giúp tăng cường tính minh bạch, cải thiện nguồn cung và củng cố niềm tin của nhà đầu tư và người mua nhà,.\n2. **Mặt bằng lãi suất**: Môi trường lãi suất duy trì ở mức thấp, đi ngang đã giúp giảm bớt áp lực chi phí tài chính cho cả doanh nghiệp phát triển dự án và người vay mua nhà, qua đó kích thích nhu cầu thực và tạo tiền đề để thị trường bất động sản hồi phục mạnh mẽ hơn,.\n3. **Thanh khoản thị trường**: Dù có những tín hiệu tích cực về chính sách và nguồn vốn FDI gia tăng, thanh khoản nhìn chung vẫn còn trầm lắng và cần nhiều thời gian để phục hồi hoàn toàn,,. Đặc biệt, áp lực đáo hạn khối lượng lớn trái phiếu doanh nghiệp bất động sản trong năm 2024 tiếp tục là rủi ro và thách thức lớn đối với thanh khoản của các nhà phát triển.",
+    "sources": [
+      "MBB_BCTN23.pdf",
+      "MSN_BCTN24.pdf",
+      "SSI_BCTN23.pdf",
+      "SSI_BCTN24.pdf",
+      "VHM_BCTN24.pdf",
+      "VRE_BCTN23.PDF"
+    ],
+    "key_facts": [
+      "Luật Đất đai, Nhà ở, Kinh doanh Bất động sản mới cải thiện tính minh bạch và lòng tin.",
+      "Lãi suất đi ngang ở mức thấp hỗ trợ chi phí vốn và kích cầu người mua.",
+      "Thanh khoản phục hồi chậm, vẫn chịu rủi ro và áp lực từ trái phiếu đáo hạn khối lượng lớn."
+    ],
+    "negative_facts": [
+      "Cho rằng thanh khoản bất động sản đã bùng nổ mạnh mẽ trong năm 2024.",
+      "Nhận định môi trường lãi suất cao làm sụp đổ thị trường bất động sản năm 2024."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-003",
+    "question": "Ngành thép Việt Nam năm 2024 phục hồi nhờ yếu tố nào: giá thép, nhu cầu xây dựng, xuất khẩu hay chi phí nguyên liệu?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "steel_sector",
+      "steel_price",
+      "construction_demand",
+      "raw_material_cost"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Ngành thép Việt Nam trong năm 2024 cho thấy đà phục hồi (như HPG tăng trưởng doanh thu 17%) [Conversation History], tuy nhiên sự phục hồi này chịu sự phân hóa lớn giữa các động lực:\n\n1. **Nhu cầu xây dựng (Động lực chính)**: Cầu nội địa được hỗ trợ mạnh mẽ nhờ nỗ lực thúc đẩy giải ngân đầu tư công của Chính phủ. Các dự án cơ sở hạ tầng đồng loạt đi vào giai đoạn xây dựng đã tạo ra hiệu ứng lan tỏa, kích thích nhu cầu tiêu thụ thép mạnh mẽ.\n2. **Xuất khẩu (Thách thức lớn)**: Mảng xuất khẩu đối mặt với nhiều khó khăn do sự gia tăng chính sách bảo hộ thương mại trên thế giới. Đặc biệt, nền kinh tế Trung Quốc phục hồi chậm dẫn đến dư thừa công suất, khiến nước này đẩy mạnh xuất khẩu thép giá rẻ, làm hạn chế khả năng tiếp cận thị trường quốc tế của thép Việt Nam và gia tăng cạnh tranh khốc liệt,.\n3. **Chi phí nguyên vật liệu và Tỷ giá**: Đây cũng là một gánh nặng cho đà phục hồi. Xung đột địa chính trị kéo dài làm gia tăng rủi ro biến động giá nguyên vật liệu. Thêm vào đó, tỷ giá neo ở mức cao làm gia tăng chi phí sản xuất đối với các doanh nghiệp phải nhập khẩu nguyên liệu đầu vào.",
+    "sources": [
+      "CTG_BCTN23.pdf",
+      "HPG_BCTN23.pdf",
+      "HPG_BCTN24.pdf",
+      "SSI_BCTN23.pdf",
+      "Conversation History"
+    ],
+    "key_facts": [
+      "Giải ngân đầu tư công và dự án hạ tầng là động lực phục hồi nhu cầu xây dựng.",
+      "Xuất khẩu gặp khó khăn do Trung Quốc đẩy mạnh xuất khẩu thép dư thừa và bảo hộ thương mại gia tăng.",
+      "Tỷ giá cao và xung đột địa chính trị duy trì áp lực biến động chi phí nguyên vật liệu nhập khẩu."
+    ],
+    "negative_facts": [
+      "Khẳng định ngành thép phục hồi hoàn toàn nhờ sự bùng nổ của xuất khẩu sang Trung Quốc.",
+      "Cho rằng chi phí nguyên vật liệu giảm mạnh là yếu tố cốt lõi giúp biên lợi nhuận tăng."
+    ],
+    "unanswerable": false
+  }
+]

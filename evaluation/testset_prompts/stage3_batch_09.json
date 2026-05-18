@@ -1,0 +1,299 @@
+
+[
+  {
+    "id": "C-004",
+    "question": "MWG năm 2024 có cải thiện hiệu quả vận hành không, xét theo doanh thu, lợi nhuận ròng, biên lợi nhuận và chi phí bán hàng?",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "MWG"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, hiệu quả vận hành của Thế Giới Di Động (MWG) được cải thiện vô cùng mạnh mẽ nhờ chiến lược \"Giảm lượng - Tăng chất\",. Cụ thể, doanh thu hợp nhất đạt hơn 134 nghìn tỷ đồng (tăng 14% so với cùng kỳ), trong khi lợi nhuận bứt phá gấp 21 lần, đạt 3.700 tỷ đồng. Biên lợi nhuận ròng năm 2024 theo đó phục hồi lên mức 2,8%. Việc chủ động đóng cửa khoảng 100 cửa hàng Điện Máy Xanh kém hiệu quả và tối ưu hóa chi phí đã giúp doanh thu trên mỗi điểm bán hiện hữu tăng trên 20%, trở thành động lực chính cho đà phục hồi lợi nhuận.",
+    "sources": [
+      "MWG_BCTN24.pdf",
+      "MWG_BCTN25.pdf"
+    ],
+    "key_facts": [
+      "Doanh thu hợp nhất 2024 = 134.000 tỷ đồng (tăng 14%)",
+      "Lợi nhuận bứt phá gấp 21 lần, đạt 3.700 tỷ đồng",
+      "Biên lợi nhuận ròng 2024 = 2,8%",
+      "Đóng 100 cửa hàng ĐMX, doanh thu/cửa hàng tăng >20%"
+    ],
+    "negative_facts": [
+      "Phủ nhận sự cải thiện hiệu quả của chiến lược tái cấu trúc",
+      "Lấy nhầm biên lợi nhuận 4,5% của năm 2025 gắn cho 2024"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "C-005",
+    "question": "Phân tích VCB năm 2024 qua tăng trưởng tín dụng, thu nhập lãi thuần, NIM, nợ xấu và chi phí dự phòng.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VCB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "C-006",
+    "question": "BID năm 2024: lợi nhuận trước thuế, NIM, tỷ lệ nợ xấu và dự phòng cho thấy chất lượng tài sản đang cải thiện hay xấu đi?",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "BID"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, chất lượng tài sản của BIDV (BID) có sự biến động nhẹ khi tỷ lệ nợ xấu tăng từ 1,12% (năm 2023) lên mức 1,27%. Dù vậy, ngân hàng vẫn duy trì bộ đệm rủi ro vững chắc với tỷ lệ bao phủ nợ xấu khối ngân hàng thương mại đạt 133%, đồng thời các chỉ số an toàn đều đảm bảo theo quy định. Xét về hiệu suất sinh lời, mặc dù tài liệu chưa công bố chi tiết về biên lãi ròng (NIM), lợi nhuận trước thuế hợp nhất của BIDV vẫn ghi nhận mức tăng trưởng tích cực 15,9% so với cùng kỳ, đạt 31.985 tỷ đồng.",
+    "sources": [
+      "BID_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Lợi nhuận trước thuế 2024 đạt 31.985 tỷ đồng, tăng 15,9%",
+      "Tỷ lệ nợ xấu 2024 là 1,27%, tăng so với mức 1,12% của năm 2023",
+      "Tỷ lệ bao phủ nợ xấu khối NHTM đạt 133%",
+      "Chưa có thông tin cụ thể về NIM trong tài liệu"
+    ],
+    "negative_facts": [
+      "Bịa đặt số liệu NIM của năm 2024",
+      "Nhận định sai rằng tỷ lệ nợ xấu đang giảm"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "C-007",
+    "question": "VHM 2024 nên được nhìn thế nào qua doanh thu bàn giao, lợi nhuận sau thuế, biên gộp và đòn bẩy tài chính?",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VHM"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, Vinhomes (VHM) tiếp tục khẳng định vị thế với doanh thu thuần từ bán hàng ra bên ngoài đạt 102.323 tỷ đồng (tổng doanh thu quy đổi đạt 125.943 tỷ đồng) và lợi nhuận sau thuế hợp nhất đạt 35.072 tỷ đồng. Mặc dù biên lợi nhuận gộp điều chỉnh giảm nhẹ xuống mức 32,22% (so với 34,48% năm 2023), tỷ suất sinh lời này vẫn duy trì ở mức tốt so với trung bình thị trường. Về đòn bẩy tài chính, tỷ lệ nợ ròng trên tổng tài sản (8,35%) và nợ ròng trên vốn chủ sở hữu (21,35%) có sự gia tăng nhẹ do VHM bắt đầu chu kỳ phát triển các đại dự án mới, nhưng cấu trúc vốn vẫn được kiểm soát ở ngưỡng an toàn.",
+    "sources": [
+      "VHM_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Doanh thu thuần bán hàng ra bên ngoài đạt 102.323 tỷ đồng, doanh thu quy đổi 125.943 tỷ đồng",
+      "Lợi nhuận sau thuế hợp nhất đạt 35.072 tỷ đồng",
+      "Biên lợi nhuận gộp đạt 32,22%, giảm nhẹ so với năm 2023 (34,48%)",
+      "Đòn bẩy tài chính duy trì an toàn (nợ ròng/tổng tài sản 8,35%; nợ ròng/VCSH 21,35%)"
+    ],
+    "negative_facts": [
+      "Bịa đặt số liệu biên lợi nhuận gộp",
+      "Nhận định sai rằng đòn bẩy tài chính đang ở mức rủi ro cao do phát triển dự án"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "C-008",
+    "question": "Đánh giá VIC năm 2024 dựa trên doanh thu hợp nhất, lỗ/lãi sau thuế, dòng tiền kinh doanh và mức nợ vay.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VIC"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "C-009",
+    "question": "MSN năm 2024 tăng trưởng có đến từ mảng cốt lõi không, nếu phân tích doanh thu, EBITDA, lợi nhuận ròng và nợ vay?",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "MSN"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "C-010",
+    "question": "TCB năm 2024: phân tích ROE, CASA, NIM, nợ xấu và lợi nhuận trước thuế để đánh giá sức khỏe ngân hàng.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "TCB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "C-011",
+    "question": "ACB năm 2024 có duy trì được chất lượng lợi nhuận không, xét theo thu nhập lãi thuần, NIM, CIR, nợ xấu và ROE?",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "ACB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, chất lượng lợi nhuận của Ngân hàng Á Châu (ACB) được duy trì ở mức tốt. Thu nhập lãi thuần đạt 27.794 tỷ đồng, tăng mạnh so với mức 24.959 tỷ đồng của năm trước. Ngân hàng kiểm soát chi phí hiệu quả với tỷ lệ CIR giảm nhẹ xuống 32,5%. Nhờ đó, dù tỷ lệ nợ xấu có tăng nhẹ lên mức 1,49% - 1,5% (tương đương dư nợ xấu 8.650 tỷ đồng), ACB vẫn duy trì được tỷ suất sinh lời trên vốn chủ sở hữu (ROE) rất ấn tượng ở mức gần 22% (21,75%). Các tài liệu hiện tại không cung cấp chi tiết số liệu NIM năm 2024 của ACB.",
+    "sources": [
+      "ACB_BCTN24.pdf",
+      "Conversation History"
+    ],
+    "key_facts": [
+      "Thu nhập lãi thuần 2024 = 27.794 tỷ đồng, tăng so với 2023",
+      "Tỷ lệ CIR giảm nhẹ xuống 32,5%",
+      "Tỷ lệ nợ xấu ở mức 1,49% - 1,5%",
+      "ROE đạt 21,75% (gần 22%)",
+      "Chưa có số liệu cụ thể về NIM năm 2024 trong tài liệu"
+    ],
+    "negative_facts": [
+      "Bịa đặt số liệu NIM năm 2024 của ACB",
+      "Cho rằng tỷ lệ nợ xấu giảm so với năm 2023"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "C-012",
+    "question": "MBB 2024: nhìn nhanh nhưng đủ sâu về lợi nhuận trước thuế, tăng trưởng tín dụng, NIM, nợ xấu và bộ đệm dự phòng.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "MBB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": "Trong năm 2024, Ngân hàng Quân Đội (MBB) ghi nhận lợi nhuận trước thuế đạt 28.829 tỷ đồng, tăng trưởng 9,6% so với năm 2023. Sự tăng trưởng lợi nhuận này được thúc đẩy bởi quy mô tín dụng mở rộng mạnh mẽ, với tổng dư nợ cho vay khách hàng đạt 811.142 tỷ đồng (tăng 24,5%), cùng biên lãi ròng (NIM) được duy trì ổn định ở mức cao 4,1%. Về chất lượng tài sản, MBB kiểm soát tốt tỷ lệ nợ xấu ở mức 1,6% (tương đương năm 2023), đồng thời duy trì bộ đệm dự phòng vững chắc với tỷ lệ bao phủ nợ xấu đạt 92,2%.",
+    "sources": [
+      "MBB_BCTN24.pdf",
+      "MBB_BCTN25.pdf"
+    ],
+    "key_facts": [
+      "Lợi nhuận trước thuế 2024 = 28.829 tỷ đồng (tăng 9,6%)",
+      "Tăng trưởng tín dụng đạt 24,5% (tổng dư nợ 811.142 tỷ đồng)",
+      "NIM năm 2024 = 4,1%",
+      "Tỷ lệ nợ xấu = 1,6% (bằng với 2023)",
+      "Tỷ lệ bao phủ nợ xấu = 92,2%"
+    ],
+    "negative_facts": [
+      "Nêu sai số liệu NIM thành 4,9%",
+      "Nhận định sai rằng nợ xấu giảm mạnh trong năm 2024"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "C-013",
+    "question": "SAB năm 2024 đang gặp vấn đề ở tăng trưởng sản lượng, biên lợi nhuận hay chi phí? Phân tích dựa trên doanh thu, lợi nhuận, biên gộp và biên ròng.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "SAB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "SABECO (SAB) trong năm 2024 không gặp vấn đề về tăng trưởng sản lượng hay doanh thu, khi doanh thu thuần tăng lên 31.872 tỷ đồng (so với 30.461 tỷ đồng năm 2023). Vấn đề duy nhất nằm ở giá vốn hàng bán tăng (22.554 tỷ đồng), khiến biên lợi nhuận gộp bị thu hẹp nhẹ từ 29,84% xuống còn 29,23%. Tuy nhiên, doanh nghiệp đã giải quyết bài toán này bằng cách kiểm soát và tiết giảm mạnh mẽ chi phí bán hàng (giảm từ 4.479 tỷ xuống 4.041 tỷ đồng). Nhờ đó, lợi nhuận sau thuế năm 2024 tăng lên mức 4.494 tỷ đồng và biên lợi nhuận ròng thực tế đã cải thiện từ 13,96% (năm 2023) lên mức 14,10%.",
+    "sources": [
+      "SAB_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Doanh thu thuần tăng lên 31.872 tỷ đồng",
+      "Lợi nhuận sau thuế tăng lên 4.494 tỷ đồng",
+      "Biên lợi nhuận gộp giảm nhẹ từ 29,84% xuống 29,23% do giá vốn tăng",
+      "Chi phí bán hàng được tiết giảm từ 4.479 tỷ xuống 4.041 tỷ đồng",
+      "Biên lợi nhuận ròng cải thiện từ 13,96% lên 14,10%"
+    ],
+    "negative_facts": [
+      "Cho rằng SABECO gặp vấn đề lớn về sụt giảm doanh thu",
+      "Tính toán sai các chỉ số biên lợi nhuận gộp và ròng"
+    ],
+    "unanswerable": false
+  }
+]

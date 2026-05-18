@@ -1,0 +1,360 @@
+
+[
+  {
+    "id": "E-014",
+    "question": "Triển vọng ngành bất động sản nhà ở năm 2025 phụ thuộc nhiều hơn vào pháp lý, lãi suất vay mua nhà hay sức cầu thực?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "housing_real_estate",
+      "legal_approval",
+      "mortgage_rate",
+      "housing_demand"
+    ],
+    "expected_timeframe": "outlook 2025",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Triển vọng ngành bất động sản nhà ở năm 2025 phụ thuộc đồng thời vào cả ba yếu tố cốt lõi: pháp lý, lãi suất và sức cầu thực, trong đó mỗi yếu tố đóng một vai trò hỗ trợ lẫn nhau:\n\n1. **Pháp lý (Nền tảng khơi thông nguồn cung)**: Sự thay đổi và đi vào thực thi của các bộ luật quan trọng như Luật Đất đai, Luật Nhà ở, Luật Kinh doanh Bất động sản từ cuối năm 2024 là yếu tố then chốt giúp tháo gỡ những điểm nghẽn về pháp lý. Tuy nhiên, thị trường vẫn cần thời gian để các chính sách này thẩm thấu thực tế, tháo gỡ hoàn toàn các vướng mắc của dự án cũ và đẩy nhanh tiến độ cấp phép dự án mới.\n\n2. **Sức cầu thực (Động lực quyết định thanh khoản)**: Hiện tại, niềm tin của người mua nhà đã dần quay trở lại nhờ sự rõ ràng hơn về pháp lý và tiến độ triển khai các dự án hạ tầng giao thông trọng điểm (đường Vành đai, sân bay Long Thành) tạo hiệu ứng tích cực cho tâm lý thị trường. Tuy nhiên, thị trường vẫn phải đối mặt với thách thức lớn khi mức giá bất động sản (đặc biệt tại các đô thị lớn) đã tăng cao, làm giảm khả năng đáp ứng nhu cầu ở thực và đầu tư của người dân. Do đó, nếu sức mua nội địa không phục hồi đủ mạnh, đà phục hồi của bất động sản sẽ thiếu đi tính bền vững.\n\n3. **Lãi suất vay mua nhà (Chất xúc tác)**: Việc duy trì môi trường lãi suất ổn định ở mức thấp hoặc đi ngang giúp giảm thiểu chi phí tài chính cho chủ đầu tư và khuyến khích người mua nhà sử dụng đòn bẩy. Tuy nhiên, nếu áp lực thanh khoản và tỷ giá khiến lãi suất đảo chiều tăng trong năm 2025, đà phục hồi của thị trường có thể bị chững lại đáng kể.\n\nNhìn chung, pháp lý là điều kiện cần để tạo nguồn cung, nhưng sức cầu thực (bị ảnh hưởng bởi thu nhập và giá bán) mới là yếu tố quyết định thanh khoản thực tế trong năm 2025.",
+    "sources": [
+      "VHM_BCTN24.pdf",
+      "VRE_BCTN24.pdf",
+      "SSI_BCTN24.pdf",
+      "VPB_BCTN25.pdf"
+    ],
+    "key_facts": [
+      "Các Luật Đất đai, Nhà ở, Kinh doanh BĐS giúp củng cố niềm tin và tháo gỡ vướng mắc dự án.",
+      "Giá bất động sản tăng cao ảnh hưởng đến khả năng đáp ứng nhu cầu ở thực của người dân, khiến đà phục hồi thanh khoản có thể thiếu bền vững.",
+      "Môi trường lãi suất ổn định hoặc thấp là chất xúc tác quan trọng, nhưng thị trường vẫn cần sức cầu thực tế đủ mạnh để tiêu thụ sản phẩm."
+    ],
+    "negative_facts": [
+      "Khẳng định sức cầu thực đã bùng nổ mạnh mẽ bất chấp mức giá nhà tăng cao.",
+      "Cho rằng pháp lý không còn là rào cản hay cần thêm thời gian để giải quyết đối với ngành BĐS."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-015",
+    "question": "Ngành thép 2025 có thể bước vào chu kỳ phục hồi rõ hơn không nếu xét nhu cầu nội địa, xuất khẩu và giá nguyên liệu?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "steel_sector",
+      "domestic_demand",
+      "steel_export",
+      "raw_material_price"
+    ],
+    "expected_timeframe": "outlook 2025",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2025, ngành thép có nền tảng để tiếp tục quá trình phục hồi dựa trên động lực nội địa, tuy nhiên vẫn phải đối mặt với nhiều rủi ro lớn từ thị trường quốc tế, khiến chu kỳ bứt phá mạnh mẽ còn gặp nhiều trở ngại:\n\n**1. Nhu cầu nội địa (Điểm tựa phục hồi):** Tương tự đà khởi sắc của năm 2024, nhu cầu tiêu thụ thép trong nước năm 2025 tiếp tục được củng cố bởi nỗ lực đẩy mạnh giải ngân đầu tư công của Chính phủ vào các dự án hạ tầng chiến lược (đường cao tốc, Sân bay Long Thành, v.v.). Bên cạnh đó, thị trường bất động sản dân cư được kỳ vọng sẽ từng bước ấm lên nhờ môi trường lãi suất ổn định và các nút thắt pháp lý dần được tháo gỡ, qua đó gia tăng nhu cầu sử dụng vật liệu xây dựng,.\n\n**2. Xuất khẩu (Thách thức cốt lõi):** Đây là mảng chứa đựng rủi ro lớn nhất kìm hãm sự bứt phá của ngành thép. Nền kinh tế Trung Quốc, đặc biệt là lĩnh vực bất động sản, vẫn phục hồi rất chậm, dẫn đến tình trạng dư thừa nguồn cung thép nội địa. Để giải quyết, Trung Quốc đã và đang đẩy mạnh xuất khẩu thép giá rẻ ra thị trường toàn cầu. Điều này không chỉ gây áp lực cạnh tranh gay gắt về giá ngay tại thị trường Việt Nam mà còn kích hoạt làn sóng bảo hộ thương mại và áp thuế chống bán phá giá tại nhiều quốc gia, hạn chế đáng kể khả năng tiếp cận và mở rộng thị phần xuất khẩu của các doanh nghiệp thép Việt.\n\n**3. Giá nguyên vật liệu (Tiềm ẩn bất ổn):** Sự kéo dài của cuộc xung đột Nga - Ukraine và các bất ổn địa chính trị tại Trung Đông dự báo sẽ tiếp tục làm tăng nguy cơ biến động bất thường đối với giá năng lượng và các loại nguyên vật liệu đầu vào quan trọng (quặng sắt, than mỡ),. Bên cạnh đó, môi trường lãi suất thế giới tuy có hạ nhiệt nhưng vẫn ở mức cao kết hợp với rủi ro tỷ giá sẽ gây áp lực không nhỏ lên chi phí sản xuất và biên lợi nhuận của doanh nghiệp.\n\nTóm lại, ngành thép 2025 có nền tảng phục hồi chậm và phụ thuộc lớn vào sức kéo của đầu tư công nội địa, trong khi vẫn bị kìm chân bởi rủi ro dư cung từ Trung Quốc và rào cản xuất khẩu.",
+    "sources": [
+      "HPG_BCTN24.pdf",
+      "VIC_BCTN24.pdf",
+      "VRE_BCTN24.pdf",
+      "SAB_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Nhu cầu nội địa là động lực chính, được thúc đẩy bởi giải ngân đầu tư công hạ tầng và sự phục hồi bước đầu của bất động sản.",
+      "Xuất khẩu gặp rủi ro lớn do Trung Quốc đẩy mạnh xuất khẩu thép dư thừa, gia tăng cạnh tranh và kích hoạt các rào cản bảo hộ thương mại toàn cầu.",
+      "Giá nguyên vật liệu đầu vào vẫn tiềm ẩn nguy cơ biến động mạnh do căng thẳng địa chính trị kéo dài."
+    ],
+    "negative_facts": [
+      "Khẳng định ngành thép sẽ bùng nổ rực rỡ trong năm 2025 nhờ sự phục hồi mạnh mẽ của thị trường bất động sản Trung Quốc.",
+      "Nhận định xuất khẩu thép của Việt Nam năm 2025 hoàn toàn thuận lợi và không chịu sức ép cạnh tranh nào."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-016",
+    "question": "Outlook ngành bán lẻ 2025: thu nhập người tiêu dùng, lạm phát và cạnh tranh giá sẽ ảnh hưởng thế nào đến tăng trưởng doanh thu?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "retail_sector",
+      "consumer_income",
+      "inflation",
+      "price_competition"
+    ],
+    "expected_timeframe": "outlook 2025",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2025, triển vọng ngành bán lẻ Việt Nam ghi nhận những tín hiệu phục hồi tích cực, đan xen cùng thách thức từ hành vi người tiêu dùng:\n\n1. **Thu nhập người tiêu dùng và sức mua**: Tầng lớp trung lưu mở rộng và thu nhập bình quân cải thiện tiếp tục là động lực chính hỗ trợ ngành. Năm 2025, tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng tăng 9,2% so với năm trước, cho thấy sức cầu nội địa đang từng bước phục hồi,,. \n2. **Lạm phát**: Lạm phát trong nước năm 2025 được kiểm soát tốt (CPI bình quân tăng 3,31% - nằm trong mục tiêu của Quốc hội), qua đó giúp củng cố niềm tin người tiêu dùng. Tuy nhiên, áp lực về chi phí sinh hoạt vẫn khiến người dân giữ tâm lý mua sắm \"lạc quan nhưng thận trọng\",,.\n3. **Cạnh tranh giá và hành vi tiêu dùng**: Người tiêu dùng ngày càng ưu tiên các mặt hàng thiết yếu (thực phẩm, FMCG) và thắt chặt chi tiêu cho các mặt hàng giá trị cao (như thiết bị điện tử, điện máy),. Sự cạnh tranh gay gắt về giá và thị phần buộc các nhà bán lẻ phải chuyển từ chiến lược mở rộng ồ ạt sang \"giảm lượng - tăng chất\", tập trung tối ưu hóa chi phí vận hành, ứng dụng công nghệ/AI để nâng cao trải nghiệm khách hàng và bảo vệ biên lợi nhuận,,.",
+    "sources": [
+      "MWG_BCTN25.pdf",
+      "MSN_BCTN25.pdf",
+      "VRE_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng năm 2025 tăng 9,2% so với 2024.",
+      "Lạm phát năm 2025 được kiểm soát ở mức 3,31%, hỗ trợ củng cố niềm tin tiêu dùng.",
+      "Người tiêu dùng thận trọng, ưu tiên hàng thiết yếu (FMCG) và thắt chặt chi tiêu hàng không thiết yếu.",
+      "Các nhà bán lẻ chuyển dịch chiến lược sang \"giảm lượng - tăng chất\", ứng dụng AI để tối ưu hóa vận hành và năng suất."
+    ],
+    "negative_facts": [
+      "Cho rằng người tiêu dùng đang bùng nổ chi tiêu cho các mặt hàng điện máy, xa xỉ phẩm trong năm 2025.",
+      "Nhận định lạm phát năm 2025 vượt khỏi tầm kiểm soát, gây sụt giảm nghiêm trọng doanh thu bán lẻ."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-017",
+    "question": "Ngành công nghệ Việt Nam 2025 có những động lực nào từ AI, chuyển đổi số doanh nghiệp và nhu cầu outsourcing toàn cầu?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "technology_sector",
+      "AI",
+      "enterprise_digital_transformation",
+      "global_outsourcing"
+    ],
+    "expected_timeframe": "outlook 2025",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Ngành công nghệ thông tin (CNTT) Việt Nam năm 2025 dự kiến bứt phá mạnh mẽ dựa trên ba động lực cốt lõi:\n\n1. **Trí tuệ nhân tạo (AI)**: Sự bùng nổ của AI tạo sinh (GenAI) và dữ liệu lớn tiếp tục là xu hướng dẫn dắt. Tại Việt Nam, Nghị quyết 57/NQ-TW của Bộ Chính trị đóng vai trò đòn bẩy thúc đẩy đầu tư, nghiên cứu phát triển công nghệ cao (AI, bán dẫn, điện toán đám mây) để đưa đất nước tiến vào kỷ nguyên vươn mình. Các doanh nghiệp công nghệ lớn ứng dụng AI sâu rộng vào sản xuất kinh doanh, coi đây là \"vũ khí\" chiến lược để tiếp cận khách hàng lớn.\n2. **Chuyển đổi số doanh nghiệp**: Trong thị trường nội địa, nhu cầu chuyển đổi số tiếp tục gia tăng khi các tổ chức, doanh nghiệp và Chính phủ cần tháo gỡ rào cản, tối ưu quy trình và năng suất. Sự hội tụ của Cloud, Big Data và AI giúp cung cấp các giải pháp toàn diện cho các ngành trọng điểm như tài chính - ngân hàng, bảo hiểm, y tế và bán lẻ,.\n3. **Nhu cầu Outsourcing (xuất khẩu phần mềm) toàn cầu**: Với lợi thế về nguồn nhân lực dồi dào, chi phí cạnh tranh và vị trí địa chính trị thuận lợi, Việt Nam tiếp tục hưởng lợi lớn từ sự dịch chuyển chuỗi cung ứng công nghệ toàn cầu. Các doanh nghiệp công nghệ (tiêu biểu như FPT) đang nỗ lực thâm nhập sâu hơn vào chuỗi giá trị thế giới, hướng tới các hợp đồng quy mô lớn (trên 10 triệu USD) và khai thác các lĩnh vực mới nhiều tiềm năng như phần mềm ô tô, vi mạch bán dẫn,,.",
+    "sources": [
+      "FPT_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Nghị quyết 57/NQ-TW là đòn bẩy thúc đẩy phát triển AI, bán dẫn và Cloud.",
+      "AI (đặc biệt GenAI) được xác định là công nghệ hạt nhân dẫn dắt và là lợi thế cạnh tranh tiếp cận khách hàng lớn.",
+      "Chuyển đổi số nội địa tiếp tục là nhu cầu cấp thiết của khối Chính phủ và doanh nghiệp.",
+      "Xuất khẩu CNTT hưởng lợi từ sự dịch chuyển chuỗi cung ứng toàn cầu, hướng đến các hợp đồng lớn và lĩnh vực giá trị cao (phần mềm ô tô, bán dẫn)."
+    ],
+    "negative_facts": [
+      "Cho rằng Việt Nam đang mất dần lợi thế outsourcing do chi phí nhân công tăng vọt.",
+      "Nhận định AI chưa được ứng dụng thực tế và không có tác động đến doanh thu ngành công nghệ."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-018",
+    "question": "Triển vọng ngành chứng khoán 2025: thanh khoản thị trường, hệ thống KRX và câu chuyện nâng hạng có thể tác động thế nào đến lợi nhuận ngành?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "securities_sector",
+      "market_liquidity",
+      "KRX",
+      "market_upgrade"
+    ],
+    "expected_timeframe": "outlook 2025",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Triển vọng lợi nhuận của ngành chứng khoán năm 2025 được đánh giá rất khả quan, hội tụ nhiều chất xúc tác mạnh mẽ:\n\n1. **Kỳ vọng nâng hạng thị trường**: Những cải cách pháp lý mạnh mẽ trong cuối năm 2024, điển hình là Thông tư 68/2024/TT-BTC gỡ vướng yêu cầu ký quỹ trước giao dịch (pre-funding) cho nhà đầu tư tổ chức nước ngoài, được kỳ vọng sẽ giúp TTCK Việt Nam chính thức được FTSE Russell nâng hạng lên Thị trường mới nổi trong năm 2025. Sự kiện này sẽ đảo chiều dòng vốn, thu hút mạnh mẽ nhà đầu tư nước ngoài quay lại mua ròng,.\n2. **Triển khai hệ thống KRX**: Việc hệ thống giao dịch mới KRX dự kiến đi vào hoạt động trong năm 2025 sẽ khắc phục các điểm nghẽn hạ tầng trước đây, mở ra cơ hội triển khai các sản phẩm tài chính mới, từ đó giúp nâng cao trải nghiệm nhà đầu tư và gia tăng đáng kể quy mô thanh khoản thị trường,.\n3. **Thanh khoản và dư nợ Margin**: Môi trường lãi suất tiền gửi dự kiến duy trì ở mức thấp (khoảng 5,8% - 6,0% cho kỳ hạn 12 tháng) sẽ tiếp tục kích thích dòng tiền nội chảy vào kênh chứng khoán. Cùng với đà hồi phục của VN-Index (được kỳ vọng chạm mức 1.450 điểm), nhu cầu sử dụng đòn bẩy tài chính (margin) dự kiến tiếp tục tăng trưởng mạnh mẽ (như SSI dự kiến dư nợ margin bình quân tăng 16% trong năm 2025),. \nSự cộng hưởng của thanh khoản tăng cao và dư nợ margin mở rộng sẽ là bệ phóng thúc đẩy trực tiếp doanh thu môi giới và thu nhập từ lãi vay, từ đó đem lại mức tăng trưởng lợi nhuận vượt trội cho các công ty chứng khoán.",
+    "sources": [
+      "SSI_BCTN24.pdf",
+      "VCBS_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Thông tư 68/2024 gỡ vướng pre-funding tạo tiền đề cho việc nâng hạng lên Thị trường mới nổi bởi FTSE Russell trong năm 2025.",
+      "Hệ thống KRX dự kiến đi vào hoạt động sẽ mở ra các sản phẩm mới và cải thiện thanh khoản.",
+      "Môi trường lãi suất thấp tiếp tục hỗ trợ dòng tiền nội khối; dư nợ margin được dự báo tăng trưởng mạnh (khoảng 16%).",
+      "Lợi nhuận của các doanh nghiệp niêm yết ước tăng 17,1%, hỗ trợ VN-Index hướng tới mốc 1.450 điểm."
+    ],
+    "negative_facts": [
+      "Nhận định việc nâng hạng thị trường đã bị hủy bỏ hoàn toàn trong năm 2025.",
+      "Cho rằng thanh khoản thị trường sẽ cạn kiệt do dòng vốn rút sang bất động sản."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-019",
+    "question": "Vĩ mô Việt Nam 2025: tăng trưởng GDP, lạm phát, tỷ giá và chính sách tiền tệ sẽ ảnh hưởng ra sao đến triển vọng lợi nhuận doanh nghiệp niêm yết?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "Vietnam_macro",
+      "GDP_growth",
+      "inflation",
+      "exchange_rate",
+      "monetary_policy"
+    ],
+    "expected_timeframe": "outlook 2025",
+    "scope": "macro",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Bức tranh kinh tế vĩ mô Việt Nam năm 2025 tạo ra một môi trường hỗ trợ vô cùng thuận lợi cho sự bứt phá lợi nhuận của các doanh nghiệp niêm yết (ước tính tăng trưởng 17,1% theo đánh giá của SSI Research), cụ thể qua các lăng kính:\n\n1. **Tăng trưởng GDP & Lạm phát**: Năm 2025, Chính phủ đặt mục tiêu tăng trưởng GDP bứt phá trên 8% nhằm tạo đà cho \"Kỷ nguyên vươn mình\", với lạm phát được kiểm soát an toàn ở mức 3,8% - 4,5%,. Sự phục hồi mạnh mẽ của cầu nội địa, chi tiêu tiêu dùng, và quyết tâm đẩy mạnh đầu tư công (kế hoạch giải ngân tăng 17% so với cùng kỳ) sẽ trực tiếp thúc đẩy biên lợi nhuận của các doanh nghiệp trong lĩnh vực bán lẻ, vật liệu xây dựng, bất động sản và logistics,,.\n2. **Chính sách tiền tệ & Lãi suất**: Ngân hàng Nhà nước duy trì chính sách nới lỏng linh hoạt, định hướng tăng trưởng tín dụng mạnh mẽ ở mức 15-16%,. Lãi suất huy động dự kiến duy trì ở mức tương đối thấp (5,8% - 6,0%), trong khi lãi suất cho vay tiếp tục hạ nhiệt sẽ giúp các doanh nghiệp giảm thiểu gánh nặng chi phí tài chính, cải thiện biên lợi nhuận ròng và khuyến khích mở rộng kinh doanh,.\n3. **Tỷ giá**: Biến động tỷ giá USD/VND có thể chịu sức ép trong nửa đầu năm do yếu tố bên ngoài, nhưng dự kiến sẽ ổn định dần (quanh mức 26.000 đồng/USD vào cuối năm). Tỷ giá ổn định đóng vai trò quan trọng trong việc giúp các doanh nghiệp nhập khẩu và các doanh nghiệp sử dụng đòn bẩy ngoại tệ nâng cao khả năng dự báo chi phí và bảo vệ lợi nhuận.\n4. **Rủi ro cần theo dõi**: Rủi ro lớn nhất đối với các doanh nghiệp (đặc biệt là nhóm xuất khẩu) đến từ chính sách thuế quan bảo hộ dưới nhiệm kỳ Trump 2.0 tại Mỹ và sự đứt gãy chuỗi cung ứng toàn cầu, có thể làm tốc độ tăng trưởng xuất khẩu chậm lại,.",
+    "sources": [
+      "SSI_BCTN24.pdf",
+      "VPB_BCTN24.pdf",
+      "VHM_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Mục tiêu tăng trưởng GDP năm 2025 là trên 8%, lạm phát kiểm soát ở mức 3,8% - 4,5%.",
+      "Chính sách tiền tệ linh hoạt với mục tiêu tăng trưởng tín dụng 15-16%, lãi suất duy trì ở mức hỗ trợ doanh nghiệp.",
+      "Tỷ giá USD/VND dự báo ổn định quanh mức 26.000 đồng/USD, giúp doanh nghiệp dự báo chi phí tốt hơn.",
+      "Lợi nhuận các công ty niêm yết ước tính tăng trưởng 17,1% (theo SSI Research)."
+    ],
+    "negative_facts": [
+      "Nhận định rằng lãi suất điều hành sẽ tăng vọt để kiềm chế lạm phát trong năm 2025.",
+      "Cho rằng rủi ro tỷ giá sẽ nhấn chìm toàn bộ lợi nhuận của các doanh nghiệp niêm yết trong năm 2025."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-020",
+    "question": "Năm 2025, rủi ro tỷ giá USD/VND có thể ảnh hưởng mạnh nhất đến những nhóm ngành nào và vì sao?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "USD/VND",
+      "exchange_rate_risk",
+      "export_sector",
+      "import_sector",
+      "foreign_debt"
+    ],
+    "expected_timeframe": "outlook 2025",
+    "scope": "macro",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Trong năm 2025, mặc dù tỷ giá USD/VND được dự báo sẽ có xu hướng ổn định dần về cuối năm, nhưng các biến động mạnh mang tính thời điểm (đặc biệt trong quý 2 và quý 3 do ảnh hưởng từ chính sách vĩ mô của Mỹ) vẫn là rủi ro đáng kể, ảnh hưởng mạnh nhất đến các nhóm doanh nghiệp sau:\n\n1. **Nhóm doanh nghiệp có tỷ trọng dư nợ vay ngoại tệ lớn (Bất động sản, Vận tải, Tập đoàn đa ngành)**: Sự biến động hoặc neo cao của đồng USD sẽ làm gia tăng trực tiếp chi phí trả lãi vay bằng ngoại tệ. Hơn nữa, việc đánh giá lại dư nợ gốc ngoại tệ vào cuối kỳ kế toán có thể tạo ra các khoản lỗ chênh lệch tỷ giá chưa thực hiện rất lớn, ăn mòn lợi nhuận ròng của doanh nghiệp. Điển hình, đối với các doanh nghiệp du lịch/bất động sản nghỉ dưỡng (như Vinpearl), tỷ giá còn ảnh hưởng đến sức cạnh tranh của giá dịch vụ đối với du khách quốc tế.\n2. **Nhóm doanh nghiệp nhập khẩu hoặc phụ thuộc nguyên vật liệu nhập khẩu (Sản xuất, Tiêu dùng nhanh - FMCG, Bán lẻ)**: Tỷ giá tăng khiến chi phí nhập khẩu nguyên vật liệu đầu vào bị đội lên. Nếu sức cầu nội địa chưa đủ mạnh để doanh nghiệp chuyển giao hoàn toàn chi phí này vào giá bán cuối cùng, biên lợi nhuận gộp sẽ bị thu hẹp. Ví dụ trong ngành tiêu dùng (như Masan), sự gia tăng chi phí nguyên liệu kết hợp với biến động tỷ giá là áp lực lớn làm giảm biên lợi nhuận và ảnh hưởng đến chiến lược giá,,.\n3. **Nhóm doanh nghiệp xuất khẩu**: Về lý thuyết, VND yếu đi sẽ giúp hàng hóa Việt Nam rẻ hơn trên thị trường quốc tế và tăng giá trị doanh thu khi quy đổi từ USD sang VND. Tuy nhiên, trong năm 2025, lợi thế này có thể bị triệt tiêu bởi hai yếu tố: (i) tỷ trọng nguyên vật liệu nhập khẩu để gia công xuất khẩu vẫn cao, làm tăng giá vốn; và (ii) rủi ro lớn từ chính sách tăng thuế quan bảo hộ thương mại của Mỹ dưới nhiệm kỳ Trump 2.0 có thể hạn chế sản lượng xuất khẩu,.",
+    "sources": [
+      "SSI_BCTN24.pdf",
+      "VPL_BCTN24.pdf",
+      "MSN_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Tỷ giá USD/VND dự báo sẽ biến động mạnh trong Q2, Q3/2025 trước khi ổn định vào cuối năm.",
+      "Doanh nghiệp vay ngoại tệ lớn đối mặt rủi ro lỗ tỷ giá và chi phí lãi vay tăng.",
+      "Doanh nghiệp nhập khẩu chịu áp lực tăng giá vốn, đe dọa biên lợi nhuận nếu không tăng được giá bán.",
+      "Doanh nghiệp xuất khẩu có thể hưởng lợi tỷ giá nhưng chịu sức ép rủi ro thuế quan bảo hộ từ Mỹ."
+    ],
+    "negative_facts": [
+      "Nhận định rằng các doanh nghiệp nhập khẩu sẽ hưởng lợi lớn khi tỷ giá USD/VND tăng.",
+      "Cho rằng rủi ro tỷ giá trong năm 2025 sẽ hoàn toàn biến mất do các chính sách của Mỹ."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-021",
+    "question": "Nếu lãi suất duy trì thấp trong năm 2025, nhóm ngành nào trên thị trường Việt Nam có thể hưởng lợi rõ nhất: ngân hàng, bất động sản, chứng khoán hay tiêu dùng?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "low_interest_rate",
+      "banking_sector",
+      "real_estate_sector",
+      "securities_sector",
+      "consumer_sector"
+    ],
+    "expected_timeframe": "outlook 2025",
+    "scope": "macro",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Nếu mặt bằng lãi suất duy trì ở mức thấp trong năm 2025, cả 4 nhóm ngành chứng khoán, bất động sản, tiêu dùng và ngân hàng đều được hưởng lợi, nhưng mức độ và tính chất tác động sẽ khác nhau. Trong đó, Chứng khoán và Bất động sản là hai ngành được hưởng lợi trực tiếp và rõ nét nhất:\n\n1. **Ngành Chứng khoán (Hưởng lợi trực tiếp từ dòng tiền)**: Môi trường lãi suất tiền gửi thấp (dự báo khoảng 5,8% - 6,0%/năm cho kỳ hạn 12 tháng) sẽ làm giảm chi phí cơ hội, tiếp tục kích thích dòng vốn nhàn rỗi từ nhà đầu tư cá nhân dịch chuyển sang kênh chứng khoán. Điều này không chỉ thúc đẩy thanh khoản thị trường mà còn làm bùng nổ nhu cầu sử dụng đòn bẩy tài chính (margin), giúp các công ty chứng khoán gia tăng mạnh mẽ lợi nhuận từ mảng môi giới và thu nhập lãi vay, [Conversation History].\n\n2. **Ngành Bất động sản (Hưởng lợi về chi phí vốn và thanh khoản)**: Lãi suất thấp là chất xúc tác vô cùng quan trọng giúp giảm bớt áp lực chi phí tài chính cho các chủ đầu tư đang sử dụng đòn bẩy cao. Đồng thời, lãi suất cho vay mua nhà hạ nhiệt sẽ khuyến khích người dân sử dụng đòn bẩy, kích thích sức cầu thực, kết hợp với các nút thắt pháp lý dần được tháo gỡ sẽ giúp thị trường bất động sản phục hồi thanh khoản mạnh mẽ, [Conversation History].\n\n3. **Ngành Tiêu dùng**: Lãi suất thấp và các điều kiện tín dụng thuận lợi hơn giúp giảm gánh nặng trả nợ của người dân, từ đó giải phóng thu nhập khả dụng và thúc đẩy sự tự tin trong chi tiêu. Đây là nền tảng để tiêu dùng nội địa phục hồi, tạo động lực tăng trưởng doanh thu cho các doanh nghiệp bán lẻ và hàng tiêu dùng nhanh (FMCG),.\n\n4. **Ngành Ngân hàng**: Hưởng lợi khi môi trường lãi suất thấp kích thích nhu cầu vay vốn của doanh nghiệp và người dân, hỗ trợ hoàn thành mục tiêu tăng trưởng tín dụng cao (15% - 16% trong năm 2025). Tuy nhiên, lãi suất huy động duy trì thấp cũng có thể đi kèm rủi ro thanh khoản cục bộ và tạo sức ép thu hẹp biên lãi thuần (NIM) nếu tốc độ tăng trưởng tín dụng vượt xa tốc độ huy động vốn, [Conversation History].",
+    "sources": [
+      "SSI_BCTN24.pdf",
+      "VPB_BCTN25.pdf",
+      "Conversation History"
+    ],
+    "key_facts": [
+      "Chứng khoán: Lãi suất huy động thấp (5,8-6%) kích thích dòng tiền nội, đẩy mạnh thanh khoản và dư nợ margin.",
+      "Bất động sản: Lãi suất thấp giảm chi phí vốn cho chủ đầu tư và kích thích nhu cầu vay mua nhà của người dân.",
+      "Tiêu dùng: Lãi suất thấp giảm gánh nặng nợ, giải phóng thu nhập khả dụng để thúc đẩy tiêu dùng nội địa.",
+      "Ngân hàng: Hưởng lợi từ tăng trưởng tín dụng 15-16% nhưng chịu rủi ro thu hẹp NIM nếu huy động không theo kịp tín dụng."
+    ],
+    "negative_facts": [
+      "Khẳng định lãi suất thấp chỉ mang lại rủi ro cho các ngân hàng mà không có lợi ích gì.",
+      "Cho rằng ngành chứng khoán sẽ sụt giảm thanh khoản khi lãi suất duy trì ở mức thấp."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-022",
+    "question": "Outlook ngành điện 2025: nhu cầu điện, giá nhiên liệu, thủy văn và cơ chế giá ảnh hưởng thế nào đến lợi nhuận các nhóm nhiệt điện, thủy điện và điện khí?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "power_sector",
+      "electricity_demand",
+      "fuel_price",
+      "hydrology",
+      "electricity_pricing"
+    ],
+    "expected_timeframe": "outlook 2025",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "E-023",
+    "question": "Triển vọng ngành phân bón 2025: giá ure, chi phí khí và nhu cầu xuất khẩu sẽ quyết định biên lợi nhuận ra sao?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "fertilizer_sector",
+      "urea_price",
+      "gas_cost",
+      "export_demand"
+    ],
+    "expected_timeframe": "outlook 2025",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  }
+]

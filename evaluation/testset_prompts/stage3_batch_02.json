@@ -1,0 +1,262 @@
+
+[
+  {
+    "id": "A-023",
+    "question": "Beta của cổ phiếu là gì? Em thấy nói beta cao thì rủi ro hơn, điều đó nghĩa là sao?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "beta"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "A-024",
+    "question": "Thanh khoản cổ phiếu là gì? Với HCM thì thanh khoản thường được nhìn qua những yếu tố nào?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "stock_liquidity",
+      "HCM"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "A-025",
+    "question": "Capex là gì? Với doanh nghiệp điện như POW hoặc REE thì chi phí đầu tư này thể hiện điều gì?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "CAPEX",
+      "POW",
+      "REE"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "A-026",
+    "question": "Tỷ lệ chi trả cổ tức là gì và công thức tính payout ratio như thế nào?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "dividend_payout_ratio"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "A-028",
+    "question": "Báo cáo lưu chuyển tiền tệ là gì? Nó giúp em hiểu gì thêm ngoài bảng cân đối kế toán và báo cáo kết quả kinh doanh?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "cash_flow_statement",
+      "balance_sheet",
+      "income_statement"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "A-029",
+    "question": "Chu kỳ chuyển đổi tiền mặt là gì? Với doanh nghiệp sản xuất như DGC, DCM hoặc DPM thì chỉ số này có ý nghĩa gì?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "cash_conversion_cycle",
+      "DGC",
+      "DCM",
+      "DPM"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "A-030",
+    "question": "NAV là gì? Khi đọc tài liệu về doanh nghiệp bất động sản như VHM hoặc KDH thì em nên hiểu NAV thế nào?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "NAV",
+      "VHM",
+      "KDH"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-001",
+    "question": "ROE VNM 2024 là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VNM"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "ROE năm 2024 của Vinamilk (VNM) đạt 26,6%. Về sức khỏe tài chính, năm 2024 công ty ghi nhận lợi nhuận sau thuế hợp nhất đạt 9.453 tỷ đồng và tổng vốn chủ sở hữu đạt 36.174 tỷ đồng.",
+    "sources": [
+      "Conversation History",
+      "VNM_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "ROE VNM 2024 = 26,6%",
+      "Lợi nhuận sau thuế 2024 = 9.453 tỷ đồng",
+      "Vốn chủ sở hữu = 36.174 tỷ đồng"
+    ],
+    "negative_facts": [
+      "Nêu sai số liệu ROE thành số của năm khác",
+      "Bịa số liệu ROE khi không có thông tin rõ ràng"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "B-002",
+    "question": "EPS của FPT năm 2024 là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "FPT"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, lãi cơ bản trên cổ phiếu (EPS) của FPT đạt 4.944 đồng, tăng trưởng 22,0% so với mức 4.052 đồng của năm 2023.",
+    "sources": [
+      "FPT_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "EPS FPT 2024 = 4.944 đồng",
+      "Tăng trưởng 22,0% so với năm 2023"
+    ],
+    "negative_facts": [
+      "Nêu sai EPS thành 4.052 đồng (là số của 2023)",
+      "Nêu sai tỷ lệ tăng trưởng EPS"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "B-003",
+    "question": "HPG năm 2024 doanh thu thuần bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "HPG"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, doanh thu thuần của Tập đoàn Hòa Phát (HPG) đạt 138.855 tỷ đồng, tăng 17% so với mức 118.953 tỷ đồng của năm 2023.",
+    "sources": [
+      "HPG_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Doanh thu thuần HPG 2024 = 138.855 tỷ đồng",
+      "Tăng 17% so với 2023"
+    ],
+    "negative_facts": [
+      "Nhầm lẫn doanh thu thuần với tổng doanh thu bán hàng (140.561 tỷ đồng)",
+      "Nêu sai số liệu doanh thu năm 2023"
+    ],
+    "unanswerable": false
+  }
+]

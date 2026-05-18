@@ -1,0 +1,444 @@
+[
+{
+"id": "B-044",
+"question": "BID năm 2024 tỷ lệ nợ xấu bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"BID"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, tỷ lệ nợ xấu của BIDV (BID) theo Thông tư 31/2024/TT-NHNN được kiểm soát ở mức 1,27% [web:BIDV]. Cùng năm, BIDV ghi nhận ROA 1,01% và ROE 19,52% theo Báo cáo thường niên 2024 [web:BIDV][web:cafef]. Vốn điều lệ cuối năm 2024 đạt 68.975 tỷ đồng sau khi chi trả cổ tức bằng cổ phiếu tỷ lệ 21% và phát hành riêng lẻ cho nhà đầu tư tổ chức.",
+"sources": [],
+"web_sources": [
+"[https://bidv.com.vn/bidv/quan-he-nha-dau-tu/bao-cao-va-tai-lieu/baocaothuongnien/2025/bctn%2B2024](https://bidv.com.vn/bidv/quan-he-nha-dau-tu/bao-cao-va-tai-lieu/baocaothuongnien/2025/bctn%2B2024)",
+"[https://bidv.com.vn/wps/wcm/connect/7187485c-5db8-4500-b39e-dac03babd0fe/11.%2BBC%2BHDQT%2Btrinh%2BDHDCD%2Bthuong%2Bnien%2B2025.pdf](https://bidv.com.vn/wps/wcm/connect/7187485c-5db8-4500-b39e-dac03babd0fe/11.%2BBC%2BHDQT%2Btrinh%2BDHDCD%2Bthuong%2Bnien%2B2025.pdf)",
+"[https://cafef.vn/du-lieu/BID-2178539/bid-bao-cao-thuong-nien-nam-2024.chn](https://cafef.vn/du-lieu/BID-2178539/bid-bao-cao-thuong-nien-nam-2024.chn)",
+"[https://finance.vietstock.vn/BID-ngan-hang-tmcp-dau-tu-va-phat-trien-viet-nam.htm](https://finance.vietstock.vn/BID-ngan-hang-tmcp-dau-tu-va-phat-trien-viet-nam.htm)"
+],
+"key_facts": [
+"Tỷ lệ nợ xấu 2024 của BID = 1,27% theo Thông tư 31/2024/TT-NHNN [BIDV]",
+"ROA 2024 của BID = 1,01% [BIDV_BCTN24]",
+"ROE 2024 của BID = 19,52% [BIDV_BCTN24]",
+"Vốn điều lệ cuối 2024 của BID = 68.975 tỷ đồng [BIDV]",
+"Tỷ lệ cổ tức bằng cổ phiếu BID chi trả trong năm 2024 = 21% [BIDV]",
+"BID công bố Báo cáo thường niên 2024 ngày 18/04/2025 [BIDV]"
+],
+"negative_facts": [
+"KHÔNG dùng tỷ lệ nợ xấu năm 2025 để trả lời năm 2024",
+"KHÔNG nhầm tỷ lệ nợ xấu với tỷ lệ bao phủ nợ xấu",
+"KHÔNG dùng ROA 1,01% để trả lời tỷ lệ nợ xấu"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "B-045",
+"question": "ACB 2024 NIM là bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"ACB"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, biên lãi ròng (NIM) của ACB đạt 3,62% theo Báo cáo thường niên 2024 [web:ACB]. Một số nguồn phân tích dùng dữ liệu bình quân/tính toán khác ghi nhận quanh 3,59%–3,71%, nhưng số chính thức trong BCTN 2024 là 3,62%. Cùng năm, thu nhập lãi thuần đạt 27.794,7 tỷ đồng, lợi nhuận trước thuế đạt 21.006 tỷ đồng và tỷ lệ nợ xấu cuối năm ở khoảng 1,5%.",
+"sources": [],
+"web_sources": [
+"[https://acb.com.vn/nha-dau-tu/bao-cao-thuong-nien-2024](https://acb.com.vn/nha-dau-tu/bao-cao-thuong-nien-2024)",
+"[https://acb.com.vn/acbwebsite/files/BCTN_2024.pdf](https://acb.com.vn/acbwebsite/files/BCTN_2024.pdf)",
+"[https://vietstock.vn/2025/03/acb-bao-cao-thuong-nien-nam-2024-737-1285285.htm](https://vietstock.vn/2025/03/acb-bao-cao-thuong-nien-nam-2024-737-1285285.htm)",
+"[https://www.dnse.com.vn/senses/tin-tuc/ngan-hang-acb-at-muc-tieu-lai-23-nghin-ty-ong-tiep-tuc-chia-co-tuc-ty-le-25-35003370](https://www.dnse.com.vn/senses/tin-tuc/ngan-hang-acb-at-muc-tieu-lai-23-nghin-ty-ong-tiep-tuc-chia-co-tuc-ty-le-25-35003370)",
+"[https://markettimes.vn/vi-sao-acb-bao-nim-tang-den-11-35-nhung-lai-rong-chi-tang-4-64-75281.html](https://markettimes.vn/vi-sao-acb-bao-nim-tang-den-11-35-nhung-lai-rong-chi-tang-4-64-75281.html)"
+],
+"key_facts": [
+"NIM 2024 của ACB = 3,62% [ACB_BCTN24]",
+"Thu nhập lãi thuần 2024 của ACB = 27.794,7 tỷ đồng [markettimes]",
+"Lợi nhuận trước thuế 2024 của ACB = 21.006 tỷ đồng [ShinhanSec/DNSE]",
+"ROA 2024 của ACB = 2,12% [stockkisvn]",
+"ROE 2024 của ACB = 21,75% [stockkisvn]",
+"Tỷ lệ nợ xấu cuối 2024 của ACB = khoảng 1,5% [cafeland/ShinhanSec]",
+"ACB công bố Báo cáo thường niên 2024 ngày 25/03/2025 [vietstock]"
+],
+"negative_facts": [
+"KHÔNG nhầm NIM là số tiền thu nhập lãi thuần 27.794,7 tỷ đồng",
+"KHÔNG dùng NIM 3,59% làm số chính thức nếu benchmark bám BCTN",
+"KHÔNG dùng NIM 3,71% của nguồn phân tích sau này làm số BCTN 2024"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "B-046",
+"question": "MBB năm 2024 P/B bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"MBB"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, hệ số giá trên giá trị sổ sách (P/B) của Ngân hàng Quân đội (MBB) đạt 1,14 lần [1][web:MBB_BCTN24]. Mức này tăng 13,2% so với P/B 1,01 lần của năm 2023. Cùng nguồn cho biết MBB công bố Báo cáo thường niên 2024 trong tháng 4/2025; NIM năm 2024 đạt khoảng 4,1% và giảm so với 4,9% năm 2023.",
+"sources": [
+"MBB_BCTN24.pdf"
+],
+"web_sources": [
+"[https://www.mbbank.com.vn/chi-tiet/thong-bao/bao-cao-thuong-nien-2024-2025-6-6-15-48-23/5405](https://www.mbbank.com.vn/chi-tiet/thong-bao/bao-cao-thuong-nien-2024-2025-6-6-15-48-23/5405)",
+"[https://vietstock.vn/2025/04/mbb-bao-cao-thuong-nien-nam-2024-737-1299341.htm](https://vietstock.vn/2025/04/mbb-bao-cao-thuong-nien-nam-2024-737-1299341.htm)",
+"[https://static2.vietstock.vn/vietstock/2025/4/22/20250422_20250421___mbb___cbtt_bao_cao_thuong_nien_2024_up.pdf](https://static2.vietstock.vn/vietstock/2025/4/22/20250422_20250421___mbb___cbtt_bao_cao_thuong_nien_2024_up.pdf)",
+"[https://cafef.vn/du-lieu/mbb-2179968/mbb-bao-cao-thuong-nien-nam-2024.chn](https://cafef.vn/du-lieu/mbb-2179968/mbb-bao-cao-thuong-nien-nam-2024.chn)"
+],
+"key_facts": [
+"P/B 2024 của MBB = 1,14 lần [MBB_BCTN24]",
+"P/B 2023 của MBB = 1,01 lần [MBB_BCTN24]",
+"Tăng trưởng P/B 2024 so với 2023 của MBB = 13,2% [MBB_BCTN24]",
+"NIM 2024 của MBB = 4,1% [MBB_BCTN24]",
+"NIM 2023 của MBB = 4,9% [MBB_BCTN24]",
+"MBB công bố Báo cáo thường niên 2024 ngày 22/04/2025 [vietstock]"
+],
+"negative_facts": [
+"Lấy nhầm P/B của năm 2023 (1,01 lần)",
+"KHÔNG nhầm P/B với P/E",
+"KHÔNG dùng P/B hiện tại năm 2026 để trả lời P/B năm 2024"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "B-047",
+"question": "VHM 2024 lợi nhuận sau thuế thuộc cổ đông công ty mẹ bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"VHM"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, lợi nhuận sau thuế thuộc cổ đông công ty mẹ của Vinhomes (VHM) đạt 31.801 tỷ đồng [1][web:VHM_BCTN24]. Con số này thấp hơn mức 33.371 tỷ đồng năm 2023. Lưu ý không nhầm với lợi nhuận sau thuế hợp nhất, vì VHM công bố lợi nhuận hợp nhất sau thuế năm 2024 khoảng 35.052 tỷ đồng.",
+"sources": [
+"VHM_BCTN24.pdf"
+],
+"web_sources": [
+"[https://vinhomes.vn/vi/cong-bo-ket-qua-kinh-doanh-nam-2024](https://vinhomes.vn/vi/cong-bo-ket-qua-kinh-doanh-nam-2024)",
+"[https://doanhnhan.baophapluat.vn/vinhomes-vhm-bao-lai-sau-thue-hon-35000-ty-dong-trong-nam-2024-80374.html](https://doanhnhan.baophapluat.vn/vinhomes-vhm-bao-lai-sau-thue-hon-35000-ty-dong-trong-nam-2024-80374.html)",
+"[https://www.abs.vn/wp-content/uploads/2025/04/VHM_250424_DHDCD.pdf](https://www.abs.vn/wp-content/uploads/2025/04/VHM_250424_DHDCD.pdf)",
+"[https://m.cafef.vn/du-lieu/hose/vhm-tai-chinh.chn](https://m.cafef.vn/du-lieu/hose/vhm-tai-chinh.chn)"
+],
+"key_facts": [
+"LNST thuộc cổ đông công ty mẹ 2024 của VHM = 31.801 tỷ đồng [VHM_BCTN24]",
+"LNST thuộc cổ đông công ty mẹ 2023 của VHM = 33.371 tỷ đồng [VHM_BCTN24]",
+"LNST hợp nhất 2024 của VHM = khoảng 35.052 tỷ đồng [VHM/ABS]",
+"Doanh thu thuần hợp nhất 2024 của VHM = 102.045 tỷ đồng [baophapluat]",
+"Tổng doanh thu thuần hợp nhất quy đổi 2024 của VHM = 141.812 tỷ đồng [baophapluat]",
+"VHM hoàn thành 100% kế hoạch lợi nhuận 2024 [ABS]"
+],
+"negative_facts": [
+"Lấy nhầm số liệu của lợi nhuận sau thuế hợp nhất (khoảng 35.052 tỷ đồng)",
+"Lấy nhầm số liệu của năm 2023",
+"KHÔNG dùng doanh thu thuần 102.045 tỷ đồng để trả lời lợi nhuận"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "B-048",
+"question": "TCB năm 2024 lợi nhuận trước thuế là bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"TCB"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, Techcombank (TCB) đạt lợi nhuận trước thuế hơn 27,5 nghìn tỷ đồng, tăng khoảng 20%–20,3% so với năm 2023 và là mức cao kỷ lục [web:Techcombank][web:vietstock][web:vneconomy]. Cùng năm, tổng thu nhập hoạt động đạt 47,0 nghìn tỷ đồng, thu nhập lãi thuần đạt hơn 35,5 nghìn tỷ đồng, CASA đạt 40,9% với số dư gần 231 nghìn tỷ đồng, ROA đạt 2,4% và tỷ lệ nợ xấu giảm xuống 1,17%.",
+"sources": [],
+"web_sources": [
+"[https://techcombank.com/content/dam/techcombank/public-site/documents/techcombank-thong-cao-bao-chi-kqkd-fy24.pdf](https://techcombank.com/content/dam/techcombank/public-site/documents/techcombank-thong-cao-bao-chi-kqkd-fy24.pdf)",
+"[https://vietstock.vn/2025/01/techcombank-bao-lai-truoc-thue-2024-hon-275-ngan-ty-dong-tang-20-so-voi-nam-truoc-737-1263920.htm](https://vietstock.vn/2025/01/techcombank-bao-lai-truoc-thue-2024-hon-275-ngan-ty-dong-tang-20-so-voi-nam-truoc-737-1263920.htm)",
+"[https://vneconomy.vn/2024-techcombank-dat-loi-nhuan-truoc-thue-hon-27-5-nghin-ty-tang-20-3-so-voi-cung-ky.htm](https://vneconomy.vn/2024-techcombank-dat-loi-nhuan-truoc-thue-hon-27-5-nghin-ty-tang-20-3-so-voi-cung-ky.htm)"
+],
+"key_facts": [
+"Lợi nhuận trước thuế 2024 của TCB = hơn 27,5 nghìn tỷ đồng [Techcombank/vietstock]",
+"Tăng trưởng lợi nhuận trước thuế 2024 của TCB = 20,3% YoY [vneconomy]",
+"Tổng thu nhập hoạt động 2024 của TCB = 47,0 nghìn tỷ đồng [vneconomy]",
+"Thu nhập lãi thuần 2024 của TCB = hơn 35,5 nghìn tỷ đồng [vneconomy]",
+"NIM trượt 12 tháng 2024 của TCB = 4,2% [vneconomy]",
+"Tỷ lệ CASA 2024 của TCB = 40,9% [vietstock/vneconomy]",
+"Số dư CASA 2024 của TCB = gần 231 nghìn tỷ đồng [vietstock/vneconomy]",
+"ROA 2024 của TCB = 2,4% [vneconomy]",
+"Tỷ lệ nợ xấu 2024 của TCB = 1,17% [vneconomy]"
+],
+"negative_facts": [
+"KHÔNG nhầm lợi nhuận trước thuế với lợi nhuận sau thuế",
+"KHÔNG dùng tổng thu nhập hoạt động 47,0 nghìn tỷ đồng làm lợi nhuận trước thuế",
+"KHÔNG dùng CASA 40,9% để trả lời lợi nhuận"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "B-049",
+"question": "POW năm 2023 doanh thu thuần bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"POW"
+],
+"expected_timeframe": "2023",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Năm 2023, doanh thu thuần về bán hàng và cung cấp dịch vụ của Tổng Công ty Điện lực Dầu khí Việt Nam - CTCP (POW/PV Power) đạt 28.329.357.578.690 đồng, tương đương khoảng 28.329,36 tỷ đồng, theo BCTC hợp nhất năm 2023 đã kiểm toán [web:PVPower]. Đây là doanh thu thuần hợp nhất, không phải tổng doanh thu công ty mẹ hay sản lượng điện.",
+"sources": [],
+"web_sources": [
+"[https://pvpower.vn/vi/post/bao-cao-tai-chinh-nam-2023-5957.htm](https://pvpower.vn/vi/post/bao-cao-tai-chinh-nam-2023-5957.htm)",
+"[https://pvpower.vn/pow-media/to-ir/BCTC-Hop-nhat-da-kiem-toan---220524.pdf](https://pvpower.vn/pow-media/to-ir/BCTC-Hop-nhat-da-kiem-toan---220524.pdf)",
+"[https://finance.vietstock.vn/POW-tong-cong-ty-dien-luc-dau-khi-viet-nam-ctcp.htm](https://finance.vietstock.vn/POW-tong-cong-ty-dien-luc-dau-khi-viet-nam-ctcp.htm)",
+"[https://cafef.vn/du-lieu/hose/pow-tong-cong-ty-dien-luc-dau-khi-viet-nam-ctcp.chn](https://cafef.vn/du-lieu/hose/pow-tong-cong-ty-dien-luc-dau-khi-viet-nam-ctcp.chn)"
+],
+"key_facts": [
+"Doanh thu thuần 2023 của POW = 28.329.357.578.690 đồng (hợp nhất, đã kiểm toán) [PVPower_BCTC2023]",
+"Doanh thu thuần 2023 của POW = 28.329,36 tỷ đồng (hợp nhất, đã kiểm toán) [PVPower_BCTC2023]",
+"BCTC hợp nhất năm 2023 của POW là báo cáo sau kiểm toán [PVPower]",
+"POW công bố BCTC năm 2023 sau kiểm toán ngày 26/03/2024 [PVPower]",
+"Doanh thu thuần 2022 của POW = khoảng 25.625 tỷ đồng [PVPower_BCTC2023]"
+],
+"negative_facts": [
+"KHÔNG nhầm doanh thu thuần hợp nhất với tổng doanh thu toàn Tổng công ty",
+"KHÔNG dùng số quý 1/2023 để trả lời cả năm 2023",
+"KHÔNG lấy số 25.625 tỷ đồng của năm 2022 làm số năm 2023"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "B-050",
+"question": "GVR 2023 EPS bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"GVR"
+],
+"expected_timeframe": "2023",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Theo BCTC hợp nhất năm 2023 của Tập đoàn Công nghiệp Cao su Việt Nam - CTCP (GVR), lãi cơ bản trên cổ phiếu năm 2023 là 485 đồng/cổ phiếu [web:VRG]. Cần phân biệt với dữ liệu EPS theo 4 quý gần nhất hoặc tổng EPS từng quý trên các trang dữ liệu, vì các số này có thể khác với EPS năm tài chính đã kiểm toán do trình bày lại/điều chỉnh.",
+"sources": [],
+"web_sources": [
+"[https://vrg.vn/wp-content/uploads/2025/07/20240330-GVR-Bao-cao-tai-chinh-hop-nhat-nam-2023.pdf](https://vrg.vn/wp-content/uploads/2025/07/20240330-GVR-Bao-cao-tai-chinh-hop-nhat-nam-2023.pdf)",
+"[https://vietstock.vn/2024/04/gvr-bao-cao-thuong-nien-nam-2023-737-1180220.htm](https://vietstock.vn/2024/04/gvr-bao-cao-thuong-nien-nam-2023-737-1180220.htm)",
+"[https://finance.vietstock.vn/GVR/tai-chinh.htm?languageid=1&tab=BCTT](https://finance.vietstock.vn/GVR/tai-chinh.htm?languageid=1&tab=BCTT)",
+"[https://cafef.vn/du-lieu/bao-cao-tai-chinh/GVR/IncSta/2023/4/0/0/ket-qua-hoat-dong-kinh-doanh-tap-doan-cong-nghiep-cao-su-viet-nam.chn](https://cafef.vn/du-lieu/bao-cao-tai-chinh/GVR/IncSta/2023/4/0/0/ket-qua-hoat-dong-kinh-doanh-tap-doan-cong-nghiep-cao-su-viet-nam.chn)"
+],
+"key_facts": [
+"EPS cơ bản 2023 của GVR = 485 đồng/cổ phiếu (hợp nhất, đã kiểm toán) [VRG_BCTC2023]",
+"EPS cơ bản 2022 trình bày trong BCTC GVR = 807 đồng/cổ phiếu [VRG_BCTC2023]",
+"Doanh thu thuần 2023 của GVR = khoảng 22.080 tỷ đồng [Vietcap/ABS]",
+"LNST cổ đông công ty mẹ 2023 của GVR = 2.585 tỷ đồng [Vietcap/ABS]",
+"Doanh thu mảng cao su 2023 của GVR = 17.250 tỷ đồng [Vietcap/ABS]",
+"Doanh thu mảng gỗ 2023 của GVR = 2.342 tỷ đồng [Vietcap/ABS]",
+"GVR công bố Báo cáo thường niên 2023 ngày 19/04/2024 [vietstock]"
+],
+"negative_facts": [
+"KHÔNG dùng EPS 4 quý gần nhất của năm 2026 để trả lời EPS 2023",
+"KHÔNG cộng máy móc EPS từng quý nếu benchmark yêu cầu EPS năm tài chính kiểm toán",
+"KHÔNG dùng EPS 807 đồng/cổ phiếu của năm 2022"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "B-051",
+"question": "KDH năm 2023 lãi sau thuế bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"KDH"
+],
+"expected_timeframe": "2023",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Năm 2023, CTCP Đầu tư và Kinh doanh Nhà Khang Điền (KDH) ghi nhận lợi nhuận sau thuế hợp nhất khoảng 730 tỷ đồng, cụ thể nhiều nguồn tổng hợp ghi nhận 730,5 tỷ đồng, giảm 32,5% so với cùng kỳ [web:baodautu][web:vietnamfinance]. Doanh thu thuần năm 2023 đạt gần 2.100 tỷ đồng, giảm khoảng 28%; tổng tài sản cuối năm 2023 đạt 26.417 tỷ đồng.",
+"sources": [],
+"web_sources": [
+"[https://baodautu.vn/loi-nhuan-nha-khang-dien-giam-325-trong-nam-2023-ve-7305-ty-dong-d208564.html](https://baodautu.vn/loi-nhuan-nha-khang-dien-giam-325-trong-nam-2023-ve-7305-ty-dong-d208564.html)",
+"[https://vietnamfinance.vn/nam-2023-nha-khang-dien-bao-lai-sau-thue-730-ty-d106664.html](https://vietnamfinance.vn/nam-2023-nha-khang-dien-bao-lai-sau-thue-730-ty-d106664.html)",
+"[https://fireant.vn/bai-viet/kdh-loi-nhuan-sau-thue-giam-hon-30-xuong-con-730-ty/24576837](https://fireant.vn/bai-viet/kdh-loi-nhuan-sau-thue-giam-hon-30-xuong-con-730-ty/24576837)",
+"[https://trading.vietcap.com.vn/ai-news/post-detail/kdh-loi-nhuan-sau-thue-cua-nha-khang-dien-giam-hon-30-trong-quy-4-2023](https://trading.vietcap.com.vn/ai-news/post-detail/kdh-loi-nhuan-sau-thue-cua-nha-khang-dien-giam-hon-30-trong-quy-4-2023)",
+"[https://finance.vietstock.vn/kdh/tai-tai-lieu.htm](https://finance.vietstock.vn/kdh/tai-tai-lieu.htm)"
+],
+"key_facts": [
+"LNST 2023 của KDH = 730,5 tỷ đồng (hợp nhất) [baodautu]",
+"Tăng trưởng LNST 2023 của KDH = -32,5% YoY [baodautu]",
+"Doanh thu thuần 2023 của KDH = gần 2.100 tỷ đồng [fireant/vietcap]",
+"Tăng trưởng doanh thu thuần 2023 của KDH = -28% YoY [fireant/vietcap]",
+"Lợi nhuận trước thuế quý IV/2023 của KDH = 116 tỷ đồng [vietnamfinance]",
+"Lợi nhuận sau thuế quý IV/2023 của KDH = khoảng 63,39 tỷ đồng [baodautu]",
+"Tổng tài sản cuối 2023 của KDH = 26.417 tỷ đồng [vietcap]"
+],
+"negative_facts": [
+"KHÔNG nhầm LNST cả năm 2023 với LNST quý IV/2023",
+"KHÔNG dùng lợi nhuận trước thuế quý IV/2023 116 tỷ đồng để trả lời cả năm",
+"KHÔNG dùng doanh thu thuần gần 2.100 tỷ đồng làm lợi nhuận"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "B-052",
+"question": "REE 2023 ROE là bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"REE"
+],
+"expected_timeframe": "2023",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Năm 2023, ROE của CTCP Cơ Điện Lạnh (REE) đạt khoảng 13,4% theo các báo cáo phân tích dựa trên dữ liệu tài chính năm 2023 [web:Vietcap][web:ACBS]. Trong khi đó, báo cáo thường niên/BCTC công ty có thể trình bày một số tỷ suất sinh lời theo phạm vi công ty mẹ hoặc cách tính khác; do đó benchmark nên dùng rõ 'ROE hợp nhất 2023 ≈ 13,4%' nếu câu hỏi không chỉ định riêng lẻ.",
+"sources": [],
+"web_sources": [
+"[https://static2.vietstock.vn/data/HOSE/2023/BCTN/VN/REE_Baocaothuongnien_2023.pdf](https://static2.vietstock.vn/data/HOSE/2023/BCTN/VN/REE_Baocaothuongnien_2023.pdf)",
+"[https://www.vietcap.com.vn/api/cms-api/uploads/file/202402/REE-20240206-OP.pdf](https://www.vietcap.com.vn/api/cms-api/uploads/file/202402/REE-20240206-OP.pdf)",
+"[https://acbs.com.vn/Files/Domains/ACBS/WFL-1585/240530114756-1015-1015000013.pdf](https://acbs.com.vn/Files/Domains/ACBS/WFL-1585/240530114756-1015-1015000013.pdf)",
+"[https://finance.vietstock.vn/REE-ctcp-co-dien-lanh.htm](https://finance.vietstock.vn/REE-ctcp-co-dien-lanh.htm)"
+],
+"key_facts": [
+"ROE 2023 của REE = 13,4% [Vietcap/ACBS]",
+"ROA 2023 của REE = 8,0% [ACBS]",
+"Doanh thu thuần 2023 của REE = 8.570 tỷ đồng [Vietcap/ACBS]",
+"LNST 2023 của REE = 2.786 tỷ đồng [ACBS]",
+"LNST cổ đông công ty mẹ 2023 của REE = 2.188 tỷ đồng [Vietcap]",
+"EPS điều chỉnh thưởng cổ phiếu 2023 của REE = 5.321 đồng/cổ phiếu [ACBS]",
+"Vốn điều lệ REE tăng lên 4.097,1 tỷ đồng trong tháng 06/2023 [vietstock]"
+],
+"negative_facts": [
+"KHÔNG dùng ROE 18,3% của năm 2022 để trả lời năm 2023",
+"KHÔNG nhầm ROE với ROA 8,0%",
+"KHÔNG dùng số công ty mẹ nếu câu hỏi đang hỏi chỉ tiêu hợp nhất"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "B-053",
+"question": "VND năm 2023 P/E bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"VND"
+],
+"expected_timeframe": "2023",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Theo dữ liệu Vietstock, P/E cơ bản của CTCP Chứng khoán VNDIRECT (VND) cho năm 2023 là 11,01 lần [web:vietstock]. Cần lưu ý P/E là chỉ tiêu phụ thuộc giá cổ phiếu tại thời điểm tính; nếu dùng dữ liệu cuối ngày/hiện tại khác, P/E có thể thay đổi. Vietstock cũng hiển thị các mức P/E theo chuỗi năm gần đây như 17,22 lần, 17,69 lần, 14,64 lần và 11,01 lần.",
+"sources": [],
+"web_sources": [
+"[https://finance.vietstock.vn/VND-ctcp-chung-khoan-vndirect.htm](https://finance.vietstock.vn/VND-ctcp-chung-khoan-vndirect.htm)",
+"[https://finance.vietstock.vn/VND/tai-chinh.htm?languageid=1&tab=BCTT](https://finance.vietstock.vn/VND/tai-chinh.htm?languageid=1&tab=BCTT)",
+"[https://vn.investing.com/pro/HOSE%3AVND/explorer/pe_ltm](https://vn.investing.com/pro/HOSE%3AVND/explorer/pe_ltm)",
+"[https://www.vndirect.com.vn/cmsupload/beta/VNDIRECT-BCTN-2023-F-da-nen.pdf](https://www.vndirect.com.vn/cmsupload/beta/VNDIRECT-BCTN-2023-F-da-nen.pdf)"
+],
+"key_facts": [
+"P/E cơ bản 2023 của VND = 11,01 lần [vietstock]",
+"P/E cơ bản 2024 của VND = 14,64 lần [vietstock]",
+"P/E cơ bản năm sau 2024 trong chuỗi Vietstock của VND = 17,69 lần [vietstock]",
+"P/E cơ bản hiện tại của VND ngày 18/05/2026 = khoảng 11,46 lần [vietstock]",
+"EPS hiện tại của VND ngày 18/05/2026 = 1.435 đồng/cổ phiếu [vietstock]",
+"BVPS hiện tại của VND ngày 18/05/2026 = 14.089 đồng/cổ phiếu [vietstock]",
+"P/B hiện tại của VND ngày 18/05/2026 = 1,17 lần [vietstock]"
+],
+"negative_facts": [
+"KHÔNG dùng P/E hiện tại năm 2026 để trả lời P/E năm 2023",
+"KHÔNG nhầm P/E 2024 là 14,64 lần với P/E 2023",
+"KHÔNG nhầm P/E với EPS hoặc P/B"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+}
+]

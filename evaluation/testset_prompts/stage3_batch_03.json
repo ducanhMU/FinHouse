@@ -1,0 +1,298 @@
+
+[
+  {
+    "id": "B-004",
+    "question": "MWG 2024 lãi sau thuế bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "MWG"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, lợi nhuận sau thuế hợp nhất của Thế Giới Di Động (MWG) đạt 3.733 tỷ đồng, hoàn thành 156% kế hoạch đề ra. Mức lợi nhuận này tăng trưởng đột phá gấp 21 lần so với kết quả 168 tỷ đồng của năm 2023.",
+    "sources": [
+      "MWG_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Lợi nhuận sau thuế MWG 2024 = 3.733 tỷ đồng",
+      "Hoàn thành 156% kế hoạch",
+      "Tăng trưởng 21 lần so với 2023"
+    ],
+    "negative_facts": [
+      "Lấy nhầm số lợi nhuận trước thuế",
+      "Lấy nhầm số liệu của năm 2023"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "B-005",
+    "question": "P/E của VCB năm 2024 là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VCB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-006",
+    "question": "BID năm 2024 ROA bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "BID"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, tỷ suất sinh lời trên tổng tài sản (ROA) của BIDV (BID) đạt 1,01%. Bên cạnh đó, ngân hàng cũng ghi nhận tỷ suất sinh lời trên vốn chủ sở hữu (ROE) tích cực ở mức 19,52%.",
+    "sources": [
+      "BID_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "ROA BID 2024 = 1,01%",
+      "ROE BID 2024 = 19,52%"
+    ],
+    "negative_facts": [
+      "Nêu sai số liệu ROA thành số của năm 2023 (0,99%)",
+      "Nhầm lẫn giữa ROA và ROE"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "B-007",
+    "question": "VHM năm 2024 biên lợi nhuận gộp là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VHM"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, biên lợi nhuận gộp của Vinhomes (VHM) đạt mức 32,22%. Mặc dù giảm 2,26 điểm phần trăm so với năm 2023, chỉ số sinh lời này vẫn được đánh giá là duy trì ở mức tốt so với thị trường chung.",
+    "sources": [
+      "VHM_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Biên lợi nhuận gộp VHM 2024 = 32,22%",
+      "Giảm 2,26 điểm phần trăm so với năm 2023"
+    ],
+    "negative_facts": [
+      "Lấy nhầm số liệu của biên lợi nhuận ròng (31,08%)",
+      "Nêu sai số liệu so với năm trước"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "B-008",
+    "question": "VIC 2024 tổng tài sản bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VIC"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Tính đến cuối năm 2024, tổng tài sản của Tập đoàn Vingroup (VIC) đạt 836.604 tỷ đồng. Quy mô tài sản này đã tăng 25% so với mức 667.656 tỷ đồng của năm 2023.",
+    "sources": [
+      "VIC_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Tổng tài sản VIC 2024 = 836.604 tỷ đồng",
+      "Tăng 25% so với năm 2023"
+    ],
+    "negative_facts": [
+      "Nêu sai số liệu tổng tài sản",
+      "Lấy nhầm số liệu của năm 2023"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "B-009",
+    "question": "MSN năm 2024 nợ vay trên vốn chủ sở hữu bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "MSN"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-010",
+    "question": "TCB 2024 CASA bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "TCB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, Techcombank (TCB) ghi nhận số dư tiền gửi không kỳ hạn (CASA) đạt mức kỷ lục 231 nghìn tỷ đồng, tăng 27% so với cuối năm trước. Tỷ lệ CASA của ngân hàng đạt 40,9%, tiếp tục duy trì vị thế dẫn đầu toàn ngành.",
+    "sources": [
+      "TCB_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Tỷ lệ CASA TCB 2024 = 40,9%",
+      "Số dư CASA = 231 nghìn tỷ đồng",
+      "Dẫn đầu toàn ngành"
+    ],
+    "negative_facts": [
+      "Nêu sai tỷ lệ CASA thành số của năm khác",
+      "Báo cáo sai số dư tiền gửi không kỳ hạn"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "B-011",
+    "question": "ACB năm 2024 tỷ lệ nợ xấu là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "ACB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, tỷ lệ nợ xấu của Ngân hàng Á Châu (ACB) được kiểm soát ở mức 1,49%. Tỷ lệ này tiếp tục duy trì dưới 1,5%, thấp hơn mức kế hoạch đề ra là dưới 2%.",
+    "sources": [
+      "ACB_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Tỷ lệ nợ xấu ACB 2024 = 1,49%",
+      "Thấp hơn kế hoạch đề ra (< 2%)"
+    ],
+    "negative_facts": [
+      "Nêu sai tỷ lệ nợ xấu thành 1,21% (là số liệu của năm 2023)"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "B-012",
+    "question": "MBB 2024 NIM là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "MBB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, tỷ lệ thu nhập lãi thuần (biên lãi ròng - NIM) của MB (MBB) đạt 4,1%. Mức NIM này đứng thứ 3 trong nhóm các ngân hàng niêm yết được so sánh.",
+    "sources": [
+      "MBB_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "NIM MBB 2024 = 4,1%",
+      "Đứng thứ 3 trong nhóm so sánh"
+    ],
+    "negative_facts": [
+      "Nêu sai NIM thành 4,9% (là số liệu của năm 2023)",
+      "Nêu sai thứ hạng NIM của MBB"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "B-013",
+    "question": "SAB năm 2024 chia cổ tức tiền mặt bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "SAB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, SABECO (SAB) chi trả cổ tức bằng tiền mặt với tỷ lệ 50% trên mệnh giá. Mức chi trả này tăng thêm 15% so với mức 35% của năm 2023.",
+    "sources": [
+      "SAB_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Cổ tức tiền mặt SAB 2024 = 50%/mệnh giá",
+      "Tăng 15% so với năm 2023"
+    ],
+    "negative_facts": [
+      "Nêu sai tỷ lệ cổ tức thành 35% (của năm 2023)",
+      "Cho rằng SAB chia cổ tức bằng cổ phiếu năm 2024"
+    ],
+    "unanswerable": false
+  }
+]

@@ -1,0 +1,457 @@
+[
+{
+"id": "A-023",
+"question": "Beta của cổ phiếu là gì? Em thấy nói beta cao thì rủi ro hơn, điều đó nghĩa là sao?",
+"category": "A. Definition",
+"expected_tools": [
+"rag"
+],
+"expected_entities": [
+"beta"
+],
+"expected_timeframe": "",
+"scope": "general",
+"style": "definition",
+"persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Beta của cổ phiếu là thước đo mức độ biến động của cổ phiếu so với thị trường chung. Công thức tài chính thường dùng: Beta = Covariance giữa lợi suất cổ phiếu và lợi suất thị trường / Variance của lợi suất thị trường. Nếu beta = 1, cổ phiếu có xu hướng biến động tương đương thị trường; beta > 1 nghĩa là cổ phiếu biến động mạnh hơn thị trường, nên rủi ro hệ thống cao hơn; beta < 1 nghĩa là cổ phiếu biến động thấp hơn thị trường. Nói “beta cao rủi ro hơn” chủ yếu là nói đến rủi ro biến động theo thị trường, không phải toàn bộ rủi ro doanh nghiệp. Beta nên đọc cùng nền tảng tài chính, tăng trưởng lợi nhuận, nợ vay, thanh khoản và bối cảnh ngành. [web:investopedia]",
+"sources": [],
+"web_sources": [
+"[https://www.investopedia.com/terms/b/beta.asp](https://www.investopedia.com/terms/b/beta.asp)",
+"[https://www.investopedia.com/ask/answers/042415/how-does-beta-measure-stocks-market-risk.asp](https://www.investopedia.com/ask/answers/042415/how-does-beta-measure-stocks-market-risk.asp)",
+"[https://www.investopedia.com/investing/beta-know-risk/](https://www.investopedia.com/investing/beta-know-risk/)"
+],
+"key_facts": [
+"Beta đo mức độ biến động của cổ phiếu so với thị trường chung [investopedia]",
+"Beta = Covariance(lợi suất cổ phiếu, lợi suất thị trường) / Variance(lợi suất thị trường) [investopedia]",
+"Beta thị trường chuẩn thường được quy ước bằng 1,0 [investopedia]",
+"Beta > 1 nghĩa là cổ phiếu biến động mạnh hơn thị trường [investopedia]",
+"Beta < 1 nghĩa là cổ phiếu biến động thấp hơn thị trường [investopedia]",
+"Beta phản ánh rủi ro hệ thống, không phản ánh đầy đủ rủi ro riêng của doanh nghiệp [investopedia]",
+"Beta dựa trên dữ liệu lịch sử nên không đảm bảo dự báo chính xác biến động tương lai [investopedia]"
+],
+"negative_facts": [
+"KHÔNG nói beta cao chắc chắn làm nhà đầu tư lỗ",
+"KHÔNG nhầm beta với độ lệch chuẩn tuyệt đối của giá cổ phiếu",
+"KHÔNG dùng beta như chỉ tiêu duy nhất để đánh giá rủi ro doanh nghiệp"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "A-024",
+"question": "Thanh khoản cổ phiếu là gì? Với HCM thì thanh khoản thường được nhìn qua những yếu tố nào?",
+"category": "A. Definition",
+"expected_tools": [
+"rag"
+],
+"expected_entities": [
+"stock_liquidity",
+"HCM"
+],
+"expected_timeframe": "",
+"scope": "general",
+"style": "definition",
+"persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Thanh khoản cổ phiếu là mức độ dễ dàng mua hoặc bán cổ phiếu trên thị trường mà không làm giá biến động quá mạnh. Với HCM, nhà đầu tư thường nhìn thanh khoản qua khối lượng giao dịch, giá trị giao dịch, số lượng lệnh mua/bán, độ sâu sổ lệnh và chênh lệch giá mua - giá bán. Cổ phiếu có thanh khoản cao thường có khối lượng giao dịch lớn, bid-ask spread hẹp, dễ khớp lệnh hơn và chi phí giao dịch ẩn thấp hơn. Thanh khoản thấp có thể khiến nhà đầu tư khó thoát vị thế hoặc phải bán với giá kém hơn kỳ vọng. [web:investopedia]",
+"sources": [],
+"web_sources": [
+"[https://www.investopedia.com/ask/answers/number-shares-liquidity-stock/](https://www.investopedia.com/ask/answers/number-shares-liquidity-stock/)",
+"[https://www.investopedia.com/terms/l/liquidity.asp](https://www.investopedia.com/terms/l/liquidity.asp)",
+"[https://www.investopedia.com/terms/b/bid-askspread.asp](https://www.investopedia.com/terms/b/bid-askspread.asp)",
+"[https://www.investopedia.com/terms/v/volume.asp](https://www.investopedia.com/terms/v/volume.asp)"
+],
+"key_facts": [
+"Thanh khoản cổ phiếu đo mức độ dễ mua hoặc bán cổ phiếu mà không tác động lớn đến giá [investopedia]",
+"Khối lượng giao dịch là một chỉ báo quan trọng của thanh khoản cổ phiếu [investopedia]",
+"Bid-ask spread hẹp thường cho thấy thị trường cổ phiếu thanh khoản hơn [investopedia]",
+"Bid-ask spread rộng thường cho thấy thanh khoản thấp hơn hoặc chi phí giao dịch ẩn cao hơn [investopedia]",
+"Khối lượng giao dịch cao thường hỗ trợ khớp lệnh tốt hơn và thị trường hoạt động hơn [investopedia]",
+"Thanh khoản thấp có thể khiến nhà đầu tư khó mua/bán nhanh ở mức giá mong muốn [investopedia]"
+],
+"negative_facts": [
+"KHÔNG nhầm thanh khoản cổ phiếu với khả năng thanh toán của doanh nghiệp",
+"KHÔNG chỉ nhìn giá tăng/giảm để kết luận thanh khoản cao",
+"KHÔNG bỏ qua bid-ask spread khi đánh giá thanh khoản HCM"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "A-025",
+"question": "Capex là gì? Với doanh nghiệp điện như POW hoặc REE thì chi phí đầu tư này thể hiện điều gì?",
+"category": "A. Definition",
+"expected_tools": [
+"rag"
+],
+"expected_entities": [
+"CAPEX",
+"POW",
+"REE"
+],
+"expected_timeframe": "",
+"scope": "general",
+"style": "definition",
+"persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Capex, hay capital expenditure, là chi đầu tư vốn để mua mới, xây dựng, nâng cấp hoặc duy trì tài sản dài hạn như nhà máy, máy móc, thiết bị, hạ tầng, phần mềm hoặc tài sản vô hình. Với doanh nghiệp điện như POW hoặc REE, Capex thường phản ánh việc đầu tư nhà máy điện, nâng cấp thiết bị, mở rộng công suất, phát triển dự án năng lượng hoặc bảo trì tài sản lớn. Capex thường được ghi nhận là tài sản trên bảng cân đối kế toán rồi phân bổ dần qua khấu hao hoặc phân bổ, thay vì ghi hết ngay vào chi phí kỳ hiện tại. Nhà đầu tư quan tâm Capex vì nó ảnh hưởng đến dòng tiền tự do, nhu cầu vay nợ, triển vọng tăng công suất và lợi nhuận tương lai. [web:investopedia]",
+"sources": [],
+"web_sources": [
+"[https://www.investopedia.com/ask/answers/112814/what-are-some-examples-main-types-capital-expenditures-capex.asp](https://www.investopedia.com/ask/answers/112814/what-are-some-examples-main-types-capital-expenditures-capex.asp)",
+"[https://www.investopedia.com/terms/c/capitalexpenditure.asp](https://www.investopedia.com/terms/c/capitalexpenditure.asp)",
+"[https://www.investopedia.com/terms/c/cashflowfinvestingactivities.asp](https://www.investopedia.com/terms/c/cashflowfinvestingactivities.asp)"
+],
+"key_facts": [
+"Capex là chi đầu tư vốn để mua, nâng cấp hoặc duy trì tài sản dài hạn [investopedia]",
+"Capex có thể gồm tài sản hữu hình như nhà xưởng, máy móc, thiết bị và tài sản vô hình như phần mềm hoặc bằng sáng chế [investopedia]",
+"Capex thường được ghi nhận là tài sản trên bảng cân đối kế toán [investopedia]",
+"Chi phí Capex thường được phân bổ dần qua khấu hao hoặc phân bổ trong thời gian sử dụng tài sản [investopedia]",
+"Capex thường xuất hiện trong phần lưu chuyển tiền từ hoạt động đầu tư trên báo cáo lưu chuyển tiền tệ [investopedia]",
+"Capex cao có thể phản ánh chiến lược mở rộng hoặc duy trì năng lực sản xuất dài hạn [investopedia]",
+"Với doanh nghiệp điện, Capex thường gắn với nhà máy, thiết bị phát điện, hạ tầng và dự án công suất mới [investopedia]"
+],
+"negative_facts": [
+"KHÔNG nhầm Capex với Opex",
+"KHÔNG coi mọi khoản sửa chữa thường xuyên là Capex",
+"KHÔNG kết luận Capex cao luôn xấu nếu đó là đầu tư tăng công suất có hiệu quả"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "A-026",
+"question": "Tỷ lệ chi trả cổ tức là gì và công thức tính payout ratio như thế nào?",
+"category": "A. Definition",
+"expected_tools": [
+"rag"
+],
+"expected_entities": [
+"dividend_payout_ratio"
+],
+"expected_timeframe": "",
+"scope": "general",
+"style": "definition",
+"persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Tỷ lệ chi trả cổ tức, hay dividend payout ratio, cho biết doanh nghiệp dùng bao nhiêu phần trăm lợi nhuận để trả cổ tức cho cổ đông. Công thức phổ biến: Payout ratio = Tổng cổ tức đã trả / Lợi nhuận sau thuế, hoặc tính trên mỗi cổ phiếu: Payout ratio = Cổ tức mỗi cổ phiếu DPS / EPS. Tỷ lệ cao thường cho thấy doanh nghiệp phân phối nhiều lợi nhuận cho cổ đông, nhưng có thể còn ít phần giữ lại để tái đầu tư. Tỷ lệ thấp có thể cho thấy doanh nghiệp giữ lại lợi nhuận cho tăng trưởng, nhưng cũng cần xem doanh nghiệp có thật sự tái đầu tư hiệu quả hay không. [web:investopedia]",
+"sources": [],
+"web_sources": [
+"[https://www.investopedia.com/terms/d/dividendpayoutratio.asp](https://www.investopedia.com/terms/d/dividendpayoutratio.asp)",
+"[https://www.investopedia.com/terms/p/payoutratio.asp](https://www.investopedia.com/terms/p/payoutratio.asp)",
+"[https://www.investopedia.com/ask/answers/012015/how-do-i-calculate-dividend-payout-ratio-income-statement.asp](https://www.investopedia.com/ask/answers/012015/how-do-i-calculate-dividend-payout-ratio-income-statement.asp)"
+],
+"key_facts": [
+"Dividend payout ratio = Tổng cổ tức đã trả / Lợi nhuận sau thuế [investopedia]",
+"Dividend payout ratio = Cổ tức mỗi cổ phiếu DPS / EPS [investopedia]",
+"Payout ratio cho biết tỷ lệ lợi nhuận được trả cho cổ đông dưới dạng cổ tức [investopedia]",
+"Retention ratio = 1 - Dividend payout ratio [investopedia]",
+"Payout ratio cao có thể làm phần lợi nhuận giữ lại để tái đầu tư thấp hơn [investopedia]",
+"Payout ratio cần được đánh giá theo ngành, chu kỳ tăng trưởng và khả năng tạo dòng tiền của doanh nghiệp [investopedia]"
+],
+"negative_facts": [
+"KHÔNG nhầm payout ratio với dividend yield",
+"KHÔNG dùng cổ tức bằng cổ phiếu như tiền mặt nếu câu hỏi nói về dòng tiền cổ tức",
+"KHÔNG kết luận payout ratio cao luôn tốt"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "A-028",
+"question": "Báo cáo lưu chuyển tiền tệ là gì? Nó giúp em hiểu gì thêm ngoài bảng cân đối kế toán và báo cáo kết quả kinh doanh?",
+"category": "A. Definition",
+"expected_tools": [
+"rag"
+],
+"expected_entities": [
+"cash_flow_statement",
+"balance_sheet",
+"income_statement"
+],
+"expected_timeframe": "",
+"scope": "general",
+"style": "definition",
+"persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Báo cáo lưu chuyển tiền tệ là báo cáo tài chính cho biết tiền mặt đi vào và đi ra khỏi doanh nghiệp trong kỳ. Báo cáo này thường chia dòng tiền thành ba phần: lưu chuyển tiền từ hoạt động kinh doanh, hoạt động đầu tư và hoạt động tài chính. So với báo cáo kết quả kinh doanh, báo cáo lưu chuyển tiền tệ giúp kiểm tra lợi nhuận có chuyển thành tiền thật hay không, vì báo cáo kết quả kinh doanh dựa trên kế toán dồn tích. So với bảng cân đối kế toán, báo cáo lưu chuyển tiền tệ giải thích vì sao tiền và tương đương tiền tăng hoặc giảm trong kỳ, thay vì chỉ cho thấy số dư tại một thời điểm. Vì vậy, nó giúp đánh giá chất lượng lợi nhuận, thanh khoản, khả năng trả nợ, khả năng tự tài trợ đầu tư và chính sách cổ tức/vay nợ. [web:investopedia]",
+"sources": [],
+"web_sources": [
+"[https://www.investopedia.com/investing/what-is-a-cash-flow-statement/](https://www.investopedia.com/investing/what-is-a-cash-flow-statement/)",
+"[https://www.investopedia.com/terms/c/cash-flow-from-operating-activities.asp](https://www.investopedia.com/terms/c/cash-flow-from-operating-activities.asp)",
+"[https://www.investopedia.com/terms/c/cashflowfinvestingactivities.asp](https://www.investopedia.com/terms/c/cashflowfinvestingactivities.asp)",
+"[https://www.investopedia.com/terms/c/cashflowfromfinancing.asp](https://www.investopedia.com/terms/c/cashflowfromfinancing.asp)",
+"[https://www.investopedia.com/ask/answers/031815/how-are-three-major-financial-statements-related-each-other.asp](https://www.investopedia.com/ask/answers/031815/how-are-three-major-financial-statements-related-each-other.asp)"
+],
+"key_facts": [
+"Báo cáo lưu chuyển tiền tệ theo dõi dòng tiền vào và ra khỏi doanh nghiệp trong kỳ [investopedia]",
+"Báo cáo lưu chuyển tiền tệ gồm ba phần chính: hoạt động kinh doanh, hoạt động đầu tư và hoạt động tài chính [investopedia]",
+"Dòng tiền từ hoạt động kinh doanh phản ánh tiền tạo ra từ hoạt động cốt lõi thường xuyên [investopedia]",
+"Dòng tiền từ hoạt động đầu tư phản ánh mua/bán tài sản dài hạn, chứng khoán hoặc khoản đầu tư [investopedia]",
+"Dòng tiền từ hoạt động tài chính phản ánh vay nợ, trả nợ, phát hành vốn và chi trả cổ tức [investopedia]",
+"Báo cáo kết quả kinh doanh đo doanh thu và chi phí theo kỳ để xác định lợi nhuận [investopedia]",
+"Bảng cân đối kế toán phản ánh tài sản, nợ phải trả và vốn chủ sở hữu tại một thời điểm [investopedia]",
+"Báo cáo lưu chuyển tiền tệ giúp đánh giá thanh khoản và chất lượng lợi nhuận tốt hơn khi lợi nhuận kế toán khác dòng tiền [investopedia]"
+],
+"negative_facts": [
+"KHÔNG nhầm lợi nhuận sau thuế với dòng tiền từ hoạt động kinh doanh",
+"KHÔNG chỉ nhìn dòng tiền âm là xấu nếu dòng tiền đầu tư âm do mở rộng hợp lý",
+"KHÔNG bỏ qua dòng tiền tài chính khi phân tích doanh nghiệp tăng vay nợ hoặc trả cổ tức lớn"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "A-029",
+"question": "Chu kỳ chuyển đổi tiền mặt là gì? Với doanh nghiệp sản xuất như DGC, DCM hoặc DPM thì chỉ số này có ý nghĩa gì?",
+"category": "A. Definition",
+"expected_tools": [
+"rag"
+],
+"expected_entities": [
+"cash_conversion_cycle",
+"DGC",
+"DCM",
+"DPM"
+],
+"expected_timeframe": "",
+"scope": "general",
+"style": "definition",
+"persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Chu kỳ chuyển đổi tiền mặt, hay cash conversion cycle, đo số ngày doanh nghiệp cần để biến tiền đầu tư vào hàng tồn kho và hoạt động sản xuất thành tiền thu về từ khách hàng, sau khi tính đến thời gian được nhà cung cấp cho nợ. Công thức phổ biến: CCC = DIO + DSO - DPO, trong đó DIO là số ngày tồn kho, DSO là số ngày phải thu, và DPO là số ngày phải trả. Với doanh nghiệp sản xuất như DGC, DCM hoặc DPM, CCC giúp đánh giá hiệu quả quản trị vốn lưu động: tồn kho nguyên liệu/thành phẩm, tốc độ thu tiền khách hàng và khả năng tận dụng tín dụng nhà cung cấp. CCC càng ngắn thường càng tốt cho thanh khoản và dòng tiền, nhưng cần so trong cùng ngành và theo chu kỳ giá hàng hóa. [web:investopedia]",
+"sources": [],
+"web_sources": [
+"[https://www.investopedia.com/terms/c/cashconversioncycle.asp](https://www.investopedia.com/terms/c/cashconversioncycle.asp)",
+"[https://www.investopedia.com/articles/06/cashconversioncycle.asp](https://www.investopedia.com/articles/06/cashconversioncycle.asp)",
+"[https://www.investopedia.com/terms/d/dso.asp](https://www.investopedia.com/terms/d/dso.asp)",
+"[https://www.investopedia.com/terms/d/dpo.asp](https://www.investopedia.com/terms/d/dpo.asp)"
+],
+"key_facts": [
+"Cash conversion cycle đo thời gian doanh nghiệp chuyển đầu tư vào tồn kho và nguồn lực thành tiền thu về từ bán hàng [investopedia]",
+"CCC = DIO + DSO - DPO [investopedia]",
+"DIO đo số ngày bình quân doanh nghiệp giữ hàng tồn kho trước khi bán [investopedia]",
+"DSO đo số ngày bình quân doanh nghiệp thu tiền từ khách hàng [investopedia]",
+"DPO đo số ngày bình quân doanh nghiệp thanh toán cho nhà cung cấp [investopedia]",
+"CCC thấp hơn thường phản ánh hiệu quả vốn lưu động và thanh khoản tốt hơn [investopedia]",
+"CCC có thể khác biệt lớn giữa các ngành và kém phù hợp với doanh nghiệp không có hàng tồn kho đáng kể [investopedia]"
+],
+"negative_facts": [
+"KHÔNG nhầm CCC với vòng quay hàng tồn kho riêng lẻ",
+"KHÔNG kết luận CCC dài luôn xấu nếu ngành có chu kỳ sản xuất hoặc mùa vụ đặc thù",
+"KHÔNG bỏ qua biến động giá hàng hóa khi phân tích DGC, DCM hoặc DPM"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "A-030",
+"question": "NAV là gì? Khi đọc tài liệu về doanh nghiệp bất động sản như VHM hoặc KDH thì em nên hiểu NAV thế nào?",
+"category": "A. Definition",
+"expected_tools": [
+"rag"
+],
+"expected_entities": [
+"NAV",
+"VHM",
+"KDH"
+],
+"expected_timeframe": "",
+"scope": "general",
+"style": "definition",
+"persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "NAV, hay net asset value, là giá trị tài sản ròng: NAV = Tổng tài sản - Tổng nợ phải trả. Trên mỗi cổ phiếu, NAVPS = NAV / Số cổ phiếu lưu hành. Trong tài liệu về doanh nghiệp bất động sản như VHM hoặc KDH, NAV thường được hiểu là giá trị tài sản ròng ước tính của quỹ đất, dự án đang phát triển, tài sản đầu tư và tiền mặt sau khi trừ nợ vay/nợ phải trả. Nhà phân tích có thể so sánh giá trị vốn hóa với NAV để xem cổ phiếu đang giao dịch chiết khấu hay premium so với giá trị tài sản ước tính. Tuy nhiên, NAV trong bất động sản phụ thuộc mạnh vào giả định giá bán, tiến độ pháp lý, chi phí phát triển, tỷ lệ chiết khấu và thời điểm ghi nhận dự án, nên không phải con số chắc chắn tuyệt đối. [web:investopedia]",
+"sources": [],
+"web_sources": [
+"[https://www.investopedia.com/terms/n/nav.asp](https://www.investopedia.com/terms/n/nav.asp)",
+"[https://www.investopedia.com/terms/n/navpershare.asp](https://www.investopedia.com/terms/n/navpershare.asp)"
+],
+"key_facts": [
+"NAV = Tổng tài sản - Tổng nợ phải trả [investopedia]",
+"NAVPS = NAV / Số cổ phiếu lưu hành [investopedia]",
+"NAV là giá trị tài sản ròng và thường được dùng phổ biến trong định giá quỹ đầu tư [investopedia]",
+"NAV có thể được áp dụng để xem giá trị tài sản ròng của doanh nghiệp hoặc tài sản sau khi trừ nghĩa vụ nợ [investopedia]",
+"Giá thị trường có thể giao dịch cao hơn hoặc thấp hơn NAV [investopedia]",
+"Trong bất động sản, NAV phụ thuộc vào giả định định giá tài sản, nợ phải trả và thời điểm hiện thực hóa dự án [investopedia]"
+],
+"negative_facts": [
+"KHÔNG nhầm NAV với lợi nhuận sau thuế",
+"KHÔNG coi NAV bất động sản là con số chắc chắn không đổi",
+"KHÔNG bỏ qua nợ vay, pháp lý dự án và chi phí phát triển khi đọc NAV của VHM hoặc KDH"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "B-001",
+"question": "ROE VNM 2024 là bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"VNM"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "ROE năm 2024 của Vinamilk (VNM) đạt 26,6% theo Báo cáo thường niên 2024 của công ty [1][web:vinamilk]. Về sức khỏe tài chính, năm 2024 VNM ghi nhận doanh thu thuần hợp nhất 61.783 tỷ đồng, lợi nhuận sau thuế hợp nhất 9.453 tỷ đồng, tổng tài sản tại ngày 31/12/2024 là 55.049 tỷ đồng và tổng vốn chủ sở hữu tại ngày 31/12/2024 là 36.174 tỷ đồng [web:vinamilk]. Do đó, câu trả lời ngắn gọn là ROE VNM 2024 = 26,6%.",
+"sources": [
+"Conversation History",
+"VNM_BCTN24.pdf"
+],
+"web_sources": [
+"[https://www.vinamilk.com.vn/bao-cao-thuong-nien/bao-cao/2024/doc/vi/full-bao-cao.pdf](https://www.vinamilk.com.vn/bao-cao-thuong-nien/bao-cao/2024/doc/vi/full-bao-cao.pdf)",
+"[https://www.vinamilk.com.vn/investor/reports/annual](https://www.vinamilk.com.vn/investor/reports/annual)",
+"[https://www.vinamilk.com.vn/bao-cao-thuong-nien/bao-cao/2024/thong-tin-chung.html](https://www.vinamilk.com.vn/bao-cao-thuong-nien/bao-cao/2024/thong-tin-chung.html)",
+"[https://znews.vn/vinamilk-dat-doanh-thu-ky-luc-post1527355.html](https://znews.vn/vinamilk-dat-doanh-thu-ky-luc-post1527355.html)",
+"[https://mekongasean.vn/vinamilk-lai-rong-cao-nhat-trong-3-nam-gan-day-37827.html](https://mekongasean.vn/vinamilk-lai-rong-cao-nhat-trong-3-nam-gan-day-37827.html)"
+],
+"key_facts": [
+"ROE 2024 của VNM = 26,6% [vinamilk]",
+"Doanh thu thuần 2024 của VNM = 61.783 tỷ đồng (hợp nhất) [vinamilk]",
+"LNST 2024 của VNM = 9.453 tỷ đồng (hợp nhất) [vinamilk]",
+"Tổng tài sản tại 31/12/2024 của VNM = 55.049 tỷ đồng [vinamilk]",
+"Vốn chủ sở hữu tại 31/12/2024 của VNM = 36.174 tỷ đồng [vinamilk]",
+"Dư nợ vay cuối năm 2024 của VNM = 9.273 tỷ đồng [dnse/mekongasean]",
+"Tiền, tương đương tiền và tiền gửi ngân hàng cuối năm 2024 của VNM = 25.486 tỷ đồng [dnse]",
+"Lãi tiền gửi năm 2024 của VNM = 1.390 tỷ đồng [dnse]",
+"Doanh thu thuần 2024 của VNM tăng khoảng 2,3% YoY [vinamilk]",
+"Tổng vốn chủ sở hữu tại 31/12/2024 của VNM gồm 3.471 tỷ đồng lợi nhuận sau thuế chưa phân phối [mekongasean]"
+],
+"negative_facts": [
+"KHÔNG nêu sai ROE VNM 2024 thành số của năm khác",
+"KHÔNG bịa ROE nếu không nêu rõ nguồn là Báo cáo thường niên 2024",
+"KHÔNG nhầm vốn chủ sở hữu 36.174 tỷ đồng với tổng tài sản 55.049 tỷ đồng"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "B-002",
+"question": "EPS của FPT năm 2024 là bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"FPT"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Theo Báo cáo thường niên 2024 của FPT, lãi cơ bản trên cổ phiếu (EPS) năm 2024 đạt 4.944 đồng/cổ phiếu, tăng 22,0% so với EPS 2023 là 4.052 đồng/cổ phiếu [1][web:fpt]. Một số tin công bố kết quả kinh doanh sơ bộ làm tròn EPS ở mức 4.940 đồng/cổ phiếu; với benchmark theo BCTN 2024 nên dùng con số 4.944 đồng/cổ phiếu [web:fpt][web:cafef].",
+"sources": [
+"FPT_BCTN24.pdf"
+],
+"web_sources": [
+"[https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2025/april/20250402---fpt---bao-cao-thuong-nien-nam-2024.pdf](https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2025/april/20250402---fpt---bao-cao-thuong-nien-nam-2024.pdf)",
+"[https://fpt.com/vi/tin-tuc/tin-fpt/2024-lan-dau-cong-bo-chien-luoc-ai-ban-xe-so-xanh-fpt-tang-truong-loi-nhuan-tren-20-phan-tram](https://fpt.com/vi/tin-tuc/tin-fpt/2024-lan-dau-cong-bo-chien-luoc-ai-ban-xe-so-xanh-fpt-tang-truong-loi-nhuan-tren-20-phan-tram)",
+"[https://cafef.vn/fpt-lai-truoc-thue-ky-luc-hon-11000-ty-nam-2024-eps-tang-truong-gan-22-188250124085643033.chn](https://cafef.vn/fpt-lai-truoc-thue-ky-luc-hon-11000-ty-nam-2024-eps-tang-truong-gan-22-188250124085643033.chn)",
+"[https://www.dnse.com.vn/senses/tin-tuc/fpt-at-muc-tieu-doanh-thu-nam-2025-hon-3-ty-usd-loi-nhuan-nam-thu-5-lien-tiep-tang-truong-tren-20-34109257](https://www.dnse.com.vn/senses/tin-tuc/fpt-at-muc-tieu-doanh-thu-nam-2025-hon-3-ty-usd-loi-nhuan-nam-thu-5-lien-tiep-tang-truong-tren-20-34109257)"
+],
+"key_facts": [
+"EPS 2024 của FPT = 4.944 đồng/cổ phiếu [fpt]",
+"EPS 2023 của FPT = 4.052 đồng/cổ phiếu [fpt]",
+"Tăng trưởng EPS 2024 của FPT = 22,0% YoY [fpt]",
+"Doanh thu 2024 của FPT = 62.849 tỷ đồng [fpt]",
+"Tăng trưởng doanh thu 2024 của FPT = 19,4% YoY [fpt]",
+"Lợi nhuận trước thuế 2024 của FPT = 11.071 tỷ đồng [fpt]",
+"Tăng trưởng lợi nhuận trước thuế 2024 của FPT = 20,3% YoY [fpt]",
+"Lợi nhuận sau thuế thuộc cổ đông công ty mẹ 2024 của FPT = 7.849 tỷ đồng [fpt]",
+"Tăng trưởng LNST thuộc cổ đông công ty mẹ 2024 của FPT = 21,4% YoY [fpt]",
+"Lợi nhuận sau thuế 2024 của FPT = khoảng 9.420 tỷ đồng [dnse]"
+],
+"negative_facts": [
+"KHÔNG nêu sai EPS thành 4.052 đồng vì đó là EPS 2023",
+"KHÔNG dùng 4.940 đồng làm số chính xác nếu câu hỏi yêu cầu theo Báo cáo thường niên 2024",
+"KHÔNG nhầm EPS với lợi nhuận sau thuế"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "B-003",
+"question": "HPG năm 2024 doanh thu thuần bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"HPG"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, doanh thu thuần hợp nhất của Tập đoàn Hòa Phát (HPG) đạt 138.855 tỷ đồng, tăng khoảng 16,7% so với năm 2023 [1][web:hoaphat][web:bsi]. Đây là doanh thu thuần, không phải tổng doanh thu bán hàng. Cùng năm, HPG ghi nhận lợi nhuận sau thuế 12.020 tỷ đồng và lợi nhuận gộp khoảng 18.497 tỷ đồng [web:bsi][web:misa].",
+"sources": [
+"HPG_BCTN24.pdf"
+],
+"web_sources": [
+"[https://file.hoaphat.com.vn/hoaphat-com-vn/2025/04/bao-cao-thuong-nien-hpg-2024.pdf](https://file.hoaphat.com.vn/hoaphat-com-vn/2025/04/bao-cao-thuong-nien-hpg-2024.pdf)",
+"[https://www.hoaphat.com.vn/quan-he-co-dong/bao-cao-thuong-nien](https://www.hoaphat.com.vn/quan-he-co-dong/bao-cao-thuong-nien)",
+"[https://cafef.vn/du-lieu/hpg-2174313/hpg-bao-cao-thuong-nien-nam-2024.chn](https://cafef.vn/du-lieu/hpg-2174313/hpg-bao-cao-thuong-nien-nam-2024.chn)",
+"[https://www.bsi.com.vn/public/file/bao-cao-cap-nhat-hpg-20250310_1741682356.pdf](https://www.bsi.com.vn/public/file/bao-cao-cap-nhat-hpg-20250310_1741682356.pdf)",
+"[https://amis.misa.vn/201009/bao-cao-tai-chinh-hoa-phat/](https://amis.misa.vn/201009/bao-cao-tai-chinh-hoa-phat/)"
+],
+"key_facts": [
+"Doanh thu thuần 2024 của HPG = 138.855 tỷ đồng (hợp nhất) [hoaphat]",
+"Doanh thu thuần 2023 của HPG = 118.953 tỷ đồng (hợp nhất) [hoaphat]",
+"Tăng trưởng doanh thu thuần 2024 của HPG = khoảng 16,7% YoY [bsi]",
+"LNST 2024 của HPG = 12.020 tỷ đồng (hợp nhất) [bsi]",
+"Tăng trưởng LNST 2024 của HPG = khoảng 75,9% YoY [bsi]",
+"Lợi nhuận gộp 2024 của HPG = 18.497 tỷ đồng [misa]",
+"Lợi nhuận gộp 2023 của HPG = 17.711 tỷ đồng [misa]",
+"Tăng trưởng lợi nhuận gộp 2024 của HPG = 4,3% YoY [misa]",
+"Biên lợi nhuận gộp 2024 của HPG = khoảng 13,3% theo lợi nhuận gộp 18.497 tỷ đồng / doanh thu thuần 138.855 tỷ đồng [misa/bsi]",
+"HPG hoàn thành khoảng 99% kế hoạch doanh thu năm 2024 [bsi]"
+],
+"negative_facts": [
+"KHÔNG nhầm doanh thu thuần 138.855 tỷ đồng với tổng doanh thu bán hàng 140.561 tỷ đồng",
+"KHÔNG nêu sai doanh thu thuần 2023 nếu dùng để tính tăng trưởng",
+"KHÔNG nhầm doanh thu thuần với lợi nhuận sau thuế"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+}
+]

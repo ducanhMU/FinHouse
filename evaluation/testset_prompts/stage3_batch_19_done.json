@@ -1,0 +1,539 @@
+[
+{
+"id": "E-024",
+"question": "Năm 2025, đầu tư công và hạ tầng có thể tạo cơ hội cho những ngành nào, và rủi ro giải ngân chậm cần đánh giá thế nào?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"public_investment",
+"infrastructure",
+"construction_materials",
+"industrial_real_estate",
+"disbursement_risk"
+],
+"expected_timeframe": "outlook 2025",
+"scope": "macro",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Năm 2025, đầu tư công và hạ tầng là một trong các driver vĩ mô quan trọng nhất, tạo cơ hội trực tiếp cho xây dựng, vật liệu xây dựng, thép, xi măng, đá xây dựng, nhựa đường; đồng thời tạo hiệu ứng gián tiếp cho bất động sản khu công nghiệp, logistics, ngân hàng và bất động sản dân cư quanh trục hạ tầng mới. Số thực hiện sau khi kết thúc năm cho thấy tổng kế hoạch vốn đầu tư công được giao năm 2025 vượt 902 nghìn tỷ đồng; nếu tính cả vốn cân đối ngân sách địa phương và vốn kéo dài từ năm trước, quy mô cần giải ngân vượt 1,16 triệu tỷ đồng. Giải ngân cả nước vượt 755 nghìn tỷ đồng, đạt 83,7% kế hoạch Thủ tướng giao. Đây là mức giải ngân lớn, nhưng chưa phải hoàn thành 100%, nên rủi ro chậm giải ngân vẫn cần được đánh giá ở các khâu giải phóng mặt bằng, thủ tục đầu tư, nguồn vật liệu san lấp và năng lực thi công. Nếu chậm giải ngân, tác động tiêu cực sẽ đi vào dòng tiền nhà thầu, sản lượng vật liệu và tiến độ thu hút FDI vào khu công nghiệp.",
+"sources": [
+"SSI_BCTN24.pdf",
+"VIC_BCTN24.pdf",
+"VPB_BCTN25.pdf",
+"Conversation History"
+],
+"web_sources": [
+"[https://moc.gov.vn/vn/](https://moc.gov.vn/vn/)*layouts/15/NCS.Webpart.MOC/mt_poup/Intrangweb.aspx?IdNews=92753",
+"[https://vietnamnews.vn/society/1780082/the-numbers-behind-viet-nam-s-most-ambitious-infrastructure-drive.html](https://vietnamnews.vn/society/1780082/the-numbers-behind-viet-nam-s-most-ambitious-infrastructure-drive.html)",
+"[https://www.reuters.com/world/asia-pacific/vietnam-starts-work-rail-link-china-amid-infrastructure-spending-spree-2025-12-19/](https://www.reuters.com/world/asia-pacific/vietnam-starts-work-rail-link-china-amid-infrastructure-spending-spree-2025-12-19/)",
+"[https://vsa.com.vn/tinh-hinh-thi-truong-thep-viet-nam-thang-12-2024-va-ca-nam-2024/](https://vsa.com.vn/tinh-hinh-thi-truong-thep-viet-nam-thang-12-2024-va-ca-nam-2024/)"
+],
+"key_facts": [
+"Kế hoạch vốn đầu tư công được giao năm 2025 = hơn 902 nghìn tỷ đồng [moc.gov.vn]",
+"Tổng vốn cần giải ngân năm 2025 sau khi tính vốn địa phương và vốn kéo dài = hơn 1,16 triệu tỷ đồng [moc.gov.vn]",
+"Giải ngân đầu tư công năm 2025 = hơn 755 nghìn tỷ đồng [moc.gov.vn]",
+"Tỷ lệ giải ngân đầu tư công năm 2025 = 83,7% kế hoạch Thủ tướng giao [moc.gov.vn]",
+"Cuối năm 2025, Việt Nam hoàn thành khoảng 3.188 km cao tốc toàn quốc [Vietnam News]",
+"Dự án đường sắt Lào Cai - Hà Nội - Hải Phòng dài 391 km, tổng vốn 203,2 nghìn tỷ đồng, khởi công năm 2025 [Reuters]",
+"Kế hoạch hạ tầng quốc gia được Reuters ghi nhận gồm 234 dự án trị giá khoảng 3.400 nghìn tỷ đồng [Reuters]",
+"Tiêu thụ thép thành phẩm Việt Nam năm 2024 = 26,7 triệu tấn, tăng 13% YoY, tạo nền nhu cầu vật liệu cho 2025 [VSA]",
+"Nhóm hưởng lợi trực tiếp từ đầu tư công 2025 = xây dựng, thép, xi măng, đá xây dựng, nhựa đường [tổng hợp web]",
+"Rủi ro giải ngân chậm ảnh hưởng trực tiếp đến dòng tiền nhà thầu và nhu cầu tiêu thụ vật liệu xây dựng [tổng hợp web]"
+],
+"negative_facts": [
+"Không nói đầu tư công năm 2025 bị cắt giảm mạnh so với 2024.",
+"Không nói giải ngân chậm không ảnh hưởng đến nhà thầu xây dựng.",
+"Không dùng 826 nghìn tỷ đồng làm số thực hiện cuối năm nếu nguồn sau năm 2025 đã công bố kế hoạch giao vượt 902 nghìn tỷ đồng."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "E-025",
+"question": "Giai đoạn 2022-2024, ngành ngân hàng Việt Nam thay đổi thế nào về NIM, tăng trưởng tín dụng, nợ xấu và chi phí dự phòng?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"banking_sector",
+"NIM",
+"credit_growth",
+"NPL",
+"provision_expense"
+],
+"expected_timeframe": "2022-2024",
+"scope": "sector",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Giai đoạn 2022-2024, ngành ngân hàng Việt Nam chuyển từ pha tăng trưởng tín dụng cao nhưng chi phí vốn tăng sang pha hạ lãi suất hỗ trợ phục hồi, đi kèm áp lực nợ xấu. Tín dụng toàn hệ thống tăng khoảng 14% năm 2022, 13,71% năm 2023 và 15,08% năm 2024. NIM chịu sức ép sau khi lãi suất huy động tăng mạnh cuối 2022 - đầu 2023 và ngân hàng phải giảm lãi suất cho vay trong 2023-2024; FiinGroup ghi nhận NIM ngân hàng thương mại giảm từ 3,82% năm 2022 xuống 3,43% năm 2023. Chất lượng tài sản xấu đi: nợ xấu nội bảng toàn hệ thống đạt 4,55% cuối tháng 9/2024, cao hơn đáng kể so với mức khoảng 2% năm 2022. Do đó, chi phí dự phòng và nhu cầu xử lý nợ xấu trở thành rủi ro trọng yếu, làm phân hóa lợi nhuận giữa ngân hàng có bộ đệm dự phòng tốt và ngân hàng có tài sản rủi ro cao.",
+"sources": [
+"MBB_BCTN25.pdf",
+"TCB_BCTN22.pdf",
+"VPB_BCTN24.pdf",
+"MBB_BCTN23.pdf",
+"Conversation History"
+],
+"web_sources": [
+"[https://masvn.com/api/attachment/file/1740712265757-20250228ENBankingUpdate2024_Final.pdf](https://masvn.com/api/attachment/file/1740712265757-20250228ENBankingUpdate2024_Final.pdf)",
+"[https://fiingroup.vn/upload/docs/Vietnam-Banking-Report-2024-DEMO.pdf](https://fiingroup.vn/upload/docs/Vietnam-Banking-Report-2024-DEMO.pdf)",
+"[https://kinhtevadubao.vn/den-cuoi-thang-92024-ty-le-no-xau-noi-bang-o-muc-455-tang-so-voi-nam-2022-30315.html](https://kinhtevadubao.vn/den-cuoi-thang-92024-ty-le-no-xau-noi-bang-o-muc-455-tang-so-voi-nam-2022-30315.html)",
+"[https://baochinhphu.vn/tang-truong-tin-dung-nam-2024-vuot-15-102250107170736751.htm](https://baochinhphu.vn/tang-truong-tin-dung-nam-2024-vuot-15-102250107170736751.htm)",
+"[https://gtjai.com.vn/wp-content/uploads/2024/04/GTJASVN_Banking-Sector-Report_22Mar2024_ENG.pdf](https://gtjai.com.vn/wp-content/uploads/2024/04/GTJASVN_Banking-Sector-Report_22Mar2024_ENG.pdf)"
+],
+"key_facts": [
+"Tăng trưởng tín dụng toàn hệ thống năm 2022 = khoảng 14% [GTJASVN/SBV]",
+"Tăng trưởng tín dụng toàn hệ thống năm 2023 = 13,71% [GTJASVN/SBV]",
+"Tăng trưởng tín dụng toàn hệ thống năm 2024 = 15,08% [Báo Chính phủ/NHNN]",
+"Tăng trưởng tín dụng năm 2024 là mức cao nhất kể từ năm 2018 [MASVN]",
+"NIM ngân hàng thương mại năm 2022 = 3,82% [FiinGroup]",
+"NIM ngân hàng thương mại năm 2023 = 3,43% [FiinGroup]",
+"Tỷ lệ nợ xấu nội bảng toàn hệ thống cuối tháng 9/2024 = 4,55% [Kinh tế & Dự báo]",
+"Tỷ lệ nợ xấu nội bảng cuối tháng 9/2024 cao hơn mức khoảng 2% của năm 2022 [Kinh tế & Dự báo]",
+"Tín dụng năm 2024 tăng thêm khoảng 2,1 triệu tỷ đồng [Báo Chính phủ/NHNN]",
+"Chi phí dự phòng 2023-2024 chịu áp lực tăng do nợ xấu hệ thống tăng và chất lượng tài sản suy giảm [tổng hợp web]"
+],
+"negative_facts": [
+"Không nói NIM toàn ngành ngân hàng liên tục mở rộng kỷ lục trong giai đoạn 2022-2024.",
+"Không nói nợ xấu giảm mạnh và không còn là mối lo trong năm 2024.",
+"Không dùng tỷ lệ nợ xấu 4,55% như số riêng của một ngân hàng; đây là số toàn hệ thống."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "E-026",
+"question": "Từ 2022 đến 2024, chu kỳ bất động sản Việt Nam chịu tác động ra sao từ trái phiếu doanh nghiệp, pháp lý dự án và lãi suất?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"real_estate_cycle",
+"corporate_bond",
+"legal_approval",
+"interest_rate"
+],
+"expected_timeframe": "2022-2024",
+"scope": "macro",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Từ 2022 đến 2024, chu kỳ bất động sản Việt Nam đi từ thắt chặt sang tháo gỡ có chọn lọc. Năm 2022, thị trường bị ảnh hưởng mạnh bởi lãi suất tăng, tín dụng bất động sản bị kiểm soát chặt hơn và khủng hoảng niềm tin trên thị trường trái phiếu doanh nghiệp. Năm 2023, Nghị định 08/2023/NĐ-CP cho phép doanh nghiệp phát hành trái phiếu đàm phán thay đổi điều kiện, điều khoản và kéo dài kỳ hạn trái phiếu tối đa 2 năm, giúp giảm áp lực thanh khoản ngắn hạn nhưng không giải quyết triệt để pháp lý dự án và sức cầu yếu. Năm 2024, mặt bằng lãi suất giảm và ba luật lớn gồm Luật Đất đai 2024, Luật Nhà ở 2023 và Luật Kinh doanh Bất động sản 2023 có hiệu lực từ 01/08/2024, tạo nền tảng tháo gỡ pháp lý. Vì vậy, chu kỳ 2022-2024 không phải bùng nổ liên tục, mà là đóng băng - tháo gỡ - phục hồi chậm, trong đó pháp lý và khả năng hấp thụ thực vẫn quyết định tốc độ phục hồi.",
+"sources": [
+"VHM_BCTN22.pdf",
+"SSI_BCTN23.pdf",
+"MBB_BCTN24.pdf",
+"HPG_BCTN22.pdf",
+"VHM_BCTN24.pdf"
+],
+"web_sources": [
+"[https://english.luatvietnam.vn/decree-no-08-2023-nd-cp-amending-supplementing-and-suspending-effect-of-a-number-of-articles-of-decrees-on-p-245000-doc1.html](https://english.luatvietnam.vn/decree-no-08-2023-nd-cp-amending-supplementing-and-suspending-effect-of-a-number-of-articles-of-decrees-on-p-245000-doc1.html)",
+"[https://vietanlaw.com/decree-08-2023-nd-cp-amending-and-suspending-the-effect-of-some-articles-of-decrees-on-private-placement-and-trading-of-corporate-bonds/](https://vietanlaw.com/decree-08-2023-nd-cp-amending-and-suspending-the-effect-of-some-articles-of-decrees-on-private-placement-and-trading-of-corporate-bonds/)",
+"[https://thuvienphapluat.vn/chinh-sach-phap-luat-moi/vn/ho-tro-phap-luat/bat-dong-san/67210/chinh-thuc-03-luat-ve-bat-dong-san-co-hieu-luc-tu-01-8-2024](https://thuvienphapluat.vn/chinh-sach-phap-luat-moi/vn/ho-tro-phap-luat/bat-dong-san/67210/chinh-thuc-03-luat-ve-bat-dong-san-co-hieu-luc-tu-01-8-2024)",
+"[https://nguoiquansat.vn/cac-luat-dat-dai-nha-o-kinh-doanh-bat-dong-san-chinh-thuc-co-hieu-luc-tu-1-8-143533.html](https://nguoiquansat.vn/cac-luat-dat-dai-nha-o-kinh-doanh-bat-dong-san-chinh-thuc-co-hieu-luc-tu-1-8-143533.html)",
+"[https://www.vietcap.com.vn/api/cms-api/uploads/file/202501/RESectorFlash-20250113.pdf](https://www.vietcap.com.vn/api/cms-api/uploads/file/202501/RESectorFlash-20250113.pdf)"
+],
+"key_facts": [
+"Nghị định 08/2023/NĐ-CP cho phép tổ chức phát hành trái phiếu đàm phán thay đổi điều kiện, điều khoản trái phiếu [Viet An Law]",
+"Nghị định 08/2023/NĐ-CP cho phép kéo dài kỳ hạn trái phiếu tối đa 2 năm theo thỏa thuận với trái chủ [Viet An Law]",
+"Luật Đất đai 2024 có hiệu lực từ 01/08/2024 [thuvienphapluat]",
+"Luật Nhà ở 2023 có hiệu lực từ 01/08/2024 [thuvienphapluat]",
+"Luật Kinh doanh bất động sản 2023 có hiệu lực từ 01/08/2024 [thuvienphapluat]",
+"Quốc hội thông qua việc đẩy hiệu lực các luật liên quan bất động sản vào ngày 29/06/2024 [nguoiquansat]",
+"Các luật bất động sản mới có hiệu lực sớm hơn 5 tháng so với mốc trước đó [nguoiquansat]",
+"Vietcap dự báo bất động sản nhà ở 2025 được hỗ trợ bởi pháp lý trơn tru hơn sau các luật mới [Vietcap]",
+"Giai đoạn 2022-2023, trái phiếu doanh nghiệp là nút thắt thanh khoản lớn của doanh nghiệp bất động sản [tổng hợp web]",
+"Năm 2024 là giai đoạn chuyển sang phục hồi chậm nhờ lãi suất thấp hơn và pháp lý cải thiện [tổng hợp web]"
+],
+"negative_facts": [
+"Không nói thị trường bất động sản bùng nổ liên tục từ 2022 đến 2024.",
+"Không nói lãi suất mua nhà liên tục tăng trong năm 2024.",
+"Không nói Nghị định 08 giải quyết triệt để mọi nghĩa vụ trái phiếu bất động sản."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "E-027",
+"question": "Giai đoạn 2022-2024, nhóm thép và vật liệu xây dựng biến động lợi nhuận chủ yếu do nhu cầu, giá bán hay chi phí đầu vào?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"steel_sector",
+"construction_materials",
+"demand",
+"selling_price",
+"input_cost"
+],
+"expected_timeframe": "2022-2024",
+"scope": "sector",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Giai đoạn 2022-2024, lợi nhuận nhóm thép và vật liệu xây dựng biến động do cả nhu cầu, giá bán và chi phí đầu vào, nhưng trọng số thay đổi theo từng năm. Năm 2022, Hòa Phát ghi nhận ngành thép suy giảm cả doanh thu và lợi nhuận do nhu cầu và giá bán giảm, trong khi chi phí nguyên liệu cao; giá thép xây dựng từ giữa tháng 5/2022 giảm liên tục tổng cộng 4,2 triệu đồng/tấn. Năm 2023, nhu cầu trong nước và xuất khẩu còn yếu nên lợi nhuận phục hồi chậm dù chi phí đã bớt căng. Năm 2024, ngành thép cải thiện rõ hơn nhờ sản lượng tiêu thụ phục hồi và chi phí đầu vào giảm; riêng HPG được SHS ghi nhận lợi nhuận gộp 2024 đạt 18.497,5 tỷ đồng, tăng 42,9% YoY, biên gộp tăng lên 13,3% nhờ giá nhiều nguyên liệu sản xuất thép giảm trong năm. Với xi măng và vật liệu xây dựng khác, VIS Rating ghi nhận nhu cầu còn yếu và dư cung khiến biên lợi nhuận xi măng vẫn bị ép. Vì vậy, câu trả lời chuẩn là: 2022 bị cả cầu, giá bán và chi phí đánh xuống; 2023 bị cầu yếu; 2024 cải thiện chủ yếu nhờ cầu tốt hơn và chi phí nguyên liệu giảm, không phải nhờ giá bán thép tăng phi mã.",
+"sources": [
+"HPG_BCTN22.pdf",
+"HPG_BCTN23.pdf",
+"HPG_BCTN24.pdf"
+],
+"web_sources": [
+"[https://file.hoaphat.com.vn/hoaphat-com-vn/2023/04/annual-report-2022-hpg.pdf](https://file.hoaphat.com.vn/hoaphat-com-vn/2023/04/annual-report-2022-hpg.pdf)",
+"[https://shs.com.vn/Sites/QuoteVN/SiteRoot/reportattach/20250527_155442_HPG%20Intitial%20Report%202025%20Eng%20Ver.pdf](https://shs.com.vn/Sites/QuoteVN/SiteRoot/reportattach/20250527_155442_HPG%20Intitial%20Report%202025%20Eng%20Ver.pdf)",
+"[https://visrating.com/research/view/construction-materials-sector-fy2024-update.280](https://visrating.com/research/view/construction-materials-sector-fy2024-update.280)",
+"[https://vsa.com.vn/tinh-hinh-thi-truong-thep-viet-nam-thang-12-2024-va-ca-nam-2024/](https://vsa.com.vn/tinh-hinh-thi-truong-thep-viet-nam-thang-12-2024-va-ca-nam-2024/)"
+],
+"key_facts": [
+"Từ giữa tháng 5/2022, giá thép xây dựng giảm liên tục tổng cộng 4,2 triệu đồng/tấn [HPG annual report 2022]",
+"HPG ghi nhận EBITDA các quý cuối năm 2022 âm do nhu cầu và giá bán thép giảm cùng chi phí nguyên liệu cao [HPG annual report 2022]",
+"Tiêu thụ thép thành phẩm Việt Nam năm 2024 = 26,7 triệu tấn [VSA]",
+"Tăng trưởng tiêu thụ thép thành phẩm năm 2024 = 13% YoY [VSA]",
+"Sản xuất thép thành phẩm Việt Nam năm 2024 = gần 26,9 triệu tấn [VSA]",
+"Tăng trưởng sản xuất thép thành phẩm năm 2024 = 7,7% YoY [VSA]",
+"Lợi nhuận gộp 2024 của HPG = 18.497,5 tỷ đồng [SHS]",
+"Tăng trưởng lợi nhuận gộp 2024 của HPG = 42,9% YoY [SHS]",
+"Biên lợi nhuận gộp 2024 của HPG = 13,3% [SHS]",
+"Biên lợi nhuận gộp 2023 của HPG = 10,87% [SHS]",
+"Giá nhiều nguyên liệu sản xuất thép giảm trong năm 2024, giúp cải thiện biên gộp HPG [SHS]",
+"Biên gộp ngành xi măng 2024 = 8,7%, thấp hơn trung bình 2022-2023 là 10,4% do nhu cầu yếu và dư cung [VIS Rating]"
+],
+"negative_facts": [
+"Không nói lợi nhuận ngành thép 2024 bùng nổ nhờ giá bán thép thế giới tăng phi mã.",
+"Không nói suy giảm năm 2022 là do giá nguyên vật liệu giảm.",
+"Không đồng nhất thép với toàn bộ vật liệu xây dựng; xi măng vẫn chịu dư cung và biên gộp thấp."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "E-028",
+"question": "Vĩ mô Việt Nam giai đoạn 2022-2024: lạm phát, tỷ giá và lãi suất đã thay đổi môi trường định giá cổ phiếu như thế nào?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"Vietnam_macro",
+"inflation",
+"exchange_rate",
+"interest_rate",
+"equity_valuation"
+],
+"expected_timeframe": "2022-2024",
+"scope": "macro",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Giai đoạn 2022-2024, môi trường định giá cổ phiếu Việt Nam chuyển từ bị chiết khấu mạnh do lãi suất và tỷ giá sang phục hồi nhờ lãi suất giảm và lợi nhuận doanh nghiệp phục hồi. Năm 2022, áp lực lạm phát toàn cầu, USD mạnh và lãi suất tăng làm chi phí vốn tăng, khiến P/E bị nén và VN-Index giảm mạnh. Năm 2023, lạm phát Việt Nam được kiểm soát, Ngân hàng Nhà nước hạ lãi suất nhiều lần, giúp dòng tiền quay lại và định giá phục hồi từ nền thấp. Năm 2024, GDP tăng 7,09% và CPI bình quân tăng 3,63%, hỗ trợ lợi nhuận doanh nghiệp; nhưng tỷ giá USD tăng hơn 5%, lãi suất huy động tăng 0,71% so với cuối 2023 và khối ngoại bán ròng hơn 93 nghìn tỷ đồng, gây áp lực lên định giá. Vì vậy, định giá cổ phiếu 2024 được neo bởi lợi nhuận nội địa và thanh khoản trong nước, trong khi tỷ giá và bán ròng ngoại kìm hãm mức mở rộng P/E.",
+"sources": [
+"SSI_BCTN22.pdf",
+"SSI_BCTN23.pdf",
+"SSI_BCTN24.pdf"
+],
+"web_sources": [
+"[https://www.mpi.gov.vn/portal/Pages/2025-1-6/GDP-nam-2024-uoc-tinh-tang-7-09-so-voi-nam-truoc6l8vmy.aspx](https://www.mpi.gov.vn/portal/Pages/2025-1-6/GDP-nam-2024-uoc-tinh-tang-7-09-so-voi-nam-truoc6l8vmy.aspx)",
+"[https://vtv.vn/kinh-te/ty-gia-usd-tang-hon-5-trong-nam-2024-20250107152709366.htm](https://vtv.vn/kinh-te/ty-gia-usd-tang-hon-5-trong-nam-2024-20250107152709366.htm)",
+"[https://news.tuoitre.vn/foreign-investors-2024-net-sale-hits-record-on-vietnamese-stock-market-10383734.htm](https://news.tuoitre.vn/foreign-investors-2024-net-sale-hits-record-on-vietnamese-stock-market-10383734.htm)",
+"[https://en.vietnamplus.vn/foreign-investors-net-selling-exceeds-23-billion-usd-since-2023-post287998.vnp](https://en.vietnamplus.vn/foreign-investors-net-selling-exceeds-23-billion-usd-since-2023-post287998.vnp)",
+"[https://www.adb.org/sites/default/files/publication/1032456/viet-nam-financial-markets-2023-outlook-2024.pdf](https://www.adb.org/sites/default/files/publication/1032456/viet-nam-financial-markets-2023-outlook-2024.pdf)"
+],
+"key_facts": [
+"GDP Việt Nam năm 2024 tăng 7,09% YoY [MPI/GSO]",
+"CPI bình quân năm 2024 tăng 3,63% YoY [GSO]",
+"Tỷ giá USD tăng hơn 5% trong năm 2024 [VTV]",
+"Lãi suất huy động năm 2024 tăng 0,71% so với cuối năm 2023 [VTV/NHNN]",
+"Lãi suất cho vay năm 2024 giảm bình quân 0,59% so với cuối năm 2023 [VTV/NHNN]",
+"Khối ngoại bán ròng hơn 93 nghìn tỷ đồng trên thị trường chứng khoán Việt Nam năm 2024 [Tuổi Trẻ/FiinTrade]",
+"Từ đầu năm 2023 đến đầu tháng 6/2024, khối ngoại bán ròng 58 nghìn tỷ đồng trên HoSE [VietnamPlus]",
+"ADB ghi nhận thị trường chứng khoán Việt Nam 2024 được hỗ trợ bởi kinh tế phục hồi, lợi nhuận doanh nghiệp cao hơn và lãi suất nội địa thấp [ADB]",
+"Năm 2022, môi trường lãi suất và tỷ giá tăng làm định giá cổ phiếu bị chiết khấu mạnh [tổng hợp web]",
+"Năm 2023, lãi suất giảm giúp dòng tiền quay lại và hỗ trợ định giá từ nền thấp [tổng hợp web]"
+],
+"negative_facts": [
+"Không nói lãi suất năm 2023 liên tục tăng đã bóp nghẹt thị trường chứng khoán.",
+"Không nói khối ngoại mua ròng liên tục trong năm 2024 là động lực chính của thị trường.",
+"Không bỏ qua áp lực tỷ giá dù GDP và CPI năm 2024 tích cực."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "E-029",
+"question": "Giai đoạn 2022-2024, tiêu dùng nội địa Việt Nam phục hồi ra sao và tác động thế nào đến ngành bán lẻ, thực phẩm đồ uống và hàng xa xỉ?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"domestic_consumption",
+"retail_sector",
+"food_beverage_sector",
+"luxury_goods"
+],
+"expected_timeframe": "2022-2024",
+"scope": "macro",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Giai đoạn 2022-2024, tiêu dùng nội địa Việt Nam phục hồi theo mô hình phân hóa: phục hồi mạnh sau mở cửa, suy yếu khi thu nhập và lãi suất chịu áp lực, rồi phục hồi chậm và chọn lọc. Năm 2022, tiêu dùng bật lại sau Covid-19 nhưng cuối năm chịu áp lực lạm phát, lãi suất và đơn hàng xuất khẩu suy giảm. Năm 2023, người tiêu dùng thận trọng hơn, cắt giảm hàng không thiết yếu như điện thoại, điện máy và hàng xa xỉ; trong khi thực phẩm, đồ uống và FMCG chống chịu tốt hơn nhờ tính thiết yếu. Năm 2024, tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng đạt 6.391 nghìn tỷ đồng, tăng 9,0% theo giá hiện hành và 5,9% nếu loại trừ yếu tố giá; bán lẻ hàng hóa chiếm khoảng 77% cơ cấu tổng mức bán lẻ. Tác động ngành là: bán lẻ ICT/điện máy phải tái cấu trúc và tối ưu điểm bán; thực phẩm đồ uống phục hồi ổn định hơn nhưng vẫn cạnh tranh giá; hàng xa xỉ và không thiết yếu phục hồi chậm hơn do người mua ưu tiên giá trị và hàng thiết yếu.",
+"sources": [
+"MWG_BCTN23.pdf",
+"MSN_BCTN23.pdf",
+"MWG_BCTN25.pdf",
+"MSN_BCTN24.pdf",
+"MWG_BTN22.pdf"
+],
+"web_sources": [
+"[https://vietnamnews.vn/economy/1690285/retail-sales-of-goods-and-services-up-9-per-cent-in-2024-gso.html](https://vietnamnews.vn/economy/1690285/retail-sales-of-goods-and-services-up-9-per-cent-in-2024-gso.html)",
+"[https://en.vietnamplus.vn/retail-sales-of-goods-and-services-up-9-in-2024-gso-post307924.vnp](https://en.vietnamplus.vn/retail-sales-of-goods-and-services-up-9-in-2024-gso-post307924.vnp)",
+"[https://shinhansec.com.vn/uploads/report/SSV_Retail_Industry_Outlook_2025](https://shinhansec.com.vn/uploads/report/SSV_Retail_Industry_Outlook_2025)*%28EN%29.pdf",
+"[https://www.nso.gov.vn/bai-top/2025/01/bao-cao-tinh-hinh-kinh-te-xa-hoi-quy-iv-va-nam-2024/](https://www.nso.gov.vn/bai-top/2025/01/bao-cao-tinh-hinh-kinh-te-xa-hoi-quy-iv-va-nam-2024/)",
+"[https://www.masangroup.com/vi/news/press-releases/In-2023-Masan-generated-78252-billion-VND-in-net-revenue-and-targets-a-profit-doubling-in-2024.html](https://www.masangroup.com/vi/news/press-releases/In-2023-Masan-generated-78252-billion-VND-in-net-revenue-and-targets-a-profit-doubling-in-2024.html)"
+],
+"key_facts": [
+"Tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng năm 2024 = 6.391 nghìn tỷ đồng [NSO/VietnamPlus]",
+"Tăng trưởng tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng năm 2024 = 9,0% YoY theo giá hiện hành [NSO/VietnamPlus]",
+"Tăng trưởng tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng năm 2024 = 5,9% YoY nếu loại trừ yếu tố giá [NSO]",
+"Quy mô bán lẻ và dịch vụ Việt Nam năm 2024 xấp xỉ 252 tỷ USD [Vietnam News]",
+"Doanh thu bán lẻ hàng hóa chiếm khoảng 77,0% tổng mức bán lẻ và dịch vụ năm 2024 [Shinhan/GSO]",
+"Doanh thu lưu trú và ăn uống chiếm khoảng 11,5% tổng mức bán lẻ và dịch vụ năm 2024 [Shinhan/GSO]",
+"Doanh thu du lịch lữ hành chiếm khoảng 1,0% tổng mức bán lẻ và dịch vụ năm 2024 [Shinhan/GSO]",
+"MSN ghi nhận doanh thu thuần 2023 = 78.252 tỷ đồng [Masan Group]",
+"MSN đặt mục tiêu lợi nhuận tăng gấp đôi trong năm 2024 sau năm 2023 khó khăn [Masan Group]",
+"Tiêu dùng 2024 phục hồi nhưng còn chọn lọc; hàng thiết yếu chống chịu tốt hơn hàng không thiết yếu [tổng hợp web]"
+],
+"negative_facts": [
+"Không nói hàng xa xỉ và điện máy tăng trưởng bùng nổ không ngừng trong suốt 2022-2024.",
+"Không nói người dân quay lưng hoàn toàn với thực phẩm và đồ uống trong năm 2023.",
+"Không dùng tăng trưởng 9,0% danh nghĩa để kết luận sức mua thực tăng tương đương 9,0%."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "E-030",
+"question": "Từ 2022 đến 2024, thanh khoản thị trường chứng khoán Việt Nam và mặt bằng lãi suất có mối quan hệ thế nào với lợi nhuận ngành chứng khoán?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"stock_market_liquidity",
+"interest_rate",
+"securities_sector_profit"
+],
+"expected_timeframe": "2022-2024",
+"scope": "macro",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Từ 2022 đến 2024, lợi nhuận ngành chứng khoán Việt Nam có quan hệ thuận với thanh khoản thị trường và quan hệ nghịch với mặt bằng lãi suất. Năm 2022, lãi suất tăng và thị trường giảm khiến thanh khoản, môi giới, margin và tự doanh suy giảm, làm lợi nhuận công ty chứng khoán đi xuống. Năm 2023, NHNN hạ lãi suất và lãi suất tiền gửi giảm giúp dòng tiền cá nhân quay lại từ nửa cuối năm; riêng tháng 12/2023, thanh khoản thị trường đạt bình quân 15.959 tỷ đồng/phiên. Năm 2024, lãi suất cho vay giảm bình quân 0,59% so với cuối 2023, lãi suất tiền gửi dù nhích tăng 0,71% vẫn ở vùng hỗ trợ, kéo thanh khoản thị trường lên khoảng 21.000-21.225 tỷ đồng/phiên, tăng khoảng 19%-20,7% YoY. Thanh khoản cao làm tăng doanh thu môi giới; nhu cầu margin tăng làm tăng thu nhập lãi; thị trường tăng giúp tự doanh thuận lợi hơn. Vì vậy, lợi nhuận ngành chứng khoán phục hồi mạnh nhất khi lãi suất thấp đi kèm thanh khoản và chỉ số cải thiện.",
+"sources": [
+"SSI_BCTN22.pdf",
+"SSI_BCTN23.pdf",
+"SSI_BCTN24.pdf",
+"VRE_BCTN24.pdf"
+],
+"web_sources": [
+"[https://ssc.gov.vn/webcenter/portal/ubck/pages_r/l/chitit?dDocName=APPSSCGOVVN1620142733](https://ssc.gov.vn/webcenter/portal/ubck/pages_r/l/chitit?dDocName=APPSSCGOVVN1620142733)",
+"[https://www.ssi.com.vn/upload/files/IR/Reports/SSI_BCTN2024_VN.pdf](https://www.ssi.com.vn/upload/files/IR/Reports/SSI_BCTN2024_VN.pdf)",
+"[https://thoibaotaichinhvietnam.vn/thi-truong-chung-khoan-viet-nam-nam-2024-duy-tri-da-tang-truong-on-dinh-166659.html](https://thoibaotaichinhvietnam.vn/thi-truong-chung-khoan-viet-nam-nam-2024-duy-tri-da-tang-truong-on-dinh-166659.html)",
+"[https://vtv.vn/kinh-te/ty-gia-usd-tang-hon-5-trong-nam-2024-20250107152709366.htm](https://vtv.vn/kinh-te/ty-gia-usd-tang-hon-5-trong-nam-2024-20250107152709366.htm)",
+"[https://www.ssi.com.vn/en/investor-relation/annual-reports](https://www.ssi.com.vn/en/investor-relation/annual-reports)"
+],
+"key_facts": [
+"Thanh khoản thị trường chứng khoán tháng 12/2023 đạt bình quân 15.959 tỷ đồng/phiên [SSC]",
+"Thanh khoản thị trường chứng khoán tháng 12/2023 giảm 8,10% so với tháng trước theo giá trị giao dịch bình quân [SSC]",
+"Giá trị giao dịch bình quân thị trường chứng khoán năm 2024 = khoảng 21.000 tỷ đồng/phiên [SSI BCTN 2024]",
+"Tăng trưởng giá trị giao dịch bình quân năm 2024 = khoảng 19% YoY [SSI BCTN 2024]",
+"Giá trị giao dịch bình quân từ đầu năm đến 18/12/2024 = 21.225 tỷ đồng/phiên [Thời báo Tài chính Việt Nam]",
+"Tăng trưởng giá trị giao dịch bình quân từ đầu năm đến 18/12/2024 = 20,7% YoY [Thời báo Tài chính Việt Nam]",
+"Lãi suất cho vay năm 2024 giảm bình quân 0,59% so với cuối năm 2023 [VTV/NHNN]",
+"Lãi suất huy động năm 2024 tăng 0,71% so với cuối năm 2023 [VTV/NHNN]",
+"Thanh khoản tăng hỗ trợ doanh thu môi giới và cho vay margin của công ty chứng khoán [tổng hợp SSI]",
+"Lãi suất thấp làm giảm chi phí cơ hội nắm giữ cổ phiếu, hỗ trợ dòng tiền vào chứng khoán [tổng hợp web]"
+],
+"negative_facts": [
+"Không nói lãi suất cao năm 2022 giúp công ty chứng khoán thu lợi lớn từ margin.",
+"Không nói thanh khoản thị trường năm 2024 sụt giảm so với 2023 do lãi suất tiết kiệm quá hấp dẫn.",
+"Không dùng mức tăng thanh khoản 22,4% nếu không đối chiếu cùng mẫu thị trường và kỳ đo."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "F-001",
+"question": "Tuần này VNM có tin gì mới đáng chú ý liên quan đến kết quả kinh doanh, cổ tức hoặc thay đổi lãnh đạo không?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"VNM"
+],
+"expected_timeframe": "tuần này",
+"scope": "company",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Trong tuần tính đến 18/05/2026, VNM có tin đáng chú ý chủ yếu về kết quả kinh doanh quý 1/2026 và cập nhật phân tích. Vietstock ngày 18/05/2026 đưa tin ngành sữa quý 1/2026 phân hóa, trong đó Vinamilk đạt doanh thu 16.178 tỷ đồng, tăng 24,6% YoY và lợi nhuận ròng 2.458 tỷ đồng, tăng 54,9% YoY. Vietstock cũng có báo cáo cập nhật KQKD Q1/2026 của VNM khoảng ngày 17/05/2026, đánh giá kết quả phù hợp kỳ vọng và nêu giá mục tiêu 67.200 đồng/cp, tiềm năng tăng giá 11,8%. Trước đó, ngày 30/04/2026, Vietstock ghi nhận lợi nhuận trước thuế Q1/2026 của VNM đạt 3.014 tỷ đồng, tăng 54%; lợi nhuận ròng 2.429 tỷ đồng, tăng 55%; EPS đạt 1.051 đồng, tăng 56%. Không tìm thấy tin mới trong tuần về thay đổi lãnh đạo; tin cổ tức gần nhất là tài liệu ĐHĐCĐ thường niên 2026 cuối tháng 4/2026 và kế hoạch cổ tức 2026 tối thiểu bằng 50% kế hoạch LNST hợp nhất.",
+"sources": [],
+"web_sources": [
+"[https://vietstock.vn/2026/05/nganh-sua-quy-12026-loi-nhuan-phan-hoa-duoi-suc-ep-chi-phi-737-1443415.htm](https://vietstock.vn/2026/05/nganh-sua-quy-12026-loi-nhuan-phan-hoa-duoi-suc-ep-chi-phi-737-1443415.htm)",
+"[https://finance.vietstock.vn/bao-cao-phan-tich/20309/vnm-bao-cao-cap-nhat-kqkd-q12026.htm](https://finance.vietstock.vn/bao-cao-phan-tich/20309/vnm-bao-cao-cap-nhat-kqkd-q12026.htm)",
+"[https://vietstock.vn/2026/04/vinamilk-but-toc-quy-1-voi-loi-nhuan-rong-tang-55-binh-quan-27-ty-dongngay-737-1436378.htm](https://vietstock.vn/2026/04/vinamilk-but-toc-quy-1-voi-loi-nhuan-rong-tang-55-binh-quan-27-ty-dongngay-737-1436378.htm)",
+"[https://vietstock.vn/2026/04/vinamilk-dat-ke-hoach-lai-sau-thue-hop-nhat-hon-98-ngan-ty-737-1420640.htm](https://vietstock.vn/2026/04/vinamilk-dat-ke-hoach-lai-sau-thue-hop-nhat-hon-98-ngan-ty-737-1420640.htm)"
+],
+"key_facts": [
+"Vietstock đăng tin ngành sữa Q1/2026 có VNM ngày 18/05/2026 [vietstock]",
+"Doanh thu Q1/2026 của VNM = 16.178 tỷ đồng, tăng 24,6% YoY [vietstock]",
+"Lợi nhuận ròng Q1/2026 của VNM = 2.458 tỷ đồng, tăng 54,9% YoY [vietstock]",
+"Báo cáo cập nhật KQKD Q1/2026 của VNM được Vietstock hiển thị khoảng 17/05/2026 [vietstock]",
+"Giá mục tiêu VNM trong báo cáo cập nhật Q1/2026 = 67.200 đồng/cp [vietstock]",
+"Tiềm năng tăng giá VNM theo báo cáo cập nhật Q1/2026 = 11,8% [vietstock]",
+"Lợi nhuận trước thuế Q1/2026 của VNM = 3.014 tỷ đồng, tăng 54% YoY [vietstock]",
+"EPS Q1/2026 của VNM = 1.051 đồng, tăng 56% YoY [vietstock]",
+"Không tìm thấy tin thay đổi lãnh đạo VNM trong tuần đến 18/05/2026 từ nguồn đã tra [web review]"
+],
+"negative_facts": [
+"Không bịa tin thay đổi lãnh đạo nếu không có công bố mới.",
+"Không dùng kế hoạch cổ tức như cổ tức đã chi trả nếu chưa có ngày chốt/quyết định.",
+"Không nhầm số lợi nhuận ròng 2.429 tỷ đồng trong bài 30/04 với 2.458 tỷ đồng trong bài tổng hợp 18/05 nếu không ghi rõ nguồn."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-002",
+"question": "FPT trong tháng này có thông báo hợp đồng lớn, thương vụ AI hay tin quốc tế nào nổi bật không?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"FPT"
+],
+"expected_timeframe": "tháng này",
+"scope": "company",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Trong tháng 5/2026 đến ngày 18/05/2026, FPT có nhiều tin quốc tế và AI đáng chú ý. Ngày 13/05/2026, FPT AI Factory hợp tác với InFlow và Visa Intelligent Commerce để ra mắt nền tảng thương mại agent-native. Cùng ngày, FPT và SAMICK THK công bố hợp tác thúc đẩy smart manufacturing với AI và robotics. Ngày 14/05/2026, FPT Software thông báo FPT và Mitsubishi Motors ký biên bản ghi nhớ để khám phá hợp tác trong phần mềm ô tô và digital domain; FPT cũng tăng hiện diện tại Munich để thúc đẩy chuyển đổi AI tại Bavaria. Ngày 15/05/2026, FPT đạt ba giải Globee Awards 2026 về AI. Vietstock khoảng 13/05/2026 cũng đưa tin FPT báo lợi nhuận ròng 3.360 tỷ đồng sau 4 tháng và nhắc các hợp tác công nghệ toàn cầu với Intel, Salesforce và AI. Như vậy, có nhiều tin AI/quốc tế trong tháng, nhưng không thấy công bố hợp đồng quy mô hàng trăm triệu USD mới trong riêng tháng 5; hợp đồng AI hàng chục triệu USD với tập đoàn vật liệu được CafeF đăng ngày 16/04/2026, nằm ngoài tháng 5.",
+"sources": [],
+"web_sources": [
+"[https://fptsoftware.com/newsroom/news-and-press-releases/press-release/fpt-ai-factory-partners-with-inflow-and-visa-intelligent-commerce](https://fptsoftware.com/newsroom/news-and-press-releases/press-release/fpt-ai-factory-partners-with-inflow-and-visa-intelligent-commerce)",
+"[https://fptsoftware.com/newsroom/news-and-press-releases/news/fpt-and-samick-thk-partner-to-accelerate-smart-manufacturing](https://fptsoftware.com/newsroom/news-and-press-releases/news/fpt-and-samick-thk-partner-to-accelerate-smart-manufacturing)",
+"[https://fptsoftware.com/newsroom/news-and-press-releases/news/fpt_sets_direction_for_tech_innovation](https://fptsoftware.com/newsroom/news-and-press-releases/news/fpt_sets_direction_for_tech_innovation)",
+"[https://vietstock.vn/2026/05/fpt-bao-loi-nhuan-rong-3360-ty-sau-4-thang-737-1442215.amp](https://vietstock.vn/2026/05/fpt-bao-loi-nhuan-rong-3360-ty-sau-4-thang-737-1442215.amp)",
+"[https://cafef.vn/fpt-ky-hop-dong-ai-hang-chuc-trieu-usd-voi-tap-doan-vat-lieu-hang-dau-the-gioi-co-the-giup-khach-hang-giam-toi-40-chi-phi-trong-vong-3-nam-18826041608312824.chn](https://cafef.vn/fpt-ky-hop-dong-ai-hang-chuc-trieu-usd-voi-tap-doan-vat-lieu-hang-dau-the-gioi-co-the-giup-khach-hang-giam-toi-40-chi-phi-trong-vong-3-nam-18826041608312824.chn)"
+],
+"key_facts": [
+"FPT AI Factory hợp tác với InFlow và Visa Intelligent Commerce ngày 13/05/2026 [FPT Software]",
+"Mục tiêu hợp tác FPT AI Factory - InFlow - Visa Intelligent Commerce = ra mắt nền tảng agent-native commerce [FPT Software]",
+"FPT và SAMICK THK hợp tác về smart manufacturing với AI và robotics ngày 13/05/2026 [FPT Software]",
+"FPT và Mitsubishi Motors ký MOU về automotive software và digital domain ngày 14/05/2026 [FPT Software]",
+"FPT tăng hiện diện tại Munich để thúc đẩy AI transformation ngày 14/05/2026 [FPT Software]",
+"FPT đạt ba giải Globee Awards 2026 về AI ngày 15/05/2026 [FPT Software]",
+"FPT báo lợi nhuận ròng 4 tháng 2026 = 3.360 tỷ đồng [Vietstock]",
+"Vietstock ngày khoảng 13/05/2026 nêu FPT có thỏa thuận với Intel về AI, mô phỏng tốc độ cao và digital twin trong tối ưu vận hành nhà máy [Vietstock]",
+"FPT cùng Salesforce khai trương Trung tâm Đổi mới Dữ liệu & AI đầu tiên tại ASEAN đặt tại Hà Nội [Vietstock]",
+"Hợp đồng AI hàng chục triệu USD với tập đoàn vật liệu được CafeF đăng ngày 16/04/2026, không thuộc tháng 5/2026 [CafeF]"
+],
+"negative_facts": [
+"Không nói hợp đồng AI hàng chục triệu USD ngày 16/04/2026 là tin trong tháng 5.",
+"Không bịa hợp đồng hàng trăm triệu USD mới trong tháng 5 nếu chưa có công bố.",
+"Không nhầm FPTS với FPT trong các tin cổ tức/chứng khoán."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-003",
+"question": "HPG gần đây có tin gì về sản lượng thép, dự án Dung Quất 2 hoặc biến động giá thép không?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"HPG"
+],
+"expected_timeframe": "gần đây",
+"scope": "company",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Gần đây đến 18/05/2026, HPG có một số tin đáng chú ý. Ngày 18/05/2026, CafeF đưa tin Hòa Phát cùng Đại Quang Minh góp vốn thành lập công ty nghìn tỷ để tiếp quản khai thác mỏ sắt trữ lượng 120 triệu tấn tại Lào Cai, liên quan trực tiếp đến chủ đề nguyên liệu đầu vào. Ngày 30/04/2026, Người Quan Sát đưa tin Hòa Phát rót hơn 10.000 tỷ đồng vào loạt dự án, trong đó Dung Quất 2 đã vận hành tối đa 100% công suất thiết kế trong Q1/2026; bài cũng nêu trọng tâm vốn khoảng 6.050 tỷ đồng tại Khu liên hợp gang thép Dung Quất. Tin nội bộ Hòa Phát đầu tháng 5/2026 ghi nhận sản lượng bán hàng các loại thép tháng 4 đạt gần 600.000 tấn. Báo cáo cập nhật Vietstock tháng 4/2026 cho biết năm 2026, Hòa Phát kỳ vọng bứt phá nhờ công suất HRC bổ sung từ Dung Quất 2, tổng sản lượng tiêu thụ dự phóng 14,8 triệu tấn, tăng 26% YoY. Về giá thép, báo cáo cập nhật tháng 2/2026 trên Vietstock nêu biên gộp Q1/2026 ước cải thiện nhờ giá thép trong nước tăng trở lại và giá nguyên liệu đầu vào duy trì thấp.",
+"sources": [],
+"web_sources": [
+"[https://cafef.vn/hoa-phat-hpg-cung-dai-quang-minh-da-gop-von-thanh-lap-cong-ty-nghin-ty-de-tiep-quan-khai-thac-mo-sat-tru-luong-120-trieu-tan-tai-lao-cai-188260518072835846.chn](https://cafef.vn/hoa-phat-hpg-cung-dai-quang-minh-da-gop-von-thanh-lap-cong-ty-nghin-ty-de-tiep-quan-khai-thac-mo-sat-tru-luong-120-trieu-tan-tai-lao-cai-188260518072835846.chn)",
+"[https://nguoiquansat.vn/rot-hon-10-000-ty-vao-loat-sieu-du-an-hoa-phat-hpg-he-lo-tien-do-nha-may-thep-ray-dac-biet-289121.html](https://nguoiquansat.vn/rot-hon-10-000-ty-vao-loat-sieu-du-an-hoa-phat-hpg-he-lo-tien-do-nha-may-thep-ray-dac-biet-289121.html)",
+"[https://noibo.hoaphat.com.vn/tin-tuc/thep-hoa-phat-dung-quat-tong-ket-nam-2025-va-trien-khai-ke-hoach-2026.html](https://noibo.hoaphat.com.vn/tin-tuc/thep-hoa-phat-dung-quat-tong-ket-nam-2025-va-trien-khai-ke-hoach-2026.html)",
+"[https://finance.vietstock.vn/bao-cao-phan-tich/19758/hpg-bao-cao-cap-nhat-10042026.htm](https://finance.vietstock.vn/bao-cao-phan-tich/19758/hpg-bao-cao-cap-nhat-10042026.htm)",
+"[https://finance.vietstock.vn/downloadedoc/19084](https://finance.vietstock.vn/downloadedoc/19084)",
+"[https://static1.vietstock.vn/edocs/19456/Cap_nhat_san_luong_HPG_20261903.pdf](https://static1.vietstock.vn/edocs/19456/Cap_nhat_san_luong_HPG_20261903.pdf)"
+],
+"key_facts": [
+"CafeF đăng tin HPG cùng Đại Quang Minh góp vốn thành lập công ty tiếp quản mỏ sắt Lào Cai ngày 18/05/2026 [CafeF]",
+"Trữ lượng mỏ sắt Lào Cai trong tin CafeF = 120 triệu tấn [CafeF]",
+"Người Quan Sát đăng tin HPG rót hơn 10.000 tỷ đồng vào loạt dự án ngày 30/04/2026 [Người Quan Sát]",
+"Vốn đầu tư tại Khu liên hợp gang thép Dung Quất trong bài ngày 30/04/2026 = khoảng 6.050 tỷ đồng [Người Quan Sát]",
+"Dung Quất 2 vận hành tối đa 100% công suất thiết kế trong Q1/2026 [Người Quan Sát]",
+"Sản lượng bán hàng các loại thép Hòa Phát tháng 4/2026 = gần 600.000 tấn [Hòa Phát nội bộ]",
+"Vietstock/Beta dự phóng tổng sản lượng tiêu thụ HPG năm 2026 = 14,8 triệu tấn [Vietstock]",
+"Tăng trưởng tổng sản lượng tiêu thụ HPG dự phóng năm 2026 = 26% YoY [Vietstock]",
+"Vietstock/Kafi ghi nhận tổng sản lượng tiêu thụ HPG tháng 01/2026 = 1.131.350 tấn [Vietstock/Kafi]",
+"Tăng trưởng tổng sản lượng tiêu thụ HPG tháng 01/2026 = 75,98% YoY [Vietstock/Kafi]",
+"Biên lợi nhuận gộp Q1/2026 của HPG ước đạt 15,9%, tăng 1,5 điểm phần trăm YoY nhờ giá thép trong nước tăng trở lại và giá nguyên liệu thấp [Vietstock]"
+],
+"negative_facts": [
+"Không nói Dung Quất 2 chỉ mới ở giai đoạn ý tưởng nếu nguồn đã ghi vận hành 100% công suất thiết kế trong Q1/2026.",
+"Không dùng sản lượng tháng 01/2026 làm sản lượng tháng 4/2026.",
+"Không khẳng định giá thép tăng phi mã; nguồn chỉ nói giá thép trong nước tăng trở lại."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+}
+]

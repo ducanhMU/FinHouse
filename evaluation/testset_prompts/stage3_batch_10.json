@@ -1,0 +1,316 @@
+
+[
+  {
+    "id": "C-014",
+    "question": "GAS năm 2024: phân tích doanh thu, lợi nhuận sau thuế, dòng tiền kinh doanh và biên lợi nhuận để đánh giá tính ổn định của kết quả.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "GAS"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": "Kết quả kinh doanh năm 2024 của PV GAS (GAS) cho thấy sự thiếu ổn định trong việc chuyển hóa doanh thu thành lợi nhuận và dòng tiền. Cụ thể, dù doanh thu thuần tăng trưởng mạnh mẽ lên mức 103.564 tỷ đồng, lợi nhuận sau thuế lại sụt giảm xuống còn 10.590 tỷ đồng (so với 11.793 tỷ đồng năm 2023). Sự sụt giảm lợi nhuận trên nền doanh thu tăng khiến biên lợi nhuận ròng (lợi nhuận sau thuế/doanh thu) thu hẹp từ 13% xuống 10%. Thêm vào đó, chất lượng dòng tiền cũng suy yếu khi lưu chuyển tiền thuần từ hoạt động kinh doanh giảm mạnh từ 13.827 tỷ đồng (năm 2023) xuống còn 9.035 tỷ đồng trong năm 2024.",
+    "sources": [
+      "GAS_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Doanh thu thuần 2024 = 103.564 tỷ đồng, tăng mạnh so với 2023",
+      "Lợi nhuận sau thuế sụt giảm còn 10.590 tỷ đồng",
+      "Biên lợi nhuận ròng giảm từ 13% xuống 10%",
+      "Dòng tiền kinh doanh giảm mạnh từ 13.827 tỷ xuống 9.035 tỷ đồng"
+    ],
+    "negative_facts": [
+      "Kết luận rằng tăng trưởng của GAS đang rất ổn định",
+      "Sử dụng sai số liệu dòng tiền kinh doanh thành dòng tiền đầu tư"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "C-015",
+    "question": "PNJ năm 2024 tăng trưởng có bền không khi xét doanh thu, lợi nhuận ròng, biên gộp, hàng tồn kho và dòng tiền kinh doanh?",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "PNJ"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "C-016",
+    "question": "Phân tích xu hướng VNM giai đoạn 2022-2024: doanh thu, lợi nhuận sau thuế, biên lợi nhuận gộp và ROE thay đổi như thế nào?",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VNM"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": "Giai đoạn 2022-2024, Vinamilk (VNM) cho thấy sự phục hồi và tăng trưởng đều đặn ở các chỉ tiêu cốt lõi. Về doanh thu thuần, từ mức 59.956 tỷ đồng năm 2022, công ty đã duy trì đà tăng trưởng để đạt 61.824 tỷ đồng vào năm 2024,. Lợi nhuận sau thuế ghi nhận mức tăng liên tục qua các năm: 8.578 tỷ đồng (2022), 9.019 tỷ đồng (2023) và 9.453 tỷ đồng (2024),. Tỷ suất sinh lời trên vốn chủ sở hữu (ROE) duy trì ổn định ở mức cao, đạt 26,1% năm 2022, giảm nhẹ về 25,8% năm 2023 trước khi phục hồi lại 26,1% năm 2024,. Đối với biên lợi nhuận gộp, năm 2022 đạt khoảng 39,85% (lợi nhuận gộp 23.897 tỷ đồng trên doanh thu thuần 59.956 tỷ đồng), tuy nhiên tài liệu hiện tại chưa cung cấp đủ số liệu chi tiết để đánh giá chính xác xu hướng biên gộp của năm 2023 và 2024.",
+    "sources": [
+      "VNM_BCTN22.pdf",
+      "VNM_BCTN25.pdf",
+      "Conversation History"
+    ],
+    "key_facts": [
+      "Doanh thu thuần: 2022 đạt 59.956 tỷ đồng, 2024 đạt 61.824 tỷ đồng",
+      "Lợi nhuận sau thuế: Tăng từ 8.578 tỷ (2022) lên 9.019 tỷ (2023) và 9.453 tỷ (2024)",
+      "ROE duy trì ổn định: 26,1% (2022), 25,8% (2023), 26,1% (2024)",
+      "Biên gộp năm 2022 đạt 39,85%, thiếu dữ liệu cho 2023-2024"
+    ],
+    "negative_facts": [
+      "Tự tính toán hoặc bịa đặt số liệu biên lợi nhuận gộp năm 2023 và 2024",
+      "Cho rằng lợi nhuận sau thuế của VNM suy giảm trong giai đoạn này"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "C-017",
+    "question": "FPT giai đoạn 2022-2024: phân rã tăng trưởng doanh thu và lợi nhuận theo các mảng chính để xem mảng nào kéo ROE lên.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "FPT"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Giai đoạn 2022-2024, FPT liên tục đạt mức tăng trưởng ấn tượng với tổng doanh thu tăng từ 44.010 tỷ đồng (2022) lên 52.618 tỷ đồng (2023) và đạt 62.849 tỷ đồng (2024),,,. Cùng với đó, lợi nhuận sau thuế bứt phá từ 6.491 tỷ đồng (2022) lên 7.788 tỷ đồng (2023) và 9.427 tỷ đồng (2024),. Nhờ vậy, ROE liên tục được cải thiện từ 27,7% (2022) lên 27,9% (2023) và đạt 28,5% năm 2024,. Động lực chính kéo ROE và biên lợi nhuận đi lên là Khối Công nghệ, đặc biệt là mảng Dịch vụ CNTT thị trường nước ngoài. Doanh thu của mảng này đã tăng mạnh từ 18.915 tỷ đồng (2022) lên 30.952 tỷ đồng (2024), duy trì vị thế là trụ cột dẫn dắt tăng trưởng chung của toàn tập đoàn,,.",
+    "sources": [
+      "FPT_BCTN22.pdf",
+      "FPT_BCTN23.pdf",
+      "FPT_BCTN24.pdf",
+      "Conversation History"
+    ],
+    "key_facts": [
+      "Tổng doanh thu tăng từ 44.010 tỷ (2022) lên 62.849 tỷ (2024)",
+      "Lợi nhuận sau thuế tăng từ 6.491 tỷ (2022) lên 9.427 tỷ (2024)",
+      "ROE cải thiện đều đặn: 27,7% (2022) -> 27,9% (2023) -> 28,5% (2024)",
+      "Động lực chính là Khối Công nghệ, đặc biệt mảng CNTT nước ngoài tăng doanh thu từ 18.915 tỷ (2022) lên 30.952 tỷ (2024)"
+    ],
+    "negative_facts": [
+      "Cho rằng mảng Viễn thông là động lực chính kéo ROE lên cao nhất",
+      "Sử dụng sai số liệu doanh thu hoặc lợi nhuận của các năm"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "C-018",
+    "question": "HPG từ 2022 đến 2024: chu kỳ ngành thép thể hiện thế nào qua doanh thu, biên gộp, lợi nhuận sau thuế và nợ vay?",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "HPG"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Biến động kết quả kinh doanh của Tập đoàn Hòa Phát (HPG) từ 2022-2024 thể hiện rõ nét tính chu kỳ của ngành thép. Năm 2022, khi ngành thép bắt đầu đối mặt với khó khăn, doanh thu thuần đạt 141.409 tỷ đồng, giá vốn cao khiến lợi nhuận gộp chỉ đạt 16.763 tỷ đồng (biên gộp ~11,8%) và lợi nhuận sau thuế là 8.444 tỷ đồng,. Sang năm 2023, HPG chạm đáy chu kỳ khi doanh thu thuần sụt giảm còn 118.953 tỷ đồng, lợi nhuận gộp thu hẹp còn 12.937 tỷ đồng (biên gộp ~10,9%) và lợi nhuận sau thuế giảm mạnh xuống mức 6.800 tỷ đồng,. Đến năm 2024, đà phục hồi diễn ra khi doanh thu thuần tăng 17% đạt 138.855 tỷ đồng, biên lợi nhuận cải thiện. Về mặt quản trị rủi ro, HPG đã tối ưu hóa cơ cấu nợ vay bằng cách chủ động giảm mạnh tỷ trọng nợ vay bằng USD từ 16% (năm 2023) xuống chỉ còn 3% (năm 2024), giúp giảm thiểu chi phí tài chính và áp lực tỷ giá,.",
+    "sources": [
+      "HPG_BCTN22.pdf",
+      "HPG_BCTN23.pdf",
+      "Conversation History"
+    ],
+    "key_facts": [
+      "2022 (khó khăn): Doanh thu 141.409 tỷ, lợi nhuận gộp 16.763 tỷ, LNST 8.444 tỷ",
+      "2023 (đáy chu kỳ): Doanh thu 118.953 tỷ, lợi nhuận gộp 12.937 tỷ, LNST 6.800 tỷ",
+      "2024 (phục hồi): Doanh thu 138.855 tỷ (tăng 17%)",
+      "Quản trị nợ: Tỷ trọng nợ vay USD giảm mạnh từ 16% (2023) xuống 3% (2024)"
+    ],
+    "negative_facts": [
+      "Nhận định ngành thép tăng trưởng liên tục không ngừng từ 2022 đến 2024",
+      "Nêu sai số liệu nợ vay USD tăng lên gây rủi ro tỷ giá"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "C-019",
+    "question": "MWG giai đoạn 2022-2024: phân tích sự thay đổi doanh thu, lợi nhuận, biên ròng và hiệu quả kiểm soát chi phí bán hàng.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "MWG"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Trong giai đoạn 2022-2024, hoạt động của Thế Giới Di Động (MWG) có sự biến động lớn theo sức cầu tiêu dùng và chiến lược tái cấu trúc. Năm 2022, doanh thu đạt 133.405 tỷ đồng và lợi nhuận ròng là 4.102 tỷ đồng (biên ròng khoảng 3,1%),. Năm 2023 là giai đoạn khó khăn nhất khi sức mua yếu, doanh thu giảm xuống 118.280 tỷ đồng và lợi nhuận ròng rơi tự do chỉ còn 168 tỷ đồng, khiến biên ròng chỉ đạt khoảng 0,14%,. Tuy nhiên, năm 2024 đã đánh dấu sự phục hồi mạnh mẽ. MWG thực hiện chiến lược \"Giảm lượng - Tăng chất\" thông qua việc đóng cửa hàng loạt các cửa hàng kém hiệu quả (khoảng 100 cửa hàng Điện Máy Xanh) và tối ưu hóa chi phí bán hàng. Nhờ vậy, doanh thu trên mỗi điểm bán hiện hữu tăng trưởng trên 20%, kéo tổng doanh thu lên mức 134.000 tỷ đồng, lợi nhuận sau thuế bứt phá gấp 21 lần so với 2023 đạt 3.733 tỷ đồng, giúp biên lợi nhuận ròng phục hồi lên mức 2,8%,.",
+    "sources": [
+      "MWG_BCTN25.pdf",
+      "Conversation History"
+    ],
+    "key_facts": [
+      "2022: Doanh thu 133.405 tỷ đồng, LNST 4.102 tỷ đồng",
+      "2023: Khó khăn, doanh thu 118.280 tỷ đồng, LNST 168 tỷ đồng",
+      "2024: Phục hồi, doanh thu 134.000 tỷ đồng, LNST 3.733 tỷ đồng",
+      "Đóng cửa các cửa hàng kém hiệu quả giúp doanh thu/cửa hàng tăng 20%, lợi nhuận tăng gấp 21 lần"
+    ],
+    "negative_facts": [
+      "Bỏ qua sự sụt giảm nghiêm trọng của năm 2023",
+      "Đánh giá sai nguyên nhân phục hồi năm 2024 (ví dụ cho là nhờ mở ồ ạt điểm bán mới)"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "C-020",
+    "question": "VCB 2022-2024: đánh giá xu hướng lợi nhuận trước thuế, NIM, nợ xấu và ROE để xem ngân hàng còn duy trì lợi thế chất lượng tài sản không.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VCB"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Trong giai đoạn 2022-2024, Vietcombank (VCB) tiếp tục khẳng định và duy trì vững chắc lợi thế vượt trội về chất lượng tài sản. Về hiệu quả sinh lời, tỷ suất sinh lời trên vốn chủ sở hữu (ROE) luôn ở mức cao nhưng có xu hướng giảm dần khi quy mô vốn chủ tăng mạnh, từ mức 24,44% (năm 2022) xuống 21,99% (năm 2023) và đạt 20,0% vào năm 2024,,. Lợi nhuận trước thuế tiếp tục duy trì mức tăng trưởng ấn tượng và luôn đứng trong top đầu toàn ngành,. Về chất lượng tài sản, ngân hàng kiểm soát rất tốt tỷ lệ nợ xấu, điển hình như năm 2023 duy trì quanh mức 0,99%,. Đặc biệt, bộ đệm rủi ro được củng cố vững chắc khi tỷ lệ dự phòng bao phủ nợ xấu (LLR) liên tục duy trì ở mức cao nhất hệ thống ngân hàng Việt Nam, đạt mức 259% vào năm 2024,. Các yếu tố này cho thấy VCB vẫn giữ vững nền tảng tài chính an toàn và chất lượng tài sản vượt trội.",
+    "sources": [
+      "VCB_BCTN22.pdf",
+      "VCB_BCTN23.pdf",
+      "MBB_BCTN25.pdf"
+    ],
+    "key_facts": [
+      "ROE duy trì cao nhưng giảm nhẹ theo quy mô vốn: 24,44% (2022) -> 21,99% (2023) -> 20,0% (2024)",
+      "Lợi nhuận trước thuế ổn định thuộc top đầu ngành",
+      "Tỷ lệ nợ xấu kiểm soát tốt ở mức thấp (~0,99% năm 2023)",
+      "Tỷ lệ bao phủ nợ xấu (LLR) dẫn đầu hệ thống, đạt 259% năm 2024"
+    ],
+    "negative_facts": [
+      "Cho rằng nợ xấu của VCB đang gia tăng mất kiểm soát",
+      "Nhận định VCB mất vị thế dẫn đầu về tỷ lệ bao phủ nợ xấu"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "C-021",
+    "question": "VHM giai đoạn 2022-2024 có biến động lợi nhuận do bàn giao dự án hay do biên lợi nhuận? Phân tích doanh thu, lợi nhuận, biên gộp và nợ vay.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VHM"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Giai đoạn 2022-2024, biến động lợi nhuận của Vinhomes (VHM) chủ yếu được dẫn dắt bởi tiến độ bàn giao các đại dự án thay vì sự cải thiện của biên lợi nhuận. Cụ thể, năm 2022, doanh thu thuần đạt 62.393 tỷ đồng với biên lợi nhuận gộp rất cao ở mức xấp xỉ 51,1% (lợi nhuận gộp đạt 31.909 tỷ đồng). Tuy nhiên, sang năm 2023 và 2024, quy mô doanh thu bứt phá mạnh mẽ khi VHM bước vào chu kỳ bàn giao lớn, với doanh thu thuần đạt lần lượt 103.556 tỷ đồng và 102.323 tỷ đồng,. Mặc dù biên lợi nhuận gộp có xu hướng giảm dần về 34,48% (2023) và 32,22% (2024), nhưng nhờ khối lượng bàn giao khổng lồ, lợi nhuận sau thuế hợp nhất vẫn duy trì đà tăng trưởng tích cực, đạt 33.371 tỷ đồng (thuộc cổ đông công ty mẹ năm 2023) và 35.072 tỷ đồng (hợp nhất năm 2024),. Về cấu trúc vốn, nếu như tổng nợ vay năm 2022 ở mức 36.206 tỷ đồng, thì đến cuối năm 2024, mặc dù VHM đang triển khai nhiều dự án mới, đòn bẩy tài chính vẫn được kiểm soát an toàn với tỷ lệ nợ ròng trên tổng tài sản là 8,35% và nợ ròng trên vốn chủ sở hữu là 21,35%,.",
+    "sources": [
+      "VHM_BCTN22.pdf",
+      "VHM_BCTN24.pdf",
+      "Conversation History"
+    ],
+    "key_facts": [
+      "Năm 2022: Doanh thu 62.393 tỷ, lợi nhuận gộp 31.909 tỷ (biên gộp ~51,1%), tổng nợ vay 36.206 tỷ đồng",
+      "Năm 2023: Doanh thu 103.556 tỷ, biên gộp 34,48%, lợi nhuận sau thuế công ty mẹ 33.371 tỷ đồng",
+      "Năm 2024: Doanh thu 102.323 tỷ, biên gộp 32,22%, lợi nhuận sau thuế hợp nhất 35.072 tỷ đồng",
+      "Lợi nhuận tăng trưởng chủ yếu nhờ khối lượng bàn giao khổng lồ, bù đắp cho việc biên lợi nhuận gộp giảm dần",
+      "Đòn bẩy năm 2024: Nợ ròng/Tổng tài sản 8,35%, Nợ ròng/VCSH 21,35%"
+    ],
+    "negative_facts": [
+      "Cho rằng lợi nhuận tăng là do biên lợi nhuận gộp liên tục cải thiện qua các năm",
+      "Sử dụng sai số liệu đòn bẩy dẫn đến kết luận VHM bị rủi ro nợ vay cao"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "C-022",
+    "question": "MSN 2022-2024: phân tích doanh thu, EBITDA, lợi nhuận ròng và đòn bẩy để đánh giá quá trình tái cơ cấu có hiệu quả không.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "MSN"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "C-023",
+    "question": "DGC giai đoạn 2022-2024: lợi nhuận giảm hay phục hồi theo chu kỳ hóa chất? Phân tích doanh thu, biên gộp, lợi nhuận sau thuế và tiền mặt ròng.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "DGC"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  }
+]

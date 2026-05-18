@@ -1,0 +1,223 @@
+
+[
+  {
+    "id": "F-004",
+    "question": "MWG tuần này có tin mới về Bách Hóa Xanh, đóng/mở cửa hàng hoặc biến động lợi nhuận không?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "MWG"
+    ],
+    "expected_timeframe": "tuần này",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-005",
+    "question": "VCB trong tháng này có tin gì mới về tăng vốn, cổ tức hoặc thay đổi nhân sự cấp cao?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "VCB"
+    ],
+    "expected_timeframe": "tháng này",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-006",
+    "question": "BID có sự kiện đáng chú ý nào trong năm 2026 về phát hành cổ phiếu, trái phiếu hoặc chiến lược ngân hàng số không?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "BID"
+    ],
+    "expected_timeframe": "2026",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-007",
+    "question": "VHM tháng này có tin mới về mở bán dự án, pháp lý dự án hoặc giao dịch lớn nào không?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "VHM"
+    ],
+    "expected_timeframe": "tháng này",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-008",
+    "question": "VIC gần đây có tin nóng gì về VinFast, huy động vốn hoặc thay đổi chiến lược tập đoàn?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "VIC"
+    ],
+    "expected_timeframe": "gần đây",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-009",
+    "question": "MSN tuần này có tin gì về Masan Consumer, WinCommerce hoặc thương vụ M&A mới không?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "MSN"
+    ],
+    "expected_timeframe": "tuần này",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-010",
+    "question": "TCB tháng này có tin mới về cổ tức, room tín dụng hoặc biến động nợ xấu không?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "TCB"
+    ],
+    "expected_timeframe": "tháng này",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-011",
+    "question": "ACB gần đây có sự kiện gì về đại hội cổ đông, kế hoạch lợi nhuận hoặc chia cổ tức năm 2026?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "ACB"
+    ],
+    "expected_timeframe": "2026",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-012",
+    "question": "MBB tuần này có tin bất thường nào về tăng vốn, cổ đông chiến lược hoặc lợi nhuận quý mới nhất không?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "MBB"
+    ],
+    "expected_timeframe": "tuần này",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-013",
+    "question": "SAB tháng này có tin gì mới về tiêu thụ bia, chính sách thuế tiêu thụ đặc biệt hoặc cổ tức không?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "SAB"
+    ],
+    "expected_timeframe": "tháng này",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  }
+]

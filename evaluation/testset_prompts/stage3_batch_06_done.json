@@ -1,0 +1,468 @@
+[
+  {
+    "id": "B-034",
+    "question": "KDH 2024 P/E bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "KDH"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Không xác định được một con số P/E năm 2024 duy nhất cho Khang Điền (KDH) từ nguồn uy tín tính đến 2026-05-18, do P/E phụ thuộc ngày chốt giá cổ phiếu và EPS dùng để tính [web:cafef][web:vietstock]. Số trên CafeF ngày 18/05/2026 là dữ liệu hiện tại, không phải năm 2024: P/E 21,47 lần, P/B 1,21 lần, EPS cơ bản 1,08 nghìn đồng/cổ phiếu, giá trị sổ sách 16,80 nghìn đồng/cổ phiếu [web:cafef]. KDH công bố Báo cáo thường niên năm 2024 ngày 11/04/2025 [web:vietstock][web:khangdien]. Cần EPS 2024 từ BCTC kiểm toán và giá đóng cửa tại một ngày năm 2024 để tính P/E.",
+    "sources": [],
+    "web_sources": [
+      "[https://finance.vietstock.vn/KDH-ctcp-dau-tu-va-kinh-doanh-nha-khang-dien.htm](https://finance.vietstock.vn/KDH-ctcp-dau-tu-va-kinh-doanh-nha-khang-dien.htm)",
+      "[https://vietstock.vn/2025/04/kdh-bao-cao-thuong-nien-nam-2024-737-1294500.htm](https://vietstock.vn/2025/04/kdh-bao-cao-thuong-nien-nam-2024-737-1294500.htm)",
+      "[https://cafef.vn/du-lieu/hose/kdh-cong-ty-co-phan-dau-tu-va-kinh-doanh-nha-khang-dien.chn](https://cafef.vn/du-lieu/hose/kdh-cong-ty-co-phan-dau-tu-va-kinh-doanh-nha-khang-dien.chn)",
+      "[https://www.khangdien.com.vn/co-dong/bao-cao-cao-bach/bao-cao-thuong-nien](https://www.khangdien.com.vn/co-dong/bao-cao-cao-bach/bao-cao-thuong-nien)",
+      "[https://khangdien.vn/bao-cao-thuong-nien](https://khangdien.vn/bao-cao-thuong-nien)"
+    ],
+    "key_facts": [
+      "không verify được một P/E duy nhất cho KDH năm 2024 từ nguồn uy tín tính đến 2026-05-18 vì P/E phụ thuộc ngày giá cổ phiếu và EPS dùng để tính",
+      "P/E hiện tại của KDH tại CafeF ngày 18/05/2026 = 21,47 lần, không phải P/E năm 2024 [cafef]",
+      "P/B hiện tại của KDH tại CafeF ngày 18/05/2026 = 1,21 lần, không phải P/E năm 2024 [cafef]",
+      "EPS cơ bản hiện tại của KDH tại CafeF ngày 18/05/2026 = 1,08 nghìn đồng/cổ phiếu, không phải EPS năm 2024 [cafef]",
+      "Giá trị sổ sách hiện tại của KDH tại CafeF ngày 18/05/2026 = 16,80 nghìn đồng/cổ phiếu [cafef]",
+      "KDH công bố Báo cáo thường niên năm 2024 ngày 11/04/2025 [vietstock]",
+      "KDH có Báo cáo thường niên năm 2024 trên website doanh nghiệp [khangdien]",
+      "Doanh thu thuần kỳ gần nhất hiển thị tại Vietstock của KDH = 1.046.771 triệu đồng [vietstock]",
+      "Lợi nhuận sau thuế thu nhập doanh nghiệp kỳ gần nhất hiển thị tại Vietstock của KDH = 195.978 triệu đồng [vietstock]"
+    ],
+    "negative_facts": [
+      "KHÔNG dùng P/E hiện tại năm 2026 để trả lời P/E năm 2024",
+      "KHÔNG đưa P/E 2024 nếu không nêu rõ ngày giá cổ phiếu và EPS dùng để tính",
+      "KHÔNG nhầm P/E với P/B của KDH"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": false,
+    "corrected": false
+  },
+  {
+    "id": "B-035",
+    "question": "REE năm 2024 cổ tức tiền mặt bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "REE"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, REE chi trả cổ tức tiền mặt tỷ lệ 10% trên mệnh giá, tương đương 1.000 đồng/cổ phiếu [web:vneconomy]. Ngoài phần tiền mặt, REE còn dự kiến/chốt phương án cổ tức bằng cổ phiếu tỷ lệ 15%, nên tổng tỷ lệ cổ tức năm 2024 là 25% nếu tính cả tiền mặt và cổ phiếu [web:baophapluat][web:vsd]. Với câu hỏi chỉ hỏi cổ tức tiền mặt, đáp án chuẩn là 10% bằng tiền mặt, tương đương 1.000 đồng/cổ phiếu.",
+    "sources": [],
+    "web_sources": [
+      "[https://vneconomy.vn/ree-du-chi-471-ty-tam-ung-co-tuc-nam-2024.htm](https://vneconomy.vn/ree-du-chi-471-ty-tam-ung-co-tuc-nam-2024.htm)",
+      "[https://doanhnhan.baophapluat.vn/ree-du-kien-chia-co-tuc-2024-ty-le-25-ket-hop-tien-mat-va-co-phieu-81284.html](https://doanhnhan.baophapluat.vn/ree-du-kien-chia-co-tuc-2024-ty-le-25-ket-hop-tien-mat-va-co-phieu-81284.html)",
+      "[https://vsd.vn/vi/ad/183535](https://vsd.vn/vi/ad/183535)",
+      "[https://www.tinnhanhchungkhoan.vn/co-dien-lanh-ree-sap-phat-hanh-707-trieu-co-phieu-de-tra-co-tuc-nam-2024-post370248.html](https://www.tinnhanhchungkhoan.vn/co-dien-lanh-ree-sap-phat-hanh-707-trieu-co-phieu-de-tra-co-tuc-nam-2024-post370248.html)"
+    ],
+    "key_facts": [
+      "Cổ tức tiền mặt năm 2024 của REE = 10% mệnh giá [vneconomy]",
+      "Cổ tức tiền mặt năm 2024 của REE = 1.000 đồng/cổ phiếu [vneconomy]",
+      "Số cổ phiếu REE đang lưu hành dùng để chi trả cổ tức tiền mặt = 471.013.400 cổ phiếu [vneconomy]",
+      "Số tiền REE dự chi để trả cổ tức tiền mặt năm 2024 = hơn 471 tỷ đồng [vneconomy]",
+      "Ngày thanh toán cổ tức tiền mặt năm 2024 của REE = 04/04/2025 [vneconomy]",
+      "Tổng tỷ lệ cổ tức năm 2024 của REE = 25% nếu tính cả tiền mặt và cổ phiếu [baophapluat]",
+      "Cổ tức bằng cổ phiếu năm 2024 của REE = 15% [vsd]",
+      "REE dự kiến phát hành khoảng 70,7 triệu cổ phiếu để trả cổ tức năm 2024 bằng cổ phiếu [tinnhanhchungkhoan]"
+    ],
+    "negative_facts": [
+      "KHÔNG trả lời 25% nếu câu hỏi chỉ hỏi cổ tức tiền mặt",
+      "KHÔNG nhầm cổ tức tiền mặt 10% với cổ tức cổ phiếu 15%",
+      "KHÔNG nhầm 1.000 đồng/cổ phiếu với 10.000 đồng/cổ phiếu"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-036",
+    "question": "VND năm 2024 vốn chủ sở hữu bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VND"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Tại ngày 31/12/2024, vốn chủ sở hữu của CTCP Chứng khoán VNDIRECT (VND) là 19.715.068.693.211 đồng, tương đương khoảng 19.715 tỷ đồng [web:vndirect]. Báo cáo kết quả kinh doanh 4Q2024 của VNDIRECT cũng trình bày vốn chủ sở hữu ở mức 19.715 tỷ đồng và tổng tài sản 44.295 tỷ đồng [web:vndirect].",
+    "sources": [],
+    "web_sources": [
+      "[https://www.vndirect.com.vn/cmsupload/beta/VND_Bao-cao-tai-chinh-Quy-4-nam-2024.pdf](https://www.vndirect.com.vn/cmsupload/beta/VND_Bao-cao-tai-chinh-Quy-4-nam-2024.pdf)",
+      "[https://www.vndirect.com.vn/Ket-qua-hoat-dong-kinh-doanh-VNDIRECT-4Q2024.pdf](https://www.vndirect.com.vn/Ket-qua-hoat-dong-kinh-doanh-VNDIRECT-4Q2024.pdf)",
+      "[https://www.vndirect.com.vn/20250331-VND-CBTT-Bao-cao-tai-chinh-nam-2024-kiem-toan.pdf](https://www.vndirect.com.vn/20250331-VND-CBTT-Bao-cao-tai-chinh-nam-2024-kiem-toan.pdf)"
+    ],
+    "key_facts": [
+      "Vốn chủ sở hữu tại 31/12/2024 của VND = 19.715.068.693.211 đồng [vndirect]",
+      "Vốn chủ sở hữu tại 31/12/2024 của VND = khoảng 19.715 tỷ đồng [vndirect]",
+      "Tổng tài sản tại 31/12/2024 của VND = 44.295 tỷ đồng [vndirect]",
+      "Vốn điều lệ tại 31/12/2024 của VND = 15.222.999.080.000 đồng [vndirect]",
+      "ROEA năm 2024 của VND = 9,5% [vndirect]",
+      "ROAA năm 2024 của VND = 4,0% [vndirect]",
+      "Doanh thu ròng dịch vụ chứng khoán năm 2024 của VND = 1.507 tỷ đồng [vndirect]",
+      "Lợi nhuận sau thuế năm 2024 của VND = 1.718 tỷ đồng [vndirect]",
+      "Doanh thu ròng hoạt động thị trường vốn năm 2024 của VND = 1.289 tỷ đồng [vndirect]",
+      "Lợi nhuận trước thuế năm 2024 của VND = 2.088 tỷ đồng [vndirect]"
+    ],
+    "negative_facts": [
+      "KHÔNG nhầm vốn chủ sở hữu 19.715 tỷ đồng với tổng tài sản 44.295 tỷ đồng",
+      "KHÔNG nhầm vốn điều lệ 15.223 tỷ đồng với vốn chủ sở hữu",
+      "KHÔNG lấy số liệu quý/năm khác nếu câu hỏi yêu cầu năm 2024"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-037",
+    "question": "HCM 2024 EPS bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "HCM"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, EPS của CTCP Chứng khoán TP.HCM (HCM/HSC) đạt 1.668 đồng/cổ phiếu theo Vietstock khi công bố kết quả kinh doanh năm 2024 [web:vietstock]. Một số nguồn trước thời điểm BCTC chính thức dùng số ước tính EPS 2024 là 1.771 đồng/cổ phiếu, nhưng số này là dự báo/ước tính và không nên dùng làm đáp án chuẩn [web:tinnhanhchungkhoan].",
+    "sources": [],
+    "web_sources": [
+      "[https://vietstock.vn/2025/01/chung-khoan-hsc-lai-ngan-ty-nam-2024-nang-don-bay-tai-chinh-len-ngang-nam-2021-737-1264361.htm](https://vietstock.vn/2025/01/chung-khoan-hsc-lai-ngan-ty-nam-2024-nang-don-bay-tai-chinh-len-ngang-nam-2021-737-1264361.htm)",
+      "[https://www.hsc.com.vn/vi/bao-cao-thuong-nien-2024](https://www.hsc.com.vn/vi/bao-cao-thuong-nien-2024)",
+      "[https://cdn.24hmoney.vn/upload/file/2025-2/2025-04-02/no-name-1743544905.pdf](https://cdn.24hmoney.vn/upload/file/2025-2/2025-04-02/no-name-1743544905.pdf)",
+      "[https://www.tinnhanhchungkhoan.vn/chung-khoan-hsc-hcm-chi-khoang-360-ty-dong-tam-ung-co-tuc-nam-2024-post361756.html](https://www.tinnhanhchungkhoan.vn/chung-khoan-hsc-hcm-chi-khoang-360-ty-dong-tam-ung-co-tuc-nam-2024-post361756.html)",
+      "[https://thitruongtaichinhtiente.vn/nam-2024-hsc-bao-lai-gan-1-300-ty-dong-tang-54-65312.html](https://thitruongtaichinhtiente.vn/nam-2024-hsc-bao-lai-gan-1-300-ty-dong-tang-54-65312.html)"
+    ],
+    "key_facts": [
+      "EPS 2024 của HCM = 1.668 đồng/cổ phiếu [vietstock]",
+      "Tổng tài sản tại 31/12/2024 của HCM = 31.340 tỷ đồng [vietstock]",
+      "Vốn chủ sở hữu tại 31/12/2024 của HCM = 10.444 tỷ đồng [vietstock]",
+      "ROAE 2024 của HCM = 11% [vietstock]",
+      "Lợi nhuận trước thuế 2024 của HCM = 1.296 tỷ đồng [hsc]",
+      "Tăng trưởng lợi nhuận trước thuế 2024 của HCM = 53,9% YoY [hsc]",
+      "Doanh thu 2024 của HCM = 3.311 tỷ đồng [hsc]",
+      "HCM hoàn thành 89% kế hoạch kinh doanh năm 2024 [hsc]",
+      "EPS ước tính 2024 của HCM = 1.771 đồng/cổ phiếu, không phải số chính thức sau BCTC [tinnhanhchungkhoan]",
+      "Cổ tức tiền mặt HCM đã chi trả năm 2024 cho các năm 2022 và 2023 = 829 tỷ đồng [hsc]"
+    ],
+    "negative_facts": [
+      "KHÔNG dùng EPS ước tính 1.771 đồng/cổ phiếu làm đáp án chính xác nếu đã có số công bố 1.668 đồng/cổ phiếu",
+      "KHÔNG nhầm EPS với ROE hoặc ROAE",
+      "KHÔNG nhầm vốn chủ sở hữu 10.444 tỷ đồng với EPS"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-038",
+    "question": "DCM năm 2024 doanh thu thuần là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "DCM"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, Đạm Cà Mau (DCM) ghi nhận doanh thu thuần khoảng 13.456 tỷ đồng, tăng khoảng 7% so với cùng kỳ [web:psi]. Báo cáo thường niên 2024 của DCM cũng trình bày các chỉ tiêu hiệu quả năm 2024 như hệ số LNST/doanh thu thuần 8,83% và doanh thu thuần/tổng tài sản 82,49% [web:pvcfc].",
+    "sources": [],
+    "web_sources": [
+      "[https://www.pvcfc.com.vn/Data/Sites/1/media/bao-cao-thuong-nien/2025/PBCM_AR%202024.VN.pdf](https://www.pvcfc.com.vn/Data/Sites/1/media/bao-cao-thuong-nien/2025/PBCM_AR%202024.VN.pdf)",
+      "[https://www.pvcfc.com.vn/bao-cao-thuong-nien-nam-2024](https://www.pvcfc.com.vn/bao-cao-thuong-nien-nam-2024)",
+      "[https://vietstock.vn/2025/03/dcm-bao-cao-thuong-nien-nam-2024-737-1283503.htm](https://vietstock.vn/2025/03/dcm-bao-cao-thuong-nien-nam-2024-737-1283503.htm)",
+      "[https://www.psi.vn/uploads/trung-tam-phan-tich/bao-cao/Tai%20lieu%202/%5BVIE%5DPSI_Baocaocapnhat_DCM_Q4.2024.pdf](https://www.psi.vn/uploads/trung-tam-phan-tich/bao-cao/Tai%20lieu%202/%5BVIE%5DPSI_Baocaocapnhat_DCM_Q4.2024.pdf)",
+      "[https://www.dnse.com.vn/senses/tin-tuc/dcm-bao-cao-thuong-nien-nam-2024-35008680](https://www.dnse.com.vn/senses/tin-tuc/dcm-bao-cao-thuong-nien-nam-2024-35008680)"
+    ],
+    "key_facts": [
+      "Doanh thu thuần 2024 của DCM = 13.456 tỷ đồng [psi]",
+      "Tăng trưởng doanh thu thuần 2024 của DCM = 7% YoY [psi]",
+      "Doanh thu mảng NPK năm 2024 của DCM = 2.716 tỷ đồng [psi]",
+      "Tăng trưởng doanh thu mảng NPK năm 2024 của DCM = 62% YoY [psi]",
+      "Doanh thu mảng Urê năm 2024 của DCM giảm 7% YoY [psi]",
+      "Hệ số LNST/Doanh thu thuần 2024 của DCM = 8,83% [pvcfc]",
+      "Hệ số LNST/Doanh thu thuần 2023 của DCM = 10,61% [pvcfc]",
+      "Doanh thu thuần/Tổng tài sản 2024 của DCM = 82,49% [pvcfc]",
+      "Doanh thu thuần/Tổng tài sản 2023 của DCM = 85,55% [pvcfc]",
+      "DCM công bố Báo cáo thường niên năm 2024 ngày 19/03/2025 [vietstock]"
+    ],
+    "negative_facts": [
+      "KHÔNG dùng doanh thu lũy kế 9 tháng 2024 để trả lời cả năm 2024",
+      "KHÔNG nhầm doanh thu thuần 13.456 tỷ đồng với doanh thu mảng NPK 2.716 tỷ đồng",
+      "KHÔNG nhầm doanh thu thuần với lợi nhuận sau thuế"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-039",
+    "question": "VIC năm 2024 P/B là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VIC"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Không xác định được một con số P/B năm 2024 duy nhất cho Vingroup (VIC) từ nguồn uy tín tính đến 2026-05-18, do P/B phụ thuộc ngày chốt giá cổ phiếu và giá trị sổ sách dùng để tính [web:vietstock][web:cafef]. Số trên CafeF ngày 18/05/2026 là dữ liệu hiện tại: giá 226.300 đồng/cổ phiếu, khối lượng cổ phiếu lưu hành 7.706.031.024 cổ phiếu [web:cafef]. Vietstock và CafeF có trang tài chính/giao dịch VIC nhưng không cung cấp trực tiếp P/B năm 2024. VIC công bố giải trình chênh lệch BCTC kiểm toán năm 2024 ngày 31/03/2025 [web:cafef]. Cần giá trị sổ sách mỗi cổ phiếu từ vốn chủ sở hữu cuối 2024 và giá cổ phiếu tại một ngày xác định năm 2024.",
+    "sources": [],
+    "web_sources": [
+      "[https://finance.vietstock.vn/VIC-tap-doan-vingroup-ctcp.htm](https://finance.vietstock.vn/VIC-tap-doan-vingroup-ctcp.htm)",
+      "[https://cafef.vn/du-lieu/hose/vic-tap-doan-vingroup-cong-ty-co-phan.chn](https://cafef.vn/du-lieu/hose/vic-tap-doan-vingroup-cong-ty-co-phan.chn)",
+      "[https://cafef.vn/du-lieu/lich-su-giao-dich-vic-6.chn](https://cafef.vn/du-lieu/lich-su-giao-dich-vic-6.chn)",
+      "[https://m.cafef.vn/du-lieu/tai-bao-cao-tai-chinh/vic.chn](https://m.cafef.vn/du-lieu/tai-bao-cao-tai-chinh/vic.chn)",
+      "[https://cafef.vn/du-lieu/vic-2161501/vic-giai-trinh-chenh-lech-bctc-kiem-toan-nam-2024-so-voi-cung-ky-nam-truoc.chn](https://cafef.vn/du-lieu/vic-2161501/vic-giai-trinh-chenh-lech-bctc-kiem-toan-nam-2024-so-voi-cung-ky-nam-truoc.chn)"
+    ],
+    "key_facts": [
+      "không verify được một P/B duy nhất cho VIC năm 2024 từ nguồn uy tín tính đến 2026-05-18 vì P/B phụ thuộc ngày giá cổ phiếu và giá trị sổ sách dùng để tính",
+      "CafeF ghi nhận giá cổ phiếu VIC sáng 18/05/2026 = 226.300 đồng/cổ phiếu, không phải giá năm 2024 [cafef]",
+      "CafeF ghi nhận khối lượng cổ phiếu lưu hành VIC ngày 18/05/2026 = 7.706.031.024 cổ phiếu [cafef]",
+      "Vietstock có trang tài chính VIC với nhóm chỉ tiêu P/E, F P/E, P/B nhưng kết quả web không xác nhận trực tiếp P/B năm 2024 [vietstock]",
+      "CafeF có trang lịch sử giao dịch VIC nhưng kết quả web không cung cấp trực tiếp P/B năm 2024 [cafef]",
+      "CafeF có trang báo cáo tài chính VIC nhưng kết quả web không cung cấp trực tiếp P/B năm 2024 [cafef]",
+      "VIC công bố giải trình chênh lệch BCTC kiểm toán năm 2024 trên CafeF ngày 31/03/2025 [cafef]"
+    ],
+    "negative_facts": [
+      "KHÔNG dùng P/B hiện tại năm 2026 để trả lời P/B năm 2024",
+      "KHÔNG đưa P/B 2024 nếu không nêu rõ ngày giá cổ phiếu và BVPS dùng để tính",
+      "KHÔNG nhầm P/B với P/E hoặc vốn hóa thị trường"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": false,
+    "corrected": false
+  },
+  {
+    "id": "B-040",
+    "question": "SAB 2024 biên lợi nhuận ròng bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "SAB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, Sabeco (SAB) ghi nhận doanh thu thuần 31.782,4 tỷ đồng và lợi nhuận sau thuế 4.494,8 tỷ đồng [web:dnse]. Theo công thức biên lợi nhuận ròng = lợi nhuận sau thuế / doanh thu thuần, biên lợi nhuận ròng 2024 của SAB xấp xỉ 14,14%. Nếu dùng số làm tròn từ Sabeco là doanh thu thuần 31.872 tỷ đồng và lợi nhuận sau thuế 4.495 tỷ đồng, biên lợi nhuận ròng xấp xỉ 14,11% [web:sabeco].",
+    "sources": [],
+    "web_sources": [
+      "[https://www.dnse.com.vn/senses/tin-tuc/ong-lon-nganh-bia-sabeco-bao-lai-sau-thue-gan-4495-ty-ong-nam-2024-34094673](https://www.dnse.com.vn/senses/tin-tuc/ong-lon-nganh-bia-sabeco-bao-lai-sau-thue-gan-4495-ty-ong-nam-2024-34094673)",
+      "[https://sabeco.com.vn/loi-nhuan-tang-truong-56-trong-nam-2024-sabeco-dat-muc-tieu-tang-truong-8-trong-nam-2025](https://sabeco.com.vn/loi-nhuan-tang-truong-56-trong-nam-2024-sabeco-dat-muc-tieu-tang-truong-8-trong-nam-2025)",
+      "[https://thitruongtaichinhtiente.vn/sabeco-bao-lai-sau-thue-4-495-ty-dong-nam-2024-65429.html](https://thitruongtaichinhtiente.vn/sabeco-bao-lai-sau-thue-4-495-ty-dong-nam-2024-65429.html)"
+    ],
+    "key_facts": [
+      "Doanh thu thuần 2024 của SAB = 31.782,4 tỷ đồng [dnse]",
+      "LNST 2024 của SAB = 4.494,8 tỷ đồng [dnse]",
+      "Biên lợi nhuận ròng 2024 của SAB = 14,14% theo phép tính 4.494,8 / 31.782,4 [dnse]",
+      "Doanh thu thuần 2024 của SAB = 31.872 tỷ đồng theo Sabeco, là số làm tròn/nguồn doanh nghiệp [sabeco]",
+      "LNST 2024 của SAB = 4.495 tỷ đồng theo Sabeco, là số làm tròn/nguồn doanh nghiệp [sabeco]",
+      "Biên lợi nhuận ròng 2024 của SAB = 14,11% nếu tính theo số làm tròn 4.495 / 31.872 [sabeco]",
+      "Tăng trưởng doanh thu thuần 2024 của SAB = 4,6% YoY [sabeco]",
+      "Tăng trưởng LNST 2024 của SAB = 5,6% YoY [sabeco]",
+      "LNST bình quân mỗi ngày năm 2024 của SAB = khoảng 12,3 tỷ đồng [dnse]",
+      "LNST quý IV/2024 của SAB = gần 991 tỷ đồng [thitruongtaichinhtiente]"
+    ],
+    "negative_facts": [
+      "KHÔNG nhầm biên lợi nhuận ròng với biên lợi nhuận gộp",
+      "KHÔNG dùng lợi nhuận gộp để tính biên lợi nhuận ròng",
+      "KHÔNG bỏ qua khác biệt nhỏ do nguồn làm tròn doanh thu 31.782,4 tỷ và 31.872 tỷ đồng"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-041",
+    "question": "GAS năm 2024 ROA là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "GAS"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, ROA của PV GAS (GAS) đạt 12% theo Báo cáo thường niên 2024 của doanh nghiệp [1][web:pvgas]. Mức này giảm so với ROA năm 2023 là 14% [1]. Trong cùng năm, GAS ghi nhận doanh thu thuần hợp nhất 103.564 tỷ đồng, lợi nhuận sau thuế 10.590 tỷ đồng và dòng tiền thuần từ hoạt động kinh doanh 9.035 tỷ đồng [web:dnse][web:pvgas].",
+    "sources": [
+      "GAS_BCTN24.pdf"
+    ],
+    "web_sources": [
+      "[https://www.pvgas.com.vn/quan-he-co-%C4%91ong/bao-cao-thuong-nien-nam-2024](https://www.pvgas.com.vn/quan-he-co-%C4%91ong/bao-cao-thuong-nien-nam-2024)",
+      "[https://vietstock.vn/2025/03/gas-bao-cao-thuong-nien-nam-2024-737-1283517.htm](https://vietstock.vn/2025/03/gas-bao-cao-thuong-nien-nam-2024-737-1283517.htm)",
+      "[https://www.dnse.com.vn/senses/tin-tuc/pv-gas-at-doanh-thu-cao-nhat-lich-su-moi-ngay-thu-ve-khoang-4-ty-ong-lai-tien-gui-ngan-hang-34093880](https://www.dnse.com.vn/senses/tin-tuc/pv-gas-at-doanh-thu-cao-nhat-lich-su-moi-ngay-thu-ve-khoang-4-ty-ong-lai-tien-gui-ngan-hang-34093880)",
+      "[https://baomoi.com/doanh-thu-tang-vot-nhung-loi-nhuan-ca-nam-2024-cua-pv-gas-gas-lai-di-lui-c51354774.epi](https://baomoi.com/doanh-thu-tang-vot-nhung-loi-nhuan-ca-nam-2024-cua-pv-gas-gas-lai-di-lui-c51354774.epi)"
+    ],
+    "key_facts": [
+      "ROA 2024 của GAS = 12% [pvgas]",
+      "ROA 2023 của GAS = 14% [pvgas]",
+      "ROE 2024 của GAS = 17% [GAS_BCTN24]",
+      "Doanh thu thuần 2024 của GAS = 103.564 tỷ đồng (hợp nhất) [dnse]",
+      "Tăng trưởng doanh thu thuần 2024 của GAS = 15% YoY [dnse]",
+      "LNST 2024 của GAS = 10.590 tỷ đồng (hợp nhất) [dnse]",
+      "Tăng trưởng LNST 2024 của GAS = -10% YoY [dnse]",
+      "Dòng tiền HĐKD 2024 của GAS = 9.035 tỷ đồng (hợp nhất) [pvgas]",
+      "Dòng tiền HĐKD 2023 của GAS = 13.827 tỷ đồng (hợp nhất) [pvgas]",
+      "Lãi từ tiền gửi, tiền cho vay năm 2024 của GAS = hơn 1.466 tỷ đồng [dnse]"
+    ],
+    "negative_facts": [
+      "KHÔNG lấy nhầm ROA 2023 = 14% làm ROA 2024",
+      "KHÔNG nhầm ROA 12% với ROE 17%",
+      "KHÔNG nhầm ROA với biên lợi nhuận ròng"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-042",
+    "question": "PNJ 2024 lãi ròng bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "PNJ"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, PNJ ghi nhận lãi ròng/lợi nhuận sau thuế khoảng 2.115 tỷ đồng theo công bố kết quả kinh doanh trên website PNJ [web:pnj]. Tài liệu báo cáo kết quả hoạt động kinh doanh năm 2024 trong công ty ghi lợi nhuận sau thuế 2.113 tỷ đồng, chênh nhẹ do làm tròn hoặc phạm vi trình bày [web:pnj]. Với benchmark, nên dùng con số công bố tổng quát: LNST 2024 của PNJ = 2.115 tỷ đồng, đồng thời ghi nhận nguồn tài liệu nội bộ doanh nghiệp có số 2.113 tỷ đồng.",
+    "sources": [],
+    "web_sources": [
+      "[https://www.pnj.com.vn/blog/pnj-dat-doanh-thu-37-823-ty-trong-nam-2024/](https://www.pnj.com.vn/blog/pnj-dat-doanh-thu-37-823-ty-trong-nam-2024/)",
+      "[https://cdn.pnj.io/images/quan-he-co-dong/2025/12-Bao-cao-ket-qua-hoat-dong-kinh-doanh-nam-2024-trong-Cong-ty.pdf](https://cdn.pnj.io/images/quan-he-co-dong/2025/12-Bao-cao-ket-qua-hoat-dong-kinh-doanh-nam-2024-trong-Cong-ty.pdf)",
+      "[https://baomoi.com/vi-sao-loi-nhuan-sau-thue-nam-2024-cua-pnj-tang-cao-c51356710.epi](https://baomoi.com/vi-sao-loi-nhuan-sau-thue-nam-2024-cua-pnj-tang-cao-c51356710.epi)",
+      "[https://thitruongtaichinhtiente.vn/pnj-lai-sau-thue-218-ty-dong-trong-thang-10-vuot-ca-quy-iii-2024-64296.html](https://thitruongtaichinhtiente.vn/pnj-lai-sau-thue-218-ty-dong-trong-thang-10-vuot-ca-quy-iii-2024-64296.html)"
+    ],
+    "key_facts": [
+      "LNST 2024 của PNJ = 2.115 tỷ đồng [pnj]",
+      "LNST 2024 của PNJ = 2.113 tỷ đồng theo tài liệu báo cáo KQHĐKD năm 2024 trong công ty [pnj]",
+      "Tăng trưởng LNST 2024 của PNJ = 7,3% YoY theo công bố PNJ [pnj]",
+      "Tăng trưởng LNST 2024 của PNJ = 7,2% YoY theo tài liệu báo cáo KQHĐKD năm 2024 trong công ty [pnj]",
+      "Doanh thu thuần 2024 của PNJ = 37.823 tỷ đồng [pnj]",
+      "Tăng trưởng doanh thu thuần 2024 của PNJ = 14,1% YoY [pnj]",
+      "Doanh số mảng trang sức chiếm 68,3% cơ cấu doanh thu PNJ năm 2024 [pnj]",
+      "Doanh số bán lẻ trang sức chiếm 58,3% cơ cấu doanh thu PNJ năm 2024 [pnj]",
+      "Doanh số bán sỉ trang sức chiếm 10,0% cơ cấu doanh thu PNJ năm 2024 [pnj]",
+      "PNJ hoàn thành chỉ tiêu kinh doanh năm 2024 đăng ký tại ĐHĐCĐ [pnj]"
+    ],
+    "negative_facts": [
+      "KHÔNG nhầm lợi nhuận sau thuế 2.115 tỷ đồng với doanh thu thuần 37.823 tỷ đồng",
+      "KHÔNG lấy số LNST 10 tháng 2024 = 1.600 tỷ đồng để trả lời cả năm 2024",
+      "KHÔNG bỏ qua khác biệt làm tròn/phạm vi giữa 2.113 tỷ đồng và 2.115 tỷ đồng"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-043",
+    "question": "DGC 2024 cổ tức bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "DGC"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, Hóa chất Đức Giang (DGC) tạm ứng cổ tức bằng tiền mặt tỷ lệ 30% trên mệnh giá, tương đương 3.000 đồng/cổ phiếu; ngày thanh toán là 20/12/2024 [web:vsd]. Đây cũng là mức cổ tức dự kiến/kế hoạch năm 2024 được nhắc trong các nguồn báo chí trước đó [web:tinnhanhchungkhoan][web:fireant].",
+    "sources": [],
+    "web_sources": [
+      "[https://www.vsd.vn/ad/176105](https://www.vsd.vn/ad/176105)",
+      "[https://www.tinnhanhchungkhoan.vn/hoa-chat-duc-giang-dgc-sap-tam-ung-co-tuc-nam-2024-voi-ty-le-30-post356523.html](https://www.tinnhanhchungkhoan.vn/hoa-chat-duc-giang-dgc-sap-tam-ung-co-tuc-nam-2024-voi-ty-le-30-post356523.html)",
+      "[https://fireant.vn/bai-viet/dgc-chot-danh-sach-co-dong-tam-ung-co-tuc-tien-mat/28849007](https://fireant.vn/bai-viet/dgc-chot-danh-sach-co-dong-tam-ung-co-tuc-tien-mat/28849007)"
+    ],
+    "key_facts": [
+      "Cổ tức tiền mặt năm 2024 của DGC = 30% mệnh giá [vsd]",
+      "Cổ tức tiền mặt năm 2024 của DGC = 3.000 đồng/cổ phiếu [vsd]",
+      "Ngày đăng ký cuối cùng nhận tạm ứng cổ tức tiền mặt năm 2024 của DGC = 20/11/2024 [vsd]",
+      "Ngày thanh toán tạm ứng cổ tức tiền mặt năm 2024 của DGC = 20/12/2024 [vsd]",
+      "DGC lên kế hoạch cổ tức năm 2024 tỷ lệ 30% [tinnhanhchungkhoan]",
+      "Cổ đông DGC đã thông qua kế hoạch cổ tức năm 2024 tỷ lệ 30% [fireant]",
+      "Cổ tức năm 2023 của DGC cũng ở mức 30% theo FireAnt [fireant]",
+      "Doanh thu dự kiến năm 2024 của DGC theo kế hoạch cập nhật = 10.038,2 tỷ đồng [tinnhanhchungkhoan]",
+      "LNST dự kiến năm 2024 của DGC theo kế hoạch cập nhật = 3.092,2 tỷ đồng [tinnhanhchungkhoan]"
+    ],
+    "negative_facts": [
+      "KHÔNG nhầm DGC với công ty con PAT có tỷ lệ cổ tức khác",
+      "KHÔNG nhầm 30% mệnh giá với 30.000 đồng/cổ phiếu",
+      "KHÔNG nói DGC chia cổ tức bằng cổ phiếu nếu câu hỏi hỏi cổ tức năm 2024 theo nguồn VSD"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  }
+]

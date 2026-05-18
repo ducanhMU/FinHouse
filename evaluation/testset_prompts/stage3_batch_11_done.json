@@ -1,0 +1,477 @@
+[
+{
+"id": "C-024",
+"question": "DCM 2022-2024: phân tích biến động doanh thu, biên lợi nhuận, lợi nhuận ròng và chính sách cổ tức để đánh giá tính chu kỳ của cổ phiếu.",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"DCM"
+],
+"expected_timeframe": "2022-2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "DCM thể hiện tính chu kỳ rõ trong giai đoạn 2022-2024: năm 2022 là đỉnh lợi nhuận nhờ giá urê tăng mạnh, doanh thu thuần đạt 15.924 tỷ đồng và LNST đạt 4.275 tỷ đồng; năm 2023 suy giảm mạnh theo chu kỳ giá phân bón; đến 2024 doanh thu phục hồi lên 13.456 tỷ đồng (+7% YoY) nhưng lợi nhuận vẫn thấp hơn nhiều so với đỉnh 2022. Chính sách cổ tức cũng phản ánh chu kỳ: cổ tức tiền mặt năm 2022 là 3.000 đồng/cp, sau đó giảm về 2.000 đồng/cp cho năm 2023 và 2024. Vì vậy DCM nên được xem là cổ phiếu hàng hóa/chu kỳ, phụ thuộc lớn vào giá urê, giá khí đầu vào và biên lợi nhuận từng giai đoạn. Dữ liệu batch đầu vào: ",
+"sources": [],
+"web_sources": [
+"[https://www.abs.vn/wp-content/uploads/2023/02/DCM-Earning-review-report.pdf](https://www.abs.vn/wp-content/uploads/2023/02/DCM-Earning-review-report.pdf)",
+"[https://www.psi.vn/uploads/trung-tam-phan-tich/bao-cao/Tai%20lieu%202/%5BVIE%5DPSI_Baocaocapnhat_DCM_Q4.2024.pdf](https://www.psi.vn/uploads/trung-tam-phan-tich/bao-cao/Tai%20lieu%202/%5BVIE%5DPSI_Baocaocapnhat_DCM_Q4.2024.pdf)",
+"[https://www.vsd.vn/vi/ad/160857](https://www.vsd.vn/vi/ad/160857)",
+"[https://www.vsd.vn/vi/ad/184119](https://www.vsd.vn/vi/ad/184119)",
+"[https://finance.vietstock.vn/DCM-ctcp-tong-cong-ty-phan-bon-dau-khi-ca-mau.htm](https://finance.vietstock.vn/DCM-ctcp-tong-cong-ty-phan-bon-dau-khi-ca-mau.htm)"
+],
+"key_facts": [
+"Doanh thu thuần 2022 của DCM = 15.924 tỷ đồng (hợp nhất) [ABS Research]",
+"LNST 2022 của DCM = 4.275 tỷ đồng (hợp nhất) [ABS Research]",
+"Doanh thu thuần 2024 của DCM = 13.456 tỷ đồng, +7% YoY [PSI]",
+"Doanh thu mảng NPK 2024 của DCM = 2.716 tỷ đồng, +62% YoY [PSI]",
+"Doanh thu mảng Urê 2024 của DCM = giảm 7% YoY [PSI]",
+"EPS 2024 của DCM = 2.534 đồng/cp [PSI]",
+"ROE 2024 của DCM = 13,4% [PSI]",
+"ROA 2024 của DCM = 8,7% [PSI]",
+"Cổ tức tiền mặt năm 2022 của DCM = 3.000 đồng/cp, tỷ lệ 30% [VSD]",
+"Cổ tức tiền mặt năm 2023 của DCM = 2.000 đồng/cp [Vietstock/CafeF]",
+"Cổ tức tiền mặt năm 2024 của DCM = 2.000 đồng/cp, tỷ lệ 20% [VSD]"
+],
+"negative_facts": [
+"KHÔNG coi lợi nhuận 2024 là đã quay lại đỉnh 2022",
+"KHÔNG bỏ qua yếu tố giá urê/giá khí khi đánh giá DCM",
+"KHÔNG dùng cổ tức 3.000 đồng/cp cho năm 2023 hoặc 2024"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "C-025",
+"question": "MWG trong Q1-Q4/2024: xu hướng doanh thu và lợi nhuận theo quý cho thấy quá trình phục hồi diễn ra đều hay chỉ tập trung ở một vài quý?",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"MWG"
+],
+"expected_timeframe": "Q1-Q4/2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "MWG năm 2024 phục hồi theo hướng lan tỏa dần nhưng lợi nhuận tăng mạnh hơn ở nửa sau năm. Q1/2024 doanh thu thuần đạt 31.486 tỷ đồng, tạo nền hồi phục sau giai đoạn tái cấu trúc; Q4/2024 doanh thu thuần đạt 34.794 tỷ đồng và LNST đạt 852 tỷ đồng, tăng rất mạnh so với nền thấp cùng kỳ. Biên gộp Q4/2024 đạt 19,1%, thấp hơn Q3 nhưng lợi nhuận vẫn duy trì tích cực nhờ kiểm soát chi phí, đóng góp từ Bách Hóa Xanh và EraBlue bắt đầu có lãi. Kết luận: phục hồi doanh thu diễn ra tương đối đều, còn phục hồi lợi nhuận tập trung rõ hơn ở các quý sau, đặc biệt Q4.",
+"sources": [],
+"web_sources": [
+"[https://cdnv2.tgdd.vn/mwgvn/investorrelations/files/posts/2025/4/0/0f/a3/0fa382bf41923f80607007ebcf9500ed.pdf](https://cdnv2.tgdd.vn/mwgvn/investorrelations/files/posts/2025/4/0/0f/a3/0fa382bf41923f80607007ebcf9500ed.pdf)",
+"[https://finance.vietstock.vn/downloadedoc/16087](https://finance.vietstock.vn/downloadedoc/16087)",
+"[https://vneconomy.vn/quy-1-2024-mwg-bao-lai-sau-thue-tang-71-nhan-su-tang-them-hon-1-000-nguoi.htm](https://vneconomy.vn/quy-1-2024-mwg-bao-lai-sau-thue-tang-71-nhan-su-tang-them-hon-1-000-nguoi.htm)"
+],
+"key_facts": [
+"Doanh thu thuần Q1/2024 của MWG = 31.486 tỷ đồng (hợp nhất) [VnEconomy dẫn BCTC MWG]",
+"Doanh thu thuần Q4/2024 của MWG = 34.794 tỷ đồng (hợp nhất) [Vietstock/VCBS]",
+"Biên lợi nhuận gộp Q4/2024 của MWG = 19,1% [Vietstock/VCBS]",
+"LNST Q4/2024 của MWG = 852 tỷ đồng [Vietstock/VCBS]",
+"LNST Q4/2024 của MWG tăng 9,4 lần so với cùng kỳ 2023 [Vietstock/VCBS]",
+"Doanh thu thuần mảng ICT&CE Q4/2024 của MWG = 22.861 tỷ đồng, +8,1% YoY [Vietstock/VCBS]",
+"EraBlue Q4/2024 ghi nhận lãi 2,4 tỷ đồng [Vietstock/VCBS]",
+"Q4/2024 là quý thứ 2 MWG ghi nhận lãi từ chuỗi EraBlue [Vietstock/VCBS]"
+],
+"negative_facts": [
+"KHÔNG kết luận phục hồi lợi nhuận đều tuyệt đối qua cả 4 quý nếu thiếu bảng quý đầy đủ",
+"KHÔNG dùng số Q1/2025 thay cho Q1/2024",
+"KHÔNG bỏ qua nền lợi nhuận thấp của năm 2023 khi so sánh YoY"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "C-026",
+"question": "HPG Q1-Q4/2024: phân tích theo quý doanh thu, biên gộp, lợi nhuận sau thuế và sản lượng để xác định điểm rơi phục hồi.",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"HPG"
+],
+"expected_timeframe": "Q1-Q4/2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "HPG phục hồi rõ trong năm 2024, nhưng điểm rơi mạnh nhất nằm ở giai đoạn giữa năm và duy trì sang Q4. Cả năm 2024, HPG đạt doanh thu 140.561 tỷ đồng và LNST 12.020 tỷ đồng, hoàn thành 100% kế hoạch doanh thu và 120% kế hoạch lợi nhuận. Báo cáo cập nhật Q4/2024 cho thấy doanh thu Q4 tăng 2% so với Q3, trong khi LNST cổ đông công ty mẹ gần như đi ngang, giảm 7% QoQ; điều này hàm ý phục hồi đã xảy ra trước Q4 và Q4 chủ yếu duy trì nền cao. Sản lượng thép cả năm phục hồi cùng nhu cầu nội địa và xuất khẩu, nhưng để chấm chính xác theo từng quý cần dùng bảng sản lượng/quý từ BCTC hoặc báo cáo quản trị HPG.",
+"sources": [],
+"web_sources": [
+"[https://file.hoaphat.com.vn/hoaphat-com-vn/2025/01/tong-quan-tinh-hinh-kinh-doanh-q4-2024-vn.pdf](https://file.hoaphat.com.vn/hoaphat-com-vn/2025/01/tong-quan-tinh-hinh-kinh-doanh-q4-2024-vn.pdf)",
+"[https://www.bsc.com.vn/Report/ReportFile/13148](https://www.bsc.com.vn/Report/ReportFile/13148)"
+],
+"key_facts": [
+"Doanh thu hợp nhất 2024 của HPG = 140.561 tỷ đồng [Hòa Phát]",
+"LNST hợp nhất 2024 của HPG = 12.020 tỷ đồng [Hòa Phát]",
+"HPG hoàn thành 100% kế hoạch doanh thu năm 2024 [Hòa Phát]",
+"HPG hoàn thành 120% kế hoạch LNST năm 2024 [Hòa Phát]",
+"Doanh thu Q4/2024 của HPG tăng 2% QoQ so với Q3/2024 [BSC]",
+"LNST cổ đông công ty mẹ Q4/2024 của HPG giảm 7% QoQ so với Q3/2024 [BSC]",
+"Chi phí quản lý doanh nghiệp Q4/2024 của HPG = 517 tỷ đồng, +31% YoY [BSC]",
+"Dự án Dung Quất 2 là yếu tố chi phí/chuẩn bị vận hành được BSC nhắc tới trong Q4/2024 [BSC]"
+],
+"negative_facts": [
+"KHÔNG kết luận Q4/2024 là quý bứt phá lợi nhuận mạnh nhất nếu LNST Q4 giảm 7% QoQ",
+"KHÔNG dùng số dự phóng 2025 thay cho kết quả 2024",
+"KHÔNG đánh đồng doanh thu tăng với biên gộp chắc chắn tăng nếu chưa kiểm tra giá vốn"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "C-027",
+"question": "TCB trong Q1-Q4/2024: NIM, thu nhập lãi thuần, nợ xấu và lợi nhuận trước thuế biến động ra sao qua từng quý?",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"TCB"
+],
+"expected_timeframe": "Q1-Q4/2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "TCB năm 2024 ghi nhận xu hướng phục hồi thu nhập lãi thuần và lợi nhuận trước thuế, trong khi chất lượng tài sản được kiểm soát. Cả năm 2024, LNTT đạt 27,5 nghìn tỷ đồng, tăng 20,3% YoY; tổng thu nhập hoạt động đạt 47,0 nghìn tỷ đồng, tăng 17,3% YoY; NII cả năm đạt hơn 35.500 tỷ đồng, tăng 28,2% YoY; NIM trượt 12 tháng đạt 4,2%. Đến cuối 2024, tỷ lệ nợ xấu là 1,12% và tỷ lệ bao phủ nợ xấu là 114%. Theo bảng chỉ số nổi bật của Techcombank, thu nhập lãi thuần theo quý tăng từ 8.305 tỷ đồng lên 9.137 tỷ đồng, 9.925 tỷ đồng và 10.788 tỷ đồng; LNTT theo quý lần lượt khoảng 7.236 tỷ đồng, 7.899 tỷ đồng, 8.250 tỷ đồng và 9.153 tỷ đồng.",
+"sources": [],
+"web_sources": [
+"[https://techcombank.com/content/dam/techcombank/public-site/documents/techcombank-thong-cao-bao-chi-kqkd-fy24.pdf](https://techcombank.com/content/dam/techcombank/public-site/documents/techcombank-thong-cao-bao-chi-kqkd-fy24.pdf)",
+"[https://techcombank.com/nha-dau-tu/thong-tin-tai-chinh/chi-so-noi-bat](https://techcombank.com/nha-dau-tu/thong-tin-tai-chinh/chi-so-noi-bat)",
+"[https://cafef1.mediacdn.vn/Images/Uploaded/DuLieuDownload/PhanTichBaoCao/TCB_10325_KBSV10032025152509.pdf](https://cafef1.mediacdn.vn/Images/Uploaded/DuLieuDownload/PhanTichBaoCao/TCB_10325_KBSV10032025152509.pdf)",
+"[https://www.tinnhanhchungkhoan.vn/nam-2024-techcombank-tcb-bao-lai-truoc-thue-loi-nhuan-truoc-thue-dat-27500-ty-dong-tang-truong-hon-20-ty-le-casa-409-post362213.html](https://www.tinnhanhchungkhoan.vn/nam-2024-techcombank-tcb-bao-lai-truoc-thue-loi-nhuan-truoc-thue-dat-27500-ty-dong-tang-truong-hon-20-ty-le-casa-409-post362213.html)"
+],
+"key_facts": [
+"LNTT 2024 của TCB = 27,5 nghìn tỷ đồng, +20,3% YoY [Techcombank]",
+"Tổng thu nhập hoạt động 2024 của TCB = 47,0 nghìn tỷ đồng, +17,3% YoY [Techcombank]",
+"Thu nhập lãi thuần 2024 của TCB = hơn 35.500 tỷ đồng, +28,2% YoY [Tinnhanhchungkhoan/Techcombank]",
+"NIM trượt 12 tháng 2024 của TCB = 4,2% [Tinnhanhchungkhoan/Techcombank]",
+"CASA cuối 2024 của TCB = 40,9% [Techcombank]",
+"Số dư CASA cuối 2024 của TCB = gần 231 nghìn tỷ đồng [Techcombank]",
+"Tỷ lệ nợ xấu cuối 2024 của TCB = 1,12% [KBSV]",
+"Tỷ lệ bao phủ nợ xấu cuối 2024 của TCB = 114% [KBSV]",
+"Thu nhập lãi thuần Q1/2024 của TCB = 8.305 tỷ đồng [Techcombank]",
+"Thu nhập lãi thuần Q2/2024 của TCB = 9.137 tỷ đồng [Techcombank]",
+"Thu nhập lãi thuần Q3/2024 của TCB = 9.925 tỷ đồng [Techcombank]",
+"Thu nhập lãi thuần Q4/2024 của TCB = 10.788 tỷ đồng [Techcombank]"
+],
+"negative_facts": [
+"KHÔNG dùng NIM 16,82% làm NIM ngân hàng; đó là số bất thường/không phù hợp với NIM chuẩn",
+"KHÔNG nhầm CASA 40,9% với NIM",
+"KHÔNG bỏ qua tỷ lệ nợ xấu 1,12% khi đánh giá chất lượng tài sản"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "C-028",
+"question": "ACB Q1-Q4/2024: phân tích diễn biến lợi nhuận trước thuế, NIM, chi phí tín dụng và nợ xấu để đánh giá quý nào chịu áp lực lớn nhất.",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"ACB"
+],
+"expected_timeframe": "Q1-Q4/2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "ACB năm 2024 chịu áp lực từ NIM và chi phí tín dụng, nhưng dữ liệu web công khai truy xuất được trong phiên này không đủ để lập bảng vàng chính xác cho đầy đủ Q1-Q4 theo từng chỉ tiêu LNTT, NIM, chi phí tín dụng và nợ xấu. Các fact chắc chắn: Q1/2024 tín dụng ACB tăng 3,8%, cao hơn bình quân ngành; báo cáo phân tích 9T/2024 cho biết chi phí huy động vốn giảm về 3,71% cuối Q3/2024 nhưng lãi suất cho vay đi ngang, là nguyên nhân chính tác động đến NIM; báo cáo năm 2024 của ACB được công bố chính thức. Để xác định quý chịu áp lực lớn nhất, cần dùng BCTC quý hoặc database nội bộ thay vì suy diễn từ nguồn không đầy đủ.",
+"sources": [],
+"web_sources": [
+"[https://acb.com.vn/ve-chung-toi/acb-quy-12024-tin-dung-tang-38-cao-gap-ba-lan-binh-quan-nganh](https://acb.com.vn/ve-chung-toi/acb-quy-12024-tin-dung-tang-38-cao-gap-ba-lan-binh-quan-nganh)",
+"[https://cafef1.mediacdn.vn/Images/Uploaded/DuLieuDownload/PhanTichBaoCao/ACB_71124_PHS07112024140252.pdf](https://cafef1.mediacdn.vn/Images/Uploaded/DuLieuDownload/PhanTichBaoCao/ACB_71124_PHS07112024140252.pdf)",
+"[https://tcsc.vn/uploads/phan-tich/files/acb-cap-nhat-kqkd-quy-4.2024.pdf](https://tcsc.vn/uploads/phan-tich/files/acb-cap-nhat-kqkd-quy-4.2024.pdf)",
+"[https://acb.com.vn/acbwebsite/files/BCTN_2024.pdf](https://acb.com.vn/acbwebsite/files/BCTN_2024.pdf)"
+],
+"key_facts": [
+"Tăng trưởng tín dụng Q1/2024 của ACB = 3,8% [ACB]",
+"Chi phí huy động vốn của ACB cuối Q3/2024 = 3,71% [PHS]",
+"Chi phí huy động vốn của ACB cuối Q3/2024 giảm 1,05 điểm % so với cuối 2023 [PHS]",
+"Chi phí huy động vốn của ACB cuối Q3/2024 giảm 18 bps so với Q2/2024 [PHS]",
+"Lãi suất cho vay của ACB trong Q3/2024 đi ngang, gây áp lực lên NIM [PHS]",
+"BCTN 2024 của ACB được công bố ngày 14/05/2025 [ACB]",
+"Không verify được bảng đầy đủ LNTT, NIM, chi phí tín dụng và nợ xấu theo Q1-Q4/2024 từ nguồn web mở trong phiên này [manual review required]"
+],
+"negative_facts": [
+"KHÔNG tự bịa quý chịu áp lực lớn nhất nếu thiếu bảng Q1-Q4 đầy đủ",
+"KHÔNG nhầm chi phí huy động vốn với chi phí tín dụng",
+"KHÔNG dùng số liệu năm 2025 để trả lời cho năm 2024"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "C-029",
+"question": "PNJ trong Q1-Q4/2024: doanh thu, biên gộp, lợi nhuận ròng và hàng tồn kho theo quý cho thấy sức mua bán lẻ thay đổi thế nào?",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"PNJ"
+],
+"expected_timeframe": "Q1-Q4/2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "PNJ năm 2024 tăng trưởng doanh thu nhưng chất lượng tăng trưởng không đồng đều do cơ cấu doanh thu nghiêng nhiều sang vàng 24K, mảng có biên lợi nhuận thấp. Cả năm 2024, doanh thu thuần đạt 37.823 tỷ đồng, tăng 14,1% YoY; LNST đạt 2.113 tỷ đồng, tăng 7,2% YoY. Q4/2024 doanh thu thuần đạt 8.581 tỷ đồng, LNST đạt 733 tỷ đồng và biên gộp đạt 20,9%, cải thiện so với 17,9% cùng kỳ 2023. Trong 8T/2024, doanh thu đạt 26.866 tỷ đồng nhưng biên gộp chỉ 16,6% do khách hàng ưu tiên mua vàng 24K. Do đó sức mua bán lẻ trang sức không phục hồi đều; doanh thu được hỗ trợ bởi vàng miếng/vàng 24K trong khi biên gộp chỉ cải thiện rõ vào Q4.",
+"sources": [],
+"web_sources": [
+"[https://www.pnj.com.vn/blog/pnj-dat-doanh-thu-37-823-ty-trong-nam-2024/](https://www.pnj.com.vn/blog/pnj-dat-doanh-thu-37-823-ty-trong-nam-2024/)",
+"[https://cdn.pnj.io/images/quan-he-co-dong/2025/12-Bao-cao-ket-qua-hoat-dong-kinh-doanh-nam-2024-trong-Cong-ty.pdf](https://cdn.pnj.io/images/quan-he-co-dong/2025/12-Bao-cao-ket-qua-hoat-dong-kinh-doanh-nam-2024-trong-Cong-ty.pdf)",
+"[https://rs.nguoiquansat.vn/bcpt/PNJ%2CVND%2CABS%2CC/PNJ%2CVND%2CABS%2CC_39_14356_58.pdf](https://rs.nguoiquansat.vn/bcpt/PNJ%2CVND%2CABS%2CC/PNJ%2CVND%2CABS%2CC_39_14356_58.pdf)",
+"[https://cafef1.mediacdn.vn/Images/Uploaded/DuLieuDownload/PhanTichBaoCao/PNJ_91224_SSI09122024102956.pdf](https://cafef1.mediacdn.vn/Images/Uploaded/DuLieuDownload/PhanTichBaoCao/PNJ_91224_SSI09122024102956.pdf)"
+],
+"key_facts": [
+"Doanh thu thuần 2024 của PNJ = 37.823 tỷ đồng, +14,1% YoY [PNJ]",
+"LNST 2024 của PNJ = 2.113 tỷ đồng, +7,2% YoY [PNJ]",
+"Doanh thu thuần Q4/2024 của PNJ = 8.581 tỷ đồng [PNJ]",
+"LNST Q4/2024 của PNJ = 733 tỷ đồng [PNJ]",
+"Biên lợi nhuận gộp Q4/2024 của PNJ = 20,9% [PNJ]",
+"Biên lợi nhuận gộp Q4/2023 của PNJ = 17,9% [PNJ]",
+"Doanh thu thuần 8T/2024 của PNJ = 26.866 tỷ đồng, +27,2% YoY [ABS]",
+"LNST 8T/2024 của PNJ = 1.281 tỷ đồng, +2,8% YoY [ABS]",
+"Biên lợi nhuận gộp 8T/2024 của PNJ = 16,6% [ABS]",
+"Nguyên nhân biên gộp 8T/2024 thấp = khách hàng ưu tiên mua vàng 24K, mảng có biên lợi nhuận thấp [ABS]"
+],
+"negative_facts": [
+"KHÔNG kết luận sức mua trang sức bán lẻ phục hồi mạnh chỉ dựa trên doanh thu vàng 24K",
+"KHÔNG dùng doanh thu vàng miếng để đại diện hoàn toàn cho bán lẻ trang sức",
+"KHÔNG bịa hàng tồn kho theo quý nếu chưa lấy từ BCTC quý"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "C-030",
+"question": "DPM Q1-Q4/2024: phân tích doanh thu, lợi nhuận sau thuế, biên lợi nhuận và dòng tiền kinh doanh để xem quý nào đóng góp chính vào cả năm.",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"DPM"
+],
+"expected_timeframe": "Q1-Q4/2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "DPM năm 2024 có lợi nhuận cả năm ở mức vừa phải so với giai đoạn đỉnh phân bón. Theo BCTN 2024, lợi nhuận sau thuế hợp nhất đạt 554,27 tỷ đồng; LNST công ty mẹ đạt 537,76 tỷ đồng; LNTT đạt 669,33 tỷ đồng. Báo cáo hoạt động năm 2024 cho biết LNST theo chỉ tiêu quản trị đạt 517,61 tỷ đồng, hoàn thành 102% kế hoạch. Q1/2024 là quý đóng góp lợi nhuận lớn khi báo cáo phân tích ghi nhận LN ròng Q1/2024 tăng 46,4% YoY lên 328 tỷ đồng; Q2 cũng tăng trưởng nhờ doanh thu urê và biên lợi nhuận ổn định. Tuy nhiên, nguồn web mở trong phiên này không đủ để lập bảng chính xác toàn bộ Q1-Q4 về dòng tiền kinh doanh từng quý; cần database/BCTC quý để xác định chính xác quý đóng góp chính vào CFO.",
+"sources": [],
+"web_sources": [
+"[https://dpm.vn/BCTN-DPM-2024/bao-cao-tai-chinh.html](https://dpm.vn/BCTN-DPM-2024/bao-cao-tai-chinh.html)",
+"[https://dpm.vn/BCTN-DPM-2024/bao-cao-hoat-dong-nam-2024.html](https://dpm.vn/BCTN-DPM-2024/bao-cao-hoat-dong-nam-2024.html)",
+"[https://www.vndirect.com.vn/DPM_Bao-cao-lan-dau_20240528.pdf](https://www.vndirect.com.vn/DPM_Bao-cao-lan-dau_20240528.pdf)",
+"[https://www.vcbs.com.vn/api/v1/ttpt-reports/download-with-token?download_token=d66a255c-0cf9-423f-934e-4837ba3fe0ce&locale=vi](https://www.vcbs.com.vn/api/v1/ttpt-reports/download-with-token?download_token=d66a255c-0cf9-423f-934e-4837ba3fe0ce&locale=vi)",
+"[https://tcsc.vn/uploads/phan-tich/files/dpm-cap-nhat-kqkd-quy-iv.2024.pdf](https://tcsc.vn/uploads/phan-tich/files/dpm-cap-nhat-kqkd-quy-iv.2024.pdf)"
+],
+"key_facts": [
+"LNTT 2024 của DPM = 669,33 tỷ đồng (hợp nhất, đã kiểm toán) [DPM BCTN]",
+"LNST 2024 của DPM = 554,27 tỷ đồng (hợp nhất, đã kiểm toán) [DPM BCTN]",
+"LNST công ty mẹ 2024 của DPM = 537,76 tỷ đồng [DPM BCTN]",
+"EPS 2024 của DPM = 1.078 đồng/cp [DPM BCTN]",
+"Chi phí quản lý doanh nghiệp 2024 của DPM = 702,81 tỷ đồng [DPM BCTN]",
+"Lợi nhuận thuần từ HĐKD 2024 của DPM = 664,88 tỷ đồng [DPM BCTN]",
+"LNST quản trị 2024 của DPM = 517,61 tỷ đồng, hoàn thành 102% kế hoạch [DPM BCTN]",
+"LN ròng Q1/2024 của DPM = 328 tỷ đồng, +46,4% YoY [VNDIRECT]",
+"Q2/2024 của DPM ghi nhận doanh thu và LNST tăng trưởng nhờ mảng urê [VCBS]",
+"Tiền và tiền gửi ngân hàng của DPM tại 30/09/2024 = 10.652 tỷ đồng [Nguoiquansat/ABS]"
+],
+"negative_facts": [
+"KHÔNG dùng LNST quản trị 517,61 tỷ đồng và LNST hợp nhất kiểm toán 554,27 tỷ đồng lẫn lộn mà không ghi rõ nguồn",
+"KHÔNG tự bịa CFO theo quý nếu chưa lấy BCTC quý",
+"KHÔNG kết luận Q4 là quý đóng góp chính nếu thiếu bảng Q1-Q4 đầy đủ"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "C-031",
+"question": "PLX năm 2024: phân tích doanh thu, lợi nhuận sau thuế, biên lợi nhuận và dòng tiền kinh doanh để đánh giá mức độ phục hồi của mảng xăng dầu.",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"PLX"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, PLX phục hồi ổn định về sản lượng và doanh thu nhưng dòng tiền kinh doanh không tăng tương ứng. Tổng doanh thu hợp nhất đạt 284.017 tỷ đồng, đạt 152% kế hoạch; lợi nhuận hợp nhất trước thuế đạt 3.972 tỷ đồng, đạt 137% kế hoạch; tổng sản lượng xăng dầu xuất bán đạt 15.749.926 m3/tấn, đạt 121% kế hoạch và bằng 109% so với 2023. Theo dữ liệu stage 2 từ BCTN PLX, doanh thu thuần hợp nhất là 284.017 tỷ đồng, LNST đạt 3.161 tỷ đồng, lợi nhuận gộp 17.351 tỷ đồng, biên gộp khoảng 6,1%; CFO 2024 đạt 2.372 tỷ đồng, giảm so với 5.273 tỷ đồng năm 2023; doanh thu thuần bán ra bên ngoài của khối xăng dầu thành viên đạt 188.953 tỷ đồng. Kết luận: mảng xăng dầu phục hồi về sản lượng/doanh thu và biên gộp, nhưng chất lượng dòng tiền yếu hơn năm trước.",
+"sources": [
+"PLX_BCTN24.pdf"
+],
+"web_sources": [
+"[https://www.petrolimex.com.vn/bctn-2024.html](https://www.petrolimex.com.vn/bctn-2024.html)",
+"[https://vietstock.vn/2025/04/plx-bao-cao-thuong-nien-nam-2024-737-1297876.htm](https://vietstock.vn/2025/04/plx-bao-cao-thuong-nien-nam-2024-737-1297876.htm)",
+"[https://finance.vietstock.vn/plx/tai-tai-lieu.htm](https://finance.vietstock.vn/plx/tai-tai-lieu.htm)"
+],
+"key_facts": [
+"Tổng doanh thu hợp nhất 2024 của PLX = 284.017 tỷ đồng [Petrolimex]",
+"Tổng doanh thu hợp nhất 2024 của PLX đạt 152% kế hoạch [Petrolimex]",
+"Lợi nhuận hợp nhất trước thuế 2024 của PLX = 3.972 tỷ đồng [Petrolimex]",
+"Lợi nhuận hợp nhất trước thuế 2024 của PLX đạt 137% kế hoạch [Petrolimex]",
+"Tổng sản lượng xăng dầu xuất bán 2024 của PLX = 15.749.926 m3/tấn [Petrolimex]",
+"Tổng sản lượng xăng dầu xuất bán 2024 của PLX = 109% so với 2023 [Petrolimex]",
+"Nộp ngân sách nhà nước 2024 của PLX = 32.384 tỷ đồng [Petrolimex]",
+"LNST 2024 của PLX = 3.161 tỷ đồng (hợp nhất) [PLX_BCTN24]",
+"Lợi nhuận gộp 2024 của PLX = 17.351 tỷ đồng, biên gộp khoảng 6,1% [PLX_BCTN24]",
+"Dòng tiền thuần từ HĐKD 2024 của PLX = 2.372 tỷ đồng, giảm so với 5.273 tỷ đồng năm 2023 [PLX_BCTN24]",
+"Doanh thu thuần bán ra bên ngoài của khối xăng dầu thành viên 2024 = 188.953 tỷ đồng [PLX_BCTN24]"
+],
+"negative_facts": [
+"Bịa đặt dòng tiền kinh doanh tăng mạnh",
+"Cho rằng doanh thu xăng dầu sụt giảm",
+"KHÔNG nhầm lợi nhuận trước thuế 3.972 tỷ đồng với LNST 3.161 tỷ đồng"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "C-032",
+"question": "POW năm 2024 vận hành thế nào nếu xét doanh thu, lợi nhuận sau thuế, biên lợi nhuận và chi phí tài chính?",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"POW"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "POW năm 2024 vận hành tương đối ổn định về doanh thu nhưng lợi nhuận và biên lợi nhuận chịu áp lực sau kiểm toán. PV Power công bố BCTC năm 2024 sau kiểm toán ngày 31/03/2025. Theo tin tổng hợp từ BCTC kiểm toán, doanh thu thuần năm 2024 đạt 30.306 tỷ đồng, tăng nhẹ 0,4% so với báo cáo tự lập; LNST sau kiểm toán giảm từ 1.346 tỷ đồng xuống 1.211 tỷ đồng, tức giảm gần 135 tỷ đồng. Báo cáo thẩm định BCTC cho thấy ROS giảm từ 4,53% năm 2023 xuống 4,00% năm 2024; ROA giảm từ 2,02% xuống 1,61%; ROE giảm từ 3,81% xuống 3,49%. Chi phí tài chính/chi phí lãi vay vẫn là yếu tố cần theo dõi khi nguồn web ghi nhận chi phí tài chính Q4/2024 ở mức 457,9 tỷ đồng và chi phí tiền lãi 414,2 tỷ đồng.",
+"sources": [],
+"web_sources": [
+"[https://pvpower.vn/vi/post/bao-cao-tai-chinh-nam-2024-6314.htm](https://pvpower.vn/vi/post/bao-cao-tai-chinh-nam-2024-6314.htm)",
+"[https://thitruongtaichinhtiente.vn/loi-nhuan-nam-2024-cua-pv-power-boc-hoi-gan-135-ty-dong-sau-kiem-toan-66697.html](https://thitruongtaichinhtiente.vn/loi-nhuan-nam-2024-cua-pv-power-boc-hoi-gan-135-ty-dong-sau-kiem-toan-66697.html)",
+"[https://www.tinnhanhchungkhoan.vn/loi-nhuan-nam-2024-cua-pv-power-pow-giam-1346-ty-dong-sau-kiem-toan-post366567.html](https://www.tinnhanhchungkhoan.vn/loi-nhuan-nam-2024-cua-pv-power-pow-giam-1346-ty-dong-sau-kiem-toan-post366567.html)",
+"[https://pvpower.vn/pow-media/to-ir/9-4-25---bao-cao-tham-dinh-bctc-2024.pdf](https://pvpower.vn/pow-media/to-ir/9-4-25---bao-cao-tham-dinh-bctc-2024.pdf)",
+"[https://24hmoney.vn/stock/POW/financial-report](https://24hmoney.vn/stock/POW/financial-report)"
+],
+"key_facts": [
+"PV Power công bố BCTC năm 2024 sau kiểm toán ngày 31/03/2025 [PV Power]",
+"Doanh thu thuần 2024 của POW = 30.306 tỷ đồng sau kiểm toán [Thị trường Tài chính Tiền tệ]",
+"Doanh thu thuần 2024 của POW tăng 0,4% so với báo cáo tự lập [Thị trường Tài chính Tiền tệ]",
+"LNST 2024 của POW sau kiểm toán = 1.211 tỷ đồng [Thị trường Tài chính Tiền tệ]",
+"LNST 2024 của POW giảm gần 135 tỷ đồng so với báo cáo tự lập [Thị trường Tài chính Tiền tệ]",
+"LNST 2024 của POW trước kiểm toán = 1.346 tỷ đồng [Thị trường Tài chính Tiền tệ]",
+"ROS 2024 của POW = 4,00%, giảm từ 4,53% năm 2023 [PV Power báo cáo thẩm định]",
+"ROA 2024 của POW = 1,61%, giảm từ 2,02% năm 2023 [PV Power báo cáo thẩm định]",
+"ROE 2024 của POW = 3,49%, giảm từ 3,81% năm 2023 [PV Power báo cáo thẩm định]",
+"Chi phí tài chính Q4/2024 của POW = 457,9 tỷ đồng [24hmoney]",
+"Chi phí tiền lãi Q4/2024 của POW = 414,2 tỷ đồng [24hmoney]"
+],
+"negative_facts": [
+"KHÔNG dùng LNST trước kiểm toán 1.346 tỷ đồng làm số chính sau kiểm toán",
+"KHÔNG kết luận biên lợi nhuận cải thiện khi ROS giảm từ 4,53% xuống 4,00%",
+"KHÔNG bỏ qua ảnh hưởng kiểm toán làm giảm LNST gần 135 tỷ đồng"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "C-033",
+"question": "GVR năm 2024: đánh giá doanh thu, lợi nhuận ròng, biên gộp và nợ vay để xem kết quả có phụ thuộc nhiều vào yếu tố ngoài hoạt động cốt lõi không.",
+"category": "C. Multi-fact analyze",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"GVR"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "analyze",
+"persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, GVR ghi nhận kết quả tăng trưởng tốt, nhưng cần phân biệt giữa kết quả hợp nhất theo báo cáo thường niên và số liệu báo cáo quý chưa kiểm toán. Theo BCTN 2024, hợp nhất toàn Tập đoàn đạt tổng doanh thu và lợi nhuận sau thuế lần lượt 28.739,25 tỷ đồng và 4.826,67 tỷ đồng, đạt 114,96% và 140,43% kế hoạch năm. Dữ liệu stage 2 từ GVR_BCTN24 cho biết doanh thu thuần đạt 22.138 tỷ đồng, lợi nhuận gộp 4.962 tỷ đồng, biên gộp khoảng 22,4%, LNTT 5.606 tỷ đồng, chi phí lãi vay 477,5 tỷ đồng, thu từ đi vay 6.577 tỷ đồng, trả nợ gốc 6.118 tỷ đồng, doanh thu tài chính 1.114 tỷ đồng và thu nhập khác 1.654 tỷ đồng. Như vậy, lợi nhuận không hoàn toàn đến từ hoạt động cốt lõi: thu nhập tài chính và thu nhập khác là phần đáng kể trong cơ cấu lợi nhuận, dù hoạt động cao su vẫn đóng vai trò chính.",
+"sources": [
+"GVR_BCTN24.pdf"
+],
+"web_sources": [
+"[https://vrg.vn/wp-content/uploads/2025/07/20250420-GVR-Bao-cao-thuong-nien-nam-2024-Final.pdf](https://vrg.vn/wp-content/uploads/2025/07/20250420-GVR-Bao-cao-thuong-nien-nam-2024-Final.pdf)",
+"[https://static2.vietstock.vn/data/HOSE/2024/BCTC/VN/QUY%204/GVR_Baocaotaichinh_Q4_2024_Hopnhat.pdf](https://static2.vietstock.vn/data/HOSE/2024/BCTC/VN/QUY%204/GVR_Baocaotaichinh_Q4_2024_Hopnhat.pdf)",
+"[https://finance.vietstock.vn/GVR-tap-doan-cong-nghiep-cao-su-viet-nam-ctcp.htm](https://finance.vietstock.vn/GVR-tap-doan-cong-nghiep-cao-su-viet-nam-ctcp.htm)",
+"[https://www.dnse.com.vn/senses/tin-tuc/bctc-quy-22024-gvr-loi-nhuan-q22024-tang-3754-so-voi-cung-ky-lai-86353-ty-dong-33851760](https://www.dnse.com.vn/senses/tin-tuc/bctc-quy-22024-gvr-loi-nhuan-q22024-tang-3754-so-voi-cung-ky-lai-86353-ty-dong-33851760)"
+],
+"key_facts": [
+"Tổng doanh thu và lợi nhuận sau thuế hợp nhất 2024 của GVR lần lượt = 28.739,25 tỷ đồng và 4.826,67 tỷ đồng [GVR BCTN]",
+"Tổng doanh thu hợp nhất 2024 của GVR đạt 114,96% kế hoạch năm [GVR BCTN]",
+"LNST hợp nhất 2024 của GVR đạt 140,43% kế hoạch năm [GVR BCTN]",
+"Doanh thu thuần 2024 của GVR = 22.138 tỷ đồng [GVR_BCTN24]",
+"Lợi nhuận gộp 2024 của GVR = 4.962 tỷ đồng [GVR_BCTN24]",
+"Biên lợi nhuận gộp 2024 của GVR = khoảng 22,4% [GVR_BCTN24]",
+"LNST 2024 của GVR = 4.826,67 tỷ đồng [GVR BCTN]",
+"LNTT 2024 của GVR = 5.606 tỷ đồng [GVR_BCTN24]",
+"Chi phí lãi vay 2024 của GVR = 477,5 tỷ đồng [GVR_BCTN24]",
+"Thu từ đi vay 2024 của GVR = 6.577 tỷ đồng [GVR_BCTN24]",
+"Trả nợ gốc vay 2024 của GVR = 6.118 tỷ đồng [GVR_BCTN24]",
+"Doanh thu tài chính 2024 của GVR = 1.114 tỷ đồng [GVR_BCTN24]",
+"Thu nhập khác 2024 của GVR = 1.654 tỷ đồng [GVR_BCTN24]",
+"LNST công ty mẹ Q4/2024 của GVR = 1.973.132.981.260 đồng [Vietstock BCTC Q4/2024]"
+],
+"negative_facts": [
+"Khẳng định lợi nhuận GVR hoàn toàn đến từ hoạt động kinh doanh cốt lõi",
+"Tính toán sai lệch lớn về tỷ suất biên lợi nhuận gộp",
+"KHÔNG dùng số doanh thu thuần 26.254 tỷ đồng từ tin quý chưa kiểm toán thay cho số BCTN nếu đang cần số kiểm toán"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+}
+]

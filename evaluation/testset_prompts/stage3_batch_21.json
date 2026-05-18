@@ -1,0 +1,227 @@
+
+[
+  {
+    "id": "F-014",
+    "question": "GAS gần đây có tin gì về giá khí, hợp đồng khí mới hoặc dự án LNG không?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "GAS"
+    ],
+    "expected_timeframe": "gần đây",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-015",
+    "question": "PLX tuần này có tin mới về giá xăng dầu, nguồn cung hoặc kết quả kinh doanh sơ bộ không?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "PLX"
+    ],
+    "expected_timeframe": "tuần này",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-016",
+    "question": "POW trong tháng này có tin gì về vận hành nhà máy điện, sản lượng điện hoặc dự án Nhơn Trạch không?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "POW"
+    ],
+    "expected_timeframe": "tháng này",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-017",
+    "question": "GVR năm 2026 có tin mới nào về giá cao su, thoái vốn hoặc chuyển đổi đất khu công nghiệp không?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "GVR"
+    ],
+    "expected_timeframe": "2026",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-018",
+    "question": "KDH tháng này có tin gì về pháp lý dự án, mở bán mới hoặc giao dịch cổ đông lớn?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "KDH"
+    ],
+    "expected_timeframe": "tháng này",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-019",
+    "question": "PNJ tuần này có tin gì mới về doanh số vàng, thay đổi chính sách quản lý vàng hoặc kết quả bán lẻ?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "PNJ"
+    ],
+    "expected_timeframe": "tuần này",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-020",
+    "question": "SSI gần đây có tin nổi bật nào về kết quả môi giới, tự doanh hoặc kế hoạch tăng vốn không?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "SSI"
+    ],
+    "expected_timeframe": "gần đây",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-021",
+    "question": "DGC tháng này có tin gì về giá phốt pho, xuất khẩu hóa chất hoặc dự án mới?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "DGC"
+    ],
+    "expected_timeframe": "tháng này",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-022",
+    "question": "Ngành ngân hàng tuần này có tin nóng nào về room tín dụng, nợ xấu hoặc chính sách lãi suất không?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "banking_sector",
+      "credit_room",
+      "NPL",
+      "interest_rate"
+    ],
+    "expected_timeframe": "tuần này",
+    "scope": "sector",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "F-023",
+    "question": "Thị trường bất động sản tháng này có sự kiện chính sách hoặc vụ việc nào đáng chú ý không?",
+    "category": "F. Recent news",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "real_estate_sector",
+      "policy_event"
+    ],
+    "expected_timeframe": "tháng này",
+    "scope": "sector",
+    "style": "lookup",
+    "persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  }
+]

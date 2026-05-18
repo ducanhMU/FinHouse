@@ -1,0 +1,414 @@
+[
+  {
+    "id": "A-003",
+    "question": "P/E là gì vậy ạ? Khi đọc báo cáo về FPT thì P/E cao hay thấp thường nói lên điều gì?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "P/E",
+      "FPT"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "P/E, hay Price-to-Earnings ratio, là hệ số giá trên lợi nhuận một cổ phiếu: P/E = Giá thị trường mỗi cổ phiếu / EPS. Chỉ số này cho biết nhà đầu tư đang trả bao nhiêu đồng cho 1 đồng lợi nhuận hiện tại hoặc kỳ vọng của doanh nghiệp. Khi đọc báo cáo về FPT, P/E cao thường có thể phản ánh thị trường kỳ vọng tăng trưởng lợi nhuận cao, chất lượng doanh nghiệp tốt hoặc cổ phiếu đang được định giá đắt; P/E thấp có thể hàm ý cổ phiếu rẻ hơn, kỳ vọng tăng trưởng thấp hơn, hoặc thị trường đang lo ngại rủi ro. P/E nên so với lịch sử của FPT, với doanh nghiệp cùng ngành công nghệ, và đi kèm tăng trưởng EPS, ROE, biên lợi nhuận và triển vọng kinh doanh; không nên kết luận cao/thấp chỉ từ một con số đơn lẻ. ([Investopedia][1])",
+    "sources": [],
+    "web_sources": [
+      "[https://www.investopedia.com/terms/p/price-earningsratio.asp](https://www.investopedia.com/terms/p/price-earningsratio.asp)"
+    ],
+    "key_facts": [
+      "P/E = Giá thị trường mỗi cổ phiếu / EPS [investopedia]",
+      "P/E đo giá cổ phiếu tương quan với lợi nhuận trên mỗi cổ phiếu EPS [investopedia]",
+      "P/E cao có thể phản ánh kỳ vọng tăng trưởng cao hoặc cổ phiếu đang được định giá cao [investopedia]",
+      "P/E thấp có thể phản ánh định giá thấp, kỳ vọng tăng trưởng thấp hoặc rủi ro doanh nghiệp [investopedia]",
+      "P/E âm hoặc EPS bằng 0 thường khiến chỉ số P/E không có ý nghĩa hoặc không áp dụng được [investopedia]",
+      "P/E nên được so sánh giữa các doanh nghiệp cùng ngành thay vì so tuyệt đối giữa các ngành khác nhau [investopedia]"
+    ],
+    "negative_facts": [
+      "KHÔNG kết luận P/E cao luôn là xấu hoặc P/E thấp luôn là tốt",
+      "KHÔNG dùng P/E để so trực tiếp FPT với ngân hàng, bất động sản hoặc ngành có mô hình lợi nhuận khác biệt",
+      "KHÔNG nhầm P/E với P/B"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "A-005",
+    "question": "NIM của ngân hàng là gì? Em thấy VCB hay được phân tích bằng NIM nên muốn hiểu bản chất chỉ số này.",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "NIM",
+      "VCB"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "NIM, hay Net Interest Margin, là biên lãi ròng của ngân hàng. Công thức phổ biến: NIM = Thu nhập lãi thuần / Tài sản sinh lãi bình quân. Bản chất của NIM là đo mức chênh lệch ngân hàng kiếm được từ hoạt động cốt lõi cho vay/đầu tư so với chi phí vốn huy động, tính trên quy mô tài sản sinh lãi. Với VCB, NIM thường được dùng để đánh giá hiệu quả sinh lời của hoạt động tín dụng và đầu tư; NIM cao thường tích cực nếu đi cùng chất lượng tài sản tốt, nhưng không nên nhìn riêng NIM mà bỏ qua tăng trưởng tín dụng, CASA, chi phí vốn, nợ xấu và trích lập dự phòng. ([Investopedia][2])",
+    "sources": [],
+    "web_sources": [
+      "[https://www.investopedia.com/terms/n/netinterestmargin.asp](https://www.investopedia.com/terms/n/netinterestmargin.asp)",
+      "[https://www.wallstreetprep.com/knowledge/net-interest-margin-nim/](https://www.wallstreetprep.com/knowledge/net-interest-margin-nim/)"
+    ],
+    "key_facts": [
+      "NIM = Thu nhập lãi thuần / Tài sản sinh lãi bình quân [investopedia]",
+      "NIM là chỉ tiêu đo khả năng sinh lời từ hoạt động lãi của ngân hàng [investopedia]",
+      "NIM so sánh thu nhập lãi ngân hàng kiếm được với chi phí lãi phải trả cho nguồn vốn [wallstreetprep]",
+      "NIM dương cho thấy hoạt động tài sản sinh lãi tạo thu nhập lớn hơn chi phí lãi [investopedia]",
+      "NIM cao không tự động đồng nghĩa ngân hàng an toàn nếu nợ xấu hoặc chi phí dự phòng tăng [investopedia]",
+      "Khi phân tích VCB, NIM nên đọc cùng CASA, chi phí vốn, tăng trưởng tín dụng, nợ xấu và dự phòng tín dụng [wallstreetprep]"
+    ],
+    "negative_facts": [
+      "KHÔNG nhầm NIM với ROE hoặc ROA",
+      "KHÔNG kết luận NIM cao luôn tốt nếu chất lượng tài sản xấu đi",
+      "KHÔNG dùng NIM cho doanh nghiệp phi ngân hàng như chỉ tiêu cốt lõi"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "A-009",
+    "question": "P/B là gì? Với cổ phiếu ngân hàng như BID hoặc ACB thì chỉ số này thường được hiểu ra sao?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "P/B",
+      "BID",
+      "ACB"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "P/B, hay Price-to-Book ratio, là hệ số giá trên giá trị sổ sách: P/B = Giá thị trường mỗi cổ phiếu / Giá trị sổ sách mỗi cổ phiếu. Với cổ phiếu ngân hàng như BID hoặc ACB, P/B thường được dùng nhiều vì tài sản và vốn chủ sở hữu của ngân hàng là nền tảng quan trọng để tạo lợi nhuận. P/B cao thường cho thấy thị trường trả premium cho chất lượng tài sản, ROE cao, triển vọng tăng trưởng hoặc mức độ an toàn; P/B thấp có thể hàm ý định giá rẻ, nhưng cũng có thể phản ánh lo ngại về nợ xấu, trích lập, tăng trưởng tín dụng hoặc chất lượng vốn. Nên đọc P/B cùng ROE, ROA, NIM, nợ xấu, tỷ lệ bao phủ nợ xấu và tăng trưởng lợi nhuận. ([Investopedia][3])",
+    "sources": [],
+    "web_sources": [
+      "[https://www.investopedia.com/terms/p/price-to-bookratio.asp](https://www.investopedia.com/terms/p/price-to-bookratio.asp)",
+      "[https://www.investopedia.com/terms/b/bvps.asp](https://www.investopedia.com/terms/b/bvps.asp)"
+    ],
+    "key_facts": [
+      "P/B = Giá thị trường mỗi cổ phiếu / Giá trị sổ sách mỗi cổ phiếu [investopedia]",
+      "Giá trị sổ sách mỗi cổ phiếu = Vốn chủ sở hữu phổ thông / Số cổ phiếu lưu hành [investopedia]",
+      "P/B so sánh giá thị trường của cổ phiếu với giá trị kế toán trên mỗi cổ phiếu [investopedia]",
+      "P/B thường hữu ích với ngân hàng vì vốn chủ sở hữu và tài sản tài chính là nền tảng tạo lợi nhuận [investopedia]",
+      "P/B cao có thể phản ánh ROE cao, chất lượng tài sản tốt hoặc kỳ vọng tăng trưởng cao [investopedia]",
+      "P/B thấp có thể phản ánh định giá rẻ hoặc rủi ro về chất lượng tài sản, lợi nhuận và vốn [investopedia]"
+    ],
+    "negative_facts": [
+      "KHÔNG kết luận P/B thấp luôn là cổ phiếu rẻ đáng mua",
+      "KHÔNG nhầm P/B với P/E",
+      "KHÔNG bỏ qua ROE khi so P/B giữa BID và ACB"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "A-011",
+    "question": "EBITDA là gì ạ? Em thấy khi phân tích GAS hay PLX có lúc dùng EBITDA thay vì lợi nhuận ròng.",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "EBITDA",
+      "GAS",
+      "PLX"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "EBITDA là lợi nhuận trước lãi vay, thuế, khấu hao và phân bổ, viết tắt của Earnings Before Interest, Taxes, Depreciation and Amortization. Chỉ tiêu này thường được dùng để nhìn năng lực tạo lợi nhuận từ hoạt động kinh doanh trước khi bị ảnh hưởng bởi cấu trúc vốn, thuế và chi phí khấu hao/phân bổ. Với doanh nghiệp như GAS hoặc PLX, EBITDA có thể hữu ích vì các doanh nghiệp năng lượng, hạ tầng, phân phối xăng dầu có tài sản lớn và khấu hao đáng kể; EBITDA giúp so sánh hiệu quả vận hành trước các yếu tố kế toán và tài chính. Tuy vậy, EBITDA không phải lợi nhuận ròng, không phản ánh đầy đủ chi phí lãi vay, thuế, vốn đầu tư duy trì tài sản và dòng tiền thực. ([Investopedia][4])",
+    "sources": [],
+    "web_sources": [
+      "[https://www.investopedia.com/terms/e/ebitda.asp](https://www.investopedia.com/terms/e/ebitda.asp)",
+      "[https://www.investopedia.com/terms/e/ebitda-margin.asp](https://www.investopedia.com/terms/e/ebitda-margin.asp)"
+    ],
+    "key_facts": [
+      "EBITDA = Earnings Before Interest, Taxes, Depreciation and Amortization [investopedia]",
+      "EBITDA đo lợi nhuận hoạt động trước lãi vay, thuế, khấu hao và phân bổ [investopedia]",
+      "EBITDA thường dùng để so sánh hiệu quả hoạt động giữa các doanh nghiệp có cấu trúc vốn hoặc mức khấu hao khác nhau [investopedia]",
+      "EBITDA margin = EBITDA / Doanh thu [investopedia]",
+      "EBITDA không phải chỉ tiêu GAAP và có thể được tính không hoàn toàn thống nhất giữa các doanh nghiệp [investopedia]",
+      "EBITDA có thể làm lợi nhuận nhìn cao hơn vì loại bỏ chi phí lãi vay, thuế, khấu hao và phân bổ [investopedia]"
+    ],
+    "negative_facts": [
+      "KHÔNG nhầm EBITDA với lợi nhuận sau thuế",
+      "KHÔNG coi EBITDA là dòng tiền tự do",
+      "KHÔNG bỏ qua CAPEX và nợ vay khi phân tích GAS hoặc PLX bằng EBITDA"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "A-012",
+    "question": "Vốn hóa thị trường là gì? Nó có phải là giá trị thật của công ty như VIC không?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "market_cap",
+      "VIC"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Vốn hóa thị trường là tổng giá trị thị trường của phần vốn cổ phần đang niêm yết/lưu hành, thường tính bằng: Vốn hóa = Giá cổ phiếu hiện tại x Số cổ phiếu đang lưu hành. Với VIC, vốn hóa cho biết thị trường chứng khoán đang định giá phần vốn chủ sở hữu của Vingroup tại một thời điểm, dựa trên giá cổ phiếu và số lượng cổ phiếu. Nó không nhất thiết là “giá trị thật” hay giá trị nội tại của công ty, vì giá cổ phiếu chịu ảnh hưởng bởi kỳ vọng, tâm lý thị trường, thanh khoản, triển vọng ngành, rủi ro tài chính và thông tin mới. Vì vậy, vốn hóa nên được xem là giá trị thị trường của equity, không phải toàn bộ giá trị doanh nghiệp và không đồng nghĩa với giá trị nội tại chắc chắn. ([Investopedia][5])",
+    "sources": [],
+    "web_sources": [
+      "[https://www.investopedia.com/terms/m/marketcapitalization.asp](https://www.investopedia.com/terms/m/marketcapitalization.asp)",
+      "[https://www.investopedia.com/ask/answers/how-companys-stock-price-and-market-cap-determined/](https://www.investopedia.com/ask/answers/how-companys-stock-price-and-market-cap-determined/)"
+    ],
+    "key_facts": [
+      "Vốn hóa thị trường = Giá cổ phiếu hiện tại x Số cổ phiếu đang lưu hành [investopedia]",
+      "Vốn hóa thị trường đo giá trị thị trường của vốn cổ phần một công ty đại chúng [investopedia]",
+      "Vốn hóa không đo chính xác giá trị nội tại của công ty [investopedia]",
+      "Giá cổ phiếu chịu ảnh hưởng bởi cung cầu và kỳ vọng thị trường [investopedia]",
+      "Vốn hóa khác doanh thu vì doanh thu là tiền bán hàng trước chi phí [investopedia]",
+      "Vốn hóa khác enterprise value vì vốn hóa chỉ phản ánh giá trị thị trường của equity [investopedia]"
+    ],
+    "negative_facts": [
+      "KHÔNG nói vốn hóa thị trường là giá trị thật chắc chắn của VIC",
+      "KHÔNG nhầm vốn hóa với tổng tài sản",
+      "KHÔNG nhầm vốn hóa với doanh thu hoặc lợi nhuận"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "A-013",
+    "question": "Free cash flow là gì và vì sao nhà đầu tư quan tâm đến dòng tiền tự do?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "free_cash_flow"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Free cash flow, hay dòng tiền tự do, là lượng tiền mặt doanh nghiệp còn lại sau khi tạo tiền từ hoạt động kinh doanh và chi cho tài sản dài hạn cần thiết. Công thức phổ biến: FCF = Dòng tiền từ hoạt động kinh doanh - Chi đầu tư vốn CAPEX. Nhà đầu tư quan tâm FCF vì chỉ tiêu này cho biết doanh nghiệp có tiền thật còn lại để trả cổ tức, giảm nợ, mua lại cổ phiếu, tái đầu tư hoặc tích lũy tiền mặt hay không. FCF thường được xem là thước đo chất lượng lợi nhuận tốt hơn lợi nhuận kế toán trong một số trường hợp, nhưng cần đọc cùng chu kỳ vốn lưu động, CAPEX duy trì, nợ vay và đặc thù ngành. ([Investopedia][6])",
+    "sources": [],
+    "web_sources": [
+      "[https://www.investopedia.com/terms/f/freecashflow.asp](https://www.investopedia.com/terms/f/freecashflow.asp)",
+      "[https://corporatefinanceinstitute.com/resources/valuation/fcf-formula-free-cash-flow/](https://corporatefinanceinstitute.com/resources/valuation/fcf-formula-free-cash-flow/)"
+    ],
+    "key_facts": [
+      "Free cash flow = Dòng tiền từ hoạt động kinh doanh - CAPEX [corporatefinanceinstitute]",
+      "Free cash flow là tiền còn lại sau khi doanh nghiệp trang trải hoạt động và đầu tư duy trì tài sản vốn [investopedia]",
+      "FCF giúp đánh giá khả năng doanh nghiệp trả cổ tức, giảm nợ, mua lại cổ phiếu hoặc tái đầu tư [investopedia]",
+      "FCF dương thường cho thấy doanh nghiệp tạo ra tiền sau nhu cầu đầu tư vốn [investopedia]",
+      "FCF âm không luôn xấu nếu doanh nghiệp đang đầu tư tăng trưởng hợp lý [corporatefinanceinstitute]",
+      "FCF khác lợi nhuận sau thuế vì FCF dựa trên dòng tiền và CAPEX, không chỉ lợi nhuận kế toán [investopedia]"
+    ],
+    "negative_facts": [
+      "KHÔNG nhầm free cash flow với lợi nhuận sau thuế",
+      "KHÔNG nhầm free cash flow với EBITDA",
+      "KHÔNG kết luận FCF âm luôn xấu nếu doanh nghiệp đang đầu tư mở rộng"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "A-014",
+    "question": "Hàng tồn kho trong báo cáo tài chính là gì? Với PNJ thì khoản mục này nên được hiểu thế nào?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "inventory",
+      "PNJ"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Hàng tồn kho là tài sản ngắn hạn gồm hàng hóa, nguyên vật liệu, sản phẩm dở dang hoặc thành phẩm mà doanh nghiệp dự định bán hoặc sử dụng trong sản xuất kinh doanh. Trên bảng cân đối kế toán, hàng tồn kho thường là tài sản lưu động và khi bán ra sẽ chuyển thành giá vốn hàng bán. Với PNJ, hàng tồn kho cần được hiểu trong bối cảnh doanh nghiệp bán lẻ/trang sức: tồn kho có thể gồm vàng, đá quý, nữ trang thành phẩm và hàng hóa tại cửa hàng. Khoản mục này quan trọng vì ảnh hưởng đến vốn lưu động, rủi ro biến động giá vàng/nguyên liệu, khả năng quay vòng hàng và nhu cầu trích lập giảm giá hàng tồn kho. ([Investopedia][7])",
+    "sources": [],
+    "web_sources": [
+      "[https://www.investopedia.com/terms/i/inventory.asp](https://www.investopedia.com/terms/i/inventory.asp)",
+      "[https://www.investopedia.com/terms/i/inventory-management.asp](https://www.investopedia.com/terms/i/inventory-management.asp)"
+    ],
+    "key_facts": [
+      "Hàng tồn kho là tài sản gồm nguyên vật liệu, sản phẩm dở dang và thành phẩm/hàng hóa dùng cho sản xuất hoặc bán hàng [investopedia]",
+      "Hàng tồn kho được trình bày là tài sản ngắn hạn trên bảng cân đối kế toán [investopedia]",
+      "Khi hàng tồn kho được bán, giá trị liên quan được ghi nhận vào giá vốn hàng bán COGS [investopedia]",
+      "Quản trị hàng tồn kho ảnh hưởng đến vốn lưu động và hiệu quả bán hàng [investopedia]",
+      "Vòng quay hàng tồn kho là chỉ tiêu quan trọng để đánh giá tốc độ bán và quản trị tồn kho [investopedia]",
+      "Dự phòng giảm giá hàng tồn kho giúp tránh ghi nhận tài sản cao hơn giá trị có thể thu hồi [investopedia]"
+    ],
+    "negative_facts": [
+      "KHÔNG coi hàng tồn kho luôn là tiền mặt hoặc tài sản thanh khoản ngay",
+      "KHÔNG kết luận tồn kho PNJ cao luôn xấu nếu phù hợp mùa vụ và chiến lược bán hàng",
+      "KHÔNG bỏ qua rủi ro biến động giá vàng khi phân tích tồn kho PNJ"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "A-019",
+    "question": "Chi phí bán hàng là gì? Với doanh nghiệp bán lẻ như MWG thì khoản này phản ánh điều gì?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "selling_expenses",
+      "MWG"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Chi phí bán hàng là các chi phí phát sinh để thúc đẩy, bán và phân phối sản phẩm/dịch vụ. Khoản này có thể gồm lương và hoa hồng nhân viên bán hàng, chi phí cửa hàng, quảng cáo, khuyến mại, vận chuyển, đóng gói và các chi phí liên quan trực tiếp hoặc gián tiếp đến việc tạo doanh thu. Với doanh nghiệp bán lẻ như MWG, chi phí bán hàng phản ánh quy mô mạng lưới cửa hàng, nhân sự bán hàng, marketing, logistics và mức độ cạnh tranh về giá/khuyến mại. Tỷ lệ chi phí bán hàng trên doanh thu giúp đánh giá hiệu quả vận hành bán lẻ, nhưng cần đọc cùng biên lợi nhuận gộp, doanh thu/cửa hàng và chiến lược mở rộng hoặc tái cấu trúc. ([Corporate Finance Institute][8])",
+    "sources": [],
+    "web_sources": [
+      "[https://corporatefinanceinstitute.com/resources/accounting/what-is-sga/](https://corporatefinanceinstitute.com/resources/accounting/what-is-sga/)",
+      "[https://www.bdc.ca/en/articles-tools/entrepreneur-toolkit/templates-business-guides/glossary/selling-expenses](https://www.bdc.ca/en/articles-tools/entrepreneur-toolkit/templates-business-guides/glossary/selling-expenses)"
+    ],
+    "key_facts": [
+      "Chi phí bán hàng là chi phí để quảng bá, bán và phân phối sản phẩm hoặc dịch vụ [bdc]",
+      "Chi phí bán hàng là một phần của nhóm chi phí hoạt động [bdc]",
+      "Chi phí bán hàng trực tiếp có thể gồm hoa hồng hoặc chi phí phát sinh tại điểm bán [corporatefinanceinstitute]",
+      "Chi phí bán hàng gián tiếp có thể gồm marketing, quảng cáo, logistics hoặc hỗ trợ bán hàng [corporatefinanceinstitute]",
+      "Tỷ lệ chi phí bán hàng/doanh thu giúp đánh giá hiệu quả vận hành bán hàng [corporatefinanceinstitute]",
+      "Với doanh nghiệp bán lẻ, chi phí bán hàng thường phản ánh mạng lưới cửa hàng, nhân sự, marketing và phân phối [bdc]"
+    ],
+    "negative_facts": [
+      "KHÔNG nhầm chi phí bán hàng với giá vốn hàng bán",
+      "KHÔNG nhầm chi phí bán hàng với chi phí quản lý doanh nghiệp",
+      "KHÔNG kết luận chi phí bán hàng tăng luôn xấu nếu doanh nghiệp đang mở rộng có kiểm soát"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "A-020",
+    "question": "Nợ xấu của ngân hàng là gì? Khi học về MBB thì em nên hiểu tỷ lệ nợ xấu như thế nào?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "non_performing_loan",
+      "MBB"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Nợ xấu, hay non-performing loan, là khoản vay mà người vay không còn trả nợ đúng hạn hoặc có rủi ro không thu hồi đầy đủ. Trong thông lệ quốc tế, nợ quá hạn 90 ngày thường được xem là dấu hiệu quan trọng của nợ xấu đối với khoản vay thương mại. Tỷ lệ nợ xấu thường được hiểu là Nợ xấu / Tổng dư nợ cho vay. Khi học về MBB, tỷ lệ nợ xấu cho biết chất lượng danh mục tín dụng: tỷ lệ thấp thường tích cực, nhưng cần đọc cùng tỷ lệ bao phủ nợ xấu, chi phí dự phòng, cơ cấu cho vay, tăng trưởng tín dụng và nợ nhóm 2. Nợ xấu tăng có thể làm giảm lợi nhuận do ngân hàng phải trích lập dự phòng nhiều hơn. ([Investopedia][9])",
+    "sources": [],
+    "web_sources": [
+      "[https://www.investopedia.com/terms/n/nonperformingloan.asp](https://www.investopedia.com/terms/n/nonperformingloan.asp)",
+      "[https://www.investopedia.com/terms/p/problem-loan.asp](https://www.investopedia.com/terms/p/problem-loan.asp)"
+    ],
+    "key_facts": [
+      "Nợ xấu là khoản vay mà người vay không trả nợ theo lịch và có rủi ro không thu hồi đầy đủ [investopedia]",
+      "Khoản vay thương mại quá hạn trên 90 ngày thường được xem là problem loan hoặc non-performing theo thông lệ phổ biến [investopedia]",
+      "Tỷ lệ nợ xấu = Nợ xấu / Tổng dư nợ cho vay [investopedia]",
+      "Nợ xấu cao làm giảm chất lượng tài sản của ngân hàng [investopedia]",
+      "Nợ xấu có thể làm tăng chi phí dự phòng và ảnh hưởng lợi nhuận ngân hàng [investopedia]",
+      "Phân tích nợ xấu nên đi cùng tỷ lệ bao phủ nợ xấu, chi phí dự phòng, tăng trưởng tín dụng và cơ cấu cho vay [investopedia]"
+    ],
+    "negative_facts": [
+      "KHÔNG nhầm nợ xấu với tổng nợ vay của ngân hàng",
+      "KHÔNG kết luận tỷ lệ nợ xấu thấp là đủ nếu tỷ lệ bao phủ nợ xấu yếu",
+      "KHÔNG bỏ qua nợ nhóm 2 khi đánh giá xu hướng chất lượng tài sản"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "A-022",
+    "question": "Book value là gì? Với cổ phiếu chứng khoán như SSI hay VND thì giá trị sổ sách có ý nghĩa gì?",
+    "category": "A. Definition",
+    "expected_tools": [
+      "rag"
+    ],
+    "expected_entities": [
+      "book_value",
+      "SSI",
+      "VND"
+    ],
+    "expected_timeframe": "",
+    "scope": "general",
+    "style": "definition",
+    "persona": "student — hỏi định nghĩa, công thức, ví dụ cụ thể; giọng tò mò, học hỏi",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Book value, hay giá trị sổ sách, là giá trị tài sản thuần theo sổ kế toán: Book value = Tổng tài sản - Tổng nợ phải trả, tương đương vốn chủ sở hữu. Giá trị sổ sách trên mỗi cổ phiếu, BVPS, thường được tính bằng vốn chủ sở hữu phổ thông chia cho số cổ phiếu lưu hành. Với công ty chứng khoán như SSI hoặc VND, book value có ý nghĩa vì vốn chủ sở hữu là nền tảng cho năng lực cho vay margin, tự doanh, bảo lãnh phát hành và khả năng chịu rủi ro thị trường. Tuy nhiên book value là số kế toán tại một thời điểm, không phản ánh đầy đủ giá trị thương hiệu, năng lực sinh lời tương lai hoặc rủi ro giảm giá tài sản tài chính. Nên đọc book value cùng P/B, ROE, chất lượng tài sản, quy mô margin và kết quả tự doanh/môi giới. ([Investopedia][10])",
+    "sources": [],
+    "web_sources": [
+      "[https://www.investopedia.com/terms/b/bookvalue.asp](https://www.investopedia.com/terms/b/bookvalue.asp)",
+      "[https://www.investopedia.com/terms/b/bvps.asp](https://www.investopedia.com/terms/b/bvps.asp)",
+      "[https://www.investopedia.com/articles/stocks/07/book_value.asp](https://www.investopedia.com/articles/stocks/07/book_value.asp)"
+    ],
+    "key_facts": [
+      "Book value = Tổng tài sản - Tổng nợ phải trả [investopedia]",
+      "Book value tương đương vốn chủ sở hữu theo sổ kế toán [investopedia]",
+      "BVPS = Vốn chủ sở hữu phổ thông / Số cổ phiếu phổ thông đang lưu hành [investopedia]",
+      "Book value là giá trị kế toán tại một thời điểm, khác với giá trị thị trường [investopedia]",
+      "Giá trị thị trường thường phản ánh kỳ vọng về tài sản vô hình và tăng trưởng tương lai mà book value có thể không phản ánh đầy đủ [investopedia]",
+      "Nhà đầu tư thường so sánh BVPS với giá thị trường thông qua chỉ số P/B [investopedia]"
+    ],
+    "negative_facts": [
+      "KHÔNG nhầm book value với market cap",
+      "KHÔNG coi book value là giá trị thanh lý chắc chắn thu được",
+      "KHÔNG bỏ qua ROE và rủi ro tài sản tài chính khi phân tích SSI hoặc VND bằng book value"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  }
+]

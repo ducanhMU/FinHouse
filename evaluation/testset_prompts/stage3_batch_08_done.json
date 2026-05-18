@@ -1,0 +1,468 @@
+[
+  {
+    "id": "B-054",
+    "question": "DCM 2023 biên lợi nhuận gộp là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "DCM"
+    ],
+    "expected_timeframe": "2023",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2023, biên lợi nhuận gộp của Đạm Cà Mau (DCM) đạt khoảng 16% [web:BSC]. Đây là mức giảm mạnh so với năm 2022, chủ yếu do giá bán bình quân phân bón giảm so với nền cao năm trước. Cùng năm, DCM ghi nhận doanh thu thuần 12.602 tỷ đồng và lợi nhuận sau thuế khoảng 1.108 tỷ đồng [web:BSC].",
+    "sources": [],
+    "web_sources": [
+      "[https://cafef1.mediacdn.vn/Images/Uploaded/DuLieuDownload/PhanTichBaoCao/DCM_13324_BSC13032024113415.pdf](https://cafef1.mediacdn.vn/Images/Uploaded/DuLieuDownload/PhanTichBaoCao/DCM_13324_BSC13032024113415.pdf)",
+      "[https://www.psi.vn/uploads/trung-tam-phan-tich/bao-cao/Tai%20lieu%202/PSI_Baocaocapnhat_DCM_Q4.2023.pdf](https://www.psi.vn/uploads/trung-tam-phan-tich/bao-cao/Tai%20lieu%202/PSI_Baocaocapnhat_DCM_Q4.2023.pdf)",
+      "[https://www.dnse.com.vn/senses/tin-tuc/bctc-quy-22023-dcm-loi-nhuan-q22023-dat-28855-ty-dong-giam-7169-so-voi-cung-ky-33339704](https://www.dnse.com.vn/senses/tin-tuc/bctc-quy-22023-dcm-loi-nhuan-q22023-dat-28855-ty-dong-giam-7169-so-voi-cung-ky-33339704)"
+    ],
+    "key_facts": [
+      "Biên lợi nhuận gộp 2023 của DCM = 16% [BSC]",
+      "Doanh thu thuần 2023 của DCM = 12.602 tỷ đồng [BSC]",
+      "Lợi nhuận sau thuế 2023 của DCM = 1.108 tỷ đồng [BSC]",
+      "Tăng trưởng doanh thu thuần 2023 của DCM = -21% YoY [BSC]",
+      "Tăng trưởng lợi nhuận sau thuế 2023 của DCM = -74% YoY [BSC]",
+      "Doanh thu tài chính 2023 của DCM = 570 tỷ đồng [BSC]",
+      "Tăng trưởng doanh thu tài chính 2023 của DCM = +89% YoY [BSC]",
+      "Lợi nhuận sau thuế quý 4/2023 của DCM = 492 tỷ đồng [BSC]",
+      "Chi phí quản lý doanh nghiệp quý 4/2023 của DCM = 209 tỷ đồng [BSC]"
+    ],
+    "negative_facts": [
+      "KHÔNG dùng biên lợi nhuận gộp năm 2022 thay cho năm 2023",
+      "KHÔNG nhầm biên lợi nhuận gộp với biên lợi nhuận ròng",
+      "KHÔNG dùng số dự phóng 2024 hoặc 2025 thay cho số thực hiện 2023"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-055",
+    "question": "PLX Q1/2024 doanh thu bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "PLX"
+    ],
+    "expected_timeframe": "Q1/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Quý 1/2024, doanh thu thuần hợp nhất của Petrolimex (PLX) đạt 75.106 tỷ đồng, tăng so với 67.432 tỷ đồng cùng kỳ năm trước [web:PLX BCTC HN Q1/2024]. Nếu xét báo cáo công ty mẹ, doanh thu thuần quý 1/2024 là 47.356 tỷ đồng [web:PLX BCTC công ty mẹ Q1/2024].",
+    "sources": [],
+    "web_sources": [
+      "[https://cdn.24hmoney.vn/upload/file/2024-2/2024-05-03/no-name-1714676176.pdf](https://cdn.24hmoney.vn/upload/file/2024-2/2024-05-03/no-name-1714676176.pdf)",
+      "[https://files.petrolimex.com.vn/files/6783dc1271ff449e95b74a9520964169/application%3Dpdf/8b03389463674d67830b5f5448ddbf40/20240430%20-%20PLX%20-%20BCTC%20Cong%20ty%20me%20Quy%201-2024.pdf](https://files.petrolimex.com.vn/files/6783dc1271ff449e95b74a9520964169/application%3Dpdf/8b03389463674d67830b5f5448ddbf40/20240430%20-%20PLX%20-%20BCTC%20Cong%20ty%20me%20Quy%201-2024.pdf)",
+      "[https://www.petrolimex.com.vn/bctn-2024-baocaotaichinh.html](https://www.petrolimex.com.vn/bctn-2024-baocaotaichinh.html)"
+    ],
+    "key_facts": [
+      "Doanh thu thuần hợp nhất Q1/2024 của PLX = 75.106.197.384.228 đồng [PLX BCTC HN Q1/2024]",
+      "Doanh thu thuần hợp nhất Q1/2024 của PLX = 75.106 tỷ đồng [PLX BCTC HN Q1/2024]",
+      "Doanh thu bán hàng và cung cấp dịch vụ hợp nhất Q1/2024 của PLX = 75.131.889.185.159 đồng [PLX BCTC HN Q1/2024]",
+      "Các khoản giảm trừ doanh thu hợp nhất Q1/2024 của PLX = 25.691.800.931 đồng [PLX BCTC HN Q1/2024]",
+      "Giá vốn hàng bán hợp nhất Q1/2024 của PLX = 70.436.759.049.100 đồng [PLX BCTC HN Q1/2024]",
+      "Lợi nhuận gộp hợp nhất Q1/2024 của PLX = 4.669.438.335.128 đồng [PLX BCTC HN Q1/2024]",
+      "Doanh thu thuần công ty mẹ Q1/2024 của PLX = 47.356.072.200.699 đồng [PLX BCTC công ty mẹ Q1/2024]",
+      "Doanh thu thuần hợp nhất Q1/2023 của PLX = 67.432.313.620.139 đồng [PLX BCTC HN Q1/2024]"
+    ],
+    "negative_facts": [
+      "KHÔNG nhầm doanh thu công ty mẹ 47.356 tỷ đồng với doanh thu hợp nhất 75.106 tỷ đồng",
+      "KHÔNG dùng doanh thu cả năm 2024 thay cho quý 1/2024",
+      "KHÔNG nhầm doanh thu bán hàng trước giảm trừ với doanh thu thuần"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-056",
+    "question": "HCM quý 2/2024 lợi nhuận sau thuế bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "HCM"
+    ],
+    "expected_timeframe": "Q2/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Quý 2/2024, Chứng khoán HSC (HCM) ghi nhận lợi nhuận sau thuế 313,3 tỷ đồng, tăng 99,3% so với cùng kỳ năm 2023 [web:Dân Việt]. Lợi nhuận trước thuế cùng kỳ đạt 389,8 tỷ đồng; doanh thu hoạt động đạt 1.094 tỷ đồng, tăng hơn 86% YoY [web:Dân Việt].",
+    "sources": [],
+    "web_sources": [
+      "[https://vietstock.vn/2024/07/hcm-bctc-quy-2-nam-2024-737-1209507.htm](https://vietstock.vn/2024/07/hcm-bctc-quy-2-nam-2024-737-1209507.htm)",
+      "[https://etime.danviet.vn/kinh-doanh-khoi-sac-chung-khoan-hsc-bao-lai-gan-gap-doi-cung-ky-20240720205837041-d119442.html](https://etime.danviet.vn/kinh-doanh-khoi-sac-chung-khoan-hsc-bao-lai-gan-gap-doi-cung-ky-20240720205837041-d119442.html)",
+      "[https://24hmoney.vn/stock/HCM/financial-report](https://24hmoney.vn/stock/HCM/financial-report)"
+    ],
+    "key_facts": [
+      "Lợi nhuận sau thuế Q2/2024 của HCM = 313,3 tỷ đồng [Dân Việt]",
+      "Tăng trưởng lợi nhuận sau thuế Q2/2024 của HCM = +99,3% YoY [Dân Việt]",
+      "Lợi nhuận trước thuế Q2/2024 của HCM = 389,8 tỷ đồng [Dân Việt]",
+      "Tăng trưởng lợi nhuận trước thuế Q2/2024 của HCM = +98,8% YoY [Dân Việt]",
+      "Doanh thu hoạt động Q2/2024 của HCM = 1.094 tỷ đồng [Dân Việt]",
+      "Tăng trưởng doanh thu hoạt động Q2/2024 của HCM = hơn 86% YoY [Dân Việt]",
+      "Lãi từ tài sản tài chính FVTPL Q2/2024 của HCM = hơn 397,7 tỷ đồng [Dân Việt]",
+      "Lãi từ cho vay và phải thu Q2/2024 của HCM = hơn 386,3 tỷ đồng [Dân Việt]",
+      "Chi phí quản lý công ty chứng khoán Q2/2024 của HCM = 118,8 tỷ đồng [Dân Việt]"
+    ],
+    "negative_facts": [
+      "KHÔNG nhầm lợi nhuận sau thuế 313,3 tỷ đồng với lợi nhuận trước thuế 389,8 tỷ đồng",
+      "KHÔNG dùng số lũy kế 6 tháng nếu câu hỏi hỏi riêng quý 2/2024",
+      "KHÔNG nhầm mã HCM với thành phố Hồ Chí Minh"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-057",
+    "question": "PNJ Q3/2024 doanh thu thuần là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "PNJ"
+    ],
+    "expected_timeframe": "Q3/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Quý 3/2024, PNJ ghi nhận doanh thu thuần 7.130 tỷ đồng và lợi nhuận sau thuế 216 tỷ đồng [web:PNJ][web:Tuổi trẻ Thủ đô]. Biên lợi nhuận gộp trung bình quý 3/2024 đạt 17,5%, tăng nhẹ so với 17,3% cùng kỳ 2023 [web:PNJ].",
+    "sources": [],
+    "web_sources": [
+      "[https://cdn.pnj.io/images/quan-he-co-dong/2024/47b-20241022-PNJ-BCTC-quy-3-nam-2024-Hop-nhat.pdf](https://cdn.pnj.io/images/quan-he-co-dong/2024/47b-20241022-PNJ-BCTC-quy-3-nam-2024-Hop-nhat.pdf)",
+      "[https://www.pnj.com.vn/blog/pnj-ghi-nhan-doanh-thu-7-130-ty-dong-trong-quy-iii/](https://www.pnj.com.vn/blog/pnj-ghi-nhan-doanh-thu-7-130-ty-dong-trong-quy-iii/)",
+      "[https://tuoitrethudo.vn/pnj-dat-doanh-thu-thuan-7130-ty-dong-trong-quy-iii2024-263247.html](https://tuoitrethudo.vn/pnj-dat-doanh-thu-thuan-7130-ty-dong-trong-quy-iii2024-263247.html)",
+      "[https://www.pnj.com.vn/quan-he-co-dong/bao-cao-tai-chinh/](https://www.pnj.com.vn/quan-he-co-dong/bao-cao-tai-chinh/)"
+    ],
+    "key_facts": [
+      "Doanh thu thuần Q3/2024 của PNJ = 7.130 tỷ đồng [PNJ]",
+      "Lợi nhuận sau thuế Q3/2024 của PNJ = 216 tỷ đồng [PNJ]",
+      "Biên lợi nhuận gộp Q3/2024 của PNJ = 17,5% [PNJ]",
+      "Biên lợi nhuận gộp Q3/2023 của PNJ = 17,3% [PNJ]",
+      "Tăng trưởng doanh thu trang sức bán lẻ Q3/2024 của PNJ = +20,1% YoY [PNJ]",
+      "Tỷ trọng kênh trang sức bán lẻ trong cơ cấu doanh thu Q3/2024 của PNJ = 69,8% [PNJ]",
+      "Tăng trưởng doanh thu vàng 24K Q3/2024 của PNJ = -46% YoY [PNJ]",
+      "PNJ công bố BCTC hợp nhất quý 3/2024 ngày 22/10/2024 [PNJ]"
+    ],
+    "negative_facts": [
+      "KHÔNG dùng doanh thu lũy kế 9 tháng nếu câu hỏi hỏi riêng Q3/2024",
+      "KHÔNG nhầm doanh thu thuần 7.130 tỷ đồng với lợi nhuận sau thuế 216 tỷ đồng",
+      "KHÔNG dùng doanh thu vàng 24K làm tổng doanh thu PNJ"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-058",
+    "question": "DGC quý 4/2024 EPS bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "DGC"
+    ],
+    "expected_timeframe": "Q4/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Không tìm được nguồn web công khai có thể trích xuất trực tiếp và kiểm chứng chắc chắn dòng EPS riêng quý 4/2024 của DGC tính đến 2026-05-18. Có thể xác nhận DGC đã công bố BCTC hợp nhất quý 4/2024 ngày 23/01/2025 và lợi nhuận sau thuế quý 4/2024 khoảng 749,49 tỷ đồng; lũy kế năm 2024 doanh thu đạt 9.865,3 tỷ đồng và lợi nhuận lũy kế đạt 2.988,83 tỷ đồng [web:DGC][web:DNSE]. Tuy nhiên, do câu hỏi yêu cầu EPS quý 4/2024, item này không nên giữ làm gold nếu không đọc được trực tiếp dòng EPS từ BCTC.",
+    "sources": [],
+    "web_sources": [
+      "[https://ducgiangchem.vn/en/english-cbtt-bao-cao-tai-chinh-quy-4-nam-2024-va-giai-trinh-kem-theo/](https://ducgiangchem.vn/en/english-cbtt-bao-cao-tai-chinh-quy-4-nam-2024-va-giai-trinh-kem-theo/)",
+      "[https://www.dnse.com.vn/senses/tin-tuc/bctc-quy-42024-dgc-loi-nhuan-q42024-tang-545-so-voi-cung-ky-lai-74949-ty-ong-34090161](https://www.dnse.com.vn/senses/tin-tuc/bctc-quy-42024-dgc-loi-nhuan-q42024-tang-545-so-voi-cung-ky-lai-74949-ty-ong-34090161)",
+      "[https://vietstock.vn/2025/01/dgc-bctc-quy-4-nam-2024-737-1265357.htm](https://vietstock.vn/2025/01/dgc-bctc-quy-4-nam-2024-737-1265357.htm)",
+      "[https://finance.vietstock.vn/dgc/tai-tai-lieu.htm](https://finance.vietstock.vn/dgc/tai-tai-lieu.htm)"
+    ],
+    "key_facts": [
+      "không verify được EPS quý 4/2024 của DGC từ nguồn uy tín tính đến 2026-05-18",
+      "DGC công bố BCTC hợp nhất quý 4/2024 ngày 23/01/2025 [DGC]",
+      "Lợi nhuận sau thuế Q4/2024 của DGC = khoảng 749,49 tỷ đồng [DNSE]",
+      "Doanh thu lũy kế 2024 của DGC = 9.865,3 tỷ đồng [DNSE]",
+      "Lợi nhuận lũy kế 2024 của DGC = 2.988,83 tỷ đồng [DNSE]",
+      "Tăng trưởng doanh thu lũy kế 2024 của DGC = +1,2% YoY [DNSE]",
+      "Tăng trưởng lợi nhuận lũy kế 2024 của DGC = -3,59% YoY [DNSE]",
+      "Vốn điều lệ cuối Q4/2024 của DGC = 3.797,79 tỷ đồng [DNSE]"
+    ],
+    "negative_facts": [
+      "KHÔNG suy EPS quý 4/2024 bằng cách lấy LNST quý chia đại khái cho số cổ phiếu nếu chưa xác minh số cổ phiếu bình quân",
+      "KHÔNG dùng EPS cả năm 2024 thay cho EPS riêng quý 4/2024",
+      "KHÔNG dùng lợi nhuận sau thuế 749,49 tỷ đồng làm EPS"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": false,
+    "corrected": false
+  },
+  {
+    "id": "B-059",
+    "question": "VIC Q2/2024 lãi sau thuế bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VIC"
+    ],
+    "expected_timeframe": "Q2/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Quý 2/2024, Vingroup (VIC) ghi nhận lợi nhuận sau thuế hợp nhất hơn 684 tỷ đồng, tăng 71% so với cùng kỳ [web:Thị trường Tài chính Tiền tệ]. Lũy kế 6 tháng đầu năm 2024, tổng doanh thu thuần đạt 65.043 tỷ đồng, giảm 24,6% YoY, và lợi nhuận sau thuế đạt 2.069 tỷ đồng, gấp hơn 2 lần cùng kỳ [web:Thị trường Tài chính Tiền tệ].",
+    "sources": [],
+    "web_sources": [
+      "[https://thitruongtaichinhtiente.vn/vingroup-bao-lai-sau-thue-hon-684-ty-dong-trong-quy-ii-2024-60252.html](https://thitruongtaichinhtiente.vn/vingroup-bao-lai-sau-thue-hon-684-ty-dong-trong-quy-ii-2024-60252.html)",
+      "[https://www.dnse.com.vn/senses/tin-tuc/bctc-quy22024-vic-q1-bu-dap-q2-loi-nhuan-dau-nam-dat-453059-ty-dong-33844675](https://www.dnse.com.vn/senses/tin-tuc/bctc-quy22024-vic-q1-bu-dap-q2-loi-nhuan-dau-nam-dat-453059-ty-dong-33844675)",
+      "[https://vingroup.net/quan-he-co-dong/bao-cao-tai-chinh](https://vingroup.net/quan-he-co-dong/bao-cao-tai-chinh)",
+      "[https://finance.vietstock.vn/vic/tai-tai-lieu.htm](https://finance.vietstock.vn/vic/tai-tai-lieu.htm)"
+    ],
+    "key_facts": [
+      "Lợi nhuận sau thuế hợp nhất Q2/2024 của VIC = hơn 684 tỷ đồng [Thị trường Tài chính Tiền tệ]",
+      "Tăng trưởng lợi nhuận sau thuế hợp nhất Q2/2024 của VIC = +71% YoY [Thị trường Tài chính Tiền tệ]",
+      "Tổng doanh thu thuần 6T/2024 của VIC = 65.043 tỷ đồng [Thị trường Tài chính Tiền tệ]",
+      "Tăng trưởng tổng doanh thu thuần 6T/2024 của VIC = -24,6% YoY [Thị trường Tài chính Tiền tệ]",
+      "Lợi nhuận sau thuế 6T/2024 của VIC = 2.069 tỷ đồng [Thị trường Tài chính Tiền tệ]",
+      "Lợi nhuận thuần từ hoạt động kinh doanh Q2/2024 của VIC = 1.454 tỷ đồng [Thị trường Tài chính Tiền tệ]",
+      "Thu nhập khác Q2/2024 của VIC = 3.155 tỷ đồng [Thị trường Tài chính Tiền tệ]",
+      "Số dư vay tại 30/06/2024 của VIC = 222.428,3 tỷ đồng [DNSE]"
+    ],
+    "negative_facts": [
+      "KHÔNG dùng lợi nhuận sau thuế 6 tháng 2.069 tỷ đồng làm số của riêng quý 2",
+      "KHÔNG nhầm số 4.530,59 tỷ đồng trong một số nguồn tổng hợp với lợi nhuận sau thuế hợp nhất 6 tháng của BCTC",
+      "KHÔNG dùng số quý 2/2025 thay cho quý 2/2024"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "B-060",
+    "question": "GAS quý 3/2024 dòng tiền kinh doanh bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "GAS"
+    ],
+    "expected_timeframe": "Q3/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Không verify được chắc chắn dòng tiền thuần từ hoạt động kinh doanh riêng quý 3/2024 của GAS từ nguồn web có thể trích xuất số liệu trực tiếp tính đến 2026-05-18. Nguồn chính thức PV GAS xác nhận có BCTC hợp nhất quý 3/2024 công bố ngày 30/10/2024 [web:PV GAS], và báo cáo phân tích DSC cho biết lũy kế 9 tháng 2024 GAS đạt doanh thu 78.619 tỷ đồng và lợi nhuận sau thuế 8.538 tỷ đồng [web:DSC]. Tuy nhiên, do câu hỏi yêu cầu đúng chỉ tiêu dòng tiền kinh doanh Q3/2024, không nên bịa hoặc suy diễn nếu chưa đọc được dòng lưu chuyển tiền tệ.",
+    "sources": [],
+    "web_sources": [
+      "[https://www.pvgas.com.vn/quan-he-co-%C4%91ong/bao-cao-tai-chinh-hop-nhat-quy-32024](https://www.pvgas.com.vn/quan-he-co-%C4%91ong/bao-cao-tai-chinh-hop-nhat-quy-32024)",
+      "[https://www.pvgas.com.vn/bai-viet/cbtt-bao-cao-tai-chinh-hop-nhat-quy-32024](https://www.pvgas.com.vn/bai-viet/cbtt-bao-cao-tai-chinh-hop-nhat-quy-32024)",
+      "[https://extgw.dsc.com.vn/eback/uploads/GAS_Q3_2024_488d03474c.pdf](https://extgw.dsc.com.vn/eback/uploads/GAS_Q3_2024_488d03474c.pdf)",
+      "[https://www.pvgas.com.vn/sanpham-dichvu/bao-cao-tai-chinh-hop-nhat-quy-32024](https://www.pvgas.com.vn/sanpham-dichvu/bao-cao-tai-chinh-hop-nhat-quy-32024)"
+    ],
+    "key_facts": [
+      "không verify được dòng tiền thuần từ hoạt động kinh doanh quý 3/2024 của GAS từ nguồn uy tín tính đến 2026-05-18",
+      "PV GAS công bố BCTC hợp nhất quý 3/2024 ngày 30/10/2024 [PV GAS]",
+      "Doanh thu 9T/2024 của GAS = 78.619 tỷ đồng [DSC]",
+      "Tăng trưởng doanh thu 9T/2024 của GAS = +16,7% YoY [DSC]",
+      "Lợi nhuận sau thuế 9T/2024 của GAS = 8.538 tỷ đồng [DSC]",
+      "Tăng trưởng lợi nhuận sau thuế 9T/2024 của GAS = -5,3% YoY [DSC]",
+      "Doanh thu 9T/2024 của GAS vượt 12% kế hoạch năm [DSC]",
+      "Lợi nhuận sau thuế 9T/2024 của GAS vượt 18% kế hoạch năm [DSC]"
+    ],
+    "negative_facts": [
+      "KHÔNG dùng doanh thu 78.619 tỷ đồng làm dòng tiền kinh doanh",
+      "KHÔNG dùng lợi nhuận sau thuế 8.538 tỷ đồng làm dòng tiền kinh doanh",
+      "KHÔNG suy dòng tiền quý 3 bằng cách lấy 9 tháng trừ 6 tháng nếu chưa verify BCTC"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": false,
+    "corrected": false
+  },
+  {
+    "id": "C-001",
+    "question": "Phân tích VNM năm 2024 trên các khía cạnh doanh thu, lợi nhuận sau thuế, biên lợi nhuận gộp và mức nợ vay; điểm nào là động lực chính của kết quả năm?",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VNM"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, Vinamilk (VNM) ghi nhận tổng doanh thu hợp nhất 61.824 tỷ đồng và lợi nhuận sau thuế 9.453 tỷ đồng [1][web:Vinamilk]. Doanh thu thuần đạt khoảng 61.783 tỷ đồng, trong khi nợ vay ngắn hạn và dài hạn cuối năm khoảng 9.273 tỷ đồng, tăng 9,7% so với năm trước [1][web:Vinamilk]. Khác với bản stage 2, biên lợi nhuận gộp không phải là dữ liệu thiếu: theo BCTN/BCTC, lợi nhuận gộp năm 2024 khoảng 25.898 tỷ đồng, tương ứng biên lợi nhuận gộp khoảng 41,9% trên doanh thu thuần. Động lực chính của kết quả năm là biên gộp cải thiện nhờ giá nguyên vật liệu sữa thuận lợi hơn và kiểm soát chi phí, trong khi tăng trưởng doanh thu vẫn ở mức khiêm tốn.",
+    "sources": [
+      "VNM_BCTN24.pdf"
+    ],
+    "web_sources": [
+      "[https://www.vinamilk.com.vn/bao-cao-thuong-nien/bao-cao/2024/doc/vi/full-bao-cao.pdf](https://www.vinamilk.com.vn/bao-cao-thuong-nien/bao-cao/2024/doc/vi/full-bao-cao.pdf)",
+      "[https://www.vinamilk.com.vn/investor/reports/annual](https://www.vinamilk.com.vn/investor/reports/annual)",
+      "[https://cafef1.mediacdn.vn/Images/Uploaded/DuLieuDownload/PhanTichBaoCao/VNM_17224_SSI17022025155309.pdf](https://cafef1.mediacdn.vn/Images/Uploaded/DuLieuDownload/PhanTichBaoCao/VNM_17224_SSI17022025155309.pdf)",
+      "[https://www.mbs.com.vn/media/5pobhlah/vnm_bcpt_20240807.pdf](https://www.mbs.com.vn/media/5pobhlah/vnm_bcpt_20240807.pdf)"
+    ],
+    "key_facts": [
+      "Tổng doanh thu hợp nhất 2024 của VNM = 61.824 tỷ đồng [VNM_BCTN24][Vinamilk]",
+      "Doanh thu thuần hợp nhất 2024 của VNM = khoảng 61.783 tỷ đồng [Vinamilk]",
+      "Lợi nhuận sau thuế 2024 của VNM = 9.453 tỷ đồng [VNM_BCTN24][Vinamilk]",
+      "Tổng nợ vay cuối năm 2024 của VNM = 9.273 tỷ đồng [VNM_BCTN24]",
+      "Tăng trưởng tổng nợ vay cuối năm 2024 của VNM = +9,7% YoY [VNM_BCTN24]",
+      "Lợi nhuận gộp 2024 của VNM = khoảng 25.898 tỷ đồng [Vinamilk]",
+      "Biên lợi nhuận gộp 2024 của VNM = khoảng 41,9% [Vinamilk]",
+      "Biên lợi nhuận gộp Q4/2024 của VNM = 40,1% [SSI]",
+      "LNST Q4/2024 của VNM giảm 9% YoY [SSI]",
+      "Lợi nhuận ròng Q2/2024 của VNM = 2.670 tỷ đồng [MBS]"
+    ],
+    "negative_facts": [
+      "KHÔNG nói chưa đủ dữ liệu về biên lợi nhuận gộp năm 2024",
+      "KHÔNG nhầm tổng doanh thu 61.824 tỷ đồng với doanh thu thuần khoảng 61.783 tỷ đồng",
+      "KHÔNG coi tăng nợ vay là động lực chính của lợi nhuận"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": true
+  },
+  {
+    "id": "C-002",
+    "question": "Đánh giá chất lượng tăng trưởng của FPT trong năm 2024 dựa trên doanh thu, lợi nhuận, biên lợi nhuận ròng và đóng góp từ các mảng kinh doanh chính.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "FPT"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, FPT có chất lượng tăng trưởng tốt: doanh thu thuần đạt 62.849 tỷ đồng, tăng 19,4%; lợi nhuận sau thuế đạt 9.427 tỷ đồng; biên lợi nhuận ròng xấp xỉ 15,0% [1][web:FPT]. Khối Công nghệ là động lực chính khi doanh thu tăng 24,4%, chiếm 62,2% tổng doanh thu và 47,2% tổng lợi nhuận trước thuế của toàn Tập đoàn [1][web:FPT]. Trong đó, dịch vụ CNTT nước ngoài đạt khoảng 30.952–30.953 tỷ đồng doanh thu, tăng 27,4%, và lợi nhuận trước thuế khoảng 4.770 tỷ đồng, tăng 26,1% [1][web:FPT][web:KIS].",
+    "sources": [
+      "FPT_BCTN24.pdf"
+    ],
+    "web_sources": [
+      "[https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2025/april/20250402---fpt---bao-cao-thuong-nien-nam-2024.pdf](https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2025/april/20250402---fpt---bao-cao-thuong-nien-nam-2024.pdf)",
+      "[https://fpt.com/vi/nha-dau-tu/bao-cao-thuong-nien](https://fpt.com/vi/nha-dau-tu/bao-cao-thuong-nien)",
+      "[https://stockkisvn.vn/bao-cao-tai-chinh-fpt/](https://stockkisvn.vn/bao-cao-tai-chinh-fpt/)",
+      "[https://rs.nguoiquansat.vn/bcpt/FPT%2CC%2CABS/FPT%2CC%2CABS_39_14335_58.pdf](https://rs.nguoiquansat.vn/bcpt/FPT%2CC%2CABS/FPT%2CC%2CABS_39_14335_58.pdf)"
+    ],
+    "key_facts": [
+      "Doanh thu thuần 2024 của FPT = 62.849 tỷ đồng [FPT_BCTN24][FPT]",
+      "Tăng trưởng doanh thu thuần 2024 của FPT = +19,4% YoY [FPT_BCTN24]",
+      "Lợi nhuận sau thuế 2024 của FPT = 9.427 tỷ đồng [FPT_BCTN24]",
+      "Biên lợi nhuận ròng 2024 của FPT = khoảng 15,0% [FPT_BCTN24]",
+      "Doanh thu khối Công nghệ 2024 của FPT tăng 24,4% YoY [FPT]",
+      "Khối Công nghệ chiếm 62,2% tổng doanh thu 2024 của FPT [FPT]",
+      "Khối Công nghệ chiếm 47,2% tổng lợi nhuận trước thuế 2024 của FPT [FPT]",
+      "Doanh thu dịch vụ CNTT nước ngoài 2024 của FPT = khoảng 30.952–30.953 tỷ đồng [FPT][KIS]",
+      "Tăng trưởng doanh thu dịch vụ CNTT nước ngoài 2024 của FPT = +27,4% YoY [KIS]",
+      "Lợi nhuận trước thuế dịch vụ CNTT nước ngoài 2024 của FPT = khoảng 4.770 tỷ đồng [KIS]",
+      "Tăng trưởng lợi nhuận trước thuế dịch vụ CNTT nước ngoài 2024 của FPT = +26,1% YoY [KIS]",
+      "Doanh thu Viễn thông 2024 của FPT = 16.906 tỷ đồng [FPT_BCTN24]"
+    ],
+    "negative_facts": [
+      "KHÔNG tính sai biên lợi nhuận ròng bằng cách lấy LNTT chia doanh thu",
+      "KHÔNG nêu sai tỷ trọng khối Công nghệ 62,2% doanh thu và 47,2% LNTT",
+      "KHÔNG nhầm FPT Telecom với toàn Tập đoàn FPT"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "C-003",
+    "question": "HPG năm 2024 phục hồi thế nào nếu nhìn vào doanh thu, lợi nhuận sau thuế, biên gộp và cấu trúc nợ?",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "HPG"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, Hòa Phát (HPG) phục hồi rõ rệt: doanh thu thuần đạt 138.855 tỷ đồng, tăng khoảng 16,7%–17%; doanh thu hợp nhất theo công bố tổng quan đạt 140.561 tỷ đồng và lợi nhuận sau thuế hợp nhất đạt 12.020 tỷ đồng, tăng 77% so với năm 2023 [1][web:HPG][web:NHSV]. Giá vốn hàng bán 2024 khoảng 120.357 tỷ đồng, tương ứng lợi nhuận gộp khoảng 18.498 tỷ đồng và biên lợi nhuận gộp khoảng 13,3% trên doanh thu thuần. Cấu trúc nợ có điểm tích cực là tỷ trọng vay USD giảm mạnh từ 16% năm 2023 xuống 3% năm 2024, giúp giảm rủi ro tỷ giá [1].",
+    "sources": [
+      "HPG_BCTN24.pdf",
+      "Conversation History"
+    ],
+    "web_sources": [
+      "[https://file.hoaphat.com.vn/hoaphat-com-vn/2025/04/bao-cao-thuong-nien-hpg-2024.pdf](https://file.hoaphat.com.vn/hoaphat-com-vn/2025/04/bao-cao-thuong-nien-hpg-2024.pdf)",
+      "[https://file.hoaphat.com.vn/hoaphat-com-vn/2025/01/tong-quan-tinh-hinh-kinh-doanh-q4-2024-vn.pdf](https://file.hoaphat.com.vn/hoaphat-com-vn/2025/01/tong-quan-tinh-hinh-kinh-doanh-q4-2024-vn.pdf)",
+      "[https://nhsv.vn/uploadfile/source/Ph%C3%A2n%20t%C3%ADch%20doanh%20nghi%E1%BB%87p/Baocaocapnhat_HPG_2024Q4_VN.pdf](https://nhsv.vn/uploadfile/source/Ph%C3%A2n%20t%C3%ADch%20doanh%20nghi%E1%BB%87p/Baocaocapnhat_HPG_2024Q4_VN.pdf)",
+      "[https://finance.vietstock.vn/hpg/financials.htm?languageid=1&tab=BCTT](https://finance.vietstock.vn/hpg/financials.htm?languageid=1&tab=BCTT)"
+    ],
+    "key_facts": [
+      "Doanh thu thuần 2024 của HPG = 138.855 tỷ đồng [HPG_BCTN24]",
+      "Tăng trưởng doanh thu thuần 2024 của HPG = khoảng +16,7% đến +17% YoY [HPG_BCTN24][NHSV]",
+      "Doanh thu hợp nhất 2024 của HPG = 140.561 tỷ đồng [HPG]",
+      "Lợi nhuận sau thuế hợp nhất 2024 của HPG = 12.020 tỷ đồng [HPG]",
+      "Tăng trưởng lợi nhuận sau thuế hợp nhất 2024 của HPG = +77% YoY [HPG]",
+      "Giá vốn hàng bán 2024 của HPG = 120.357 tỷ đồng [HPG_BCTN24]",
+      "Lợi nhuận gộp 2024 của HPG = khoảng 18.498 tỷ đồng [HPG_BCTN24]",
+      "Biên lợi nhuận gộp 2024 của HPG = khoảng 13,3% [HPG_BCTN24]",
+      "Tỷ trọng vay USD của HPG năm 2023 = 16% [HPG_BCTN24]",
+      "Tỷ trọng vay USD của HPG năm 2024 = 3% [HPG_BCTN24]",
+      "Tỷ lệ hoàn thành kế hoạch doanh thu 2024 của HPG = 100% [HPG]",
+      "Tỷ lệ hoàn thành kế hoạch lợi nhuận sau thuế 2024 của HPG = 120% [HPG]"
+    ],
+    "negative_facts": [
+      "KHÔNG nhầm doanh thu thuần 138.855 tỷ đồng với tổng doanh thu hợp nhất 140.561 tỷ đồng",
+      "KHÔNG bịa EBITDA nếu không có số EBITDA chính thức trong nguồn",
+      "KHÔNG bỏ qua rủi ro nợ vay khi phân tích HPG do đang đầu tư Dung Quất 2"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": true
+  }
+]

@@ -1,0 +1,480 @@
+[
+  {
+    "id": "D-034",
+    "question": "VCB và ACB năm 2024: ngân hàng nào có chất lượng sinh lời tốt hơn nếu so NIM, ROA, ROE và tỷ lệ nợ xấu?",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "VCB",
+      "ACB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, VCB có lợi thế rõ hơn về chất lượng tài sản và quy mô lợi nhuận: ROA 1,7%, ROE 18,7%, tỷ lệ nợ xấu 0,97%, bao phủ nợ xấu 223% và lợi nhuận trước thuế 42.236 tỷ đồng. ACB duy trì ROE cao trong nhóm ngân hàng tư nhân, nhưng dữ liệu web công khai được verify trong lượt này chỉ xác nhận chắc chắn rằng nợ xấu ACB khoảng 1,3%-1,5% trong năm 2024 theo báo cáo phân tích và BCTN ACB. Do đó, trên bộ chỉ tiêu có thể verify, VCB xếp tốt hơn về rủi ro tín dụng và lợi nhuận tuyệt đối; ACB cần đối chiếu thêm BCTC/BCTN chính thức để chốt NIM, ROA, ROE chính xác.",
+    "sources": [],
+    "web_sources": [
+      "vietcombank.com.vn annual report 2024 ([Vietcombank][1])",
+      "vietstock.vn VCB annual report 2024 ([Vietstock][2])",
+      "acb.com.vn annual report 2024 ([ACB][3])",
+      "vndirect.com.vn ACB update 2024 ([VNDIRECT][4])"
+    ],
+    "key_facts": [
+      "ROA 2024 của VCB = 1,7% (hợp nhất, BCTN 2024) [VCB annual report]",
+      "ROE 2024 của VCB = 18,7% (hợp nhất, BCTN 2024) [VCB annual report]",
+      "Tỷ lệ nợ xấu 2024 của VCB = 0,97% [VCB annual report]",
+      "Tỷ lệ bao phủ nợ xấu 2024 của VCB = 223% [VCB annual report]",
+      "Lợi nhuận trước thuế 2024 của VCB = 42.236 tỷ đồng [VCB annual report]",
+      "Tỷ lệ nợ xấu dự phóng FY2024 của ACB = 1,3% [VNDIRECT]",
+      "Tỷ lệ nợ xấu cuối 3Q2024 của ACB = 1,5% [VNDIRECT]",
+      "ACB có BCTN 2024 công bố trên website ngân hàng [ACB]"
+    ],
+    "negative_facts": [
+      "KHÔNG kết luận ACB có NIM/ROA/ROE chính xác nếu chưa đối chiếu BCTN/BCTC gốc.",
+      "KHÔNG nhầm tỷ lệ nợ xấu VCB 0,97% với ROA.",
+      "KHÔNG dùng số NotebookLM nếu không có nguồn web kiểm chứng."
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "D-035",
+    "question": "BID và MBB năm 2024: so sánh lợi nhuận trước thuế, NIM, nợ xấu và chi phí dự phòng để xếp hạng sức khỏe tín dụng.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "BID",
+      "MBB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": "Trong lượt verify web này, số liệu MBB được xác nhận tốt hơn BID. MBB năm 2024 ghi nhận tổng thu nhập hoạt động 55.413 tỷ đồng, lợi nhuận trước thuế lũy kế năm khoảng 28.829 tỷ đồng theo báo cáo MASVN, chi phí dự phòng tăng mạnh phản ánh áp lực tín dụng; riêng quý 4/2024, chi phí dự phòng là 3.224 tỷ đồng và lợi nhuận trước thuế quý 4 là 8.093 tỷ đồng. Với BID, chưa tìm được nguồn web trong lượt này đủ rõ để chốt đồng thời LNTT, NIM, nợ xấu và dự phòng 2024; vì vậy item không nên chấm các số BID chưa verify. Xếp hạng sức khỏe tín dụng chỉ nên kết luận thận trọng: MBB có dữ liệu verified nhưng dự phòng tăng mạnh; BID cần bổ sung BCTN/BCTC 2024 chính thức để so sánh đầy đủ.",
+    "sources": [],
+    "web_sources": [
+      "masvn.com MBB 4Q24 report ([masvn.com][5])",
+      "cafef.vn MBB analysis pdf via KBSV ([CafeF1][6])",
+      "shs.com.vn MBB analysis 2025 ([s3-storage.shs.com.vn][7])"
+    ],
+    "key_facts": [
+      "Tổng thu nhập hoạt động 2024 của MBB = 55.413 tỷ đồng [MASVN]",
+      "Tăng trưởng tổng thu nhập hoạt động 2024 của MBB = 17,1% YoY [MASVN]",
+      "Lợi nhuận trước thuế Q4/2024 của MBB = 8.093 tỷ đồng [MASVN]",
+      "Lợi nhuận sau thuế Q4/2024 của MBB = 6.382 tỷ đồng [MASVN]",
+      "Chi phí dự phòng Q4/2024 của MBB = 3.224 tỷ đồng [MASVN]",
+      "Chi phí dự phòng Q4/2024 của MBB tăng 103% YoY [MASVN]",
+      "Tổng thu nhập hoạt động Q4/2024 của MBB = 11.317 tỷ đồng [MASVN]",
+      "Thu nhập lãi thuần Q4/2024 của MBB = 5.247 tỷ đồng [MASVN]"
+    ],
+    "negative_facts": [
+      "KHÔNG bịa NIM/BID nếu chưa có nguồn BID chính thức hoặc báo cáo phân tích uy tín.",
+      "KHÔNG coi chi phí dự phòng tăng mạnh là tín hiệu chất lượng tín dụng tốt.",
+      "KHÔNG dùng dữ liệu dự phóng 2025 thay cho số thực hiện 2024."
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "D-036",
+    "question": "MSN và SAB năm 2024: so sánh doanh thu, biên gộp, biên ròng và dòng tiền kinh doanh để xem doanh nghiệp tiêu dùng nào phòng thủ tốt hơn.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "MSN",
+      "SAB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, MSN có quy mô doanh thu lớn hơn SAB nhưng biên ròng thấp hơn đáng kể. MSN đạt doanh thu thuần 83.178 tỷ đồng và lợi nhuận sau thuế 1.999 tỷ đồng, tương ứng biên ròng khoảng 2,4%. SAB đạt doanh thu thuần khoảng 31.782-31.872 tỷ đồng và lợi nhuận sau thuế 4.495 tỷ đồng, tương ứng biên ròng khoảng 14,1%. Về tính phòng thủ, SAB tốt hơn trên biên ròng và khả năng chuyển doanh thu thành lợi nhuận; MSN tốt hơn về quy mô doanh thu nhưng lợi nhuận mỏng hơn. Dòng tiền kinh doanh 2024 của hai doanh nghiệp chưa được verify chắc chắn trong lượt web này nên không đưa vào key_facts chấm điểm.",
+    "sources": [],
+    "web_sources": [
+      "thitruongtaichinhtiente.vn MSN 2024 results ([thitruongtaichinhtiente.vn][8])",
+      "masangroup.com MSN 2023 results and 2024 plan ([Masan Group][9])",
+      "nhipsongkinhdoanh.vn SAB 2024 results ([Nhịp sống kinh doanh][10])"
+    ],
+    "key_facts": [
+      "Doanh thu thuần 2024 của MSN = 83.178 tỷ đồng [thitruongtaichinhtiente]",
+      "LNST 2024 của MSN = 1.999 tỷ đồng [thitruongtaichinhtiente]",
+      "Tăng trưởng doanh thu thuần 2024 của MSN = 6% YoY [thitruongtaichinhtiente]",
+      "Tăng trưởng LNST 2024 của MSN = hơn 377% YoY [thitruongtaichinhtiente]",
+      "Doanh thu thuần Q4/2024 của MSN = 22.666 tỷ đồng [thitruongtaichinhtiente]",
+      "Doanh thu thuần 2024 của SAB = khoảng 31.782-31.872 tỷ đồng [nhipsongkinhdoanh]",
+      "LNST 2024 của SAB = 4.495 tỷ đồng [nhipsongkinhdoanh]",
+      "Tăng trưởng doanh thu thuần 2024 của SAB = 4,6% YoY [nhipsongkinhdoanh]",
+      "Tăng trưởng LNST 2024 của SAB = 5,6% YoY [nhipsongkinhdoanh]",
+      "Biên lợi nhuận ròng 2024 của SAB ≈ 14,1%, cao hơn MSN ≈ 2,4% [tính từ số liệu verified]"
+    ],
+    "negative_facts": [
+      "KHÔNG dùng dòng tiền kinh doanh nếu chưa lấy từ BCTC lưu chuyển tiền tệ.",
+      "KHÔNG nhầm MSN Group với Masan Consumer riêng lẻ.",
+      "KHÔNG dùng số doanh thu SAB 34.397 tỷ đồng vì đó là kế hoạch, không phải thực hiện 2024."
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "D-037",
+    "question": "VIC và KDH năm 2024: so sánh nợ vay, hàng tồn kho, biên gộp và lợi nhuận sau thuế để đánh giá doanh nghiệp bất động sản nào rủi ro hơn.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "VIC",
+      "KDH"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Trong lượt verify web này, dữ liệu KDH được xác nhận rõ hơn VIC. KDH cuối năm 2024 có tổng nợ phải trả 11.302,4 tỷ đồng, nợ vay tài chính hơn 7.098 tỷ đồng, gồm 1.100 tỷ đồng trái phiếu và hơn 5.998,1 tỷ đồng vay ngân hàng dài hạn. KDH cũng được phản ánh có dòng tiền âm do hàng tồn kho cao. Với VIC, chưa tìm được nguồn web đủ rõ trong lượt này để chốt đồng thời nợ vay, hàng tồn kho, biên gộp và LNST 2024. Vì vậy item chỉ nên chấm các fact KDH đã verify; phần so sánh rủi ro VIC/KDH cần bổ sung BCTC hợp nhất kiểm toán 2024 của VIC trước khi kết luận định lượng.",
+    "sources": [],
+    "web_sources": [
+      "dnse.com.vn KDH 2024 financial risk ([Entrade X by DNSE][11])",
+      "nhsv.vn KDH report 2026 with 2024 comparison ([Công ty TNHH Chứng khoán NH Việt Nam][12])"
+    ],
+    "key_facts": [
+      "Tổng nợ phải trả cuối năm 2024 của KDH = 11.302,4 tỷ đồng [DNSE]",
+      "Tăng trưởng tổng nợ phải trả cuối năm 2024 của KDH = hơn 3,1% so với đầu năm [DNSE]",
+      "Nợ vay tài chính cuối năm 2024 của KDH = hơn 7.098 tỷ đồng [DNSE]",
+      "Nợ vay trái phiếu cuối năm 2024 của KDH = 1.100 tỷ đồng [DNSE]",
+      "Vay ngân hàng dài hạn cuối năm 2024 của KDH = hơn 5.998,1 tỷ đồng [DNSE]",
+      "Tiền và tương đương tiền cuối năm 2024 của KDH = gần 3.095,6 tỷ đồng [DNSE]",
+      "Tiền và tương đương tiền cuối năm 2024 của KDH giảm khoảng 634 tỷ đồng so với đầu năm [DNSE]",
+      "LNST 2025 của KDH = 1.634 tỷ đồng, gấp 2 lần lợi nhuận năm 2024, suy ra LNST 2024 khoảng 817 tỷ đồng theo báo cáo NHSV [NHSV]"
+    ],
+    "negative_facts": [
+      "KHÔNG kết luận VIC rủi ro hơn hoặc thấp hơn nếu chưa verify BCTC VIC 2024.",
+      "KHÔNG nhầm tổng nợ phải trả với nợ vay tài chính.",
+      "KHÔNG dùng số 2025 của KDH làm số 2024."
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "D-038",
+    "question": "TCB và VCB giai đoạn 2022-2024: so sánh xu hướng CASA, NIM, ROE và nợ xấu để xem ngân hàng nào giữ lợi thế sinh lời tốt hơn.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "TCB",
+      "VCB"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Giai đoạn 2022-2024, dữ liệu verify được cho thấy TCB giữ lợi thế CASA và ROA/NIM tốt hơn, còn VCB vượt trội về chất lượng tài sản và lợi nhuận tuyệt đối. Năm 2024, TCB có CASA 40,9%, ROA 2,4% và nợ xấu 1,17%; VCB có ROA 1,7%, ROE 18,7%, nợ xấu 0,97%, bao phủ nợ xấu 223% và lợi nhuận trước thuế 42.236 tỷ đồng. Do chưa verify đủ chuỗi 2022-2023 cho CASA/NIM/ROE/NPL của cả hai ngân hàng trong lượt web này, key_facts chỉ chấm các số 2024 chắc chắn và một số chỉ báo 3Q2024. Kết luận thận trọng: TCB giữ lợi thế sinh lời nhờ CASA cao, còn VCB giữ lợi thế rủi ro tín dụng.",
+    "sources": [],
+    "web_sources": [
+      "techcombank.com FY24 results presentation ([Techcombank][13])",
+      "techcombank.com FY24 press release ([Techcombank][14])",
+      "techcombank annual report 2024 ([FPTS Files][15])",
+      "vietcombank annual report 2024 ([Vietcombank][1])",
+      "vietstock VCB annual report 2024 ([Vietstock][2])"
+    ],
+    "key_facts": [
+      "CASA 2024 của TCB = 40,9% [Techcombank FY24 presentation]",
+      "ROA 2024 của TCB = 2,4% [Techcombank annual report]",
+      "Tỷ lệ nợ xấu cuối năm 2024 của TCB = 1,17% [Techcombank FY24 presentation]",
+      "Tăng trưởng dư nợ tín dụng 2024 của TCB = 20,85% [Techcombank press release]",
+      "Lợi nhuận trước thuế 2024 của TCB = 27,5 nghìn tỷ đồng [Techcombank press release]",
+      "Tăng trưởng lợi nhuận trước thuế 2024 của TCB = 20,3% YoY [Techcombank press release]",
+      "ROA 2024 của VCB = 1,7% [VCB annual report]",
+      "ROE 2024 của VCB = 18,7% [VCB annual report]",
+      "Tỷ lệ nợ xấu 2024 của VCB = 0,97% [VCB annual report]",
+      "Tỷ lệ bao phủ nợ xấu 2024 của VCB = 223% [VCB annual report]"
+    ],
+    "negative_facts": [
+      "KHÔNG suy diễn đủ xu hướng 2022-2024 nếu thiếu chuỗi số 2022 và 2023.",
+      "KHÔNG nhầm CASA 40,9% của TCB với CASA toàn ngành.",
+      "KHÔNG nói VCB có nợ xấu cao hơn TCB trong năm 2024."
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "D-039",
+    "question": "MWG và MSN giai đoạn 2022-2024: so sánh tăng trưởng doanh thu, biên lợi nhuận ròng và dòng tiền kinh doanh để đánh giá mô hình bán lẻ - tiêu dùng nào ổn định hơn.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "MWG",
+      "MSN"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Trong lượt verify web này, dữ liệu MSN được xác nhận rõ hơn MWG. MSN đạt doanh thu thuần 78.252 tỷ đồng năm 2023 và 83.178 tỷ đồng năm 2024, tăng 6% YoY; LNST 2024 đạt 1.999 tỷ đồng, tăng hơn 377% YoY, biên ròng khoảng 2,4%. Dữ liệu MWG 2022-2024 và dòng tiền kinh doanh của cả hai doanh nghiệp chưa được verify đủ từ nguồn uy tín trong lượt này, nên không nên dùng item này để chấm xếp hạng ổn định nếu chưa bổ sung BCTC MWG và lưu chuyển tiền tệ. Kết luận tạm: MSN phục hồi lợi nhuận mạnh năm 2024 nhưng biên ròng còn thấp; phần so sánh với MWG là chưa đủ dữ liệu gold.",
+    "sources": [],
+    "web_sources": [
+      "masangroup.com MSN 2023 results ([Masan Group][9])",
+      "thitruongtaichinhtiente.vn MSN 2024 results ([thitruongtaichinhtiente.vn][8])"
+    ],
+    "key_facts": [
+      "Doanh thu thuần 2023 của MSN = 78.252 tỷ đồng [Masan Group]",
+      "Doanh thu thuần 2024 của MSN = 83.178 tỷ đồng [thitruongtaichinhtiente]",
+      "Tăng trưởng doanh thu thuần 2024 của MSN = 6% YoY [thitruongtaichinhtiente]",
+      "LNST 2024 của MSN = 1.999 tỷ đồng [thitruongtaichinhtiente]",
+      "Tăng trưởng LNST 2024 của MSN = hơn 377% YoY [thitruongtaichinhtiente]",
+      "Doanh thu thuần Q4/2024 của MSN = 22.666 tỷ đồng [thitruongtaichinhtiente]",
+      "LNST sau lợi ích cổ đông thiểu số Q4/2024 của MSN = 691 tỷ đồng [thitruongtaichinhtiente]",
+      "Biên lợi nhuận ròng 2024 của MSN ≈ 2,4% [tính từ số liệu verified]"
+    ],
+    "negative_facts": [
+      "KHÔNG xếp hạng MWG/MSN nếu thiếu số MWG và CFO 2022-2024.",
+      "KHÔNG dùng lợi nhuận kế hoạch MSN 2024 thay cho số thực hiện.",
+      "KHÔNG lấy dữ liệu Studocu làm nguồn gold chính."
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "D-040",
+    "question": "POW, REE và GAS giai đoạn 2022-2024: xếp hạng theo mức độ ổn định lợi nhuận sau thuế, ROA và dòng tiền kinh doanh.",
+    "category": "D. Compare",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "POW",
+      "REE",
+      "GAS"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst — muốn ranking, peer comparison",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": "Trong lượt verify web này, chỉ GAS có dữ liệu 2023-2024 được xác nhận rõ từ báo cáo phân tích và tài liệu PV GAS: doanh thu thuần 2024 khoảng 103.564-103.604 tỷ đồng, LNST hợp nhất 2024 khoảng 10.590 tỷ đồng, giảm 10,2% YoY; ROE 2024 17,3%, biên LNST 10,2%. Không tìm được đủ nguồn web cho POW và REE để chốt đồng thời LNST, ROA và dòng tiền kinh doanh 2022-2024. Vì vậy item này chưa đủ gold để xếp hạng ba doanh nghiệp; chỉ nên giữ các key_facts GAS đã verify và đánh dấu phần ranking là cần bổ sung dữ liệu.",
+    "sources": [],
+    "web_sources": [
+      "pvgas.com.vn 2024 business results document ([PVGas][16])",
+      "shinhansec.com.vn GAS report 2026 with 2023-2024 actuals ([Shinhan Securities Vietnam][17])",
+      "vietstock.vn GAS initial report 2025 ([Vietstock][18])"
+    ],
+    "key_facts": [
+      "Doanh thu thuần 2024 của GAS = 103.564 tỷ đồng [Shinhan Securities]",
+      "Doanh thu thuần 2024 của GAS = 103.603,6 tỷ đồng [Vietstock report]",
+      "Tăng trưởng doanh thu thuần 2024 của GAS = 15,1% YoY [Vietstock report]",
+      "LNST hợp nhất 2024 của GAS = 10.590 tỷ đồng [Shinhan Securities]",
+      "LNST 2024 của GAS giảm 10,2% YoY [Vietstock report]",
+      "Biên LNST 2024 của GAS = 10,2% [Shinhan Securities]",
+      "ROE 2024 của GAS = 17,3% [Shinhan Securities]",
+      "Doanh thu thuần 2023 của GAS = 89.954 tỷ đồng [Shinhan Securities]",
+      "LNST hợp nhất 2023 của GAS = 11.793 tỷ đồng [Shinhan Securities]"
+    ],
+    "negative_facts": [
+      "KHÔNG xếp hạng POW/REE/GAS nếu thiếu số POW và REE verified.",
+      "KHÔNG nhầm ROE với ROA trong câu hỏi.",
+      "KHÔNG dùng forecast 2025-2027 làm số thực hiện 2022-2024."
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "E-001",
+    "question": "Ngành ngân hàng Việt Nam năm 2024 chịu tác động thế nào từ lãi suất thấp, tăng trưởng tín dụng và nợ xấu?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "banking_sector",
+      "interest_rate",
+      "credit_growth",
+      "NPL"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, ngành ngân hàng Việt Nam được hỗ trợ bởi tăng trưởng tín dụng mạnh nhưng vẫn chịu sức ép từ NIM và nợ xấu. Tín dụng toàn nền kinh tế tăng 15,08% đến 31/12/2024, tương đương khoảng 2,1 triệu tỷ đồng vốn tăng thêm, là động lực lớn cho thu nhập lãi. Tuy nhiên, mặt bằng lãi suất thấp hỗ trợ nền kinh tế nhưng có thể gây áp lực lên NIM do lãi suất cho vay giảm nhanh hơn chi phí vốn ở một số giai đoạn. Rủi ro chính là chất lượng tài sản: nợ xấu nội bảng toàn hệ thống ở mức 4,55% cuối tháng 9/2024, gần bằng cuối năm 2023 và cao hơn năm 2022. Do đó, outlook ngành là tăng trưởng lợi nhuận phân hóa: ngân hàng có CASA cao, dự phòng dày và kiểm soát nợ xấu tốt hưởng lợi hơn.",
+    "sources": [
+      "CTG_BCTN24.pdf",
+      "MBB_BCTN23.pdf",
+      "MBB_BCTN24.pdf",
+      "SSI_BCTN24.pdf",
+      "VPB_BCTN24.pdf"
+    ],
+    "web_sources": [
+      "baochinhphu.vn credit growth 2024 ([baochinhphu.vn][19])",
+      "thitruongtaichinhtiente.vn credit growth 2024 ([thitruongtaichinhtiente.vn][20])",
+      "kinhtevadubao.vn NPL September 2024 ([kinhtevadubao.vn][21])",
+      "fili.vn banking NPL pressure 2024 ([fili.vn][22])"
+    ],
+    "key_facts": [
+      "Tăng trưởng tín dụng toàn nền kinh tế đến 31/12/2024 = 15,08% YoY [baochinhphu]",
+      "Quy mô tín dụng tăng thêm trong năm 2024 = khoảng 2,1 triệu tỷ đồng [baochinhphu]",
+      "Dư nợ cho vay cuối năm 2024 = khoảng 15,6 triệu tỷ đồng [Saigon Times]",
+      "Tỷ lệ nợ xấu nội bảng toàn hệ thống cuối tháng 9/2024 = 4,55% [kinhtevadubao]",
+      "Tỷ lệ nợ xấu nội bảng cuối tháng 9/2024 gần bằng mức cuối năm 2023 [kinhtevadubao]",
+      "Tỷ lệ nợ xấu gộp toàn hệ thống cuối tháng 6/2024 = 6,44% [fili]",
+      "Tỷ lệ nợ xấu gộp cuối năm 2023 = 6,9% [fili]",
+      "Tín dụng năm 2024 tập trung vào sản xuất - kinh doanh và lĩnh vực ưu tiên [baochinhphu]"
+    ],
+    "negative_facts": [
+      "Cho rằng lãi suất thấp giúp NIM toàn ngành tăng mạnh.",
+      "Nhận định nợ xấu đã được giải quyết triệt để trong năm 2024.",
+      "KHÔNG dùng 4,55% như nợ xấu riêng của một ngân hàng; đây là nợ xấu nội bảng toàn hệ thống."
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": true
+  },
+  {
+    "id": "E-002",
+    "question": "Phân tích ngành bất động sản dân cư năm 2024: thanh khoản thị trường, pháp lý dự án và mặt bằng lãi suất ảnh hưởng ra sao đến triển vọng ngành?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "real_estate_sector",
+      "housing_market",
+      "interest_rate",
+      "legal_approval"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Ngành bất động sản dân cư năm 2024 có nền tảng phục hồi nhưng chưa thể coi là bùng nổ. Điểm hỗ trợ lớn nhất là pháp lý: Luật Đất đai 2024, Luật Nhà ở 2023 và Luật Kinh doanh bất động sản 2023 được đẩy hiệu lực sớm từ 01/08/2024, tạo kỳ vọng tháo gỡ vướng mắc dự án và tăng minh bạch. Mặt bằng lãi suất thấp hỗ trợ người mua nhà và doanh nghiệp phát triển dự án thông qua giảm chi phí vốn. Tuy vậy, thanh khoản vẫn phục hồi chậm do nguồn cung pháp lý mất thời gian thẩm thấu, tâm lý người mua còn thận trọng và áp lực trái phiếu/nợ vay của doanh nghiệp bất động sản vẫn là rủi ro. Triển vọng ngành vì vậy là phục hồi chọn lọc, ưu tiên doanh nghiệp có quỹ đất sạch, pháp lý hoàn chỉnh và bảng cân đối ít đòn bẩy.",
+    "sources": [
+      "MBB_BCTN23.pdf",
+      "MSN_BCTN24.pdf",
+      "SSI_BCTN23.pdf",
+      "SSI_BCTN24.pdf",
+      "VHM_BCTN24.pdf",
+      "VRE_BCTN23.PDF"
+    ],
+    "web_sources": [
+      "thuvienphapluat.vn real estate laws effective 01/08/2024 ([THƯ VIỆN PHÁP LUẬT][23])",
+      "nguoiquansat.vn real estate laws effective 01/08/2024 ([Nguoiquansat.vn][24])",
+      "luatvietnam.vn real estate legal changes August 2024 ([LuatVietnam][25])"
+    ],
+    "key_facts": [
+      "Luật Đất đai 2024 có hiệu lực từ 01/08/2024 [thuvienphapluat]",
+      "Luật Nhà ở 2023 có hiệu lực từ 01/08/2024 [thuvienphapluat]",
+      "Luật Kinh doanh bất động sản 2023 có hiệu lực từ 01/08/2024 [thuvienphapluat]",
+      "Quốc hội thông qua việc đẩy hiệu lực các luật liên quan bất động sản vào ngày 29/06/2024 [nguoiquansat]",
+      "Các luật bất động sản có hiệu lực sớm hơn 5 tháng so với thời điểm đã quyết định trước đó [nguoiquansat]",
+      "Luật Kinh doanh bất động sản 2023 có quy định giảm số tiền thanh toán trước khi thuê mua nhà ở hình thành trong tương lai [thuvienphapluat]",
+      "Yếu tố pháp lý 2024 là driver hỗ trợ minh bạch và tháo gỡ nguồn cung dự án [tổng hợp từ nguồn luật]",
+      "Thanh khoản bất động sản dân cư năm 2024 không được verify là bùng nổ trên nguồn pháp lý, nên chỉ kết luận phục hồi chọn lọc [web review]"
+    ],
+    "negative_facts": [
+      "Không nói thanh khoản bất động sản đã bùng nổ mạnh mẽ trong năm 2024.",
+      "Không nói các luật mới có hiệu lực từ 01/01/2025 nếu đang xét sau sửa đổi hiệu lực.",
+      "Không đồng nhất tác động pháp lý với việc toàn bộ dự án được tháo gỡ ngay lập tức."
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": true
+  },
+  {
+    "id": "E-003",
+    "question": "Ngành thép Việt Nam năm 2024 phục hồi nhờ yếu tố nào: giá thép, nhu cầu xây dựng, xuất khẩu hay chi phí nguyên liệu?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "steel_sector",
+      "steel_price",
+      "construction_demand",
+      "raw_material_cost"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Ngành thép Việt Nam năm 2024 phục hồi chủ yếu nhờ sản lượng tiêu thụ nội địa và xây dựng cải thiện, trong khi xuất khẩu chỉ hỗ trợ một phần và nhập khẩu cạnh tranh vẫn gây áp lực. Theo dữ liệu VSA được tổng hợp trong báo cáo thị trường thép, sản xuất thép thành phẩm năm 2024 đạt gần 26,9 triệu tấn, tăng 7,7% YoY; tiêu thụ đạt 26,7 triệu tấn, tăng 13% YoY. Riêng thép xây dựng, sản xuất đạt 11,7 triệu tấn, tăng 10,1%, bán hàng đạt 11,9 triệu tấn, tăng 9,3%, cho thấy nhu cầu xây dựng/hạ tầng là động lực quan trọng. Xuất khẩu thép thành phẩm đạt 7,6 triệu tấn, tăng 2,8%, thấp hơn nhiều so với tăng trưởng tiêu thụ chung; đồng thời nhập khẩu thép thành phẩm tăng 32,88% về lượng lên 17,713 triệu tấn, tạo áp lực cạnh tranh. Vì vậy, phục hồi năm 2024 không nên quy hoàn toàn cho giá thép hay xuất khẩu, mà đến từ cầu nội địa và sản lượng tiêu thụ.",
+    "sources": [
+      "CTG_BCTN23.pdf",
+      "HPG_BCTN23.pdf",
+      "HPG_BCTN24.pdf",
+      "SSI_BCTN23.pdf",
+      "Conversation History"
+    ],
+    "web_sources": [
+      "vsa.com.vn steel market 2024 ([vsa.com.vn][26])",
+      "vietnamBiz steel market report 2024 using VSA data ([mediacdn.vietnambiz.vn][27])",
+      "vsa.com.vn steel market 11M2024 ([vsa.com.vn][28])"
+    ],
+    "key_facts": [
+      "Sản xuất thép thành phẩm Việt Nam năm 2024 = gần 26,9 triệu tấn [VSA/VietnamBiz]",
+      "Tăng trưởng sản xuất thép thành phẩm năm 2024 = 7,7% YoY [VSA/VietnamBiz]",
+      "Tiêu thụ thép thành phẩm Việt Nam năm 2024 = 26,7 triệu tấn [VSA/VietnamBiz]",
+      "Tăng trưởng tiêu thụ thép thành phẩm năm 2024 = 13% YoY [VSA/VietnamBiz]",
+      "Xuất khẩu thép thành phẩm năm 2024 = 7,6 triệu tấn [VSA/VietnamBiz]",
+      "Tăng trưởng xuất khẩu thép thành phẩm năm 2024 = 2,8% YoY [VSA/VietnamBiz]",
+      "Sản xuất thép xây dựng năm 2024 = 11,7 triệu tấn [VSA/VietnamBiz]",
+      "Tăng trưởng sản xuất thép xây dựng năm 2024 = 10,1% YoY [VSA/VietnamBiz]",
+      "Bán hàng thép xây dựng năm 2024 = 11,9 triệu tấn [VSA/VietnamBiz]",
+      "Nhập khẩu thép thành phẩm năm 2024 = 17,713 triệu tấn, tăng 32,88% YoY [VSA]"
+    ],
+    "negative_facts": [
+      "Không khẳng định ngành thép phục hồi hoàn toàn nhờ xuất khẩu sang Trung Quốc.",
+      "Không nói chi phí nguyên liệu giảm mạnh là yếu tố cốt lõi nếu chưa có số liệu giá than/quặng verified.",
+      "Không nhầm nhập khẩu tăng 32,88% với xuất khẩu tăng."
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": true
+  }
+]

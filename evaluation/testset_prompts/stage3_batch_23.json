@@ -1,0 +1,255 @@
+
+[
+  {
+    "id": "I-004",
+    "history": [
+      {
+        "role": "user",
+        "content": "Tin mới nhất về MWG trong tháng này là gì?"
+      },
+      {
+        "role": "assistant",
+        "content": "MWG gần đây có một số tin liên quan đến Bách Hóa Xanh, kết quả kinh doanh và kế hoạch mở rộng/điều chỉnh chuỗi."
+      }
+    ],
+    "question": "Có sự kiện nào bất ngờ hoặc gây tranh cãi không?",
+    "category": "I. Multi-turn",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "MWG"
+    ],
+    "expected_timeframe": "tháng này",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Các tài liệu được cung cấp chỉ bao gồm Báo cáo thường niên của MWG và không chứa các bản tin báo chí, thông tin cập nhật theo thời gian thực hay các sự kiện bất ngờ, gây tranh cãi của MWG trong tháng này. Bạn vui lòng sử dụng công cụ tìm kiếm trên web để cập nhật các tin tức nóng hổi nhất.",
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "I-005",
+    "history": [
+      {
+        "role": "user",
+        "content": "ROE và NIM của VCB năm 2024 thế nào?"
+      },
+      {
+        "role": "assistant",
+        "content": "VCB năm 2024 có ROE và NIM ở mức cần so với nhóm ngân hàng lớn để đánh giá chính xác hơn."
+      }
+    ],
+    "question": "So với BID và MBB thì xếp hạng ra sao?",
+    "category": "I. Multi-turn",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "VCB",
+      "BID",
+      "MBB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": "Dựa trên dữ liệu so sánh các ngân hàng trong năm 2024, **MBB có thứ hạng vượt trội hơn so với cả BID và VCB** về hai chỉ tiêu ROE và NIM:\n\n- **Về ROE (Hiệu quả hoạt động trên vốn chủ sở hữu):** MBB đạt 21,5%, đứng thứ 2 trong nhóm các ngân hàng lớn (chỉ sau ACB). Trong khi đó, ROE của BID đạt 19,52%, xếp sau MBB.\n- **Về NIM (Biên lãi thuần):** MBB đạt mức 4,1%, đứng thứ 3 trong nhóm các ngân hàng so sánh (chỉ sau VPB và TCB). Do đó, NIM của MBB cũng xếp trên VCB và BID.\n\n*(Lưu ý: Mặc dù các tài liệu không cung cấp chi tiết con số ROE, NIM của VCB hay NIM của BID trong năm 2024, nhưng bảng xếp hạng vị thế top đầu của MBB đã cho thấy MBB có hiệu quả sinh lời dẫn trước hai ngân hàng này).* ",
+    "sources": [
+      "MBB_BCTN24.pdf",
+      "BID_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "MBB có ROE năm 2024 là 21,5% (Top 2), cao hơn BID (19,52%) và VCB.",
+      "MBB có NIM năm 2024 là 4,1% (Top 3, sau VPB, TCB), cao hơn BID và VCB."
+    ],
+    "negative_facts": [
+      "Cho rằng VCB hoặc BID có chỉ số ROE và NIM cao hơn MBB trong năm 2024."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "I-006",
+    "history": [
+      {
+        "role": "user",
+        "content": "P/E của PNJ năm 2024 là bao nhiêu?"
+      },
+      {
+        "role": "assistant",
+        "content": "P/E của PNJ năm 2024 cần lấy từ dữ liệu giá thị trường và EPS tương ứng để tính hoặc đối chiếu."
+      }
+    ],
+    "question": "Còn P/B thì sao?",
+    "category": "I. Multi-turn",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "PNJ"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "I-007",
+    "history": [
+      {
+        "role": "user",
+        "content": "Ngành ngân hàng Việt Nam outlook 2025 có những driver chính nào?"
+      },
+      {
+        "role": "assistant",
+        "content": "Các driver chính gồm tăng trưởng tín dụng, NIM, chất lượng tài sản, chi phí dự phòng và định hướng chính sách tiền tệ."
+      }
+    ],
+    "question": "Rủi ro lớn nhất trong số đó là gì?",
+    "category": "I. Multi-turn",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "banking_sector",
+      "credit_growth",
+      "NIM",
+      "NPL",
+      "provision_expense"
+    ],
+    "expected_timeframe": "outlook 2025",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "analyst",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Dựa trên đánh giá triển vọng ngành ngân hàng năm 2025, rủi ro lớn nhất trong số các yếu tố trên là **nợ xấu (NPL) và áp lực trích lập dự phòng**. \n\nMặc dù kinh tế vĩ mô có xu hướng phục hồi, chất lượng tài sản vẫn là một thách thức lớn. Tỷ lệ nợ xấu nội bảng toàn hệ thống tính đến cuối quý 3/2024 đã đạt mức 4,55% (tăng đáng kể so với mức khoảng 2% của năm 2022) do sự phục hồi chậm của sức cầu tiêu dùng và thị trường bất động sản. Sang năm 2025, khi các chính sách hoãn, giãn nợ (như Thông tư 02) hết hiệu lực, nguy cơ nợ xấu gia tăng sẽ tiếp tục là rủi ro trọng yếu nhất. Áp lực này buộc các ngân hàng phải chủ động đẩy mạnh trích lập dự phòng rủi ro tín dụng, gây sức ép trực tiếp làm sụt giảm lợi nhuận và đòi hỏi năng lực quản trị rủi ro khắt khe hơn [Conversation History].",
+    "sources": [
+      "Conversation History"
+    ],
+    "key_facts": [
+      "Nợ xấu (NPL) và áp lực trích lập dự phòng là rủi ro lớn nhất của ngành ngân hàng trong năm 2025.",
+      "Tỷ lệ nợ xấu toàn hệ thống đạt 4,55% vào cuối Q3/2024 do tiêu dùng và bất động sản phục hồi chậm.",
+      "Áp lực nợ xấu và trích lập dự phòng sẽ gia tăng khi các chính sách cơ cấu nợ (Thông tư 02) hết hiệu lực, tác động tiêu cực đến lợi nhuận."
+    ],
+    "negative_facts": [
+      "Cho rằng nợ xấu không còn là mối lo ngại hoặc rủi ro lớn đối với ngành ngân hàng trong năm 2025.",
+      "Khẳng định lợi nhuận ngân hàng năm 2025 sẽ không bị ảnh hưởng bởi chi phí trích lập dự phòng."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "I-008",
+    "history": [
+      {
+        "role": "user",
+        "content": "Vẽ biểu đồ doanh thu và lợi nhuận sau thuế của MSN giai đoạn 2020-2024."
+      },
+      {
+        "role": "assistant",
+        "content": "Biểu đồ có thể thể hiện xu hướng doanh thu và lợi nhuận sau thuế của MSN theo từng năm trong giai đoạn 2020-2024."
+      }
+    ],
+    "question": "Thêm biên lợi nhuận ròng vào chart đó nhé.",
+    "category": "I. Multi-turn",
+    "expected_tools": [
+      "visualize"
+    ],
+    "expected_entities": [
+      "MSN"
+    ],
+    "expected_timeframe": "2020-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "I-009",
+    "history": [
+      {
+        "role": "user",
+        "content": "Tin gần đây về VHM có gì liên quan đến pháp lý dự án?"
+      },
+      {
+        "role": "assistant",
+        "content": "Các tin gần đây về VHM có thể liên quan đến tiến độ pháp lý, mở bán dự án và giao dịch bất động sản lớn."
+      }
+    ],
+    "question": "Có ảnh hưởng gì đến cổ phiếu cùng ngành không?",
+    "category": "I. Multi-turn",
+    "expected_tools": [
+      "web_search",
+      "rag"
+    ],
+    "expected_entities": [
+      "VHM",
+      "real_estate_sector"
+    ],
+    "expected_timeframe": "gần đây",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "journalist",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "I-010",
+    "history": [
+      {
+        "role": "user",
+        "content": "EPS của SSI năm 2024 là bao nhiêu?"
+      },
+      {
+        "role": "assistant",
+        "content": "EPS của SSI năm 2024 cần được tra từ dữ liệu lợi nhuận sau thuế và số lượng cổ phiếu lưu hành bình quân."
+      }
+    ],
+    "question": "So với VND thì cao hơn hay thấp hơn?",
+    "category": "I. Multi-turn",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "SSI",
+      "VND"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "retail",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  }
+]

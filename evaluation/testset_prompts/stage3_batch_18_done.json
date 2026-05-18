@@ -1,0 +1,541 @@
+[
+{
+"id": "E-014",
+"question": "Triển vọng ngành bất động sản nhà ở năm 2025 phụ thuộc nhiều hơn vào pháp lý, lãi suất vay mua nhà hay sức cầu thực?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"housing_real_estate",
+"legal_approval",
+"mortgage_rate",
+"housing_demand"
+],
+"expected_timeframe": "outlook 2025",
+"scope": "sector",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Triển vọng bất động sản nhà ở năm 2025 phụ thuộc đồng thời vào pháp lý, lãi suất vay mua nhà và sức cầu thực, nhưng sức cầu thực là yếu tố quyết định thanh khoản cuối cùng. Pháp lý là điều kiện cần để mở khóa nguồn cung: Luật Đất đai 2024, Luật Nhà ở 2023 và Luật Kinh doanh Bất động sản 2023 đã có hiệu lực từ 01/08/2024, tạo kỳ vọng quy trình pháp lý dự án thông suốt hơn trong năm 2025. Lãi suất vay mua nhà là chất xúc tác vì mặt bằng lãi suất cho vay thấp hơn giúp người mua dễ sử dụng đòn bẩy, nhưng nếu giá nhà tăng nhanh hơn thu nhập thì tác động hỗ trợ bị hạn chế. Theo Vietcap, outlook 2025 được dẫn dắt bởi nhu cầu ở thực bền vững, nguồn cung sơ cấp tăng nhờ nhiều dự án mở bán hơn và thủ tục pháp lý trơn tru hơn, cùng niềm tin người mua cải thiện. Vì vậy, pháp lý mở nguồn cung, lãi suất hỗ trợ khả năng chi trả, nhưng sức cầu thực mới quyết định tốc độ hấp thụ.",
+"sources": [
+"VHM_BCTN24.pdf",
+"VRE_BCTN24.pdf",
+"SSI_BCTN24.pdf",
+"VPB_BCTN25.pdf"
+],
+"web_sources": [
+"[https://www.vietcap.com.vn/api/cms-api/uploads/file/202501/RESectorFlash-20250113.pdf](https://www.vietcap.com.vn/api/cms-api/uploads/file/202501/RESectorFlash-20250113.pdf)",
+"[https://thuvienphapluat.vn/chinh-sach-phap-luat-moi/vn/ho-tro-phap-luat/bat-dong-san/67210/chinh-thuc-03-luat-ve-bat-dong-san-co-hieu-luc-tu-01-8-2024](https://thuvienphapluat.vn/chinh-sach-phap-luat-moi/vn/ho-tro-phap-luat/bat-dong-san/67210/chinh-thuc-03-luat-ve-bat-dong-san-co-hieu-luc-tu-01-8-2024)",
+"[https://nguoiquansat.vn/cac-luat-dat-dai-nha-o-kinh-doanh-bat-dong-san-chinh-thuc-co-hieu-luc-tu-1-8-143533.html](https://nguoiquansat.vn/cac-luat-dat-dai-nha-o-kinh-doanh-bat-dong-san-chinh-thuc-co-hieu-luc-tu-1-8-143533.html)",
+"[https://fiingroup.vn/upload/docs/FiinGroup-Vietnam-Residential-Real-Estate-Market-Brief-250521.pdf](https://fiingroup.vn/upload/docs/FiinGroup-Vietnam-Residential-Real-Estate-Market-Brief-250521.pdf)"
+],
+"key_facts": [
+"Luật Đất đai 2024 có hiệu lực từ 01/08/2024 [thuvienphapluat]",
+"Luật Nhà ở 2023 có hiệu lực từ 01/08/2024 [thuvienphapluat]",
+"Luật Kinh doanh bất động sản 2023 có hiệu lực từ 01/08/2024 [thuvienphapluat]",
+"Vietcap dự báo outlook BĐS nhà ở 2025 được hỗ trợ bởi nhu cầu ở thực bền vững [Vietcap]",
+"Vietcap dự báo nguồn cung sơ cấp 2025 tăng nhờ nhiều dự án mở bán hơn và thủ tục pháp lý trơn tru hơn [Vietcap]",
+"Vietcap dự báo niềm tin người mua nhà cải thiện trong năm 2025 [Vietcap]",
+"FiinGroup ghi nhận nhu cầu nhà ở Việt Nam vẫn cao trong báo cáo thị trường nhà ở 2025 [FiinGroup]",
+"Pháp lý là điều kiện cần để khơi thông nguồn cung, nhưng sức cầu thực quyết định thanh khoản hấp thụ [tổng hợp web]"
+],
+"negative_facts": [
+"Không khẳng định sức cầu thực đã bùng nổ mạnh bất chấp giá nhà tăng cao.",
+"Không nói pháp lý không còn là rào cản đối với ngành BĐS nhà ở.",
+"Không dùng lãi suất vay mua nhà như yếu tố duy nhất quyết định phục hồi."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "E-015",
+"question": "Ngành thép 2025 có thể bước vào chu kỳ phục hồi rõ hơn không nếu xét nhu cầu nội địa, xuất khẩu và giá nguyên liệu?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"steel_sector",
+"domestic_demand",
+"steel_export",
+"raw_material_price"
+],
+"expected_timeframe": "outlook 2025",
+"scope": "sector",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Ngành thép 2025 có cơ sở bước vào chu kỳ phục hồi rõ hơn nhờ cầu nội địa, nhưng chưa đủ điều kiện để kết luận bùng nổ vì xuất khẩu và cạnh tranh nhập khẩu vẫn là rủi ro. Năm 2024, tiêu thụ thép thành phẩm Việt Nam đạt 26,7 triệu tấn, tăng 13%, trong đó thép xây dựng bán hàng 11,9 triệu tấn, tăng 9,3%, tạo nền thấp thuận lợi cho 2025. Động lực chính của 2025 là đầu tư công, hạ tầng và kỳ vọng bất động sản phục hồi từng bước khi pháp lý cải thiện. Ngược lại, xuất khẩu còn chịu sức ép từ dư cung thép Trung Quốc, rào cản thương mại và các vụ điều tra/phòng vệ thương mại; Reuters ghi nhận năm 2025 Hiệp hội Thép Việt Nam đề xuất áp thuế với thép mạ từ Trung Quốc, Hàn Quốc và Việt Nam đã áp thuế chống bán phá giá với một số sản phẩm HRC Trung Quốc. Giá nguyên liệu như quặng sắt, than cốc, năng lượng vẫn biến động theo Trung Quốc và địa chính trị. Vì vậy, phục hồi 2025 có thể rõ hơn ở mảng nội địa, nhưng biên lợi nhuận và xuất khẩu vẫn cần theo dõi.",
+"sources": [
+"HPG_BCTN24.pdf",
+"VIC_BCTN24.pdf",
+"VRE_BCTN24.pdf",
+"SAB_BCTN24.pdf"
+],
+"web_sources": [
+"[https://vsa.com.vn/tinh-hinh-thi-truong-thep-viet-nam-thang-12-2024-va-ca-nam-2024/](https://vsa.com.vn/tinh-hinh-thi-truong-thep-viet-nam-thang-12-2024-va-ca-nam-2024/)",
+"[https://mediacdn.vietnambiz.vn/1881912202208555/files/2025/02/10/bao-cao-thi-truong-thep-nam-2024-20250210093643171.pdf](https://mediacdn.vietnambiz.vn/1881912202208555/files/2025/02/10/bao-cao-thi-truong-thep-nam-2024-20250210093643171.pdf)",
+"[https://www.reuters.com/markets/commodities/vietnam-steel-body-seeks-tariffs-chinese-south-korean-galvanized-steel-2025-02-28/](https://www.reuters.com/markets/commodities/vietnam-steel-body-seeks-tariffs-chinese-south-korean-galvanized-steel-2025-02-28/)",
+"[https://www.vietcap.com.vn/api/cms-api/uploads/file/202410/UreaSectorUpdate-20241016.pdf](https://www.vietcap.com.vn/api/cms-api/uploads/file/202410/UreaSectorUpdate-20241016.pdf)"
+],
+"key_facts": [
+"Tiêu thụ thép thành phẩm Việt Nam năm 2024 = 26,7 triệu tấn [VSA]",
+"Tăng trưởng tiêu thụ thép thành phẩm năm 2024 = 13% YoY [VSA]",
+"Sản xuất thép thành phẩm Việt Nam năm 2024 = gần 26,9 triệu tấn [VSA]",
+"Tăng trưởng sản xuất thép thành phẩm năm 2024 = 7,7% YoY [VSA]",
+"Bán hàng thép xây dựng năm 2024 = 11,9 triệu tấn [VSA]",
+"Tăng trưởng bán hàng thép xây dựng năm 2024 = 9,3% YoY [VSA]",
+"Xuất khẩu thép thành phẩm năm 2024 = 7,6 triệu tấn, tăng 2,8% YoY [VSA]",
+"Năm 2024 Việt Nam nhập khẩu gần 12 tỷ USD sắt thép từ Trung Quốc [Reuters]",
+"Năm 2025 VSA đề xuất áp thuế thép mạ nhập khẩu từ Trung Quốc và Hàn Quốc do áp lực cạnh tranh [Reuters]",
+"Việt Nam đã áp thuế chống bán phá giá 19,38%-27,83% với một số sản phẩm HRC từ Trung Quốc [Reuters]"
+],
+"negative_facts": [
+"Không khẳng định ngành thép 2025 bùng nổ nhờ bất động sản Trung Quốc phục hồi mạnh.",
+"Không nói xuất khẩu thép Việt Nam 2025 hoàn toàn thuận lợi và không có rào cản.",
+"Không bỏ qua rủi ro thép giá rẻ Trung Quốc và phòng vệ thương mại."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "E-016",
+"question": "Outlook ngành bán lẻ 2025: thu nhập người tiêu dùng, lạm phát và cạnh tranh giá sẽ ảnh hưởng thế nào đến tăng trưởng doanh thu?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"retail_sector",
+"consumer_income",
+"inflation",
+"price_competition"
+],
+"expected_timeframe": "outlook 2025",
+"scope": "sector",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Năm 2025, ngành bán lẻ Việt Nam phục hồi rõ hơn nhờ tăng trưởng kinh tế cao, thu nhập và du lịch cải thiện, trong khi lạm phát vẫn trong vùng kiểm soát. Theo NSO, tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng năm 2025 đạt 7.008,9 nghìn tỷ đồng, tăng 9,2% so với 2024; doanh thu bán lẻ hàng hóa đạt khoảng 5,33 triệu tỷ đồng, tăng 8,0%. CPI bình quân năm 2025 tăng 3,31%, thấp hơn mục tiêu Quốc hội, giúp sức mua không bị bào mòn quá mạnh. Tuy vậy, cạnh tranh giá vẫn là rủi ro vì người tiêu dùng tiếp tục nhạy cảm với giá, ưu tiên hàng thiết yếu và khuyến mại; doanh nghiệp bán lẻ cần tối ưu chi phí, tồn kho và năng suất cửa hàng thay vì chỉ mở rộng số lượng điểm bán. Kết luận: doanh thu ngành tăng tích cực, nhưng tăng trưởng lợi nhuận phụ thuộc vào khả năng giữ biên trong môi trường cạnh tranh giá.",
+"sources": [
+"MWG_BCTN25.pdf",
+"MSN_BCTN25.pdf",
+"VRE_BCTN24.pdf"
+],
+"web_sources": [
+"[https://www.nso.gov.vn/en/data-and-statistics/2026/01/socio-economic-situation-in-the-fourth-quarter-and-2025/](https://www.nso.gov.vn/en/data-and-statistics/2026/01/socio-economic-situation-in-the-fourth-quarter-and-2025/)",
+"[https://en.vneconomy.vn/total-retail-sales-of-goods-and-services-in-2025-reach-270-bln.htm](https://en.vneconomy.vn/total-retail-sales-of-goods-and-services-in-2025-reach-270-bln.htm)",
+"[https://en.vietnamplus.vn/vietnams-retail-sales-service-revenue-up-92-in-2025-post335543.vnp](https://en.vietnamplus.vn/vietnams-retail-sales-service-revenue-up-92-in-2025-post335543.vnp)",
+"[https://en.vneconomy.vn/vietnams-2025-cpi-rises-331.htm](https://en.vneconomy.vn/vietnams-2025-cpi-rises-331.htm)",
+"[https://shinhansec.com.vn/uploads/report/SSV_Retail_Industry_Outlook_2025_%28EN%29.pdf](https://shinhansec.com.vn/uploads/report/SSV_Retail_Industry_Outlook_2025_%28EN%29.pdf)"
+],
+"key_facts": [
+"Tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng năm 2025 = 7.008,9 nghìn tỷ đồng [NSO]",
+"Tăng trưởng tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng năm 2025 = 9,2% YoY [NSO]",
+"Doanh thu bán lẻ hàng hóa năm 2025 = khoảng 5,33 triệu tỷ đồng [VietnamPlus/NSO]",
+"Tăng trưởng doanh thu bán lẻ hàng hóa năm 2025 = 8,0% YoY [VietnamPlus/NSO]",
+"Doanh thu du lịch lữ hành năm 2025 = 93,9 nghìn tỷ đồng [VietnamPlus/NSO]",
+"CPI bình quân năm 2025 = 3,31% [VnEconomy/NSO]",
+"CPI tháng 12/2025 tăng 3,48% YoY [VnEconomy/NSO]",
+"Shinhan dự báo tăng trưởng bán lẻ 2025 khoảng 9%-10% YoY [Shinhan Securities]",
+"Shinhan nêu động lực bán lẻ 2025 gồm tăng trưởng kinh tế tích cực, thu nhập cải thiện và đô thị hóa cao [Shinhan Securities]"
+],
+"negative_facts": [
+"Không nói người tiêu dùng bùng nổ chi tiêu cho điện máy và xa xỉ phẩm nếu chưa có dữ liệu riêng.",
+"Không nói lạm phát 2025 vượt kiểm soát; CPI bình quân đã verify là 3,31%.",
+"Không dùng số tăng trưởng 9,2% như tăng trưởng lợi nhuận ngành."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "E-017",
+"question": "Ngành công nghệ Việt Nam 2025 có những động lực nào từ AI, chuyển đổi số doanh nghiệp và nhu cầu outsourcing toàn cầu?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"technology_sector",
+"AI",
+"enterprise_digital_transformation",
+"global_outsourcing"
+],
+"expected_timeframe": "outlook 2025",
+"scope": "sector",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Ngành công nghệ Việt Nam năm 2025 được hỗ trợ bởi AI, chuyển đổi số doanh nghiệp và nhu cầu outsourcing toàn cầu. Nghị quyết 57-NQ/TW cuối năm 2024 tạo khung chính sách lớn cho khoa học công nghệ, đổi mới sáng tạo và chuyển đổi số quốc gia. AI trở thành driver rõ rệt khi các doanh nghiệp lớn như FPT đầu tư mạnh vào năng lực AI: theo FPT, hai AI Factory tại Việt Nam và Nhật Bản trong báo cáo 2025 hoạt động khoảng 70% công suất, xử lý hơn 1.100 tỷ token và phát triển nhiều mô hình AI phục vụ khách hàng toàn cầu. Chuyển đổi số doanh nghiệp tiếp tục đến từ nhu cầu tối ưu vận hành, cloud, dữ liệu và tự động hóa trong ngân hàng, bán lẻ, sản xuất và khu vực công. Outsourcing toàn cầu vẫn là động lực do Việt Nam có lợi thế nhân lực kỹ thuật, chi phí cạnh tranh và năng lực giao hàng quốc tế, nhưng rủi ro nằm ở cạnh tranh nhân lực AI, bảo hộ thương mại và chu kỳ IT spending toàn cầu.",
+"sources": [
+"FPT_BCTN24.pdf"
+],
+"web_sources": [
+"[https://fpt.com/en/news/fpt-news/fpt-cong-bo-bao-cao-thuong-nien-2025](https://fpt.com/en/news/fpt-news/fpt-cong-bo-bao-cao-thuong-nien-2025)",
+"[https://fptsoftware.com/newsroom/news-and-press-releases/news/fpt_2025_year_in_review](https://fptsoftware.com/newsroom/news-and-press-releases/news/fpt_2025_year_in_review)",
+"[https://b-company.jp/vietnam-ai-market-update-to-2025/](https://b-company.jp/vietnam-ai-market-update-to-2025/)",
+"[https://www.vinasa.org.vn/vinasa/4/3076/4211/18686/Tin-VINASA/Truc-tiep--Le-cong-bo-va-vinh-danh--TOP-10-Doanh-nghiep-cong-nghe-so-xuat-sac-Viet-Nam-2024-.aspx](https://www.vinasa.org.vn/vinasa/4/3076/4211/18686/Tin-VINASA/Truc-tiep--Le-cong-bo-va-vinh-danh--TOP-10-Doanh-nghiep-cong-nghe-so-xuat-sac-Viet-Nam-2024-.aspx)"
+],
+"key_facts": [
+"FPT công bố Báo cáo thường niên 2025 ngày 10/04/2026 [FPT]",
+"Hai AI Factory của FPT tại Việt Nam và Nhật Bản hoạt động khoảng 70% công suất trong năm 2025 [FPT]",
+"Hai AI Factory của FPT xử lý hơn 1.100 tỷ token trong năm 2025 [FPT]",
+"FPT phát triển hàng chục mô hình AI phục vụ khách hàng toàn cầu trong năm 2025 [FPT]",
+"FPT tiếp tục tích hợp AI vào chiến lược lõi và mở rộng hiện diện thị trường toàn cầu trong năm 2025 [FPT Software]",
+"Quy mô thị trường AI Việt Nam năm 2024 ước khoảng 0,75 tỷ USD [B&Company]",
+"Thị trường AI Việt Nam được kỳ vọng đạt khoảng 2,0 tỷ USD vào năm 2030 [B&Company]",
+"CAGR thị trường AI Việt Nam từ 2025 trở đi ước khoảng 15% [B&Company]",
+"Driver AI Việt Nam gồm số hóa doanh nghiệp, chính phủ điện tử và năng lực công nghệ nội địa tăng lên [B&Company]"
+],
+"negative_facts": [
+"Không nói Việt Nam mất hoàn toàn lợi thế outsourcing do chi phí nhân công.",
+"Không nói AI chưa có ứng dụng thực tế trong ngành công nghệ.",
+"Không dùng mục tiêu dài hạn như doanh thu đã thực hiện nếu chưa có số thực hiện."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "E-018",
+"question": "Triển vọng ngành chứng khoán 2025: thanh khoản thị trường, hệ thống KRX và câu chuyện nâng hạng có thể tác động thế nào đến lợi nhuận ngành?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"securities_sector",
+"market_liquidity",
+"KRX",
+"market_upgrade"
+],
+"expected_timeframe": "outlook 2025",
+"scope": "sector",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Triển vọng ngành chứng khoán 2025 tích cực hơn rõ rệt nhờ thanh khoản, KRX và câu chuyện nâng hạng. KRX chính thức vận hành trong năm 2025, giúp cải thiện hạ tầng giao dịch và tạo nền cho sản phẩm mới. FTSE Russell đã công bố kế hoạch nâng hạng Việt Nam từ thị trường cận biên lên thị trường mới nổi thứ cấp vào tháng 10/2025, với hiệu lực dự kiến tháng 9/2026 nếu đáp ứng rà soát, tạo kỳ vọng dòng vốn ngoại và định giá lại thị trường. Theo SSI, tháng 9/2025 là mốc có khả năng có quyết định nâng hạng, còn tài liệu SSI sau đó ghi nhận các bước như KRX vận hành và FTSE thông báo đưa Việt Nam vào EM. Tác động lên lợi nhuận công ty chứng khoán đến từ ba kênh: thanh khoản cao làm tăng môi giới, margin tăng làm tăng thu nhập lãi, và nâng hạng/KRX giúp mở rộng sản phẩm và nhà đầu tư tổ chức. Tuy nhiên, không được coi Việt Nam đã chính thức có hiệu lực nâng hạng trong năm 2025; hiệu lực thực tế theo Reuters/FT là sau đó.",
+"sources": [
+"SSI_BCTN24.pdf",
+"VCBS_BCTN24.pdf"
+],
+"web_sources": [
+"[https://www.ssi.com.vn/en/organization-customer/strategy-report](https://www.ssi.com.vn/en/organization-customer/strategy-report)",
+"[https://www.ssi.com.vn/upload/files/IR/SSI%20presentation_Aug%202025.pdf](https://www.ssi.com.vn/upload/files/IR/SSI%20presentation_Aug%202025.pdf)",
+"[https://www.ssi.com.vn/upload/files/IR/SSI%20presentation_Nov%202025.pdf](https://www.ssi.com.vn/upload/files/IR/SSI%20presentation_Nov%202025.pdf)",
+"[https://www.reuters.com/world/asia-pacific/vietnam-shares-hit-record-high-after-ftse-flags-upgrade-emerging-market-status-2025-10-08/](https://www.reuters.com/world/asia-pacific/vietnam-shares-hit-record-high-after-ftse-flags-upgrade-emerging-market-status-2025-10-08/)",
+"[https://www.ft.com/content/692704cc-a25b-455f-9ccc-9bde02da3c51](https://www.ft.com/content/692704cc-a25b-455f-9ccc-9bde02da3c51)"
+],
+"key_facts": [
+"SSI Strategy Report nêu tháng 09/2025 là mốc có khả năng có quyết định nâng hạng EM của FTSE [SSI]",
+"KRX trading system chính thức vận hành trong năm 2025 theo tài liệu SSI [SSI presentation]",
+"FTSE Russell công bố kế hoạch nâng hạng Việt Nam lên thị trường mới nổi thứ cấp vào tháng 10/2025 [Reuters]",
+"Hiệu lực nâng hạng FTSE dự kiến ngày 21/09/2026 nếu qua rà soát tháng 03/2026 [Reuters]",
+"FT ước tính nâng hạng có thể tạo 1,0-1,5 tỷ USD dòng vốn thụ động [Financial Times]",
+"Reuters ghi nhận VN-Index tăng lên mức kỷ lục sau thông tin FTSE tháng 10/2025 [Reuters]",
+"Tài liệu SSI tháng 11/2025 ghi nhận NPS cho nhà đầu tư tổ chức nước ngoài từ 11/2024, KRX từ 05/2025 và Nghị định 245 tháng 10/2025 [SSI presentation]",
+"Thanh khoản cao tác động trực tiếp đến doanh thu môi giới và dư nợ margin của công ty chứng khoán [suy luận ngành]"
+],
+"negative_facts": [
+"Không nói nâng hạng FTSE đã có hiệu lực chính thức trong năm 2025.",
+"Không nói KRX bị hủy bỏ hoàn toàn trong năm 2025.",
+"Không dùng mốc VN-Index 1.450 như dữ liệu thực tế nếu không verify từ nguồn cụ thể."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "E-019",
+"question": "Vĩ mô Việt Nam 2025: tăng trưởng GDP, lạm phát, tỷ giá và chính sách tiền tệ sẽ ảnh hưởng ra sao đến triển vọng lợi nhuận doanh nghiệp niêm yết?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"Vietnam_macro",
+"GDP_growth",
+"inflation",
+"exchange_rate",
+"monetary_policy"
+],
+"expected_timeframe": "outlook 2025",
+"scope": "macro",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Vĩ mô Việt Nam năm 2025 nhìn chung hỗ trợ lợi nhuận doanh nghiệp niêm yết nhờ tăng trưởng GDP cao, lạm phát kiểm soát và chính sách tiền tệ ưu tiên tăng trưởng. Theo NSO/Báo Chính phủ, GDP năm 2025 tăng 8,02%, mức cao thứ hai giai đoạn 2011-2025; CPI bình quân tăng 3,31%, trong mục tiêu Quốc hội. Bán lẻ hàng hóa và dịch vụ tiêu dùng đạt 7.008,9 nghìn tỷ đồng, tăng 9,2%, hỗ trợ nhóm tiêu dùng, bán lẻ và dịch vụ. Chính sách tiền tệ duy trì định hướng hỗ trợ tăng trưởng: Reuters tháng 10/2025 ghi nhận NHNN ưu tiên tăng trưởng và dự kiến tín dụng 2025 tăng 19%-20%, đồng thời khuyến khích giảm lãi suất cho vay. Rủi ro chính đến từ tỷ giá, thuế quan Mỹ và thương mại toàn cầu; World Bank tháng 9/2025 từng hạ dự báo tăng trưởng do tác động thuế quan, cho thấy nhóm xuất khẩu và doanh nghiệp vay/nhập khẩu USD nhạy cảm hơn. Vì vậy, môi trường 2025 thuận lợi cho lợi nhuận nhưng phân hóa theo ngành.",
+"sources": [
+"SSI_BCTN24.pdf",
+"VPB_BCTN24.pdf",
+"VHM_BCTN24.pdf"
+],
+"web_sources": [
+"[https://en.baochinhphu.vn/viet-nam-posts-802-gdp-growth-in-2025-11126010515474478.htm](https://en.baochinhphu.vn/viet-nam-posts-802-gdp-growth-in-2025-11126010515474478.htm)",
+"[https://www.nso.gov.vn/en/data-and-statistics/2026/01/socio-economic-situation-in-the-fourth-quarter-and-2025/](https://www.nso.gov.vn/en/data-and-statistics/2026/01/socio-economic-situation-in-the-fourth-quarter-and-2025/)",
+"[https://en.vneconomy.vn/vietnams-2025-cpi-rises-331.htm](https://en.vneconomy.vn/vietnams-2025-cpi-rises-331.htm)",
+"[https://www.reuters.com/en/vietnam-central-bank-says-will-prioritise-growth-sees-big-credit-expansion-2025-10-03/](https://www.reuters.com/en/vietnam-central-bank-says-will-prioritise-growth-sees-big-credit-expansion-2025-10-03/)",
+"[https://www.reuters.com/world/asia-pacific/world-bank-cuts-vietnams-growth-forecast-66-tariffs-bite-2025-09-08/](https://www.reuters.com/world/asia-pacific/world-bank-cuts-vietnams-growth-forecast-66-tariffs-bite-2025-09-08/)"
+],
+"key_facts": [
+"GDP Việt Nam năm 2025 tăng 8,02% [Báo Chính phủ/NSO]",
+"GDP 2025 là mức tăng cao thứ hai trong giai đoạn 2011-2025 [Báo Chính phủ/NSO]",
+"GDP quý IV/2025 tăng 8,46% YoY [NSO]",
+"CPI bình quân năm 2025 tăng 3,31% [VnEconomy/NSO]",
+"CPI tháng 12/2025 tăng 3,48% YoY [VnEconomy/NSO]",
+"Tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng năm 2025 = 7.008,9 nghìn tỷ đồng [NSO]",
+"Tăng trưởng tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng năm 2025 = 9,2% YoY [NSO]",
+"Reuters tháng 10/2025 ghi nhận NHNN dự kiến tăng trưởng tín dụng 2025 = 19%-20% [Reuters]",
+"Tín dụng đến 29/09/2025 tăng 13,37% so với cuối năm 2024 [Reuters]",
+"World Bank tháng 09/2025 hạ dự báo GDP 2025 của Việt Nam xuống 6,6% do rủi ro thuế quan [Reuters]"
+],
+"negative_facts": [
+"Không dùng mục tiêu GDP trên 8% như số dự báo nếu đã có số thực hiện 8,02%.",
+"Không nói lạm phát 2025 vượt kiểm soát; CPI bình quân đã verify là 3,31%.",
+"Không nói rủi ro tỷ giá/thuế quan nhấn chìm toàn bộ lợi nhuận doanh nghiệp; tác động phân hóa theo ngành."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "E-020",
+"question": "Năm 2025, rủi ro tỷ giá USD/VND có thể ảnh hưởng mạnh nhất đến những nhóm ngành nào và vì sao?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"USD/VND",
+"exchange_rate_risk",
+"export_sector",
+"import_sector",
+"foreign_debt"
+],
+"expected_timeframe": "outlook 2025",
+"scope": "macro",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Rủi ro tỷ giá USD/VND năm 2025 ảnh hưởng mạnh nhất đến ba nhóm: doanh nghiệp vay ngoại tệ lớn, doanh nghiệp nhập khẩu/phụ thuộc nguyên liệu nhập khẩu và doanh nghiệp xuất khẩu có tỷ lệ nội địa hóa thấp. Doanh nghiệp vay ngoại tệ chịu rủi ro tăng chi phí lãi vay và lỗ chênh lệch tỷ giá khi đánh giá lại dư nợ USD; nhóm chịu tác động thường gồm bất động sản, vận tải, hàng không, điện khí/LNG và doanh nghiệp có dự án nhập thiết bị lớn. Doanh nghiệp nhập khẩu hoặc phụ thuộc nguyên liệu nhập khẩu như bán lẻ điện máy, sản xuất tiêu dùng, thép, phân bón và xăng dầu chịu áp lực giá vốn nếu VND yếu. Doanh nghiệp xuất khẩu hưởng lợi doanh thu quy đổi khi USD mạnh, nhưng lợi thế bị giảm nếu nhập khẩu đầu vào lớn hoặc gặp rào cản thuế quan. Năm 2025, áp lực còn đến từ chính sách thương mại Mỹ và biến động USD; Reuters ghi nhận World Bank hạ dự báo GDP Việt Nam 2025 vì rủi ro thuế quan, còn NHNN vẫn ưu tiên tăng trưởng tín dụng và khuyến khích giảm lãi suất, khiến cân bằng giữa tăng trưởng và ổn định tỷ giá là điểm cần theo dõi.",
+"sources": [
+"SSI_BCTN24.pdf",
+"VPL_BCTN24.pdf",
+"MSN_BCTN24.pdf"
+],
+"web_sources": [
+"[https://en.diendandoanhnghiep.vn/outlook-fornbsp-usdvnd-exchange-rate-in-2025-n42007.html](https://en.diendandoanhnghiep.vn/outlook-fornbsp-usdvnd-exchange-rate-in-2025-n42007.html)",
+"[https://en.vneconomy.vn/stable-exchange-rate-expected-for-2025.htm](https://en.vneconomy.vn/stable-exchange-rate-expected-for-2025.htm)",
+"[https://www.reuters.com/en/vietnam-central-bank-says-will-prioritise-growth-sees-big-credit-expansion-2025-10-03/](https://www.reuters.com/en/vietnam-central-bank-says-will-prioritise-growth-sees-big-credit-expansion-2025-10-03/)",
+"[https://www.reuters.com/world/asia-pacific/world-bank-cuts-vietnams-growth-forecast-66-tariffs-bite-2025-09-08/](https://www.reuters.com/world/asia-pacific/world-bank-cuts-vietnams-growth-forecast-66-tariffs-bite-2025-09-08/)",
+"[https://www.mbs.com.vn/files/uploads/2025/04/vietnamoutlook_20250318_ta.pdf](https://www.mbs.com.vn/files/uploads/2025/04/vietnamoutlook_20250318_ta.pdf)"
+],
+"key_facts": [
+"VnEconomy đầu năm 2025 nhận định tỷ giá 2025 được hỗ trợ bởi xu hướng nới lỏng chính sách tiền tệ toàn cầu [VnEconomy]",
+"VnEconomy nêu thách thức tỷ giá 2025 có thể đến từ tăng trưởng xuất khẩu yếu hơn và dòng vốn FDI chậm lại [VnEconomy]",
+"Reuters tháng 10/2025 ghi nhận NHNN ưu tiên tăng trưởng và khuyến khích ngân hàng giảm lãi suất cho vay [Reuters]",
+"Reuters tháng 10/2025 ghi nhận NHNN dự kiến tăng trưởng tín dụng 2025 = 19%-20% [Reuters]",
+"Tín dụng đến 29/09/2025 tăng 13,37% so với cuối năm 2024 [Reuters]",
+"World Bank tháng 09/2025 hạ dự báo GDP Việt Nam 2025 xuống 6,6% do tác động thuế quan Mỹ [Reuters]",
+"MBS dự báo xuất khẩu Việt Nam năm 2025 tăng 11% [MBS]",
+"MBS dự báo thặng dư thương mại năm 2025 = 27,5 tỷ USD [MBS]",
+"Doanh nghiệp vay ngoại tệ chịu rủi ro lỗ tỷ giá khi USD/VND tăng [suy luận từ cơ chế kế toán]",
+"Doanh nghiệp nhập khẩu chịu rủi ro giá vốn tăng khi USD/VND tăng [suy luận từ cơ chế nhập khẩu]"
+],
+"negative_facts": [
+"Không nói doanh nghiệp nhập khẩu hưởng lợi lớn khi USD/VND tăng.",
+"Không nói rủi ro tỷ giá 2025 hoàn toàn biến mất.",
+"Không coi doanh nghiệp xuất khẩu luôn hưởng lợi ròng nếu tỷ lệ nguyên liệu nhập khẩu cao."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "E-021",
+"question": "Nếu lãi suất duy trì thấp trong năm 2025, nhóm ngành nào trên thị trường Việt Nam có thể hưởng lợi rõ nhất: ngân hàng, bất động sản, chứng khoán hay tiêu dùng?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"low_interest_rate",
+"banking_sector",
+"real_estate_sector",
+"securities_sector",
+"consumer_sector"
+],
+"expected_timeframe": "outlook 2025",
+"scope": "macro",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Nếu lãi suất duy trì thấp trong năm 2025, nhóm hưởng lợi rõ nhất là chứng khoán và bất động sản, tiếp theo là tiêu dùng; ngân hàng hưởng lợi về tăng trưởng tín dụng nhưng chịu rủi ro NIM. Chứng khoán hưởng lợi trực tiếp vì lãi suất tiền gửi thấp làm giảm chi phí cơ hội nắm giữ cổ phiếu, hỗ trợ thanh khoản và margin; câu chuyện KRX và nâng hạng càng khuếch đại tác động. Bất động sản hưởng lợi do lãi suất vay mua nhà thấp cải thiện khả năng chi trả và giảm chi phí vốn cho chủ đầu tư, nhưng vẫn phụ thuộc pháp lý và giá nhà. Tiêu dùng hưởng lợi gián tiếp do chi phí vay và gánh nặng tài chính hộ gia đình giảm, hỗ trợ tổng mức bán lẻ đã tăng 9,2% trong năm 2025. Ngân hàng có driver tín dụng mạnh khi Reuters ghi nhận NHNN dự kiến tăng trưởng tín dụng 2025 là 19%-20%, nhưng nếu lãi suất cho vay thấp hơn trong khi huy động tăng, NIM có thể bị ép.",
+"sources": [
+"SSI_BCTN24.pdf",
+"VPB_BCTN25.pdf",
+"Conversation History"
+],
+"web_sources": [
+"[https://www.reuters.com/en/vietnam-central-bank-says-will-prioritise-growth-sees-big-credit-expansion-2025-10-03/](https://www.reuters.com/en/vietnam-central-bank-says-will-prioritise-growth-sees-big-credit-expansion-2025-10-03/)",
+"[https://www.ssi.com.vn/en/organization-customer/strategy-report](https://www.ssi.com.vn/en/organization-customer/strategy-report)",
+"[https://www.ssi.com.vn/upload/files/IR/SSI%20presentation_Nov%202025.pdf](https://www.ssi.com.vn/upload/files/IR/SSI%20presentation_Nov%202025.pdf)",
+"[https://en.vneconomy.vn/total-retail-sales-of-goods-and-services-in-2025-reach-270-bln.htm](https://en.vneconomy.vn/total-retail-sales-of-goods-and-services-in-2025-reach-270-bln.htm)",
+"[https://www.vietcap.com.vn/api/cms-api/uploads/file/202501/RESectorFlash-20250113.pdf](https://www.vietcap.com.vn/api/cms-api/uploads/file/202501/RESectorFlash-20250113.pdf)"
+],
+"key_facts": [
+"Reuters tháng 10/2025 ghi nhận NHNN dự kiến tăng trưởng tín dụng 2025 = 19%-20% [Reuters]",
+"Tín dụng đến 29/09/2025 tăng 13,37% so với cuối năm 2024 [Reuters]",
+"NHNN khuyến khích ngân hàng tiếp tục giảm lãi suất cho vay trong năm 2025 [Reuters]",
+"SSI nêu tháng 09/2025 là mốc có khả năng có quyết định nâng hạng EM của FTSE [SSI]",
+"KRX trading system chính thức vận hành trong năm 2025 theo tài liệu SSI [SSI presentation]",
+"Tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng năm 2025 = hơn 7 triệu tỷ đồng [VnEconomy/NSO]",
+"Tăng trưởng tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng năm 2025 = 9,2% YoY [VnEconomy/NSO]",
+"Vietcap dự báo BĐS nhà ở 2025 được hỗ trợ bởi nhu cầu ở thực, nguồn cung mới và niềm tin người mua cải thiện [Vietcap]",
+"Lãi suất thấp hỗ trợ chứng khoán qua thanh khoản và margin [suy luận từ cơ chế định giá]",
+"Lãi suất thấp hỗ trợ bất động sản qua chi phí vốn và vay mua nhà [suy luận từ cơ chế tín dụng]"
+],
+"negative_facts": [
+"Không khẳng định lãi suất thấp chỉ gây rủi ro cho ngân hàng mà không có lợi ích tín dụng.",
+"Không nói chứng khoán sẽ sụt giảm thanh khoản chỉ vì lãi suất thấp.",
+"Không xếp ngân hàng hưởng lợi nhất nếu không xét rủi ro NIM."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "E-022",
+"question": "Outlook ngành điện 2025: nhu cầu điện, giá nhiên liệu, thủy văn và cơ chế giá ảnh hưởng thế nào đến lợi nhuận các nhóm nhiệt điện, thủy điện và điện khí?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"power_sector",
+"electricity_demand",
+"fuel_price",
+"hydrology",
+"electricity_pricing"
+],
+"expected_timeframe": "outlook 2025",
+"scope": "sector",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Outlook ngành điện 2025 tích cực hơn nhờ nhu cầu điện tăng theo sản xuất công nghiệp và cơ chế giá điện cải thiện, nhưng lợi nhuận phân hóa theo nguồn điện. Nửa đầu 2025, Shinhan ghi nhận IIP tăng 9,2% và sản lượng điện đạt 155,79 tỷ kWh, tăng 3% YoY, tương đương 45% mục tiêu cả năm 347,5 tỷ kWh của Bộ Công Thương. EVN tăng giá điện 4,8% trong năm 2025, giúp cải thiện khả năng thanh toán và môi trường hợp đồng. Thủy điện hưởng lợi nếu thủy văn thuận lợi: VPNA ghi nhận Q1/2025 thủy điện đạt 13,8 tỷ kWh, tăng 30% YoY nhờ điều kiện thủy văn tốt. Nhiệt điện than vẫn là nguồn nền chủ đạo khi VPNA ghi nhận Q1/2025 than chiếm 56,5% sản lượng, nhưng lợi nhuận phụ thuộc giá than và Qc/huy động. Điện khí chịu áp lực lớn hơn do giá khí/LNG cao và cơ chế giá LNG chưa hoàn toàn thông suốt, nên chỉ hưởng lợi khi nhu cầu điện cao và được huy động nhiều hơn.",
+"sources": [],
+"web_sources": [
+"[https://shinhansec.com.vn/uploads/report/Power_Outlook_2H2025_ENG.pdf](https://shinhansec.com.vn/uploads/report/Power_Outlook_2H2025_ENG.pdf)",
+"[https://vpna.vn/en/vietnam-power-sector-2025/](https://vpna.vn/en/vietnam-power-sector-2025/)",
+"[https://masvn.com/api/attachment/file/1775095374444-Electricitysectorreport_EN_2026.pdf](https://masvn.com/api/attachment/file/1775095374444-Electricitysectorreport_EN_2026.pdf)",
+"[https://www.mbs.com.vn/files/uploads/2025/12/Sectornote_Power_20251216.pdf](https://www.mbs.com.vn/files/uploads/2025/12/Sectornote_Power_20251216.pdf)"
+],
+"key_facts": [
+"IIP Việt Nam 1H2025 tăng 9,2% [Shinhan Securities]",
+"Sản lượng điện 1H2025 = 155,79 tỷ kWh [Shinhan Securities]",
+"Tăng trưởng sản lượng điện 1H2025 = 3% YoY [Shinhan Securities]",
+"Sản lượng điện 1H2025 tương đương 45% mục tiêu cả năm 347,5 tỷ kWh của Bộ Công Thương [Shinhan Securities]",
+"EVN tăng giá điện 4,8% trong năm 2025 [Shinhan Securities]",
+"Nhiệt điện than chiếm 56,5% sản lượng điện Q1/2025 [VPNA]",
+"Sản lượng thủy điện Q1/2025 = 13,8 tỷ kWh [VPNA]",
+"Tăng trưởng sản lượng thủy điện Q1/2025 = 30% YoY [VPNA]",
+"NOAA dự báo xác suất cao La Niña quay lại trong 2H2025, hỗ trợ dòng nước hồ chứa [VPNA]",
+"MASVN ước tổng sản lượng điện hệ thống năm 2025 khoảng 321 tỷ kWh, tăng 4% YoY [MASVN 2026 report]",
+"MASVN ước sản lượng thủy điện năm 2025 = 105 tỷ kWh, tăng 19% YoY [MASVN 2026 report]"
+],
+"negative_facts": [
+"Không nói tất cả nhóm điện đều hưởng lợi giống nhau trong năm 2025.",
+"Không nói điện khí bùng nổ nếu chưa giải quyết rủi ro giá LNG/cơ chế giá.",
+"Không bỏ qua vai trò thủy văn đối với lợi nhuận thủy điện."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "E-023",
+"question": "Triển vọng ngành phân bón 2025: giá ure, chi phí khí và nhu cầu xuất khẩu sẽ quyết định biên lợi nhuận ra sao?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"fertilizer_sector",
+"urea_price",
+"gas_cost",
+"export_demand"
+],
+"expected_timeframe": "outlook 2025",
+"scope": "sector",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Triển vọng phân bón 2025 tích cực hơn 2024 nếu giá ure tăng và chi phí khí không tăng tương ứng. VNDIRECT tháng 03/2025 dự báo giá ure thế giới bình quân 2025 tăng 3,5% YoY do nguồn cung thắt chặt và điều chỉnh dự báo ASP ure của DPM tăng 0,9% YoY; Vietcap trước đó dự báo giá ure Trung Đông bình quân 2025 đạt 350 USD/tấn, tăng 9% YoY do tổng xuất khẩu ure toàn cầu giảm 3% xuống 53,7 triệu tấn và giá khí Henry Hub tăng 46% YoY. Về xuất khẩu, dữ liệu Vinachem cho thấy 6 tháng 2025 Việt Nam xuất khẩu 1,12 triệu tấn phân bón, trị giá 449,61 triệu USD, tăng 23,9% về lượng và 24,2% về giá trị, cho thấy cầu khu vực tích cực. Tuy vậy, biên lợi nhuận của DPM/DCM phụ thuộc mạnh vào chi phí khí đầu vào; nếu giá khí tăng nhanh hơn giá ure, biên sẽ bị ép. Ngoài ra, bảo dưỡng nhà máy và nhu cầu nội địa yếu do giá nông sản giảm có thể làm sản lượng tiêu thụ giảm.",
+"sources": [],
+"web_sources": [
+"[https://www.vndirect.com.vn/DPM_Update_20250325.pdf](https://www.vndirect.com.vn/DPM_Update_20250325.pdf)",
+"[https://www.vietcap.com.vn/api/cms-api/uploads/file/202410/UreaSectorUpdate-20241016.pdf](https://www.vietcap.com.vn/api/cms-api/uploads/file/202410/UreaSectorUpdate-20241016.pdf)",
+"[https://www.vinachem.com.vn/content/market-and-product-vnc/vietnams-fertilizer-exports-and-imports-in-first-6-months-of-2025.html](https://www.vinachem.com.vn/content/market-and-product-vnc/vietnams-fertilizer-exports-and-imports-in-first-6-months-of-2025.html)",
+"[https://dpm.vn/BCTN-DPM-2024/pdf/AR-DPM-2024.pdf](https://dpm.vn/BCTN-DPM-2024/pdf/AR-DPM-2024.pdf)",
+"[https://archive.shs.com.vn/Sites/QuoteVN/SiteRoot/reportattach/20250813_10055_FERTILIZER%20INDUSTRY%20REPORT.pdf](https://archive.shs.com.vn/Sites/QuoteVN/SiteRoot/reportattach/20250813_10055_FERTILIZER%20INDUSTRY%20REPORT.pdf)"
+],
+"key_facts": [
+"VNDIRECT dự báo giá ure thế giới bình quân năm 2025 tăng 3,5% YoY [VNDIRECT]",
+"VNDIRECT điều chỉnh dự báo ASP ure của DPM năm 2025 tăng 0,9% YoY [VNDIRECT]",
+"Giá ure toàn cầu tăng 11,3% YTD và tăng bình quân 25% YoY trong 2 tháng đầu 2025 [VNDIRECT]",
+"Giá ure nội địa tăng 4,6% YTD đầu năm 2025 [VNDIRECT]",
+"Vietcap dự báo giá ure Trung Đông bình quân 2025 = 350 USD/tấn [Vietcap]",
+"Vietcap dự báo giá ure năm 2025 tăng 9% YoY [Vietcap]",
+"Vietcap dự báo tổng xuất khẩu ure toàn cầu năm 2025 giảm 3% YoY xuống 53,7 triệu tấn [Vietcap]",
+"Vietcap nêu World Bank dự báo giá khí Henry Hub năm 2025 tăng 46% YoY [Vietcap]",
+"Xuất khẩu phân bón Việt Nam 6 tháng 2025 = 1,12 triệu tấn [Vinachem]",
+"Kim ngạch xuất khẩu phân bón Việt Nam 6 tháng 2025 = 449,61 triệu USD [Vinachem]",
+"Tăng trưởng lượng xuất khẩu phân bón Việt Nam 6 tháng 2025 = 23,9% YoY [Vinachem]",
+"Tăng trưởng giá trị xuất khẩu phân bón Việt Nam 6 tháng 2025 = 24,2% YoY [Vinachem]",
+"Giá xuất khẩu phân bón bình quân 6 tháng 2025 = 401,8 USD/tấn [Vinachem]"
+],
+"negative_facts": [
+"Không nói giá ure 2025 chắc chắn giảm mạnh nếu nguồn VNDIRECT/Vietcap dự báo tăng.",
+"Không nói biên lợi nhuận phân bón chỉ phụ thuộc giá ure mà bỏ qua chi phí khí.",
+"Không dùng dữ liệu xuất khẩu tháng 11/2025 làm đại diện cả năm nếu không ghi rõ kỳ."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+}
+]

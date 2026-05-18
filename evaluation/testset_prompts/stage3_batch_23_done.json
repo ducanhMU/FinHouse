@@ -1,0 +1,419 @@
+[
+  {
+    "id": "I-004",
+    "history": [
+      {
+        "role": "user",
+        "content": "Tin mới nhất về MWG trong tháng này là gì?"
+      },
+      {
+        "role": "assistant",
+        "content": "MWG gần đây có một số tin liên quan đến Bách Hóa Xanh, kết quả kinh doanh và kế hoạch mở rộng/điều chỉnh chuỗi."
+      }
+    ],
+    "question": "Có sự kiện nào bất ngờ hoặc gây tranh cãi không?",
+    "category": "I. Multi-turn",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_entities": [
+      "MWG"
+    ],
+    "expected_timeframe": "tháng này",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "journalist",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Trong tháng 05/2026, không tìm thấy sự kiện tiêu cực/gây tranh cãi lớn đã được nguồn uy tín xác nhận đối với MWG. Tin bất ngờ theo hướng tích cực là Bách Hóa Xanh chính thức đạt mốc 3.000 cửa hàng ngày 17/05/2026, tốc độ mở mới được CafeF mô tả là rất nhanh [web:cafef]. Trước đó, trong buổi gặp gỡ nhà đầu tư ngày 08/05/2026, MWG cập nhật Bách Hóa Xanh là động lực chính; các cửa hàng mở mới năm 2026 đã ghi nhận lợi nhuận hoạt động dương trực tiếp tại cửa hàng, và mục tiêu lợi nhuận 2026 của Bách Hóa Xanh ít nhất gấp đôi năm 2025 [web:cafef][web:vietstock]. Vì vậy, câu trả lời gold nên là: có sự kiện đáng chú ý/bất ngờ về mở rộng nhanh và lợi nhuận Bách Hóa Xanh, nhưng không có scandal hoặc tranh cãi lớn được verify trong tháng này.",
+    "sources": [],
+    "web_sources": [
+      "[https://cafef.vn/bach-hoa-xanh-chinh-thuc-moc-3000-cua-hang-toc-do-mo-moi-chong-mat-188260517225910431.chn](https://cafef.vn/bach-hoa-xanh-chinh-thuc-moc-3000-cua-hang-toc-do-mo-moi-chong-mat-188260517225910431.chn)",
+      "[https://cafef.vn/ga-de-trung-vang-dong-loat-bao-tin-vui-ctck-du-bao-mwg-vuot-ke-hoach-loi-nhuan-2026-188260511110426822.chn](https://cafef.vn/ga-de-trung-vang-dong-loat-bao-tin-vui-ctck-du-bao-mwg-vuot-ke-hoach-loi-nhuan-2026-188260511110426822.chn)",
+      "[https://vietstock.vn/2026/05/bach-hoa-xanh-co-cua-hang-dau-tien-tai-ha-noi-737-1439439.htm](https://vietstock.vn/2026/05/bach-hoa-xanh-co-cua-hang-dau-tien-tai-ha-noi-737-1439439.htm)",
+      "[https://mwg.vn/](https://mwg.vn/)"
+    ],
+    "key_facts": [
+      "Bách Hóa Xanh đạt mốc 3.000 cửa hàng ngày 17/05/2026 [cafef]",
+      "MWG tổ chức gặp gỡ nhà đầu tư ngày 08/05/2026 để cập nhật hoạt động các chuỗi [cafef]",
+      "Mục tiêu lợi nhuận 2026 của Bách Hóa Xanh = ít nhất gấp đôi năm 2025 [cafef]",
+      "Các điểm bán Bách Hóa Xanh mở mới năm 2026 ghi nhận lợi nhuận hoạt động dương trực tiếp tại cửa hàng [vietstock]",
+      "Số cửa hàng Bách Hóa Xanh mở mới trong Q1/2026 = 280 cửa hàng [vietstock]",
+      "Số cửa hàng Bách Hóa Xanh cuối Q1/2026 = 2.839 cửa hàng [cafef]",
+      "Doanh thu Bách Hóa Xanh Q1/2026 = 13.100 tỷ đồng [cafef]",
+      "Không tìm thấy scandal hoặc sự kiện gây tranh cãi lớn của MWG trong tháng 05/2026 từ nguồn uy tín đã tra [cafef/vietstock/mwg]"
+    ],
+    "negative_facts": [
+      "KHÔNG bịa scandal MWG nếu không có nguồn uy tín",
+      "KHÔNG nhầm sự kiện mở rộng nhanh Bách Hóa Xanh với đóng cửa hàng hàng loạt",
+      "KHÔNG nói Bách Hóa Xanh đã IPO nếu nguồn chỉ nói mở rộng/lợi nhuận"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": true
+  },
+  {
+    "id": "I-005",
+    "history": [
+      {
+        "role": "user",
+        "content": "ROE và NIM của VCB năm 2024 thế nào?"
+      },
+      {
+        "role": "assistant",
+        "content": "VCB năm 2024 có ROE và NIM ở mức cần so với nhóm ngân hàng lớn để đánh giá chính xác hơn."
+      }
+    ],
+    "question": "So với BID và MBB thì xếp hạng ra sao?",
+    "category": "I. Multi-turn",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "VCB",
+      "BID",
+      "MBB"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "analyst",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": "So sánh 2024 giữa VCB, BID và MBB: về ROE, MBB đứng đầu nhóm này với khoảng 21,2% theo báo cáo phân tích MASVN, cao hơn BID khoảng 19,52% và cao hơn VCB khoảng 18,5% theo nguồn thị trường; do đó thứ hạng ROE là MBB > BID > VCB [web:masvn][web:dnse]. Về NIM, MBB cũng dẫn đầu rõ rệt: NIM 2024 của MBB được dự phóng/ghi nhận quanh 4,1%–4,34%, cao hơn VCB khoảng 2,86%–3,04%; BID có NIM thấp hơn MBB và thường nằm quanh vùng 2,4%–2,6% trong các báo cáo phân tích [web:mbbank][web:nhsv][web:bidv]. Vì vậy, kết luận stage 2 đúng về hướng MBB dẫn đầu, nhưng cần sửa: ROE MBB nên dùng 21,2% nếu theo báo cáo phân tích đã verify, không dùng 21,5% làm số chính xác duy nhất; VCB và BID có thể bổ sung số thay vì nói không có dữ liệu.",
+    "sources": [
+      "MBB_BCTN24.pdf",
+      "BID_BCTN24.pdf"
+    ],
+    "web_sources": [
+      "[https://masvn.com/api/attachment/file/1739528853645-VN_MBB_Report_MUA_MAS_4Q24_N_Q_N_2025.pdf](https://masvn.com/api/attachment/file/1739528853645-VN_MBB_Report_MUA_MAS_4Q24_N_Q_N_2025.pdf)",
+      "[https://cafef1.mediacdn.vn/Images/Uploaded/DuLieuDownload/PhanTichBaoCao/MBB_161224_KBSV16122024144632.pdf](https://cafef1.mediacdn.vn/Images/Uploaded/DuLieuDownload/PhanTichBaoCao/MBB_161224_KBSV16122024144632.pdf)",
+      "[https://nhsv.vn/uploadfile/source/Ph%C3%A2n%20t%C3%ADch%20doanh%20nghi%E1%BB%87p/Baocaolandau_VCB_24022025_VN.pdf](https://nhsv.vn/uploadfile/source/Ph%C3%A2n%20t%C3%ADch%20doanh%20nghi%E1%BB%87p/Baocaolandau_VCB_24022025_VN.pdf)",
+      "[https://www.dnse.com.vn/senses/tin-tuc/vietcombank-lai-ky-luc-trong-nam-2024-34080439](https://www.dnse.com.vn/senses/tin-tuc/vietcombank-lai-ky-luc-trong-nam-2024-34080439)",
+      "[https://bidv.com.vn/bidv/quan-he-nha-dau-tu/bao-cao-va-tai-lieu/baocaothuongnien/2025/bctn%2B2024](https://bidv.com.vn/bidv/quan-he-nha-dau-tu/bao-cao-va-tai-lieu/baocaothuongnien/2025/bctn%2B2024)",
+      "[https://rs.nguoiquansat.vn/bcpt/BID/BID_15_14666_58.pdf](https://rs.nguoiquansat.vn/bcpt/BID/BID_15_14666_58.pdf)"
+    ],
+    "key_facts": [
+      "ROE 2024 của MBB = 21,2% [masvn]",
+      "ROA 2024 của MBB = 2,2% [masvn]",
+      "NIM dự phóng 2024 của MBB = 4,34% [kbsv]",
+      "NIM 2024 của MBB được stage 2 ghi nhận = 4,1% [MBB_BCTN24.pdf]",
+      "ROE 2024 của BID = 19,52% [BID_BCTN24.pdf]",
+      "LNTT riêng lẻ 2024 của BID = 30.006 tỷ đồng [dnse]",
+      "LNTT riêng lẻ 2024 của BID tăng 12,4% YoY [dnse]",
+      "ROE 2024 của VCB = khoảng 18,5% [dnse]",
+      "NIM 2024 của VCB = 3,04% theo nguồn thị trường [dnse]",
+      "NIM bình quân 2024 của VCB = 2,86% theo báo cáo NHSV [nhsv]",
+      "NIM Q4/2024 của VCB = khoảng 2,79% [nhsv]",
+      "Thứ hạng ROE 2024 trong nhóm VCB-BID-MBB = MBB > BID > VCB [tính từ key_facts]",
+      "Thứ hạng NIM 2024 trong nhóm VCB-BID-MBB = MBB cao nhất; VCB và BID thấp hơn MBB [tổng hợp từ key_facts]"
+    ],
+    "negative_facts": [
+      "KHÔNG cho rằng VCB hoặc BID có ROE/NIM cao hơn MBB trong năm 2024 nếu không có nguồn mới",
+      "KHÔNG dùng 21,5% làm ROE chính xác duy nhất của MBB khi nguồn verify được là 21,2%",
+      "KHÔNG nói không có dữ liệu VCB/BID; có thể verify được ít nhất ROE VCB, ROE BID và NIM VCB từ nguồn công khai"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": true
+  },
+  {
+    "id": "I-006",
+    "history": [
+      {
+        "role": "user",
+        "content": "P/E của PNJ năm 2024 là bao nhiêu?"
+      },
+      {
+        "role": "assistant",
+        "content": "P/E của PNJ năm 2024 cần lấy từ dữ liệu giá thị trường và EPS tương ứng để tính hoặc đối chiếu."
+      }
+    ],
+    "question": "Còn P/B thì sao?",
+    "category": "I. Multi-turn",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "PNJ"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "P/B của PNJ năm 2024 cần xác định theo thời điểm giá cổ phiếu. Nếu lấy cách tính phổ biến tại cuối năm 2024, P/B = giá đóng cửa cuối năm / BVPS cuối năm. Nguồn Vietstock/CafeF cung cấp BCTN/BCTC 2024 của PNJ và dữ liệu tài chính gồm BVPS; Vietstock hiển thị BVPS cơ bản gần 35.436–35.489 đồng/cp trong vùng dữ liệu tài chính đã tra [web:vietstock]. Vì không verify được chắc chắn giá đóng cửa ngày 31/12/2024 từ nguồn uy tín trong lần tra này, không nên đưa một P/B cuối năm làm gold tuyệt đối. Có thể giữ item ở trạng thái answerable một phần: công thức và BVPS đã verify, nhưng P/B 2024 chính xác theo ngày cần database giá lịch sử hoặc nguồn bảng giá đã kiểm chứng.",
+    "sources": [],
+    "web_sources": [
+      "[https://finance.vietstock.vn/PNJ-ctcp-vang-bac-da-quy-phu-nhuan.htm](https://finance.vietstock.vn/PNJ-ctcp-vang-bac-da-quy-phu-nhuan.htm)",
+      "[https://vietstock.vn/2025/04/pnj-bao-cao-thuong-nien-nam-2024-737-1296746.htm](https://vietstock.vn/2025/04/pnj-bao-cao-thuong-nien-nam-2024-737-1296746.htm)",
+      "[https://vietstock.vn/2025/03/pnj-bctc-hop-nhat-nam-2024-737-1287166.htm](https://vietstock.vn/2025/03/pnj-bctc-hop-nhat-nam-2024-737-1287166.htm)",
+      "[https://cafef.vn/du-lieu/pnj-2174932/pnj-bao-cao-thuong-nien-nam-2024.chn](https://cafef.vn/du-lieu/pnj-2174932/pnj-bao-cao-thuong-nien-nam-2024.chn)",
+      "[https://www.pnj.com.vn/quan-he-co-dong/bao-cao-thuong-nien/](https://www.pnj.com.vn/quan-he-co-dong/bao-cao-thuong-nien/)"
+    ],
+    "key_facts": [
+      "Công thức P/B = giá cổ phiếu / BVPS [finance]",
+      "BVPS cơ bản của PNJ theo Vietstock trong dữ liệu tài chính đã tra = khoảng 35.436-35.489 đồng/cp [vietstock]",
+      "PNJ công bố Báo cáo thường niên năm 2024 ngày 17/04/2025 [vietstock]",
+      "PNJ công bố BCTC hợp nhất năm 2024 ngày 28/03/2025 [vietstock]",
+      "CafeF ghi nhận PNJ công bố Báo cáo thường niên năm 2024 ngày 17/04/2025 [cafef]",
+      "Không verify được chắc chắn giá đóng cửa PNJ ngày 31/12/2024 từ nguồn uy tín trong lần tra này [vietstock/cafef/simplize]",
+      "Không nên đưa P/B 2024 cuối năm của PNJ làm số gold tuyệt đối nếu thiếu giá đóng cửa cuối năm đã verify [manual_review]"
+    ],
+    "negative_facts": [
+      "KHÔNG bịa P/B 2024 nếu không có giá cổ phiếu tại thời điểm tính",
+      "KHÔNG nhầm P/B hiện tại 2026 với P/B năm 2024",
+      "KHÔNG nhầm BVPS với EPS hoặc P/E"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  },
+  {
+    "id": "I-007",
+    "history": [
+      {
+        "role": "user",
+        "content": "Ngành ngân hàng Việt Nam outlook 2025 có những driver chính nào?"
+      },
+      {
+        "role": "assistant",
+        "content": "Các driver chính gồm tăng trưởng tín dụng, NIM, chất lượng tài sản, chi phí dự phòng và định hướng chính sách tiền tệ."
+      }
+    ],
+    "question": "Rủi ro lớn nhất trong số đó là gì?",
+    "category": "I. Multi-turn",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "banking_sector",
+      "credit_growth",
+      "NIM",
+      "NPL",
+      "provision_expense"
+    ],
+    "expected_timeframe": "outlook 2025",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "analyst",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Rủi ro lớn nhất trong outlook ngành ngân hàng 2025 là chất lượng tài sản, cụ thể là nợ xấu và áp lực trích lập dự phòng, nhưng cần chỉnh lại số của stage 2. VIS Rating/VnEconomy cho biết từ tháng 01/2025 các ngân hàng không còn được áp dụng Thông tư 02 vì chính sách này hết hiệu lực cuối tháng 12/2024 [web:vneconomy]. Thời báo Tài chính Việt Nam dẫn thông tin NHNN rằng đến tháng 06/2024, tổng nợ có vấn đề của ngành ngân hàng ổn định ở mức 6,9% tổng dư nợ tín dụng toàn hệ thống, sau khi tăng mạnh giai đoạn 2022-2023 [web:thoibaotaichinh]. Vì vậy, không nên dùng con số 'nợ xấu toàn hệ thống 4,55% cuối Q3/2024' làm key_fact nếu chưa verify được từ nguồn uy tín; fact an toàn hơn là nợ có vấn đề 6,9% tại tháng 06/2024 và Thông tư 02 hết hiệu lực từ cuối 2024.",
+    "sources": [
+      "Conversation History"
+    ],
+    "web_sources": [
+      "[https://vneconomy.vn/vis-rating-thong-tu-02-het-hieu-luc-chat-luong-tai-san-cua-ngan-hang-van-co-the-kiem-soat.htm](https://vneconomy.vn/vis-rating-thong-tu-02-het-hieu-luc-chat-luong-tai-san-cua-ngan-hang-van-co-the-kiem-soat.htm)",
+      "[https://thoibaotaichinhvietnam.vn/ngan-hang-duy-tri-on-dinh-rui-ro-tai-san-trong-nam-2025-khi-thong-tu-02-het-hieu-luc-168116.html](https://thoibaotaichinhvietnam.vn/ngan-hang-duy-tri-on-dinh-rui-ro-tai-san-trong-nam-2025-khi-thong-tu-02-het-hieu-luc-168116.html)",
+      "[https://baomoi.com/thong-tu-02-het-hieu-luc-no-xau-ngan-hang-tang-nhanh-c51185661.epi](https://baomoi.com/thong-tu-02-het-hieu-luc-no-xau-ngan-hang-tang-nhanh-c51185661.epi)",
+      "[https://vn.investing.com/news/economy-news/lieu-nim-cua-nganh-ngan-hang-da-cham-day-2536440](https://vn.investing.com/news/economy-news/lieu-nim-cua-nganh-ngan-hang-da-cham-day-2536440)"
+    ],
+    "key_facts": [
+      "Rủi ro lớn nhất của ngành ngân hàng Việt Nam trong outlook 2025 = chất lượng tài sản/nợ xấu và áp lực dự phòng [vneconomy/thoibaotaichinh]",
+      "Thông tư 02 hết hiệu lực vào cuối tháng 12/2024 [vneconomy]",
+      "Từ tháng 01/2025, ngân hàng không còn được áp dụng các điều khoản đặc biệt của Thông tư 02 [vneconomy]",
+      "Tổng nợ có vấn đề của ngành ngân hàng tại tháng 06/2024 = 6,9% tổng dư nợ tín dụng toàn hệ thống [thoibaotaichinh]",
+      "Tổng nợ có vấn đề 6,9% đã ổn định trong năm trước sau khi tăng mạnh giai đoạn 2022-2023 [thoibaotaichinh]",
+      "VIS Rating đánh giá chất lượng tài sản ngân hàng năm 2025 vẫn có thể kiểm soát được dù Thông tư 02 hết hiệu lực [vneconomy]",
+      "Rủi ro chất lượng tài sản liên quan trực tiếp đến chi phí trích lập dự phòng và lợi nhuận ngân hàng [vneconomy/thoibaotaichinh]",
+      "Không verify được con số nợ xấu toàn hệ thống 4,55% cuối Q3/2024 từ nguồn uy tín trong lần tra này [manual_review]"
+    ],
+    "negative_facts": [
+      "KHÔNG dùng nợ xấu toàn hệ thống 4,55% cuối Q3/2024 làm key_fact nếu chưa verify được",
+      "KHÔNG nói Thông tư 02 còn hiệu lực trong năm 2025",
+      "KHÔNG cho rằng nợ xấu không còn là rủi ro lớn của ngân hàng năm 2025"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": true
+  },
+  {
+    "id": "I-008",
+    "history": [
+      {
+        "role": "user",
+        "content": "Vẽ biểu đồ doanh thu và lợi nhuận sau thuế của MSN giai đoạn 2020-2024."
+      },
+      {
+        "role": "assistant",
+        "content": "Biểu đồ có thể thể hiện xu hướng doanh thu và lợi nhuận sau thuế của MSN theo từng năm trong giai đoạn 2020-2024."
+      }
+    ],
+    "question": "Thêm biên lợi nhuận ròng vào chart đó nhé.",
+    "category": "I. Multi-turn",
+    "expected_tools": [
+      "visualize"
+    ],
+    "expected_entities": [
+      "MSN"
+    ],
+    "expected_timeframe": "2020-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": "Có thể thêm biên lợi nhuận ròng vào biểu đồ bằng công thức: biên LNST = LNST / doanh thu thuần. Dữ liệu 2020-2024 có thể dùng chuỗi doanh thu thuần và lợi nhuận sau thuế hợp nhất của MSN: 2020 doanh thu 77.217 tỷ đồng, LNST 1.395 tỷ đồng; 2021 doanh thu 88.628 tỷ đồng, LNST 10.101 tỷ đồng; 2022 doanh thu 76.189 tỷ đồng, LNST 4.754 tỷ đồng; 2023 doanh thu 78.252 tỷ đồng, LNST 1.869 tỷ đồng; 2024 doanh thu 83.177 tỷ đồng, LNST 4.272 tỷ đồng [web:masan][web:vietstock]. Biên LNST tương ứng xấp xỉ 1,8%, 11,4%, 6,2%, 2,4% và 5,1%. Khi visualize, nên dùng cột cho doanh thu/LNST và đường phụ trục phải cho biên LNST để tránh lệch thang đo.",
+    "sources": [],
+    "web_sources": [
+      "[https://www.masangroup.com/vi/news/press-releases/In-2023-Masan-generated-78252-billion-VND-in-net-revenue-and-targets-a-profit-doubling-in-2024.html](https://www.masangroup.com/vi/news/press-releases/In-2023-Masan-generated-78252-billion-VND-in-net-revenue-and-targets-a-profit-doubling-in-2024.html)",
+      "[https://static2.vietstock.vn/vietstock/2025/4/28/20250426_msn_250426_annual_report_2024.pdf](https://static2.vietstock.vn/vietstock/2025/4/28/20250426_msn_250426_annual_report_2024.pdf)",
+      "[https://cafef1.mediacdn.vn/download/250425/msn-bao-cao-thuong-nien-nam-2024-0.pdf](https://cafef1.mediacdn.vn/download/250425/msn-bao-cao-thuong-nien-nam-2024-0.pdf)",
+      "[https://www.masangroup.com/news/masan-news/Masan-Group-Releases-Accounts-For-Q4-And-FY2024.html](https://www.masangroup.com/news/masan-news/Masan-Group-Releases-Accounts-For-Q4-And-FY2024.html)",
+      "[https://finance.vietstock.vn/MSN/financials.htm](https://finance.vietstock.vn/MSN/financials.htm)"
+    ],
+    "key_facts": [
+      "Doanh thu thuần 2020 của MSN = 77.217 tỷ đồng [vietstock/masan]",
+      "LNST 2020 của MSN = 1.395 tỷ đồng [vietstock/masan]",
+      "Biên LNST 2020 của MSN = khoảng 1,8% [tính từ key_facts]",
+      "Doanh thu thuần 2021 của MSN = 88.628 tỷ đồng [vietstock/masan]",
+      "LNST 2021 của MSN = 10.101 tỷ đồng [vietstock/masan]",
+      "Biên LNST 2021 của MSN = khoảng 11,4% [tính từ key_facts]",
+      "Doanh thu thuần 2022 của MSN = 76.189 tỷ đồng [masan]",
+      "LNST 2022 của MSN = 4.754 tỷ đồng [vietstock/masan]",
+      "Biên LNST 2022 của MSN = khoảng 6,2% [tính từ key_facts]",
+      "Doanh thu thuần 2023 của MSN = 78.252 tỷ đồng [masan]",
+      "LNST 2023 của MSN = 1.869 tỷ đồng [vietstock/masan]",
+      "Biên LNST 2023 của MSN = khoảng 2,4% [tính từ key_facts]",
+      "Doanh thu thuần 2024 của MSN = 83.177 tỷ đồng [vietstock/masan]",
+      "LNST 2024 của MSN = 4.272 tỷ đồng [vietstock/masan]",
+      "Biên LNST 2024 của MSN = khoảng 5,1% [tính từ key_facts]",
+      "Công thức biên LNST = LNST / doanh thu thuần [finance]",
+      "Chart nên dùng doanh thu và LNST dạng cột, biên LNST dạng đường trên trục phụ [visualize_instruction]"
+    ],
+    "negative_facts": [
+      "KHÔNG vẽ biên LNST bằng lợi nhuận gộp/doanh thu",
+      "KHÔNG dùng đơn vị đồng cho doanh thu nhưng tỷ đồng cho LNST trong cùng chart",
+      "KHÔNG dùng biên LNST 2024 = 31,5%; đó có thể là biên lợi nhuận gộp/metric khác, không phải net margin"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": true
+  },
+  {
+    "id": "I-009",
+    "history": [
+      {
+        "role": "user",
+        "content": "Tin gần đây về VHM có gì liên quan đến pháp lý dự án?"
+      },
+      {
+        "role": "assistant",
+        "content": "Các tin gần đây về VHM có thể liên quan đến tiến độ pháp lý, mở bán dự án và giao dịch bất động sản lớn."
+      }
+    ],
+    "question": "Có ảnh hưởng gì đến cổ phiếu cùng ngành không?",
+    "category": "I. Multi-turn",
+    "expected_tools": [
+      "web_search",
+      "rag"
+    ],
+    "expected_entities": [
+      "VHM",
+      "real_estate_sector"
+    ],
+    "expected_timeframe": "gần đây",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "journalist",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Có ảnh hưởng về mặt tâm lý và định giá nhóm bất động sản, nhưng không nên khẳng định tác động đồng loạt nếu thiếu dữ liệu giá từng cổ phiếu. Gần đây, VHM có thông tin pháp lý/mở bán tích cực: Happy Home Tràng Cát có 2.216 căn hộ đủ điều kiện mở bán và cho thuê mua, được CafeF đưa tin ngày 08/05/2026 [web:cafef]. CafeF ngày 15/05/2026 cũng đưa tin Vinhomes làm khu đô thị khoảng 7.800 tỷ đồng tại Hải Phòng, quy mô dân số khoảng 13.000 người [web:cafef]. Về tác động ngành, các nguồn phân tích trước đó cho thấy cổ phiếu bất động sản năm 2026 được kỳ vọng hưởng lợi từ tháo gỡ pháp lý, nhưng có sự phân hóa; VHM là cổ phiếu đầu ngành nên tin pháp lý/dự án tích cực có thể hỗ trợ tâm lý nhóm cùng ngành, đặc biệt các mã có dự án pháp lý rõ và khả năng bàn giao, nhưng tác động định lượng cần dữ liệu thị trường từng phiên [web:nhadautu][web:vneconomy].",
+    "sources": [],
+    "web_sources": [
+      "[https://cafef.vn/hang-nghin-can-ho-vinhomes-co-gia-chi-tu-650-trieu-sap-mo-ban-188260508070838405.chn](https://cafef.vn/hang-nghin-can-ho-vinhomes-co-gia-chi-tu-650-trieu-sap-mo-ban-188260508070838405.chn)",
+      "[https://cafef.vn/vinhomes-lam-khu-do-thi-7800-ty-dong-tai-que-nha-ty-phu-pham-nhat-vuong-188260515161400545.chn](https://cafef.vn/vinhomes-lam-khu-do-thi-7800-ty-dong-tai-que-nha-ty-phu-pham-nhat-vuong-188260515161400545.chn)",
+      "[https://vneconomy.vn/du-bao-loi-nhuan-nhom-bat-dong-san-tang-400-co-phieu-som-duoc-tai-dinh-gia.htm](https://vneconomy.vn/du-bao-loi-nhuan-nhom-bat-dong-san-tang-400-co-phieu-som-duoc-tai-dinh-gia.htm)",
+      "[https://nhadautu.vn/tham-canh-co-phieu-bat-dong-san-keo-dai-den-khi-nao-d103225.html](https://nhadautu.vn/tham-canh-co-phieu-bat-dong-san-keo-dai-den-khi-nao-d103225.html)",
+      "[https://www.tinnhanhchungkhoan.vn/giai-ma-cu-hoi-cua-co-phieu-bat-dong-san-post387699.html](https://www.tinnhanhchungkhoan.vn/giai-ma-cu-hoi-cua-co-phieu-bat-dong-san-post387699.html)"
+    ],
+    "key_facts": [
+      "Happy Home Tràng Cát có 2.216 căn hộ đủ điều kiện mở bán và cho thuê mua, công bố ngày 08/05/2026 [cafef]",
+      "Giá căn hộ Happy Home Tràng Cát được đưa tin từ 650 triệu đồng/căn ngày 08/05/2026 [cafef]",
+      "Vinhomes làm khu đô thị khoảng 7.800 tỷ đồng tại Hải Phòng, đưa tin ngày 15/05/2026 [cafef]",
+      "Quy mô dân số dự án khu đô thị Vinhomes tại Hải Phòng = khoảng 13.000 người [cafef]",
+      "Diện tích đất trồng lúa chuyển đổi cho dự án khu đô thị Vinhomes tại Hải Phòng = 73,7 ha [cafef]",
+      "Số lô đất nhà ở liền kề tại dự án khu đô thị Vinhomes tại Hải Phòng = 197 lô [cafef]",
+      "MBS ước tính lợi nhuận nhóm bất động sản Q1/2026 tăng khoảng 407% YoY nhờ đóng góp của VHM [vneconomy]",
+      "VCBS nhận định năm 2026 bất động sản sẽ phân hóa giữa thị trường, phân khúc và doanh nghiệp [nhadautu]",
+      "VCBS nhận định tháo gỡ chính sách có thể giúp nguồn cung bất động sản tăng trong năm 2026 [nhadautu]",
+      "Tin pháp lý/dự án tích cực của VHM có thể hỗ trợ tâm lý nhóm bất động sản, nhưng tác động định lượng cần dữ liệu giá từng phiên [analysis]"
+    ],
+    "negative_facts": [
+      "KHÔNG khẳng định toàn bộ cổ phiếu bất động sản đều tăng chỉ vì tin VHM",
+      "KHÔNG bịa tác động giá cụ thể nếu không có dữ liệu giao dịch từng phiên",
+      "KHÔNG nhầm điều kiện mở bán với doanh thu đã ghi nhận"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": true
+  },
+  {
+    "id": "I-010",
+    "history": [
+      {
+        "role": "user",
+        "content": "EPS của SSI năm 2024 là bao nhiêu?"
+      },
+      {
+        "role": "assistant",
+        "content": "EPS của SSI năm 2024 cần được tra từ dữ liệu lợi nhuận sau thuế và số lượng cổ phiếu lưu hành bình quân."
+      }
+    ],
+    "question": "So với VND thì cao hơn hay thấp hơn?",
+    "category": "I. Multi-turn",
+    "expected_tools": [
+      "database"
+    ],
+    "expected_entities": [
+      "SSI",
+      "VND"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "multi_company",
+    "style": "compare",
+    "persona": "retail",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": "Với dữ liệu web hiện có, chưa verify được chắc chắn EPS 2024 của cả SSI và VND từ cùng một nguồn chuẩn trong lần tra này, nên không nên đưa kết luận gold tuyệt đối nếu thiếu database tài chính. Có thể xác nhận các mốc cơ sở: SSI công bố BCTC năm 2024 và BCTN 2024 trên Vietstock [web:vietstock]; VNDIRECT công bố KQKD 4Q2024, trong đó dư nợ margin bình quân năm 2024 đạt 10.602 tỷ đồng, dư nợ margin tại 31/12/2024 đạt 10.340 tỷ đồng và doanh thu cho vay margin lũy kế năm 2024 đạt 1.255 tỷ đồng [web:vndirect]. Tuy nhiên các nguồn tra được không cung cấp đồng thời EPS 2024 chuẩn của SSI và VND. Item nên yêu cầu hệ thống dùng database để lấy EPS 2024 hai mã rồi so sánh; nếu không có database, trả lời an toàn là chưa đủ dữ liệu verify để kết luận cao/thấp.",
+    "sources": [],
+    "web_sources": [
+      "[https://vietstock.vn/2025/03/ssi-bctc-nam-2024-737-1284155.htm](https://vietstock.vn/2025/03/ssi-bctc-nam-2024-737-1284155.htm)",
+      "[https://vietstock.vn/2025/04/ssi-bao-cao-thuong-nien-nam-2024-737-1293307.htm](https://vietstock.vn/2025/04/ssi-bao-cao-thuong-nien-nam-2024-737-1293307.htm)",
+      "[https://www.vndirect.com.vn/Ket-qua-hoat-dong-kinh-doanh-VNDIRECT-4Q2024.pdf](https://www.vndirect.com.vn/Ket-qua-hoat-dong-kinh-doanh-VNDIRECT-4Q2024.pdf)",
+      "[https://finance.vietstock.vn/SSI-ctcp-chung-khoan-ssi.htm](https://finance.vietstock.vn/SSI-ctcp-chung-khoan-ssi.htm)",
+      "[https://finance.vietstock.vn/SSI/tai-tai-lieu.htm](https://finance.vietstock.vn/SSI/tai-tai-lieu.htm)"
+    ],
+    "key_facts": [
+      "SSI công bố BCTC năm 2024 trên Vietstock ngày 21/03/2025 [vietstock]",
+      "SSI công bố Báo cáo thường niên năm 2024 trên Vietstock ngày 09/04/2025 [vietstock]",
+      "VNDIRECT công bố tài liệu KQKD 4Q2024 [vndirect]",
+      "Dư nợ cho vay margin bình quân năm 2024 của VNDIRECT = 10.602 tỷ đồng [vndirect]",
+      "Dư nợ cho vay margin tại 31/12/2024 của VNDIRECT = 10.340 tỷ đồng [vndirect]",
+      "Doanh thu cho vay margin lũy kế năm 2024 của VNDIRECT = 1.255 tỷ đồng [vndirect]",
+      "Doanh thu cho vay margin năm 2024 của VNDIRECT tăng 9% YoY [vndirect]",
+      "Không verify được EPS 2024 của SSI từ nguồn web mở trong lần tra này [vietstock/ssi]",
+      "Không verify được EPS 2024 của VND từ nguồn web mở trong lần tra này [vndirect/vietstock]",
+      "Không đủ dữ liệu web để kết luận SSI có EPS 2024 cao hơn hay thấp hơn VND nếu không dùng database [manual_review]"
+    ],
+    "negative_facts": [
+      "KHÔNG bịa EPS 2024 của SSI hoặc VND nếu không có nguồn",
+      "KHÔNG so sánh EPS bằng lợi nhuận tuyệt đối vì số cổ phiếu lưu hành khác nhau",
+      "KHÔNG dùng EPS trailing 12T hiện tại năm 2026 để thay cho EPS năm 2024"
+    ],
+    "unanswerable": false,
+    "web_enriched": true,
+    "web_verified": true,
+    "corrected": false
+  }
+]

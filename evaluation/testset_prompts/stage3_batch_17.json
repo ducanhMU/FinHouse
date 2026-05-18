@@ -1,0 +1,367 @@
+
+[
+  {
+    "id": "E-004",
+    "question": "Đánh giá ngành bán lẻ năm 2024 qua sức mua tiêu dùng, biên lợi nhuận và xu hướng mở rộng chuỗi.",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "retail_sector",
+      "consumer_demand",
+      "profit_margin",
+      "store_expansion"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": "Ngành bán lẻ năm 2024 trải qua quá trình tái định hình với các đặc điểm nổi bật sau:\n\n1. **Sức mua tiêu dùng**: Nhìn chung sức mua phục hồi chậm và đi ngang. Người tiêu dùng thể hiện xu hướng chi tiêu thận trọng, ưu tiên mua sắm các sản phẩm thiết yếu (như thực phẩm, FMCG) và thắt chặt chi tiêu đối với các mặt hàng có giá trị cao, không thiết yếu như sản phẩm công nghệ và điện máy,.\n2. **Xu hướng mở rộng chuỗi**: Thay vì chiến lược mở rộng điểm bán ồ ạt, xu hướng chủ đạo trong năm 2024 là tái cấu trúc theo chiến lược \"Giảm lượng - Tăng chất\". Các nhà bán lẻ lớn đã chủ động đóng cửa hàng loạt các điểm bán hoạt động kém hiệu quả để tối ưu hóa mạng lưới và tập trung nguồn lực nâng cao năng lực phục vụ tại các cửa hàng hiện hữu,.\n3. **Biên lợi nhuận**: Nhờ việc quyết liệt đóng cửa các cửa hàng không hiệu quả và kiểm soát tốt chi phí vận hành, biên lợi nhuận của các doanh nghiệp bán lẻ đã được cải thiện rõ rệt. Doanh thu trên mỗi điểm bán tăng trưởng tốt (trên 20%), giúp lợi nhuận ròng của ngành phục hồi mạnh mẽ trên mức nền thấp của năm trước,, [Conversation History].",
+    "sources": [
+      "MWG_BCTN24.pdf",
+      "MWG_BCTN25.pdf",
+      "Conversation History"
+    ],
+    "key_facts": [
+      "Sức mua đi ngang, người tiêu dùng thắt chặt chi tiêu mặt hàng giá trị cao, ưu tiên hàng thiết yếu.",
+      "Xu hướng chuyển từ mở rộng ồ ạt sang đóng cửa điểm bán kém hiệu quả (\"Giảm lượng - Tăng chất\").",
+      "Biên lợi nhuận cải thiện mạnh mẽ nhờ tối ưu chi phí và tăng trưởng doanh thu trên mỗi điểm bán hiện hữu."
+    ],
+    "negative_facts": [
+      "Cho rằng ngành bán lẻ mở rộng chuỗi ồ ạt trong năm 2024.",
+      "Nhận định người tiêu dùng tăng chi tiêu bùng nổ cho sản phẩm điện máy giá trị cao."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-005",
+    "question": "Ngành công nghệ thông tin Việt Nam năm 2024 có những driver tăng trưởng chính nào từ chuyển đổi số, xuất khẩu phần mềm và AI?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "IT_sector",
+      "digital_transformation",
+      "software_export",
+      "AI"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, ngành Công nghệ thông tin (CNTT) Việt Nam bứt phá mạnh mẽ dựa trên ba động lực (driver) tăng trưởng cốt lõi:\n\n1. **Trí tuệ nhân tạo (AI)**: AI đóng vai trò hạt nhân dẫn dắt tăng trưởng và chiến lược phát triển. Sự bùng nổ của AI tạo sinh (GenAI) và công nghệ dữ liệu lớn đang được ứng dụng sâu rộng vào các ngành tài chính, ngân hàng, sản xuất và bán lẻ nhằm tối ưu hóa vận hành, tự động hóa quy trình và nâng cao trải nghiệm cá nhân hóa cho khách hàng,,.\n2. **Chuyển đổi số**: Nhu cầu đầu tư công nghệ mới phục hồi mạnh mẽ ở thị trường nội địa, đặc biệt từ khối ngân hàng - tài chính và khu vực công. Các giải pháp chuyển đổi số kết hợp với điện toán đám mây (Cloud) tiếp tục là nền tảng giúp các doanh nghiệp tháo gỡ rào cản, thúc đẩy tăng trưởng và mang lại mức doanh thu khả quan (tăng trưởng hai chữ số) cho mảng dịch vụ CNTT trong nước,.\n3. **Xuất khẩu phần mềm và Dịch vụ CNTT**: Tiếp tục là động lực tăng trưởng bền vững mang lại nguồn thu ngoại tệ khổng lồ (như FPT đạt mục tiêu dài hạn 5 tỷ USD vào năm 2030). Động lực này được củng cố nhờ việc các doanh nghiệp công nghệ Việt Nam đang nâng cao vị thế trên chuỗi giá trị toàn cầu, đẩy mạnh khai thác các mảng công nghệ chuyên sâu tiềm năng như phần mềm ô tô số (Automotive), chip bán dẫn và năng lượng,.",
+    "sources": [
+      "FPT_BCTN24.pdf",
+      "MBB_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "AI (đặc biệt GenAI) là chiến lược trọng tâm, ứng dụng sâu rộng để tối ưu vận hành và trải nghiệm khách hàng.",
+      "Chuyển đổi số trong nước phục hồi mạnh nhờ nhu cầu khối tài chính - ngân hàng và nỗ lực chuyển đổi số của Chính phủ.",
+      "Xuất khẩu phần mềm tăng trưởng cao nhờ thâm nhập các lĩnh vực mới giá trị cao như phần mềm ô tô, bán dẫn."
+    ],
+    "negative_facts": [
+      "Cho rằng xuất khẩu phần mềm đang suy thoái và không còn là động lực tăng trưởng.",
+      "Nhận định AI chưa có tính ứng dụng thực tiễn trong ngành công nghệ thông tin tại Việt Nam."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-006",
+    "question": "Ngành chứng khoán năm 2024 hưởng lợi thế nào từ thanh khoản thị trường, margin lending và kỳ vọng nâng hạng?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "securities_sector",
+      "market_liquidity",
+      "margin_lending",
+      "market_upgrade"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, ngành chứng khoán Việt Nam được hưởng lợi lớn từ ba yếu tố cốt lõi:\n\n1. **Thanh khoản thị trường**: Giá trị giao dịch bình quân toàn thị trường đạt 21,1 nghìn tỷ đồng/phiên, tăng 20,6% so với năm 2023. Thanh khoản dồi dào, đặc biệt trong nửa đầu năm (đạt 24,6 nghìn tỷ đồng/phiên), đã thúc đẩy mạnh mẽ doanh thu từ mảng môi giới của các công ty chứng khoán.\n2. **Margin lending (Cho vay ký quỹ)**: Sự bứt phá của thanh khoản kéo theo nhu cầu sử dụng đòn bẩy tài chính tăng cao. Dư nợ margin ghi nhận sự tăng trưởng mạnh mẽ (ví dụ tại SSI, dư nợ margin bình quân tăng 41% so với năm trước). Để tối ưu hóa, các công ty chứng khoán đã gia tăng tỷ trọng tài sản an toàn (như chứng chỉ tiền gửi, trái phiếu) làm tài sản đảm bảo, từ đó mở rộng nguồn vốn cấp margin, đem lại nguồn thu lãi ổn định và rủi ro thấp.\n3. **Kỳ vọng nâng hạng**: Việc Bộ Tài chính ban hành Thông tư 68/2024/TT-BTC nhằm gỡ vướng quy định \"Pre-funding\" (không yêu cầu nhà đầu tư tổ chức nước ngoài phải có đủ tiền khi đặt lệnh mua) là một bước tiến mang tính bước ngoặt. Những nỗ lực cải cách pháp lý và nâng cấp hạ tầng (như hệ thống KRX) củng cố vững chắc kỳ vọng thị trường chứng khoán Việt Nam sẽ được FTSE Russell nâng hạng lên Thị trường mới nổi trong giai đoạn 2024-2025, mở ra triển vọng thu hút dòng vốn ngoại quy mô lớn trong tương lai.",
+    "sources": [
+      "SSI_BCTN24.pdf",
+      "VCBS_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Giá trị giao dịch bình quân tăng 20,6%, đạt 21,1 nghìn tỷ đồng/phiên.",
+      "Dư nợ margin tăng trưởng mạnh (SSI tăng 41% bình quân), là động lực doanh thu quan trọng.",
+      "Thông tư 68 gỡ vướng Pre-funding và hệ thống KRX củng cố kỳ vọng nâng hạng của FTSE Russell, hứa hẹn thu hút vốn ngoại."
+    ],
+    "negative_facts": [
+      "Cho rằng thanh khoản sụt giảm mạnh trong cả năm 2024.",
+      "Nhận định thị trường chứng khoán Việt Nam đã chính thức được nâng hạng trong năm 2024."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-007",
+    "question": "Vĩ mô Việt Nam năm 2024: GDP, lạm phát, tỷ giá và lãi suất tạo môi trường thuận lợi hay rủi ro cho thị trường chứng khoán?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "Vietnam_macro",
+      "GDP",
+      "inflation",
+      "exchange_rate",
+      "interest_rate"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "macro",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Môi trường vĩ mô Việt Nam năm 2024 tạo ra một bức tranh đan xen giữa các yếu tố thuận lợi hỗ trợ thị trường và những rủi ro cản trở đà bứt phá:\n\n**1. Môi trường thuận lợi (Động lực nội tại):**\n- **GDP và Lạm phát**: Tăng trưởng GDP đạt mức ấn tượng 7,09% (vượt mục tiêu), trong khi lạm phát (CPI) được kiểm soát rất tốt ở mức 3,63% (thấp hơn mục tiêu 4-4,5%). Nền tảng vĩ mô vững chắc này giúp lợi nhuận của các doanh nghiệp niêm yết phục hồi mạnh mẽ, củng cố định giá thị trường.\n- **Lãi suất**: Mặt bằng lãi suất huy động dù có nhích tăng về cuối năm nhưng nhìn chung vẫn duy trì ở mức thấp. Điều này làm giảm chi phí cơ hội, kích thích dòng tiền nhàn rỗi từ các nhà đầu tư cá nhân trong nước chảy vào thị trường chứng khoán, trở thành bệ đỡ thanh khoản quan trọng.\n\n**2. Rủi ro và Áp lực (Tác động ngoại biên):**\n- **Tỷ giá USD/VND**: Áp lực lớn nhất trong năm đến từ tỷ giá. Việc Cục Dự trữ Liên bang Mỹ (FED) duy trì lãi suất cao kéo dài và đồng USD mạnh lên đã khiến VND mất giá khoảng 5% trong năm. Chênh lệch lãi suất và rủi ro tỷ giá đã kích hoạt làn sóng bán ròng kỷ lục của các nhà đầu tư nước ngoài (khoảng 90 nghìn tỷ đồng), tạo áp lực giảm điểm và cản trở chỉ số VN-Index bứt phá qua các vùng kháng cự mạnh.",
+    "sources": [
+      "SSI_BCTN24.pdf",
+      "VCB_BCTN24.pdf",
+      "TPB_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "GDP tăng 7,09%, CPI kiểm soát ở mức 3,63%, tạo nền tảng vững chắc cho doanh nghiệp.",
+      "Lãi suất huy động duy trì thấp, kích thích dòng tiền cá nhân đổ vào chứng khoán.",
+      "Tỷ giá tăng ~5% tạo rủi ro và áp lực khiến khối ngoại bán ròng kỷ lục."
+    ],
+    "negative_facts": [
+      "Cho rằng lãi suất huy động tăng vọt làm tê liệt thị trường chứng khoán.",
+      "Nhận định tỷ giá USD/VND hoàn toàn ổn định và không tác động đến khối ngoại."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-008",
+    "question": "Tỷ giá USD/VND năm 2024 gây áp lực như thế nào lên doanh nghiệp nhập khẩu, doanh nghiệp vay ngoại tệ và nhóm xuất khẩu?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "USD/VND",
+      "importers",
+      "foreign_currency_debt",
+      "exporters"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "macro",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Sự mất giá của VND (tỷ giá USD/VND tăng khoảng 5% trong năm 2024) đã tạo ra các tác động phân hóa rõ rệt lên từng nhóm doanh nghiệp:\n\n1. **Doanh nghiệp vay ngoại tệ**: Đây là nhóm chịu áp lực rủi ro tài chính nặng nề nhất. Sự chênh lệch tỷ giá khiến chi phí trả lãi vay bằng USD tăng lên, đồng thời các doanh nghiệp phải ghi nhận những khoản lỗ chênh lệch tỷ giá chưa thực hiện lớn khi đánh giá lại dư nợ gốc ngoại tệ vào cuối kỳ, làm suy giảm trực tiếp lợi nhuận ròng (điển hình tại các doanh nghiệp lớn có đòn bẩy ngoại tệ cao).\n2. **Doanh nghiệp nhập khẩu**: Chịu áp lực chi phí đầu vào gia tăng do phải bỏ ra nhiều VND hơn để mua USD thanh toán cho nguyên vật liệu, hàng hóa nhập khẩu. Nếu không thể tăng giá bán đầu ra tương ứng để bù đắp, biên lợi nhuận gộp của các doanh nghiệp này sẽ bị thu hẹp đáng kể.\n3. **Doanh nghiệp xuất khẩu**: Về lý thuyết, đây là nhóm được hưởng lợi do doanh thu thu về bằng USD quy đổi ra VND sẽ lớn hơn, đồng thời sản phẩm có sức cạnh tranh tốt hơn về giá trên thị trường quốc tế (tổng kim ngạch xuất khẩu năm 2024 tăng ấn tượng 14,3%). Tuy nhiên, lợi thế này bị triệt tiêu một phần nếu doanh nghiệp nằm trong chuỗi gia công và phụ thuộc tỷ trọng lớn vào nguyên vật liệu nhập khẩu.",
+    "sources": [
+      "SSI_BCTN24.pdf",
+      "TPB_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "VND mất giá khoảng 5% gây áp lực lớn.",
+      "Doanh nghiệp vay ngoại tệ chịu lỗ tỷ giá và tăng chi phí trả nợ.",
+      "Doanh nghiệp nhập khẩu bị đội chi phí đầu vào.",
+      "Doanh nghiệp xuất khẩu hưởng lợi về doanh thu quy đổi nhưng bị hạn chế nếu phải nhập khẩu nguyên liệu."
+    ],
+    "negative_facts": [
+      "Cho rằng doanh nghiệp nhập khẩu hưởng lợi từ việc tỷ giá tăng.",
+      "Nhận định doanh nghiệp vay ngoại tệ không chịu tác động tiêu cực nào."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-009",
+    "question": "Lãi suất điều hành và lãi suất huy động năm 2024 ảnh hưởng thế nào đến định giá cổ phiếu và dòng tiền vào thị trường?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "policy_rate",
+      "deposit_rate",
+      "equity_valuation",
+      "market_liquidity"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "macro",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, diễn biến lãi suất đã có những tác động trực tiếp mang tính chất hỗ trợ đối với định giá và dòng tiền trên thị trường chứng khoán:\n\n1. **Dòng tiền vào thị trường**: Trong nửa đầu năm 2024, lãi suất huy động trên thị trường 1 tạo đáy. Mặc dù bắt đầu nhích tăng từ quý II và tổng cộng tăng khoảng 100 điểm cơ bản tính đến cuối năm (để cân bằng với áp lực tỷ giá), mặt bằng lãi suất nhìn chung vẫn ở mức thấp. Môi trường lãi suất tiền gửi kém hấp dẫn này đã làm giảm chi phí cơ hội của việc giữ tiền mặt, thôi thúc dòng vốn từ các nhà đầu tư cá nhân trong nước chảy mạnh sang các kênh rủi ro hơn như thị trường chứng khoán. Lực cầu nội địa dồi dào này chính là bộ đệm hấp thụ toàn bộ áp lực bán ròng kỷ lục của khối ngoại.\n2. **Định giá cổ phiếu**: Việc Ngân hàng Nhà nước duy trì chính sách tiền tệ hỗ trợ (lãi suất cho vay thực tế giảm nhẹ khoảng 44 điểm cơ bản) không chỉ giúp các doanh nghiệp giảm gánh nặng chi phí tài chính, phục hồi lợi nhuận mà còn giúp hạ tỷ suất chiết khấu trong các mô hình định giá. Nhờ lợi nhuận doanh nghiệp tạo đáy và phục hồi vững chắc, định giá thị trường (P/E) được duy trì ở ngưỡng hấp dẫn và hợp lý, tạo dư địa cho VN-Index tăng trưởng 12,1% trong năm.",
+    "sources": [
+      "SSI_BCTN24.pdf",
+      "VCBS_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Lãi suất huy động tạo đáy đầu năm và nhích nhẹ về cuối năm nhưng vẫn thấp, thúc đẩy dòng tiền cá nhân vào chứng khoán.",
+      "Lãi suất điều hành và cho vay thấp giúp giảm chi phí tài chính cho doanh nghiệp.",
+      "Chi phí vốn thấp và lợi nhuận phục hồi giữ định giá cổ phiếu (P/E) ở mức hấp dẫn."
+    ],
+    "negative_facts": [
+      "Cho rằng lãi suất huy động tăng cao làm dòng tiền rút khỏi chứng khoán.",
+      "Định giá cổ phiếu sụt giảm mạnh do lãi suất điều hành thắt chặt."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-010",
+    "question": "Giá dầu năm 2024 tác động ra sao đến nhóm dầu khí, điện khí và doanh nghiệp phân phối xăng dầu tại Việt Nam?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "oil_price",
+      "oil_gas_sector",
+      "gas_power",
+      "petroleum_distribution"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "macro",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, giá dầu thô Brent trung bình đạt khoảng 81 USD/thùng, tuy giảm nhẹ so với năm 2023 nhưng vẫn đạt 116% mức giá kế hoạch. Mức giá này cùng với các biến động vĩ mô đã tác động khác nhau lên các nhóm doanh nghiệp:\n\n1. **Nhóm dầu khí (Khai thác và Vận chuyển Khí)**: Giá dầu duy trì ở mức cao so với kế hoạch là yếu tố thuận lợi hỗ trợ doanh thu và biên lợi nhuận của các doanh nghiệp trung nguồn (như PV GAS). Tuy nhiên, thách thức lớn và dài hạn là nguồn khí khai thác trong nước đang suy giảm với tốc độ nhanh, buộc các doanh nghiệp phải bù đắp bằng nguồn LNG nhập khẩu có giá thành cao hơn đáng kể.\n2. **Nhóm điện khí**: Hoạt động sản xuất gặp nhiều bất lợi. Tiêu thụ khí cho phát điện sụt giảm mạnh (chỉ bằng 94% năm trước, chiếm tỷ trọng rất nhỏ trong tổng sản lượng điện quốc gia) do nhu cầu điện tăng chậm và Tập đoàn Điện lực ưu tiên huy động thủy điện cùng các nguồn năng lượng tái tạo. Thêm vào đó, việc chưa có cơ chế giá rõ ràng cho LNG sản xuất điện khiến khả năng tiêu thụ khí của nhóm này thiếu tính ổn định.\n3. **Doanh nghiệp phân phối xăng dầu**: Các doanh nghiệp đầu mối (như Petrolimex) được hưởng lợi từ sự phục hồi của các hoạt động kinh tế, du lịch và giao thông, giúp đảm bảo sản lượng tiêu thụ đầu ra. Tuy nhiên, sự biến động khó lường của giá dầu thế giới cùng với rủi ro đứt gãy chuỗi vận tải do xung đột địa chính trị tại Trung Đông và Biển Đỏ đã đặt ra thách thức lớn trong công tác tạo nguồn, quản trị rủi ro giá và hàng tồn kho.",
+    "sources": [
+      "GAS_BCTN24.pdf",
+      "PLX_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Giá dầu Brent trung bình ~81 USD/thùng, vượt kế hoạch nhưng giảm nhẹ so với 2023.",
+      "Nhóm dầu khí: Hưởng lợi từ giá cao nhưng gặp khó do nguồn khí trong nước cạn kiệt, phải nhập LNG giá cao.",
+      "Nhóm điện khí: Tiêu thụ khí giảm (94% so với 2023) do thủy điện và năng lượng tái tạo lấn át, thiếu cơ chế giá LNG.",
+      "Doanh nghiệp phân phối xăng dầu: Rủi ro chuỗi cung ứng do địa chính trị, nhưng nhu cầu phục hồi giúp duy trì tiêu thụ."
+    ],
+    "negative_facts": [
+      "Cho rằng giá dầu sụt giảm mạnh làm các công ty khai thác khí thua lỗ nặng.",
+      "Nhóm điện khí phát triển bùng nổ nhờ giá LNG cực thấp."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-011",
+    "question": "Ngành phân bón năm 2024 chịu ảnh hưởng chính từ giá khí đầu vào, giá ure và nhu cầu nông nghiệp như thế nào?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "fertilizer_sector",
+      "gas_input_price",
+      "urea_price",
+      "agriculture_demand"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "E-012",
+    "question": "Đầu tư công năm 2024 có tác động lan tỏa thế nào đến các ngành xây dựng, vật liệu, bất động sản khu công nghiệp và ngân hàng?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "public_investment",
+      "construction_sector",
+      "materials_sector",
+      "industrial_real_estate",
+      "banking_sector"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "macro",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, đầu tư công tiếp tục đóng vai trò là động lực quan trọng, tạo hiệu ứng lan tỏa tích cực đến nhiều nhóm ngành trong nền kinh tế:\n\n1. **Ngành xây dựng và vật liệu (thép, xi măng, v.v.)**: Tỷ lệ giải ngân đầu tư công năm 2024 đạt mức khá cao (ước tính 529,6 nghìn tỷ đồng, tương đương 70% kế hoạch), tập trung vào các dự án hạ tầng trọng điểm như cao tốc Bắc - Nam, Sân bay quốc tế Long Thành. Tiến độ triển khai các dự án này tạo ra khối lượng công việc lớn cho các nhà thầu xây lắp, đồng thời kích thích trực tiếp nhu cầu tiêu thụ vật liệu xây dựng. Điển hình như ngành thép, doanh thu và lợi nhuận của các doanh nghiệp (như Hòa Phát) đã có sự khởi sắc đáng kể nhờ sự cải thiện của nhu cầu tiêu dùng nội địa.\n\n2. **Bất động sản (đặc biệt là khu công nghiệp và nhà ở)**: Các dự án cơ sở hạ tầng giao thông kết nối liên vùng hoàn thiện không chỉ nâng cao năng lực logistics mà còn làm tăng giá trị quỹ đất xung quanh. Đối với bất động sản khu công nghiệp, hạ tầng đồng bộ kết hợp cùng dòng vốn FDI kỷ lục (giải ngân 25,4 tỷ USD năm 2024) tiếp tục là chất xúc tác mạnh mẽ. Đối với bất động sản nhà ở, tiến độ nhanh chóng của các công trình trọng điểm đã tạo ra hiệu ứng lan tỏa, cải thiện tâm lý người mua và tạo đà phục hồi cho thị trường bất động sản.\n\n3. **Ngành ngân hàng**: Sự phục hồi của nhóm doanh nghiệp xây dựng, vật liệu và bất động sản (nhờ hưởng lợi từ đầu tư công) đã góp phần cải thiện khả năng hấp thụ vốn của nền kinh tế. Điều này thúc đẩy tăng trưởng tín dụng toàn ngành đạt mức ấn tượng 15,08% trong năm 2024, tạo điều kiện để các ngân hàng mở rộng quy mô tín dụng và gia tăng hiệu quả hoạt động cốt lõi.",
+    "sources": [
+      "VIC_BCTN24.pdf",
+      "HPG_BCTN24.pdf",
+      "VRE_BCTN24.pdf",
+      "MBB_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Giải ngân đầu tư công năm 2024 ước đạt 529,6 nghìn tỷ đồng (~70% kế hoạch).",
+      "Thúc đẩy trực tiếp nhu cầu tiêu thụ vật liệu xây dựng (thép) và mang lại khối lượng công việc cho ngành xây dựng.",
+      "Hạ tầng giao thông (đường vành đai, sân bay Long Thành) tạo hiệu ứng tâm lý tích cực, hỗ trợ phục hồi thị trường bất động sản.",
+      "Đóng góp vào đà tăng trưởng tín dụng toàn hệ thống ngân hàng (đạt 15,08% năm 2024)."
+    ],
+    "negative_facts": [
+      "Cho rằng đầu tư công năm 2024 đình trệ, không giải ngân được.",
+      "Nhận định ngành ngân hàng không hưởng lợi gì từ sự phục hồi của các doanh nghiệp xây lắp, vật liệu."
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "E-013",
+    "question": "Outlook ngành ngân hàng Việt Nam 2025: tăng trưởng tín dụng, NIM, nợ xấu và áp lực trích lập dự phòng sẽ là driver hay rủi ro chính?",
+    "category": "E. Sector/macro",
+    "expected_tools": [
+      "rag",
+      "web_search"
+    ],
+    "expected_entities": [
+      "banking_sector",
+      "credit_growth",
+      "NIM",
+      "NPL",
+      "provision_expense"
+    ],
+    "expected_timeframe": "outlook 2025",
+    "scope": "sector",
+    "style": "analyze",
+    "persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Triển vọng ngành ngân hàng năm 2025 được đánh giá đan xen giữa các động lực tăng trưởng (driver) và những rủi ro cần kiểm soát chặt chẽ:\n\n**1. Tăng trưởng tín dụng (Driver chính):** Ngân hàng Nhà nước (NHNN) đặt mục tiêu tăng trưởng tín dụng toàn ngành ở mức 15-16% cho năm 2025,. Với quy mô này, dự kiến tổng dư nợ tín dụng sẽ vượt 18 triệu tỷ đồng (tương đương cung ứng hơn 2,5 triệu tỷ đồng cho nền kinh tế). Tín dụng sẽ được định hướng tập trung vào các động lực phục hồi nội địa như sản xuất kinh doanh, xuất nhập khẩu, tiêu dùng và các dự án đầu tư công, cơ sở hạ tầng chiến lược. Đây sẽ là nguồn dẫn dắt chính cho quy mô và lợi nhuận của ngành.\n\n**2. Thanh khoản và NIM (Rủi ro & Áp lực):** Mặc dù mặt bằng lãi suất được kỳ vọng hạ nhiệt hoặc duy trì ổn định để hỗ trợ doanh nghiệp, việc tăng trưởng tín dụng diễn ra ở mức cao hơn đáng kể so với tốc độ huy động vốn đang làm gia tăng áp lực thanh khoản cục bộ. Áp lực này, cùng với những biến động tỷ giá do chính sách của Fed và rủi ro địa chính trị, có thể thu hẹp biên lãi thuần (NIM) hoặc tạo thách thức trong việc tối ưu hóa chi phí vốn.\n\n**3. Nợ xấu và Trích lập dự phòng (Rủi ro trọng yếu):** Dù kinh tế vĩ mô đang phục hồi, chất lượng tài sản vẫn là thách thức lớn. Tính đến cuối tháng 9/2024, tỷ lệ nợ xấu nội bảng toàn hệ thống đã ở mức 4,55% (tăng đáng kể so với mức ~2% của năm 2022) do sự phục hồi chậm của sức cầu tiêu dùng và thị trường bất động sản. Sang năm 2025, nguy cơ nợ xấu gia tăng vẫn là rủi ro lớn nhất, đặc biệt khi các chính sách hoãn, giãn nợ hết hiệu lực. Điều này buộc các ngân hàng phải chủ động đẩy mạnh trích lập dự phòng, tạo sức ép trực tiếp lên lợi nhuận và yêu cầu quản trị rủi ro khắt khe hơn.",
+    "sources": [
+      "ACB_BCTN24.pdf",
+      "MBB_BCTN24.pdf",
+      "MBB_BCTN25.pdf",
+      "VPB_BCTN24.pdf",
+      "VPB_BCTN25.pdf",
+      "SSI_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Mục tiêu tăng trưởng tín dụng 2025 là 15-16%, là động lực tăng trưởng chính của toàn ngành.",
+      "Thanh khoản chịu áp lực do tín dụng tăng nhanh hơn huy động, có thể tác động đến NIM.",
+      "Tỷ lệ nợ xấu hệ thống (4,55% cuối Q3/2024) và áp lực trích lập dự phòng tiếp tục là rủi ro lớn nhất trong năm 2025 do bất động sản và tiêu dùng phục hồi chậm."
+    ],
+    "negative_facts": [
+      "Cho rằng NIM của toàn ngành sẽ tăng trưởng đột phá nhờ tín dụng tăng nhanh.",
+      "Nhận định nợ xấu không còn là rủi ro đáng kể trong năm 2025."
+    ],
+    "unanswerable": false
+  }
+]

@@ -1,0 +1,434 @@
+[
+{
+"id": "B-004",
+"question": "MWG 2024 lãi sau thuế bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"MWG"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, lợi nhuận sau thuế hợp nhất của CTCP Đầu tư Thế Giới Di Động (MWG) đạt 3.733 tỷ đồng [1][web:MWG_BCTN24][web:thitruongtaichinhtiente]. Doanh thu thuần năm 2024 đạt 134.341 tỷ đồng, tăng 13,6% so với năm 2023; lợi nhuận sau thuế tăng khoảng 22,2 lần so với năm 2023 và hoàn thành khoảng 156% kế hoạch lợi nhuận sau thuế năm.",
+"sources": [
+"MWG_BCTN24.pdf"
+],
+"web_sources": [
+"[https://cdnv2.tgdd.vn/mwgvn/investorrelations/files/posts/2025/4/0/0f/a3/0fa382bf41923f80607007ebcf9500ed.pdf](https://cdnv2.tgdd.vn/mwgvn/investorrelations/files/posts/2025/4/0/0f/a3/0fa382bf41923f80607007ebcf9500ed.pdf)",
+"[https://thitruongtaichinhtiente.vn/the-gioi-di-dong-pha-dinh-doanh-thu-lai-sau-thue-tang-hon-22-lan-65414.html](https://thitruongtaichinhtiente.vn/the-gioi-di-dong-pha-dinh-doanh-thu-lai-sau-thue-tang-hon-22-lan-65414.html)"
+],
+"key_facts": [
+"LNST 2024 của MWG = 3.733 tỷ đồng (hợp nhất) [MWG_BCTN24]",
+"Doanh thu thuần 2024 của MWG = 134.341 tỷ đồng (hợp nhất) [thitruongtaichinhtiente]",
+"Tăng trưởng doanh thu thuần 2024 của MWG = 13,6% YoY [thitruongtaichinhtiente]",
+"MWG hoàn thành 156% kế hoạch LNST 2024 [MWG_BCTN24]",
+"LNST 2024 của MWG gấp khoảng 22,2 lần năm 2023 [thitruongtaichinhtiente]"
+],
+"negative_facts": [
+"Lấy nhầm số lợi nhuận trước thuế",
+"Lấy nhầm số liệu của năm 2023",
+"KHÔNG dùng '21 lần' làm con số chính xác; nguồn công bố cho thấy khoảng 22,2 lần"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "B-005",
+"question": "P/E của VCB năm 2024 là bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"VCB"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Theo dữ liệu tài chính Vietstock, P/E cơ bản năm 2024 của Vietcombank (VCB) là 10,36 lần [web:vietstock]. Cùng nguồn ghi nhận EPS 4 quý năm 2024 là 5.501 đồng/cp và BVPS cơ bản là 25.581 đồng/cp. Lưu ý P/E phụ thuộc giá cổ phiếu tại ngày tính toán; nếu dùng giá thị trường tại một ngày khác, P/E sẽ thay đổi.",
+"sources": [],
+"web_sources": [
+"[https://finance.vietstock.vn/VCB-ngan-hang-tmcp-ngoai-thuong-viet-nam.htm](https://finance.vietstock.vn/VCB-ngan-hang-tmcp-ngoai-thuong-viet-nam.htm)",
+"[https://vietstock.vn/2025/04/vcb-bao-cao-thuong-nien-nam-2024-737-1297598.htm](https://vietstock.vn/2025/04/vcb-bao-cao-thuong-nien-nam-2024-737-1297598.htm)",
+"[https://static2.vietstock.vn/vietstock/2025/4/18/20250418_20250417___vcb___cbtt_bao_cao_thuong_nien_nam_2024.pdf](https://static2.vietstock.vn/vietstock/2025/4/18/20250418_20250417___vcb___cbtt_bao_cao_thuong_nien_nam_2024.pdf)"
+],
+"key_facts": [
+"P/E cơ bản 2024 của VCB = 10,36 lần [vietstock]",
+"EPS 4 quý 2024 của VCB = 5.501 đồng/cổ phiếu [vietstock]",
+"BVPS cơ bản 2024 của VCB = 25.581 đồng/cổ phiếu [vietstock]",
+"VCB công bố Báo cáo thường niên 2024 ngày 18/04/2025 [vietstock]",
+"P/E là chỉ tiêu phụ thuộc giá cổ phiếu tại ngày tính toán [vietstock]"
+],
+"negative_facts": [
+"KHÔNG dùng P/E hiện tại năm 2026 để trả lời P/E năm 2024",
+"KHÔNG nhầm EPS với P/E",
+"KHÔNG coi P/E là chỉ tiêu cố định trong BCTC kiểm toán"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "B-006",
+"question": "BID năm 2024 ROA bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"BID"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, tỷ suất sinh lời trên tổng tài sản (ROA) của BIDV (BID) đạt 1,01% [1][web:BID_BCTN24]. Cùng năm, ROE đạt 19,52%, vượt/hoàn thành kế hoạch ROE 18% được giao. Các chỉ tiêu này được công bố trong Báo cáo thường niên 2024 của BIDV.",
+"sources": [
+"BID_BCTN24.pdf"
+],
+"web_sources": [
+"[https://bidv.com.vn/bidv/quan-he-nha-dau-tu/bao-cao-va-tai-lieu/baocaothuongnien/2025/bctn%2B2024](https://bidv.com.vn/bidv/quan-he-nha-dau-tu/bao-cao-va-tai-lieu/baocaothuongnien/2025/bctn%2B2024)",
+"[https://static2.vietstock.vn/vietstock/2025/4/26/3_bid123004_2025_4_26_7a47a75_vi_baocaothuongnienfinal_2024.pdf](https://static2.vietstock.vn/vietstock/2025/4/26/3_bid123004_2025_4_26_7a47a75_vi_baocaothuongnienfinal_2024.pdf)",
+"[https://cafef.vn/du-lieu/BID-2178539/bid-bao-cao-thuong-nien-nam-2024.chn](https://cafef.vn/du-lieu/BID-2178539/bid-bao-cao-thuong-nien-nam-2024.chn)"
+],
+"key_facts": [
+"ROA 2024 của BID = 1,01% [BID_BCTN24]",
+"ROE 2024 của BID = 19,52% [BID_BCTN24]",
+"Kế hoạch ROE 2024 BID được giao = 18% [BID_BCTN24]",
+"BID công bố Báo cáo thường niên 2024 ngày 18/04/2025 trên website BIDV [BIDV]",
+"CafeF ghi nhận BID công bố Báo cáo thường niên 2024 ngày 21/04/2025 [cafef]"
+],
+"negative_facts": [
+"Nêu sai số liệu ROA thành số của năm 2023 (0,99%)",
+"Nhầm lẫn giữa ROA và ROE",
+"KHÔNG dùng ROE 19,52% để trả lời ROA"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "B-007",
+"question": "VHM năm 2024 biên lợi nhuận gộp là bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"VHM"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, biên lợi nhuận gộp của Vinhomes (VHM) đạt 32,22% [1][web:cafef]. Chỉ tiêu này thấp hơn mức khoảng 34,5% năm 2023, tương ứng giảm khoảng 2,26 điểm phần trăm. Không nhầm với biên lợi nhuận ròng, vì biên lợi nhuận gộp được tính từ lợi nhuận gộp/doanh thu thuần.",
+"sources": [
+"VHM_BCTN24.pdf"
+],
+"web_sources": [
+"[https://m.cafef.vn/du-lieu/hose/vhm-tai-chinh.chn](https://m.cafef.vn/du-lieu/hose/vhm-tai-chinh.chn)",
+"[https://vn.investing.com/pro/HOSE%3AVHM/explorer/gp_margin](https://vn.investing.com/pro/HOSE%3AVHM/explorer/gp_margin)"
+],
+"key_facts": [
+"Biên lợi nhuận gộp 2024 của VHM = 32,22% [cafef]",
+"Biên lợi nhuận gộp 2023 của VHM = khoảng 34,5% [investing]",
+"Mức giảm biên lợi nhuận gộp 2024 so với 2023 của VHM = khoảng 2,26 điểm phần trăm [cafef]",
+"Tổng tài sản cuối 2024 của VHM = hơn 564.209 tỷ đồng [vietcap/trading]",
+"Vốn chủ sở hữu cuối 2024 của VHM = hơn 220.743 tỷ đồng [vietcap/trading]"
+],
+"negative_facts": [
+"Lấy nhầm số liệu của biên lợi nhuận ròng (31,08%)",
+"Nêu sai số liệu so với năm trước",
+"KHÔNG dùng số làm tròn 32,2% nếu cần key_fact chính xác"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "B-008",
+"question": "VIC 2024 tổng tài sản bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"VIC"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Tại ngày 31/12/2024, tổng tài sản hợp nhất của Tập đoàn Vingroup (VIC) đạt 836.604 tỷ đồng [1][web:VIC_BCTN24]. Con số này tăng 25% so với 667.656 tỷ đồng cuối năm 2023. Cùng thời điểm, tổng nợ phải trả đạt 682.769 tỷ đồng, vốn chủ sở hữu đạt 153.834 tỷ đồng và tổng nợ vay/nợ thuê tài chính ngắn và dài hạn đạt 227.920 tỷ đồng.",
+"sources": [
+"VIC_BCTN24.pdf"
+],
+"web_sources": [
+"[https://ircdn.vingroup.net/storage/Uploads/0_Bao%20cao%20thuong%20nien/2024/VIE_%20Vingroup%20AR24_250418.pdf](https://ircdn.vingroup.net/storage/Uploads/0_Bao%20cao%20thuong%20nien/2024/VIE_%20Vingroup%20AR24_250418.pdf)",
+"[https://cafef1.mediacdn.vn/download/210425/vic-bao-cao-thuong-nien-nam-2024-0.pdf](https://cafef1.mediacdn.vn/download/210425/vic-bao-cao-thuong-nien-nam-2024-0.pdf)",
+"[https://baomoi.com/ong-pham-nhat-vuong-co-dong-dau-tu-dai-han-co-phieu-vic-se-co-loi-ich-mong-muon-c52064559.epi](https://baomoi.com/ong-pham-nhat-vuong-co-dong-dau-tu-dai-han-co-phieu-vic-se-co-loi-ich-mong-muon-c52064559.epi)"
+],
+"key_facts": [
+"Tổng tài sản cuối 2024 của VIC = 836.604 tỷ đồng (hợp nhất) [VIC_BCTN24]",
+"Tổng tài sản cuối 2023 của VIC = 667.656 tỷ đồng (hợp nhất) [VIC_BCTN24]",
+"Tăng trưởng tổng tài sản 2024 của VIC = 25% YoY [VIC_BCTN24]",
+"Tổng nợ phải trả cuối 2024 của VIC = 682.769 tỷ đồng [VIC_BCTN24]",
+"Vốn chủ sở hữu cuối 2024 của VIC = 153.834 tỷ đồng [VIC_BCTN24]",
+"Tổng nợ vay và nợ thuê tài chính cuối 2024 của VIC = 227.920 tỷ đồng [VIC_BCTN24]"
+],
+"negative_facts": [
+"Nêu sai số liệu tổng tài sản",
+"Lấy nhầm số liệu của năm 2023",
+"KHÔNG dùng số 839 nghìn tỷ đồng làm con số chính xác"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "B-009",
+"question": "MSN năm 2024 nợ vay trên vốn chủ sở hữu bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"MSN"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Theo báo cáo cập nhật ABS Research/FiinPro, tỷ lệ nợ vay trên vốn chủ sở hữu (D/E) của CTCP Tập đoàn Masan (MSN) năm 2024 là 1,61 lần [web:ABS]. Cùng bảng số liệu ghi nhận vốn chủ sở hữu năm 2024 khoảng 40.752 tỷ đồng, tổng nguồn vốn khoảng 147.585 tỷ đồng; CafeF cũng dẫn tài liệu Masan cho biết tổng nợ hợp nhất tại 31/12/2024 đạt 65.549 tỷ đồng và tiền mặt/các khoản tương đương/đầu tư ngắn hạn là 19.226 tỷ đồng.",
+"sources": [],
+"web_sources": [
+"[https://www.abs.vn/wp-content/uploads/2025/05/MSN_250513_DHDCD.pdf](https://www.abs.vn/wp-content/uploads/2025/05/MSN_250513_DHDCD.pdf)",
+"[https://new.bsc.com.vn/Report/ReportFile/12763532](https://new.bsc.com.vn/Report/ReportFile/12763532)",
+"[https://cafef.vn/dat-muc-tieu-doanh-thu-len-toi-85500-ty-dong-tap-doan-cua-tien-si-nguyen-dang-quang-se-kiem-tien-nhung-mang-gi-188250326002541274.chn](https://cafef.vn/dat-muc-tieu-doanh-thu-len-toi-85500-ty-dong-tap-doan-cua-tien-si-nguyen-dang-quang-se-kiem-tien-nhung-mang-gi-188250326002541274.chn)",
+"[https://static2.vietstock.vn/vietstock/2025/4/28/20250426_msn_250426_annual_report_2024.pdf](https://static2.vietstock.vn/vietstock/2025/4/28/20250426_msn_250426_annual_report_2024.pdf)"
+],
+"key_facts": [
+"Nợ vay/Vốn chủ sở hữu 2024 của MSN = 1,61 lần [ABS/FiinPro]",
+"Nợ vay/Vốn chủ sở hữu 2023 của MSN = 1,82 lần [ABS/FiinPro]",
+"Vốn chủ sở hữu 2024 của MSN = 40.752 tỷ đồng [ABS/FiinPro]",
+"Tổng cộng nguồn vốn 2024 của MSN = 147.585 tỷ đồng [ABS/FiinPro]",
+"Tổng nợ hợp nhất tại 31/12/2024 của MSN = 65.549 tỷ đồng [cafef]",
+"Tiền mặt và tương đương tiền/khoản đầu tư ngắn hạn tại 31/12/2024 của MSN = 19.226 tỷ đồng [cafef]"
+],
+"negative_facts": [
+"KHÔNG nhầm nợ vay/vốn chủ sở hữu với nợ phải trả/tổng tài sản",
+"KHÔNG dùng số Q2/2024 là 1,46 lần để trả lời cả năm 2024",
+"KHÔNG dùng số 1,82 lần của năm 2023 để trả lời năm 2024"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "B-010",
+"question": "TCB 2024 CASA bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"TCB"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, Techcombank (TCB) ghi nhận tỷ lệ tiền gửi không kỳ hạn (CASA) đạt 40,9% [1][web:TCB_FY2024]. Số dư CASA, bao gồm số dư Sinh lời tự động, đạt gần 231 nghìn tỷ đồng, mức kỷ lục mới. Cùng kỳ, lợi nhuận trước thuế đạt 27,5 nghìn tỷ đồng, tổng thu nhập hoạt động đạt 47,0 nghìn tỷ đồng và NIM trượt 12 tháng ở mức khoảng 4,2%.",
+"sources": [
+"TCB_BCTN24.pdf"
+],
+"web_sources": [
+"[https://techcombank.com/content/dam/techcombank/public-site/documents/techcombank-thong-cao-bao-chi-kqkd-fy24.pdf](https://techcombank.com/content/dam/techcombank/public-site/documents/techcombank-thong-cao-bao-chi-kqkd-fy24.pdf)",
+"[https://cafef.vn/techcombank-bao-lai-hon-275-nghin-ty-dong-trong-nam-2024-so-du-casa-lap-ky-luc-moi-231-nghin-ty-188250120210818786.chn](https://cafef.vn/techcombank-bao-lai-hon-275-nghin-ty-dong-trong-nam-2024-so-du-casa-lap-ky-luc-moi-231-nghin-ty-188250120210818786.chn)"
+],
+"key_facts": [
+"Tỷ lệ CASA 2024 của TCB = 40,9% [Techcombank]",
+"Số dư CASA 2024 của TCB = gần 231 nghìn tỷ đồng [Techcombank]",
+"Số dư CASA 2024 của TCB tăng 27% YoY [cafef]",
+"Lợi nhuận trước thuế 2024 của TCB = 27,5 nghìn tỷ đồng [Techcombank]",
+"Tổng thu nhập hoạt động 2024 của TCB = 47,0 nghìn tỷ đồng [Techcombank]",
+"NIM trượt 12 tháng 2024 của TCB = 4,2% [cafef]"
+],
+"negative_facts": [
+"Nêu sai tỷ lệ CASA thành số của năm khác",
+"Báo cáo sai số dư tiền gửi không kỳ hạn",
+"KHÔNG nhầm CASA ratio 40,9% với số dư CASA 231 nghìn tỷ đồng"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "B-011",
+"question": "ACB năm 2024 tỷ lệ nợ xấu là bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"ACB"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, tỷ lệ nợ xấu của Ngân hàng TMCP Á Châu (ACB) được công bố ở mức khoảng 1,49% trong tài liệu kế hoạch/đánh giá năm sau [1][web:DNSE], trong khi một số nguồn tổng hợp từ BCTC quý IV/2024 ghi nhận tỷ lệ nợ xấu/dư nợ vay khoảng 1,51% [web:baomoi]. Với benchmark gold, dùng mốc 1,49% nếu bám Báo cáo thường niên/định hướng kế hoạch, và ghi chú có khác biệt nhỏ do cách tính/làm tròn theo nguồn dữ liệu.",
+"sources": [
+"ACB_BCTN24.pdf"
+],
+"web_sources": [
+"[https://acb.com.vn/nha-dau-tu/bao-cao-thuong-nien-2024](https://acb.com.vn/nha-dau-tu/bao-cao-thuong-nien-2024)",
+"[https://acb.com.vn/acbwebsite/files/BCTN_2024.pdf](https://acb.com.vn/acbwebsite/files/BCTN_2024.pdf)",
+"[https://www.dnse.com.vn/senses/tin-tuc/ngan-hang-acb-at-muc-tieu-lai-23-nghin-ty-ong-tiep-tuc-chia-co-tuc-ty-le-25-35003370](https://www.dnse.com.vn/senses/tin-tuc/ngan-hang-acb-at-muc-tieu-lai-23-nghin-ty-ong-tiep-tuc-chia-co-tuc-ty-le-25-35003370)",
+"[https://baomoi.com/acb-lai-hon-21-000-ty-trong-nam-2024-no-xau-tang-gan-47-c51311961.epi](https://baomoi.com/acb-lai-hon-21-000-ty-trong-nam-2024-no-xau-tang-gan-47-c51311961.epi)"
+],
+"key_facts": [
+"Tỷ lệ nợ xấu 2024 của ACB = 1,49% [DNSE/ACB_BCTN24]",
+"Tỷ lệ nợ xấu/dư nợ vay 2024 của ACB theo nguồn tổng hợp BCTC quý IV = 1,51% [baomoi]",
+"Kế hoạch tỷ lệ nợ xấu năm 2025 của ACB = dưới 2% [DNSE]",
+"Lợi nhuận trước thuế 2024 của ACB = 21.006 tỷ đồng [baomoi]",
+"Lợi nhuận sau thuế 2024 của ACB = khoảng 16.790 tỷ đồng [baomoi]",
+"Thu nhập lãi thuần 2024 của ACB = 27.795 tỷ đồng [baomoi]"
+],
+"negative_facts": [
+"Nêu sai tỷ lệ nợ xấu thành 1,21% (là số liệu của năm 2023)",
+"KHÔNG bỏ qua khác biệt 1,49% và 1,51% giữa nguồn báo cáo/làm tròn",
+"KHÔNG nhầm tỷ lệ nợ xấu với tỷ lệ bao phủ nợ xấu"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "B-012",
+"question": "MBB 2024 NIM là bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"MBB"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, biên lãi ròng (NIM) của Ngân hàng Quân đội (MBB/MB) đạt khoảng 4,1% [1][web:MBB_BCTN24]. Báo cáo thường niên 2024 của MB được công bố qua Vietstock/CafeF trong tháng 4/2025; trong phần so sánh chỉ tiêu hiệu quả, MB duy trì nhóm dẫn đầu về các chỉ tiêu hiệu quả nhưng NIM giảm so với mức 4,9% của năm 2023.",
+"sources": [
+"MBB_BCTN24.pdf"
+],
+"web_sources": [
+"[https://www.mbbank.com.vn/chi-tiet/thong-bao/bao-cao-thuong-nien-2024-2025-6-6-15-48-23/5405](https://www.mbbank.com.vn/chi-tiet/thong-bao/bao-cao-thuong-nien-2024-2025-6-6-15-48-23/5405)",
+"[https://vietstock.vn/2025/04/mbb-bao-cao-thuong-nien-nam-2024-737-1299341.htm](https://vietstock.vn/2025/04/mbb-bao-cao-thuong-nien-nam-2024-737-1299341.htm)",
+"[https://static2.vietstock.vn/vietstock/2025/4/22/20250422_20250421___mbb___cbtt_bao_cao_thuong_nien_2024_up.pdf](https://static2.vietstock.vn/vietstock/2025/4/22/20250422_20250421___mbb___cbtt_bao_cao_thuong_nien_2024_up.pdf)",
+"[https://cafef.vn/du-lieu/mbb-2179968/mbb-bao-cao-thuong-nien-nam-2024.chn](https://cafef.vn/du-lieu/mbb-2179968/mbb-bao-cao-thuong-nien-nam-2024.chn)"
+],
+"key_facts": [
+"NIM 2024 của MBB = 4,1% [MBB_BCTN24]",
+"NIM 2023 của MBB = 4,9% [MBB_BCTN24]",
+"MBB công bố Báo cáo thường niên 2024 ngày 22/04/2025 trên Vietstock [vietstock]",
+"CafeF ghi nhận MBB công bố Báo cáo thường niên 2024 ngày 22/04/2025 [cafef]",
+"MB duy trì Top 4 về quy mô tổng tài sản, tín dụng, huy động và lợi nhuận trước thuế so với các ngân hàng niêm yết [MBB_BCTN24]"
+],
+"negative_facts": [
+"Nêu sai NIM thành 4,9% (là số liệu của năm 2023)",
+"Nêu sai thứ hạng NIM của MBB",
+"KHÔNG nhầm NIM với CASA hoặc ROE"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "B-013",
+"question": "SAB năm 2024 chia cổ tức tiền mặt bao nhiêu?",
+"category": "B. Single-fact lookup",
+"expected_tools": [
+"database",
+"rag"
+],
+"expected_entities": [
+"SAB"
+],
+"expected_timeframe": "2024",
+"scope": "company",
+"style": "lookup",
+"persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, SABECO (SAB) chia cổ tức bằng tiền mặt tổng tỷ lệ 50% trên mệnh giá, tương đương 5.000 đồng/cổ phiếu [1][web:cafef][web:VSD]. Trong đó SAB đã tạm ứng cổ tức tiền mặt năm 2024 tỷ lệ 20% và phần còn lại được thông báo chi trả tỷ lệ 30%, ngày thanh toán 31/07/2025. Mức tổng cổ tức 2024 tăng 15 điểm phần trăm so với mức 35% của năm 2023.",
+"sources": [
+"SAB_BCTN24.pdf"
+],
+"web_sources": [
+"[https://cafef.vn/sabeco-trinh-co-dong-ke-hoach-nang-ty-le-co-tuc-nam-2024-len-50-188250404184131529.chn](https://cafef.vn/sabeco-trinh-co-dong-ke-hoach-nang-ty-le-co-tuc-nam-2024-len-50-188250404184131529.chn)",
+"[https://www.vsd.vn/vi/ad/182520](https://www.vsd.vn/vi/ad/182520)",
+"[https://www.tinnhanhchungkhoan.vn/sabeco-sab-chot-ngay-tam-ung-co-tuc-nam-2024-bang-tien-mat-ty-le-20-post360718.html](https://www.tinnhanhchungkhoan.vn/sabeco-sab-chot-ngay-tam-ung-co-tuc-nam-2024-bang-tien-mat-ty-le-20-post360718.html)"
+],
+"key_facts": [
+"Cổ tức tiền mặt năm 2024 của SAB = 50% mệnh giá [cafef]",
+"Cổ tức tiền mặt năm 2024 của SAB = 5.000 đồng/cổ phiếu [cafef]",
+"Tạm ứng cổ tức tiền mặt năm 2024 của SAB = 20% mệnh giá [tinnhanhchungkhoan]",
+"Cổ tức tiền mặt năm 2024 còn lại của SAB = 30% mệnh giá [VSD]",
+"Ngày thanh toán cổ tức tiền mặt năm 2024 còn lại của SAB = 31/07/2025 [VSD]",
+"Cổ tức tiền mặt năm 2023 của SAB = 35% mệnh giá [cafef]",
+"Mức tăng cổ tức tiền mặt năm 2024 so với 2023 của SAB = 15 điểm phần trăm [cafef]"
+],
+"negative_facts": [
+"Nêu sai tỷ lệ cổ tức thành 35% (của năm 2023)",
+"Cho rằng SAB chia cổ tức bằng cổ phiếu năm 2024",
+"KHÔNG chỉ tính phần còn lại 30% là tổng cổ tức năm 2024"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+}
+]

@@ -1,0 +1,494 @@
+[
+{
+"id": "F-014",
+"question": "GAS gần đây có tin gì về giá khí, hợp đồng khí mới hoặc dự án LNG không?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"GAS"
+],
+"expected_timeframe": "gần đây",
+"scope": "company",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Gần đây, GAS/PV GAS có nhiều tin đáng chú ý về LNG và nguồn cung khí. Ngày 02/05/2026, CafeF đưa tin gần 120.000 tấn LNG và LPG của PV GAS cập cảng; riêng tháng 05/2026, PV GAS dự kiến nhập khẩu khoảng 100.000 tấn LPG, nâng tổng lượng nhập khẩu quý II/2026 lên gần 300.000 tấn [web:cafef]. Trước đó, ngày 03/04/2026 PV GAS ký các thỏa thuận LNG quy mô lớn để mở rộng hạ tầng cung ứng khí cho các trung tâm điện lực Quảng Trạch II, Quảng Trạch III, Vũng Áng III và các hộ tiêu thụ công nghiệp lân cận [web:pvgas]. Ngày 06/04/2026, PV GAS làm việc với Nebula Energy về cơ hội phát triển trung tâm dữ liệu gắn với hạ tầng LNG [web:pvgas].",
+"sources": [],
+"web_sources": [
+"[https://cafef.vn/them-gan-120-nghin-tan-lng-lpg-cua-pv-gas-cap-cang-18826050206483247.chn](https://cafef.vn/them-gan-120-nghin-tan-lng-lpg-cua-pv-gas-cap-cang-18826050206483247.chn)",
+"[https://vietstock.vn/2026/04/pv-gas-nhap-khau-bo-sung-gan-60000-tan-lng-chu-dong-dam-bao-nguon-khi-cho-mua-kho-34-1426486.htm](https://vietstock.vn/2026/04/pv-gas-nhap-khau-bo-sung-gan-60000-tan-lng-chu-dong-dam-bao-nguon-khi-cho-mua-kho-34-1426486.htm)",
+"[https://www.pvgas.com.vn/bai-viet/pv-gas-ky-ket-cac-thoa-thuan-lng-quy-mo-lon-mo-rong-ha-tang-cung-ung-khi-cho-cac-trung-tam-dien-luc-trong-diem](https://www.pvgas.com.vn/bai-viet/pv-gas-ky-ket-cac-thoa-thuan-lng-quy-mo-lon-mo-rong-ha-tang-cung-ung-khi-cho-cac-trung-tam-dien-luc-trong-diem)",
+"[https://www.pvgas.com.vn/tin-tuc/pv-gas-va-nebula-energy-thuc-day-hop-tac-trung-tam-du-lieu-gan-voi-ha-tang-lng](https://www.pvgas.com.vn/tin-tuc/pv-gas-va-nebula-energy-thuc-day-hop-tac-trung-tam-du-lieu-gan-voi-ha-tang-lng)",
+"[https://cafef.vn/doanh-nghiep-dau-khi-lon-nhat-san-chung-khoan-duoc-du-bao-lai-3000-ty-dong-trong-quy-1-188260330224257537.chn](https://cafef.vn/doanh-nghiep-dau-khi-lon-nhat-san-chung-khoan-duoc-du-bao-lai-3000-ty-dong-trong-quy-1-188260330224257537.chn)"
+],
+"key_facts": [
+"PV GAS có gần 120.000 tấn LNG và LPG cập cảng, đưa tin ngày 02/05/2026 [cafef]",
+"PV GAS dự kiến nhập khẩu khoảng 100.000 tấn LPG trong tháng 05/2026 [cafef]",
+"Tổng lượng LPG nhập khẩu của PV GAS trong quý II/2026 dự kiến đạt gần 300.000 tấn [cafef]",
+"PV GAS phục vụ một số thị trường xuất khẩu LPG như Campuchia và Philippines trong tháng 05/2026 [cafef]",
+"PV GAS tiếp nhận chuyến LNG DAPENG PRINCESS ngày 03/04/2026 với sản lượng khoảng 32.700 tấn [vietstock]",
+"PV GAS tiếp nhận chuyến LNG KOOL BLIZZARD ngày 08/04/2026 với sản lượng khoảng 27.300 tấn [vietstock]",
+"PV GAS ký thỏa thuận LNG quy mô lớn ngày 03/04/2026 để cung cấp LNG cho Quảng Trạch II, Quảng Trạch III và Vũng Áng III [pvgas]",
+"PV GAS làm việc với Nebula Energy ngày 06/04/2026 về trung tâm dữ liệu gắn với hạ tầng LNG [pvgas]",
+"PV GAS dự kiến bảo đảm nguồn cung LNG từ tháng 05/2026 thông qua đa dạng hóa nguồn nhập khẩu [cafef]"
+],
+"negative_facts": [
+"KHÔNG nhầm LPG với LNG khi ghi sản lượng",
+"KHÔNG khẳng định đã ký hợp đồng thương mại bán khí dài hạn nếu nguồn chỉ nói thỏa thuận/hợp tác",
+"KHÔNG dùng số giá khí nếu không có nguồn công bố trực tiếp"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-015",
+"question": "PLX tuần này có tin mới về giá xăng dầu, nguồn cung hoặc kết quả kinh doanh sơ bộ không?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"PLX"
+],
+"expected_timeframe": "tuần này",
+"scope": "company",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Trong tuần 11/05–18/05/2026, PLX/Petrolimex có tin mới về giá xăng dầu và chuyển đổi nguồn cung xăng sinh học E10. Petrolimex điều chỉnh giá xăng dầu từ 15h00 ngày 14/05/2026 theo kỳ điều hành của liên Bộ Công Thương - Tài chính [web:petrolimex]. Ngày 12/05/2026, Petrolimex ban hành Quyết định số 363/PLX-QĐ-TGĐ về giá bán lẻ xăng sinh học E10 RON 95-V [web:petrolimex]. Ngày 13/05/2026, Petrolimex thông báo đẩy nhanh chuyển đổi kinh doanh xăng E10, đến ngày 15/05 đạt độ phủ khoảng 80% số cửa hàng và dự kiến hoàn thành chuyển đổi ngày 20/05/2026 [web:petrolimex]. Không tìm thấy báo cáo kết quả kinh doanh sơ bộ mới riêng trong tuần này ngoài các tin Q1/2026 đã được công bố trước đó.",
+"sources": [],
+"web_sources": [
+"[https://www.petrolimex.com.vn/ndi/thong-cao-bao-chi/petrolimex-dieu-chinh-gia-xang-dau-tu-15-gio-00-phut-ngay-14-5-2026.html](https://www.petrolimex.com.vn/ndi/thong-cao-bao-chi/petrolimex-dieu-chinh-gia-xang-dau-tu-15-gio-00-phut-ngay-14-5-2026.html)",
+"[https://www.petrolimex.com.vn/ndi/thong-cao-bao-chi/petrolimex-thong-bao-gia-ban-le-xang-sinh-hoc-e10-ron-95-v-tu-24-gio-00-phut-ngay-12-5-2026.html](https://www.petrolimex.com.vn/ndi/thong-cao-bao-chi/petrolimex-thong-bao-gia-ban-le-xang-sinh-hoc-e10-ron-95-v-tu-24-gio-00-phut-ngay-12-5-2026.html)",
+"[https://www.petrolimex.com.vn/nd/tin-chuyen-nganh/petrolimex-day-nhanh-chuyen-doi-kinh-doanh-xang-e10-tu-giua-thang-5-2026.html](https://www.petrolimex.com.vn/nd/tin-chuyen-nganh/petrolimex-day-nhanh-chuyen-doi-kinh-doanh-xang-e10-tu-giua-thang-5-2026.html)",
+"[https://www.petrolimex.com.vn/ndi/minh-bach-xang-dau/uoc-ton-quy-bog-tai-petrolimex-ngay-14-5-2026.html](https://www.petrolimex.com.vn/ndi/minh-bach-xang-dau/uoc-ton-quy-bog-tai-petrolimex-ngay-14-5-2026.html)",
+"[https://cafef.vn/du-kien-lo-1000-ty-dong-quy-i-vi-sao-co-phieu-petrolimex-plx-van-duoc-khuyen-nghi-mua-188260503211135313.chn](https://cafef.vn/du-kien-lo-1000-ty-dong-quy-i-vi-sao-co-phieu-petrolimex-plx-van-duoc-khuyen-nghi-mua-188260503211135313.chn)"
+],
+"key_facts": [
+"Petrolimex điều chỉnh giá xăng dầu từ 15h00 ngày 14/05/2026 [petrolimex]",
+"Giá xăng dầu mới của Petrolimex ngày 14/05/2026 có hiệu lực đến kỳ điều hành tiếp theo của liên Bộ Công Thương - Tài chính [petrolimex]",
+"Petrolimex ban hành Quyết định số 363/PLX-QĐ-TGĐ ngày 12/05/2026 về giá bán lẻ xăng sinh học E10 RON 95-V [petrolimex]",
+"Hệ thống cửa hàng Petrolimex đã kinh doanh xăng E10 từ cuối tháng 04/2026 [petrolimex]",
+"Độ phủ xăng E10 tại cửa hàng Petrolimex đến ngày 15/05/2026 = khoảng 80% số cửa hàng [petrolimex]",
+"Petrolimex dự kiến hoàn thành chuyển đổi sang kinh doanh xăng E10 ngày 20/05/2026 [petrolimex]",
+"Ước trích Quỹ BOG chu kỳ 07/05/2026 đến trước 14/05/2026 tại Petrolimex = 0 đồng [petrolimex]",
+"Ước chi từ nguồn tạm ứng ngân sách chu kỳ 07/05/2026 đến trước 14/05/2026 tại Petrolimex = 0 tỷ đồng [petrolimex]",
+"Không tìm thấy báo cáo kết quả kinh doanh sơ bộ PLX mới riêng trong tuần 11/05–18/05/2026 [petrolimex/cafef]"
+],
+"negative_facts": [
+"KHÔNG bịa kết quả kinh doanh sơ bộ tuần này nếu chưa có công bố",
+"KHÔNG nhầm giá bán lẻ E10 với kết quả lợi nhuận của PLX",
+"KHÔNG dùng tin dự kiến lỗ Q1/2026 như số đã kiểm toán nếu nguồn là báo cáo phân tích/dự báo"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-016",
+"question": "POW trong tháng này có tin gì về vận hành nhà máy điện, sản lượng điện hoặc dự án Nhơn Trạch không?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"POW"
+],
+"expected_timeframe": "tháng này",
+"scope": "company",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Trong tháng 05/2026, POW có tin nổi bật về sản lượng điện và dự án Nhơn Trạch 3&4. Vietstock ngày 11/05/2026 dẫn cập nhật của SSI cho biết POW ghi nhận doanh thu Q1/2026 tăng 51% YoY và LNST tăng gần gấp 3 lần; động lực đến từ sản lượng điện 5,7 tỷ kWh, tăng 33%, chủ yếu nhờ đóng góp từ Nhơn Trạch 3&4 [web:vietstock]. Báo cáo cập nhật ngày 07/05/2026 cho biết POW đang phối hợp với PV GAS để bảo đảm nguồn khí cho Nhơn Trạch 3&4 từ tháng 06/2026 đến hết năm 2026 [web:vietstock]. Một báo cáo phát hành tháng 05/2026 cũng nêu POW đặt kế hoạch sản lượng điện quý II/2026 đạt 6,5 tỷ kWh, tăng khoảng 36% YoY [web:vietstock].",
+"sources": [],
+"web_sources": [
+"[https://vietstock.vn/2026/05/vnm-mwg-pow-co-trien-vong-gi-145-1440670.htm](https://vietstock.vn/2026/05/vnm-mwg-pow-co-trien-vong-gi-145-1440670.htm)",
+"[https://finance.vietstock.vn/downloadedoc/20197](https://finance.vietstock.vn/downloadedoc/20197)",
+"[https://finance.vietstock.vn/downloadedoc/20315](https://finance.vietstock.vn/downloadedoc/20315)",
+"[https://cafef.vn/du-lieu/report/pow-kha-quan-gia-muc-tieu-16000-dongcp-nhon-trach-3-4-thuc-day-tang-truong-san-luong-chat-luong-khoan-phai-thu-cai-thien-6a06c9e40c16ac472bbb2d49.chn](https://cafef.vn/du-lieu/report/pow-kha-quan-gia-muc-tieu-16000-dongcp-nhon-trach-3-4-thuc-day-tang-truong-san-luong-chat-luong-khoan-phai-thu-cai-thien-6a06c9e40c16ac472bbb2d49.chn)",
+"[https://pvpower.vn/pow-media/to-ir/v--thong-cao-ndt_03-2026.pdf](https://pvpower.vn/pow-media/to-ir/v--thong-cao-ndt_03-2026.pdf)"
+],
+"key_facts": [
+"Doanh thu Q1/2026 của POW tăng 51% YoY [vietstock]",
+"LNST Q1/2026 của POW tăng gần gấp 3 lần YoY [vietstock]",
+"Sản lượng điện Q1/2026 của POW = 5,7 tỷ kWh [vietstock]",
+"Sản lượng điện Q1/2026 của POW tăng 33% YoY [vietstock]",
+"Động lực tăng sản lượng Q1/2026 của POW chủ yếu đến từ Nhơn Trạch 3&4 [vietstock]",
+"POW đang phối hợp với PV GAS để bảo đảm nguồn khí cho Nhơn Trạch 3&4 từ tháng 06/2026 đến hết năm 2026 [vietstock]",
+"Kế hoạch sản lượng điện quý II/2026 của POW = 6,5 tỷ kWh [vietstock]",
+"Kế hoạch sản lượng điện quý II/2026 của POW tăng khoảng 36% YoY [vietstock]",
+"POW dự kiến bảo dưỡng định kỳ Nhơn Trạch 3&4 tại 4.000 và 8.000 FFH trong tháng 04 và tháng 10/2026 [pvpower]",
+"Nhơn Trạch 3&4 là dự án điện LNG đầu tiên của Việt Nam, đóng góp đầy đủ vào kết quả POW từ năm 2026 [vietstock/cafef]"
+],
+"negative_facts": [
+"KHÔNG nhầm sản lượng điện 5,7 tỷ kWh Q1/2026 với kế hoạch 6,5 tỷ kWh Q2/2026",
+"KHÔNG khẳng định nguồn khí sau tháng 06/2026 đã hoàn tất nếu nguồn nói đang phối hợp bảo đảm",
+"KHÔNG nhầm POW với NT2 dù POW sở hữu cổ phần tại NT2"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-017",
+"question": "GVR năm 2026 có tin mới nào về giá cao su, thoái vốn hoặc chuyển đổi đất khu công nghiệp không?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"GVR"
+],
+"expected_timeframe": "2026",
+"scope": "company",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Trong năm 2026, tin nổi bật của GVR liên quan đến mảng cao su và khu công nghiệp. CafeF ngày 05/05/2026 đưa tin GVR công bố BCTC Q1/2026 với doanh thu thuần hơn 8.845 tỷ đồng, tăng 56% YoY; mảng sản xuất và kinh doanh mủ cao su đóng góp hơn 7.411 tỷ đồng, tăng 72% YoY và chiếm 84% tổng doanh thu [web:cafef]. Về chuyển đổi đất/khu công nghiệp, CafeF ngày 21/04/2026 cho biết VRG đang quản lý 14 khu công nghiệp với tổng diện tích trên 4.200 ha và triển khai thêm 5 khu công nghiệp đã được Chính phủ chấp thuận chủ trương, nâng tổng số lên 19 khu với diện tích gần 6.300 ha [web:cafef]. Không tìm thấy tin uy tín trong năm 2026 về thương vụ thoái vốn lớn mới của GVR.",
+"sources": [],
+"web_sources": [
+"[https://cafef.vn/loi-nhuan-quy-1-tang-dot-bien-co-phieu-trum-bat-dong-san-kcn-boc-dau-188260505000510116.chn](https://cafef.vn/loi-nhuan-quy-1-tang-dot-bien-co-phieu-trum-bat-dong-san-kcn-boc-dau-188260505000510116.chn)",
+"[https://cafef.vn/mot-tap-doan-nha-nuoc-tra-cho-nhan-su-trung-binh-53-trieu-dong-thang-188260420232552416.chn](https://cafef.vn/mot-tap-doan-nha-nuoc-tra-cho-nhan-su-trung-binh-53-trieu-dong-thang-188260420232552416.chn)",
+"[https://cafef.vn/co-phieu-gvr-trang-ben-ban-dong-tien-bat-day-kich-hoat-cu-tang-kich-tran-188260327231205772.chn](https://cafef.vn/co-phieu-gvr-trang-ben-ban-dong-tien-bat-day-kich-hoat-cu-tang-kich-tran-188260327231205772.chn)",
+"[https://cafef.vn/mot-so-cong-ty-con-cua-gvr-thua-lo-rui-ro-mat-von-nha-nuoc-188260301082350698.chn](https://cafef.vn/mot-so-cong-ty-con-cua-gvr-thua-lo-rui-ro-mat-von-nha-nuoc-188260301082350698.chn)",
+"[https://finance.vietstock.vn/GVR-tap-doan-cong-nghiep-cao-su-viet-nam-ctcp.htm](https://finance.vietstock.vn/GVR-tap-doan-cong-nghiep-cao-su-viet-nam-ctcp.htm)"
+],
+"key_facts": [
+"Doanh thu thuần Q1/2026 của GVR = hơn 8.845 tỷ đồng [cafef]",
+"Doanh thu thuần Q1/2026 của GVR tăng 56% YoY [cafef]",
+"Doanh thu mảng sản xuất và kinh doanh mủ cao su Q1/2026 của GVR = hơn 7.411 tỷ đồng [cafef]",
+"Doanh thu mảng mủ cao su Q1/2026 của GVR tăng 72% YoY [cafef]",
+"Mảng sản xuất và kinh doanh mủ cao su chiếm 84% tổng doanh thu Q1/2026 của GVR [cafef]",
+"Doanh thu mảng kinh doanh bất động sản và cơ sở hạ tầng Q1/2026 của GVR = 204 tỷ đồng [cafef]",
+"Doanh thu mảng kinh doanh bất động sản và cơ sở hạ tầng Q1/2026 của GVR giảm 19% YoY [cafef]",
+"VRG đang quản lý và khai thác 14 khu công nghiệp với tổng diện tích trên 4.200 ha [cafef]",
+"VRG đang triển khai thêm 5 khu công nghiệp đã được Chính phủ chấp thuận chủ trương [cafef]",
+"Tổng số khu công nghiệp của VRG sau khi triển khai thêm dự kiến = 19 khu [cafef]",
+"Tổng diện tích khu công nghiệp của VRG sau khi triển khai thêm dự kiến = gần 6.300 ha [cafef]",
+"Không tìm thấy tin uy tín trong năm 2026 về thương vụ thoái vốn lớn mới của GVR [cafef/vietstock]"
+],
+"negative_facts": [
+"KHÔNG bịa thương vụ thoái vốn mới của GVR nếu không có công bố",
+"KHÔNG nhầm doanh thu mủ cao su với lợi nhuận mủ cao su",
+"KHÔNG dùng dự án KCN Minh Hưng III năm 2025 như tin mới năm 2026"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-018",
+"question": "KDH tháng này có tin gì về pháp lý dự án, mở bán mới hoặc giao dịch cổ đông lớn?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"KDH"
+],
+"expected_timeframe": "tháng này",
+"scope": "company",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Trong tháng 05/2026, tin mới rõ nhất của KDH là giao dịch cổ đông lớn và cập nhật dự án/kết quả Q1. Vietstock ngày 05/05/2026 ghi nhận KDH công bố báo cáo thay đổi sở hữu của nhóm cổ đông lớn [web:vietstock]. Về dự án, các báo cáo cập nhật tháng 05/2026 cho biết lợi nhuận Q1/2026 tăng mạnh chủ yếu nhờ ghi nhận khoản lãi 285 tỷ đồng từ giao dịch mua rẻ dự án An Lập; hàng tồn kho cuối Q1/2026 tăng lên hơn 29.100 tỷ đồng, chủ yếu do ghi nhận thêm dự án An Lập 5.445 tỷ đồng [web:vietstock]. Không tìm thấy tin mở bán mới đáng tin cậy của KDH trong tháng 05/2026; thông tin gần nhất trước đó là KDH tăng tốc triển khai các dự án có pháp lý hoàn chỉnh như The Privé và Gem Sky World [web:cafef].",
+"sources": [],
+"web_sources": [
+"[https://vietstock.vn/2026/05/kdh-bao-cao-ve-thay-doi-so-huu-cua-nhom-cd-lon-739-1438213.htm](https://vietstock.vn/2026/05/kdh-bao-cao-ve-thay-doi-so-huu-cua-nhom-cd-lon-739-1438213.htm)",
+"[https://static1.vietstock.vn/edocs/20173/KDH_Cap_nhat_8.pdf](https://static1.vietstock.vn/edocs/20173/KDH_Cap_nhat_8.pdf)",
+"[https://finance.vietstock.vn/downloadedoc/20352](https://finance.vietstock.vn/downloadedoc/20352)",
+"[https://cafef.vn/tham-vong-loi-nhuan-nam-2026-cua-doanh-nghiep-bat-dong-san-188260430073417603.chn](https://cafef.vn/tham-vong-loi-nhuan-nam-2026-cua-doanh-nghiep-bat-dong-san-188260430073417603.chn)",
+"[https://cafef.vn/hai-ung-vien-tham-gia-hdqt-va-bks-thay-nhom-vinacapital-tai-nha-khang-dien-188260412093222814.chn](https://cafef.vn/hai-ung-vien-tham-gia-hdqt-va-bks-thay-nhom-vinacapital-tai-nha-khang-dien-188260412093222814.chn)"
+],
+"key_facts": [
+"KDH công bố báo cáo thay đổi sở hữu của nhóm cổ đông lớn ngày 05/05/2026 [vietstock]",
+"Lợi nhuận Q1/2026 của KDH tăng mạnh chủ yếu nhờ khoản lãi 285 tỷ đồng từ giao dịch mua rẻ dự án An Lập [vietstock]",
+"Hàng tồn kho của KDH tại 31/03/2026 = hơn 29.100 tỷ đồng [vietstock]",
+"Hàng tồn kho của KDH tại 31/03/2026 tăng khoảng 25% so với cuối năm 2025 [vietstock]",
+"Hàng tồn kho của KDH chiếm 73,1% tổng tài sản tại 31/03/2026 [vietstock]",
+"Giá trị ghi nhận thêm từ dự án An Lập = 5.445 tỷ đồng [vietstock]",
+"Tổng dư nợ vay của KDH cuối Q1/2026 = 15.348 tỷ đồng [vietstock]",
+"Tổng dư nợ vay của KDH cuối Q1/2026 tăng 51% so với cuối năm 2025 [vietstock]",
+"Tỷ lệ nợ vay ròng/VCSH của KDH cuối Q1/2026 = 54,5% [vietstock]",
+"KDH có kế hoạch tăng tốc triển khai dự án The Privé và Gem Sky World trong năm 2026 [cafef]",
+"KDH đặt kế hoạch doanh thu 2026 = 4.200 tỷ đồng [cafef]",
+"KDH đặt kế hoạch LNST 2026 = 1.500 tỷ đồng [cafef]",
+"Không tìm thấy tin mở bán mới đáng tin cậy của KDH trong tháng 05/2026 [cafef/vietstock]"
+],
+"negative_facts": [
+"KHÔNG bịa tin mở bán mới nếu không có công bố",
+"KHÔNG nhầm giao dịch cổ đông lớn với giao dịch nội bộ của lãnh đạo nếu nguồn không nêu rõ",
+"KHÔNG nhầm khoản lãi 285 tỷ đồng từ mua rẻ dự án An Lập với doanh thu bán hàng"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-019",
+"question": "PNJ tuần này có tin gì mới về doanh số vàng, thay đổi chính sách quản lý vàng hoặc kết quả bán lẻ?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"PNJ"
+],
+"expected_timeframe": "tuần này",
+"scope": "company",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Trong tuần 11/05–18/05/2026, PNJ có các báo cáo cập nhật về kết quả Q1/2026 và bán lẻ. CafeF/Vietstock ghi nhận PNJ đạt doanh thu Q1/2026 17.245 tỷ đồng, tăng 79% YoY; LNST đạt 1.467 tỷ đồng, tăng khoảng 116,5–117% YoY [web:cafef][web:vietstock]. Doanh thu bán lẻ Q1/2026 tăng 23% YoY lên 8,2 nghìn tỷ đồng, doanh thu vàng 24K đạt 7.398 tỷ đồng và tăng hơn 3 lần cùng kỳ [web:vietstock]. Trong tuần này không tìm thấy tin chính sách quản lý vàng mới áp dụng riêng cho PNJ; tin doanh nghiệp đáng chú ý gần nhất là PNJ tăng vốn vượt 5.000 tỷ đồng sau đợt chia cổ phiếu thưởng [web:cafef].",
+"sources": [],
+"web_sources": [
+"[https://cafef.vn/du-lieu/report/pnj-q12026-khoi-dau-thuan-loi-6a06dda00c16ac472bbb2d8a.chn](https://cafef.vn/du-lieu/report/pnj-q12026-khoi-dau-thuan-loi-6a06dda00c16ac472bbb2d8a.chn)",
+"[https://static1.vietstock.vn/edocs/20118/PNJ_BCKQKD_1Q26_20260505.pdf](https://static1.vietstock.vn/edocs/20118/PNJ_BCKQKD_1Q26_20260505.pdf)",
+"[https://finance.vietstock.vn/downloadedoc/20259](https://finance.vietstock.vn/downloadedoc/20259)",
+"[https://vietstock.vn/2026/05/pnj-nghi-quyet-hdqt-so-293-2026-ngay-06-05-2026-va-bao-cao-ket-qua-dot-phat-hanh-co-phieu-de-tang-von-co-phan-tu-nguon-von-chu-so-huu-737-1438860.htm](https://vietstock.vn/2026/05/pnj-nghi-quyet-hdqt-so-293-2026-ngay-06-05-2026-va-bao-cao-ket-qua-dot-phat-hanh-co-phieu-de-tang-von-co-phan-tu-nguon-von-chu-so-huu-737-1438860.htm)",
+"[https://cafef.vn/pnj-tang-von-vuot-5000-ty-dong-sau-dot-chia-co-phieu-thuong-188260507095901308.chn](https://cafef.vn/pnj-tang-von-vuot-5000-ty-dong-sau-dot-chia-co-phieu-thuong-188260507095901308.chn)"
+],
+"key_facts": [
+"Doanh thu Q1/2026 của PNJ = 17.245 tỷ đồng [cafef/vietstock]",
+"Doanh thu Q1/2026 của PNJ tăng 79% YoY [cafef/vietstock]",
+"LNST Q1/2026 của PNJ = 1.467 tỷ đồng [cafef/vietstock]",
+"LNST Q1/2026 của PNJ tăng 116,5% YoY [cafef]",
+"Doanh thu bán lẻ Q1/2026 của PNJ = 8,2 nghìn tỷ đồng [vietstock]",
+"Doanh thu bán lẻ Q1/2026 của PNJ tăng 23% YoY [vietstock]",
+"Doanh thu vàng 24K Q1/2026 của PNJ = 7.398 tỷ đồng [vietstock]",
+"Doanh thu vàng 24K Q1/2026 của PNJ tăng hơn 3 lần YoY [vietstock]",
+"PNJ mở 2 cửa hàng mới trong Q1/2026 [vietstock]",
+"PNJ đóng 3 cửa hàng kém hiệu quả trong Q1/2026 [vietstock]",
+"Doanh thu trung bình cửa hàng Q1/2026 của PNJ = 6,4 tỷ đồng/cửa hàng/tháng [vietstock]",
+"PNJ công bố Nghị quyết HĐQT số 293/2026 ngày 06/05/2026 về kết quả phát hành cổ phiếu để tăng vốn từ nguồn vốn chủ sở hữu [vietstock]",
+"PNJ tăng vốn điều lệ vượt 5.000 tỷ đồng sau đợt chia cổ phiếu thưởng, đưa tin ngày 07/05/2026 [cafef]",
+"Không tìm thấy tin chính sách quản lý vàng mới áp dụng riêng cho PNJ trong tuần 11/05–18/05/2026 [cafef/vietstock/pnj]"
+],
+"negative_facts": [
+"KHÔNG nhầm doanh thu vàng 24K với doanh thu bán lẻ trang sức",
+"KHÔNG bịa chính sách quản lý vàng riêng cho PNJ nếu nguồn là chính sách chung hoặc không có nguồn",
+"KHÔNG nhầm tăng vốn từ nguồn vốn chủ sở hữu với huy động tiền mặt mới"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-020",
+"question": "SSI gần đây có tin nổi bật nào về kết quả môi giới, tự doanh hoặc kế hoạch tăng vốn không?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"SSI"
+],
+"expected_timeframe": "gần đây",
+"scope": "company",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Gần đây, SSI có tin nổi bật về kết quả Q1/2026, tự doanh, môi giới và tăng vốn. CafeF ngày 09/05/2026 đưa tin SSI dự kiến phát hành 10 triệu cổ phiếu ESOP cho 295 người; theo BCTC riêng Q1/2026, doanh thu hoạt động đạt 3.075 tỷ đồng, tăng 46% YoY, LNTT đạt 1.461 tỷ đồng, tăng 44% YoY [web:cafef]. Hoạt động tự doanh đóng góp 39% doanh thu với lãi từ tài sản tài chính FVTPL 1.226 tỷ đồng, tăng 18%; danh mục FVTPL cuối Q1/2026 hơn 42.000 tỷ đồng [web:cafef]. Vietstock cho biết Q1/2026 SSI hoàn tất tăng vốn hơn 6.200 tỷ đồng từ chào bán hơn 415,18 triệu cổ phiếu cho cổ đông hiện hữu; báo cáo phân tích cũng ghi nhận thị phần môi giới SSI trên HOSE đạt 11,14% và doanh thu môi giới đạt 607 tỷ đồng [web:vietstock].",
+"sources": [],
+"web_sources": [
+"[https://cafef.vn/ssi-du-kien-phat-hanh-10-trieu-co-phieu-esop-cho-295-nguoi-188260509093443431.chn](https://cafef.vn/ssi-du-kien-phat-hanh-10-trieu-co-phieu-esop-cho-295-nguoi-188260509093443431.chn)",
+"[https://vietstock.vn/2026/04/ssi-quy-12026-doanh-thu-hop-nhat-3295-ty-dong-lai-truoc-thue-1593-ty-dong-737-1430025.htm](https://vietstock.vn/2026/04/ssi-quy-12026-doanh-thu-hop-nhat-3295-ty-dong-lai-truoc-thue-1593-ty-dong-737-1430025.htm)",
+"[https://static1.vietstock.vn/edocs/19935/SSI_BCPT_Earning_Q1.pdf](https://static1.vietstock.vn/edocs/19935/SSI_BCPT_Earning_Q1.pdf)",
+"[https://cafef.vn/ba-cong-ty-chung-khoan-bao-lai-nghin-ty-dong-quy-i-2026-188260504171617003.chn](https://cafef.vn/ba-cong-ty-chung-khoan-bao-lai-nghin-ty-dong-quy-i-2026-188260504171617003.chn)",
+"[https://cafef.vn/dhcd-ssi-dua-ra-kich-ban-vn-index-dao-dong-1800-diem-muc-tieu-loi-nhuan-truoc-thue-5838-ty-dong-188260423143358725.chn](https://cafef.vn/dhcd-ssi-dua-ra-kich-ban-vn-index-dao-dong-1800-diem-muc-tieu-loi-nhuan-truoc-thue-5838-ty-dong-188260423143358725.chn)"
+],
+"key_facts": [
+"SSI dự kiến phát hành 10 triệu cổ phiếu ESOP cho 295 người, đưa tin ngày 09/05/2026 [cafef]",
+"Doanh thu hoạt động riêng Q1/2026 của SSI = 3.075 tỷ đồng [cafef]",
+"Doanh thu hoạt động riêng Q1/2026 của SSI tăng 46% YoY [cafef]",
+"LNTT riêng Q1/2026 của SSI = 1.461 tỷ đồng [cafef]",
+"LNTT riêng Q1/2026 của SSI tăng 44% YoY [cafef]",
+"Lãi từ tài sản tài chính FVTPL Q1/2026 của SSI = 1.226 tỷ đồng [cafef]",
+"Lãi từ tài sản tài chính FVTPL Q1/2026 của SSI tăng 18% YoY [cafef]",
+"Hoạt động tự doanh đóng góp 39% doanh thu Q1/2026 của SSI [cafef]",
+"Danh mục tài sản FVTPL cuối Q1/2026 của SSI = hơn 42.000 tỷ đồng [cafef]",
+"SSI hoàn tất tăng vốn hơn 6.200 tỷ đồng từ chào bán hơn 415,18 triệu cổ phiếu cho cổ đông hiện hữu trong Q1/2026 [vietstock]",
+"Doanh thu hợp nhất Q1/2026 của SSI = 3.295 tỷ đồng [vietstock]",
+"LNTT hợp nhất Q1/2026 của SSI = 1.593 tỷ đồng [vietstock]",
+"Thị phần môi giới cổ phiếu, chứng chỉ quỹ và CW của SSI trên HOSE Q1/2026 = 11,14% [vietstock]",
+"Doanh thu môi giới Q1/2026 của SSI = 607 tỷ đồng [vietstock]",
+"Doanh thu môi giới Q1/2026 của SSI tăng 95% YoY [vietstock]"
+],
+"negative_facts": [
+"KHÔNG nhầm doanh thu hợp nhất 3.295 tỷ đồng với doanh thu riêng 3.075 tỷ đồng",
+"KHÔNG nhầm phát hành ESOP 10 triệu cổ phiếu với chào bán 415,18 triệu cổ phiếu cho cổ đông hiện hữu",
+"KHÔNG nhầm lãi FVTPL 1.226 tỷ đồng với tổng doanh thu hoạt động"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-021",
+"question": "DGC tháng này có tin gì về giá phốt pho, xuất khẩu hóa chất hoặc dự án mới?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"DGC"
+],
+"expected_timeframe": "tháng này",
+"scope": "company",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Trong tháng 05/2026, không tìm thấy tin mới đáng tin cậy riêng về giá phốt pho hoặc xuất khẩu hóa chất của DGC. Tin đáng chú ý gần nhất là CafeF ngày 01/05/2026 đưa tin DGC ghi nhận doanh thu thuần hợp nhất Q1/2026 đạt 2.125 tỷ đồng, giảm 24% YoY; LNST hợp nhất đạt 430 tỷ đồng, giảm 48,6% YoY [web:cafef]. Về dự án, tin gần nhất trong vòng 30–45 ngày cho biết DGC vẫn triển khai Tổ hợp Hóa chất Đức Giang Nghi Sơn; dự án đã giải ngân 1.378 tỷ đồng và dự kiến chạy thử đầu quý III/2026, đồng thời dự án nâng cấp hệ sản xuất cồn 99% và trạm thu hồi CO2 dự kiến hoàn thành/vận hành trong quý III/2026 [web:cafef].",
+"sources": [],
+"web_sources": [
+"[https://cafef.vn/hoa-chat-duc-giang-dgc-loi-nhuan-q1-giam-gan-50-mat-loi-the-gia-von-tu-khai-truong-25-nhung-van-con-nui-tien-11200-ty-va-sieu-du-an-nghin-ty-dang-thanh-hinh-188260501000742647.chn](https://cafef.vn/hoa-chat-duc-giang-dgc-loi-nhuan-q1-giam-gan-50-mat-loi-the-gia-von-tu-khai-truong-25-nhung-van-con-nui-tien-11200-ty-va-sieu-du-an-nghin-ty-dang-thanh-hinh-188260501000742647.chn)",
+"[https://cafef.vn/giua-bien-co-phap-ly-hoa-chat-duc-giang-van-nhat-quyet-lam-pin-xe-dien-cac-du-an-nghin-ty-vao-giai-doan-nuoc-rut-188260408135504206.chn](https://cafef.vn/giua-bien-co-phap-ly-hoa-chat-duc-giang-van-nhat-quyet-lam-pin-xe-dien-cac-du-an-nghin-ty-vao-giai-doan-nuoc-rut-188260408135504206.chn)",
+"[https://ducgiangchem.vn/category/quan-he-co-dong/page/2/](https://ducgiangchem.vn/category/quan-he-co-dong/page/2/)",
+"[https://finance.vietstock.vn/DGC-ctcp-tap-doan-hoa-chat-duc-giang.htm](https://finance.vietstock.vn/DGC-ctcp-tap-doan-hoa-chat-duc-giang.htm)",
+"[https://cafef.vn/du-lieu/report/dgc-anh-sang-cuoi-duong-69b77a818f721b5966af085c.chn](https://cafef.vn/du-lieu/report/dgc-anh-sang-cuoi-duong-69b77a818f721b5966af085c.chn)"
+],
+"key_facts": [
+"Doanh thu thuần hợp nhất Q1/2026 của DGC = 2.125 tỷ đồng [cafef]",
+"Doanh thu thuần hợp nhất Q1/2026 của DGC giảm 24% YoY [cafef]",
+"LNST hợp nhất Q1/2026 của DGC = 430 tỷ đồng [cafef]",
+"LNST hợp nhất Q1/2026 của DGC giảm 48,6% YoY [cafef]",
+"Tổ hợp Hóa chất Đức Giang Nghi Sơn đã giải ngân 1.378 tỷ đồng tính đến tháng 04/2026 [cafef]",
+"Tổ hợp Hóa chất Đức Giang Nghi Sơn dự kiến chạy thử đầu quý III/2026 [cafef]",
+"Dự án nâng cấp hệ sản xuất cồn 99% và trạm thu hồi khí CO2 dự kiến hoàn thành và vận hành trong quý III/2026 [cafef]",
+"DGC đang triển khai thủ tục pháp lý để khởi công Tổ hợp công cộng, trường học và nhà ở tại Đức Giang trong năm 2026 [cafef]",
+"DGC công bố thông báo triệu tập ĐHĐCĐ bất thường 2026 ngày 17/03/2026 [ducgiangchem]",
+"Không tìm thấy tin mới đáng tin cậy trong tháng 05/2026 về giá phốt pho của DGC [cafef/vietstock/ducgiangchem]",
+"Không tìm thấy tin mới đáng tin cậy trong tháng 05/2026 về xuất khẩu hóa chất cụ thể của DGC [cafef/vietstock/ducgiangchem]"
+],
+"negative_facts": [
+"KHÔNG bịa giá phốt pho nếu không có nguồn định lượng mới",
+"KHÔNG dùng tin pháp lý tháng 03/2026 như tin mới tháng 05/2026 nếu hỏi riêng tháng này",
+"KHÔNG nhầm dự án bất động sản Đức Giang với Tổ hợp Hóa chất Đức Giang Nghi Sơn"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-022",
+"question": "Ngành ngân hàng tuần này có tin nóng nào về room tín dụng, nợ xấu hoặc chính sách lãi suất không?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"banking_sector",
+"credit_room",
+"NPL",
+"interest_rate"
+],
+"expected_timeframe": "tuần này",
+"scope": "sector",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Trong tuần 11/05–18/05/2026, ngành ngân hàng có các cập nhật đáng chú ý về tín dụng, NIM và nợ xấu, chủ yếu qua báo cáo phân tích ngành. Báo cáo VNDIRECT ngày 13/05/2026 cho rằng các ngân hàng tư nhân quy mô lớn như HDB, VPB có hạn mức tín dụng cao và đặt mục tiêu tăng trưởng tín dụng 35–40% YoY; lợi nhuận trước thuế toàn ngành năm 2026 được kỳ vọng tăng khoảng 18%, đi kèm tăng trưởng tín dụng khoảng 17% [web:vietstock]. Báo cáo ngành ngân hàng công bố trong tuần cho biết 27 ngân hàng niêm yết có LNTT Q1/2026 tăng khoảng 14% YoY, dư nợ tăng 3,58% YTD trong Q1/2026 trong khi huy động vốn chỉ tăng khoảng 1,02% [web:vietstock]. Vietstock ngày 12/05/2026 cũng có bài về quản trị NIM, phản ánh áp lực quản trị biên lãi trong bối cảnh chi phí vốn và lãi suất thay đổi [web:vietstock]. Không tìm thấy quyết định chính sách lãi suất mới của NHNN trong tuần 11/05–18/05/2026 từ nguồn uy tín đã tra.",
+"sources": [],
+"web_sources": [
+"[https://finance.vietstock.vn/downloadedoc/20330](https://finance.vietstock.vn/downloadedoc/20330)",
+"[https://static1.vietstock.vn/edocs/20320/GTJASVN_RS_NGANH_NGAN_HANG_CAP_NHAT_KQKD_Q1.pdf](https://static1.vietstock.vn/edocs/20320/GTJASVN_RS_NGANH_NGAN_HANG_CAP_NHAT_KQKD_Q1.pdf)",
+"[https://vietstock.vn/2026/05/bai-toan-quan-tri-nim-muc-tieu-cua-cac-ngan-hang-thuong-mai-757-1440614.htm](https://vietstock.vn/2026/05/bai-toan-quan-tri-nim-muc-tieu-cua-cac-ngan-hang-thuong-mai-757-1440614.htm)",
+"[https://vietstock.vn/2026/01/du-phong-muc-room-tin-dung-cap-dau-nam-theo-thong-tu-212025-757-1394953.htm](https://vietstock.vn/2026/01/du-phong-muc-room-tin-dung-cap-dau-nam-theo-thong-tu-212025-757-1394953.htm)",
+"[https://cafef.vn/tin-dung.html](https://cafef.vn/tin-dung.html)"
+],
+"key_facts": [
+"Báo cáo chuyên đề ngành ngân hàng của VNDIRECT phát hành ngày 13/05/2026 [vietstock]",
+"HDB và VPB đặt mục tiêu tăng trưởng tín dụng 2026 ở mức 35-40% YoY [vietstock]",
+"VNDIRECT kỳ vọng LNTT toàn ngành ngân hàng năm 2026 tăng khoảng 18% [vietstock]",
+"VNDIRECT kỳ vọng tăng trưởng tín dụng toàn ngành ngân hàng năm 2026 khoảng 17% [vietstock]",
+"Tăng trưởng tín dụng toàn ngành 2025 = khoảng 19% [vietstock]",
+"LNTT Q1/2026 của 27 ngân hàng niêm yết tăng khoảng 14% YoY [vietstock]",
+"Dư nợ 27 ngân hàng niêm yết tăng 3,58% YTD trong Q1/2026 [vietstock]",
+"Huy động vốn 27 ngân hàng niêm yết tăng khoảng 1,02% YTD trong Q1/2026 [vietstock]",
+"Vietstock đăng bài về bài toán quản trị NIM mục tiêu của ngân hàng thương mại ngày 12/05/2026 [vietstock]",
+"YEA từng giảm từ 8,06% xuống 6,75% trong giai đoạn 2020-2021 [vietstock]",
+"COF từng giảm từ 4,99% xuống 3,38% trong giai đoạn 2020-2021 [vietstock]",
+"Đến Q2/2023, YEA phục hồi lên 8,67% và COF tăng lên 5,71% [vietstock]",
+"Không tìm thấy quyết định chính sách lãi suất mới của NHNN trong tuần 11/05–18/05/2026 từ nguồn uy tín đã tra [vietstock/cafef]"
+],
+"negative_facts": [
+"KHÔNG khẳng định NHNN ban hành quyết định lãi suất mới trong tuần nếu không có nguồn chính thức",
+"KHÔNG nhầm mục tiêu tăng trưởng tín dụng của HDB/VPB với toàn ngành",
+"KHÔNG nhầm NIM với YEA hoặc COF"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "F-023",
+"question": "Thị trường bất động sản tháng này có sự kiện chính sách hoặc vụ việc nào đáng chú ý không?",
+"category": "F. Recent news",
+"expected_tools": [
+"web_search"
+],
+"expected_entities": [
+"real_estate_sector",
+"policy_event"
+],
+"expected_timeframe": "tháng này",
+"scope": "sector",
+"style": "lookup",
+"persona": "journalist — hỏi tin tuần này / tháng này, sự kiện bất ngờ, scandal",
+"complexity": "factual",
+"needs_clarification": false,
+"reference_answer": "Trong tháng 05/2026, sự kiện chính sách đáng chú ý nhất của thị trường bất động sản là Nghị quyết số 29/2026/QH16 của Quốc hội, có hiệu lực từ ngày 01/05/2026, nhằm xử lý vi phạm pháp luật về đất đai trước Luật Đất đai 2024 và tháo gỡ khó khăn cho các dự án tồn đọng [web:cafef][web:vietstock]. Nghị quyết này được kỳ vọng trực tiếp tháo gỡ khoảng 3.338 dự án; theo số liệu được CafeF/Vietstock dẫn, tính đến 30/03/2025 cả nước có 4.489 dự án đất đai gặp khó khăn, tổng diện tích 198.428 ha và tổng mức đầu tư 3.352.946 tỷ đồng [web:cafef][web:vietstock]. Ngoài ra, ngày 13/05/2026 Vietstock đưa tin Bộ Xây dựng định hướng phát triển thị trường bất động sản lành mạnh, minh bạch, bền vững và tạo đột phá trong phát triển nhà ở xã hội, đô thị thông minh [web:vietstock].",
+"sources": [],
+"web_sources": [
+"[https://cafef.vn/chia-khoa-go-vuong-hon-3300-du-an-bat-dong-san-188260504081801478.chn](https://cafef.vn/chia-khoa-go-vuong-hon-3300-du-an-bat-dong-san-188260504081801478.chn)",
+"[https://vietstock.vn/2026/05/chia-khoa-go-vuong-hon-3300-du-an-bat-dong-san-4220-1436753.htm](https://vietstock.vn/2026/05/chia-khoa-go-vuong-hon-3300-du-an-bat-dong-san-4220-1436753.htm)",
+"[https://vietstock.vn/2026/05/bo-xay-dung-thi-truong-bat-dong-san-se-lanh-manh-minh-bach-va-ben-vung-4220-1442097.htm](https://vietstock.vn/2026/05/bo-xay-dung-thi-truong-bat-dong-san-se-lanh-manh-minh-bach-va-ben-vung-4220-1442097.htm)",
+"[https://cafef.vn/nhung-chinh-sach-noi-bat-co-hieu-luc-tu-thang-5-2026-188260501081644945.chn](https://cafef.vn/nhung-chinh-sach-noi-bat-co-hieu-luc-tu-thang-5-2026-188260501081644945.chn)",
+"[https://cafef.vn/thi-truong-bat-dong-san-2026-khong-con-con-sot-ngan-han-188260127103106533.chn](https://cafef.vn/thi-truong-bat-dong-san-2026-khong-con-con-sot-ngan-han-188260127103106533.chn)"
+],
+"key_facts": [
+"Nghị quyết số 29/2026/QH16 có hiệu lực từ ngày 01/05/2026 [cafef]",
+"Nghị quyết số 29/2026/QH16 quy định cơ chế xử lý vi phạm pháp luật về đất đai xảy ra trước Luật Đất đai 2024 [cafef]",
+"Nghị quyết số 29/2026/QH16 được kỳ vọng trực tiếp tháo gỡ khoảng 3.338 dự án bất động sản/đất đai [cafef/vietstock]",
+"Tính đến 30/03/2025, cả nước có 4.489 dự án đất đai gặp khó khăn, vướng mắc [cafef]",
+"Tổng diện tích các dự án đất đai vướng mắc tính đến 30/03/2025 = 198.428 ha [cafef]",
+"Tổng mức đầu tư các dự án đất đai vướng mắc tính đến 30/03/2025 = 3.352.946 tỷ đồng [cafef]",
+"Số dự án thuộc thẩm quyền địa phương đang được tập trung xử lý = 1.814 dự án [cafef]",
+"Số dự án thuộc thẩm quyền Quốc hội đang nghiên cứu cơ chế tháo gỡ = 1.524 dự án [cafef]",
+"Tổng mức đầu tư nhóm 1.524 dự án thuộc thẩm quyền Quốc hội = khoảng 2,5 triệu tỷ đồng [cafef]",
+"Bộ Xây dựng định hướng phát triển thị trường bất động sản lành mạnh, minh bạch, bền vững, đưa tin ngày 13/05/2026 [vietstock]",
+"Bộ Xây dựng phấn đấu hoàn thành mục tiêu Đề án ít nhất 1 triệu căn hộ nhà ở xã hội giai đoạn 2021-2030 [vietstock]",
+"Từ năm 2026, thị trường bất động sản vận hành dưới tác động của Luật Đất đai 2024, Luật Nhà ở 2023, Luật Kinh doanh BĐS và bảng giá đất mới áp dụng từ 01/01/2026 [cafef]"
+],
+"negative_facts": [
+"KHÔNG nhầm Nghị quyết 29/2026/QH16 với Luật Đất đai 2024",
+"KHÔNG nói toàn bộ 4.489 dự án đã được tháo gỡ; nguồn nói gặp khó khăn/vướng mắc",
+"KHÔNG bịa vụ việc doanh nghiệp cụ thể nếu câu hỏi hỏi chính sách/vụ việc toàn thị trường"
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+}
+]

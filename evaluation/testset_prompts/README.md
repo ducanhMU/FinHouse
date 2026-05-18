@@ -55,7 +55,7 @@ BUCKET G (Visualize, 20 case) — ĐƯỜNG RIÊNG (không qua stage 2+3):
 
 | Yếu tố | Giá trị | Ghi chú |
 |---|---|---|
-| **Scope** | company / sector / macro / multi_company | Quyết định route trong graph |
+| **Scope** | company / sector / macro / multi_company / general | Quyết định route trong graph. `general` = câu hỏi không gắn entity cụ thể (Bucket A định nghĩa, H ambiguous) — `split_testset.py` phải nhận giá trị này |
 | **Style** | lookup / analyze / compare / synthesis / definition | Quyết định độ sâu answer |
 | **Expected tool** | rag / database / web_search / visualize / mixed | Eval Layer C |
 | **Persona** | retail / analyst / student / journalist | Quyết định văn phong + độ chi tiết |

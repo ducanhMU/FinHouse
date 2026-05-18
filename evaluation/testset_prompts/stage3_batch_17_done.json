@@ -1,0 +1,529 @@
+[
+{
+"id": "E-004",
+"question": "Đánh giá ngành bán lẻ năm 2024 qua sức mua tiêu dùng, biên lợi nhuận và xu hướng mở rộng chuỗi.",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"retail_sector",
+"consumer_demand",
+"profit_margin",
+"store_expansion"
+],
+"expected_timeframe": "2024",
+"scope": "sector",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Ngành bán lẻ Việt Nam năm 2024 phục hồi nhưng chưa bùng nổ. Tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng đạt 6.391,0 nghìn tỷ đồng, tăng 9,0% theo giá hiện hành và tăng 5,9% nếu loại trừ yếu tố giá. Điều này cho thấy sức mua hồi phục thực chất nhưng vẫn thấp hơn tốc độ tăng danh nghĩa, phản ánh người tiêu dùng còn thận trọng. Về cấu trúc ngành, nhóm bán lẻ hàng thiết yếu và dịch vụ tiêu dùng phục hồi tốt hơn nhóm hàng không thiết yếu giá trị cao. Xu hướng mở rộng chuỗi trong năm 2024 chuyển từ mở rộng ồ ạt sang tối ưu hiệu quả điểm bán, thể hiện rõ ở MWG khi doanh nghiệp tập trung tái cấu trúc, nâng doanh thu/cửa hàng và cải thiện lợi nhuận. Vì vậy, outlook ngành bán lẻ 2024 là phục hồi chọn lọc: doanh nghiệp có năng lực vận hành chuỗi, kiểm soát tồn kho và tối ưu chi phí sẽ cải thiện biên lợi nhuận tốt hơn.",
+"sources": [
+"MWG_BCTN24.pdf",
+"MWG_BCTN25.pdf",
+"Conversation History"
+],
+"web_sources": [
+"[https://www.nso.gov.vn/bai-top/2025/01/bao-cao-tinh-hinh-kinh-te-xa-hoi-quy-iv-va-nam-2024/](https://www.nso.gov.vn/bai-top/2025/01/bao-cao-tinh-hinh-kinh-te-xa-hoi-quy-iv-va-nam-2024/)",
+"[https://vneconomy.vn/ban-le-hang-hoa-va-doanh-thu-dich-vu-tieu-dung-nam-2024-tang-9-dat-muc-tieu-cua-chinh-phu.htm](https://vneconomy.vn/ban-le-hang-hoa-va-doanh-thu-dich-vu-tieu-dung-nam-2024-tang-9-dat-muc-tieu-cua-chinh-phu.htm)",
+"[https://vietstock.vn/2025/01/tong-muc-ban-le-hang-hoa-va-doanh-thu-dich-vu-tieu-dung-nam-2024-uoc-dat-6391-trieu-ty-dong-768-1259451.htm](https://vietstock.vn/2025/01/tong-muc-ban-le-hang-hoa-va-doanh-thu-dich-vu-tieu-dung-nam-2024-uoc-dat-6391-trieu-ty-dong-768-1259451.htm)",
+"[https://vietstock.vn/2025/04/mwg-bao-cao-thuong-nien-nam-2024-737-1292654.htm](https://vietstock.vn/2025/04/mwg-bao-cao-thuong-nien-nam-2024-737-1292654.htm)"
+],
+"key_facts": [
+"Tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng năm 2024 = 6.391,0 nghìn tỷ đồng [NSO]",
+"Tăng trưởng tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng năm 2024 = 9,0% YoY theo giá hiện hành [NSO]",
+"Tăng trưởng tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng năm 2024 = 5,9% YoY nếu loại trừ yếu tố giá [NSO]",
+"Tổng mức bán lẻ hàng hóa và doanh thu dịch vụ tiêu dùng năm 2024 cao hơn 29,4% so với năm 2019 [Vietstock/NSO]",
+"Doanh thu bán lẻ hàng hóa năm 2024 cao hơn 31,5% so với năm 2019 [Vietstock/NSO]",
+"Doanh thu du lịch lữ hành năm 2024 cao hơn 39,8% so với năm 2019 [Vietstock/NSO]",
+"MWG công bố Báo cáo thường niên năm 2024 ngày 08/04/2025 [Vietstock]",
+"Xu hướng bán lẻ 2024 = phục hồi chọn lọc, không phải mở rộng chuỗi ồ ạt [tổng hợp NSO + MWG BCTN]"
+],
+"negative_facts": [
+"Không nói ngành bán lẻ mở rộng chuỗi ồ ạt trong năm 2024.",
+"Không nói sức mua hàng công nghệ/điện máy giá trị cao bùng nổ nếu không có số liệu riêng.",
+"Không dùng tăng trưởng danh nghĩa 9,0% thay cho tăng trưởng thực 5,9%."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "E-005",
+"question": "Ngành công nghệ thông tin Việt Nam năm 2024 có những driver tăng trưởng chính nào từ chuyển đổi số, xuất khẩu phần mềm và AI?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"IT_sector",
+"digital_transformation",
+"software_export",
+"AI"
+],
+"expected_timeframe": "2024",
+"scope": "sector",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Ngành công nghệ thông tin Việt Nam năm 2024 được thúc đẩy bởi ba driver chính. Thứ nhất là chuyển đổi số: Chính phủ tiếp tục định hướng phát triển kinh tế số dựa trên công nghiệp CNTT-truyền thông, số hóa các ngành kinh tế, quản trị số và dữ liệu số. Thứ hai là xuất khẩu phần mềm/dịch vụ CNTT: các doanh nghiệp lớn như FPT tiếp tục mở rộng dịch vụ CNTT toàn cầu, nâng vị thế trong chuỗi giá trị ở các mảng automotive, bán dẫn, cloud và chuyển đổi số. Thứ ba là AI: báo cáo thường niên FPT 2024 nhấn mạnh tích hợp AI vào chuyển đổi số và chuyển đổi xanh, coi AI là công nghệ lõi để nâng cao hiệu quả vận hành và tạo sản phẩm/dịch vụ mới. Do đó, outlook ngành CNTT 2024 tích cực, nhưng tăng trưởng tập trung ở doanh nghiệp có năng lực xuất khẩu, đội ngũ kỹ sư, năng lực AI/cloud và quan hệ khách hàng quốc tế.",
+"sources": [
+"FPT_BCTN24.pdf",
+"MBB_BCTN24.pdf"
+],
+"web_sources": [
+"[https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2025/april/20250402---fpt---bao-cao-thuong-nien-nam-2024.pdf](https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2025/april/20250402---fpt---bao-cao-thuong-nien-nam-2024.pdf)",
+"[https://chungta.vn/kinh-doanh/fpt-ra-mat-bao-cao-thuong-nien-2024-1139686.html](https://chungta.vn/kinh-doanh/fpt-ra-mat-bao-cao-thuong-nien-2024-1139686.html)",
+"[https://www.vinasa.org.vn/vinasa/4/3076/4211/18581/Tin-VINASA/TCBC-Khai-mac-Dien-dan-cap-cao-Chuyen-doi-so-Viet-Nam---Chau-Á-2024.aspx](https://www.vinasa.org.vn/vinasa/4/3076/4211/18581/Tin-VINASA/TCBC-Khai-mac-Dien-dan-cap-cao-Chuyen-doi-so-Viet-Nam---Chau-Á-2024.aspx)",
+"[https://www.vinasa.org.vn/vinasa/4/3076/4211/18686/Tin-VINASA/Truc-tiep--Le-cong-bo-va-vinh-danh--TOP-10-Doanh-nghiep-cong-nghe-so-xuat-sac-Viet-Nam-2024-.aspx](https://www.vinasa.org.vn/vinasa/4/3076/4211/18686/Tin-VINASA/Truc-tiep--Le-cong-bo-va-vinh-danh--TOP-10-Doanh-nghiep-cong-nghe-so-xuat-sac-Viet-Nam-2024-.aspx)"
+],
+"key_facts": [
+"FPT công bố Báo cáo thường niên năm 2024 ngày 02/04/2025 [FPT]",
+"FPT định hướng tích hợp AI vào chuyển đổi số và chuyển đổi xanh năm 2024 [FPT BCTN 2024]",
+"VINASA nêu định hướng chuyển đổi số năm 2024 gồm 4 trụ cột: công nghiệp CNTT-truyền thông, số hóa các ngành kinh tế, quản trị số và dữ liệu số [VINASA]",
+"Diễn đàn cấp cao Chuyển đổi số Việt Nam - châu Á 2024 diễn ra ngày 30/05/2024 [VINASA]",
+"VINASA tổ chức TOP 10 Doanh nghiệp công nghệ số xuất sắc Việt Nam 2024 ngày 21/09/2024 [VINASA]",
+"AI/GenAI là driver ứng dụng cho tối ưu vận hành, tự động hóa và cá nhân hóa dịch vụ trong năm 2024 [FPT BCTN 2024]",
+"Xuất khẩu phần mềm/dịch vụ CNTT tiếp tục là driver của doanh nghiệp công nghệ lớn như FPT trong năm 2024 [FPT BCTN 2024]",
+"Các mảng công nghệ giá trị cao được nhắc đến trong chiến lược 2024 gồm automotive, bán dẫn, cloud, AI và chuyển đổi số [FPT BCTN 2024]"
+],
+"negative_facts": [
+"Không nói xuất khẩu phần mềm suy thoái nếu không có số liệu ngành chứng minh.",
+"Không nói AI chưa có ứng dụng thực tiễn trong ngành CNTT Việt Nam.",
+"Không dùng mục tiêu dài hạn 2030 như số thực hiện năm 2024."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "E-006",
+"question": "Ngành chứng khoán năm 2024 hưởng lợi thế nào từ thanh khoản thị trường, margin lending và kỳ vọng nâng hạng?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"securities_sector",
+"market_liquidity",
+"margin_lending",
+"market_upgrade"
+],
+"expected_timeframe": "2024",
+"scope": "sector",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Ngành chứng khoán Việt Nam năm 2024 hưởng lợi từ thanh khoản cải thiện, dư nợ margin tăng và kỳ vọng nâng hạng thị trường. Thanh khoản thị trường duy trì tích cực với giá trị giao dịch bình quân khoảng 21.000-21.225 tỷ đồng/phiên, tăng khoảng 19%-20,7% so với năm 2023, hỗ trợ doanh thu môi giới và tự doanh. Margin lending hưởng lợi gián tiếp vì thanh khoản cao làm tăng nhu cầu đòn bẩy, đồng thời công ty chứng khoán có động lực tăng vốn để mở rộng hạn mức cho vay. Về nâng hạng, Thông tư 68/2024/TT-BTC có hiệu lực đầu tháng 11/2024 và bổ sung cơ chế giao dịch mua cổ phiếu không yêu cầu nhà đầu tư tổ chức nước ngoài có đủ tiền khi đặt lệnh, giúp tháo gỡ nút thắt pre-funding. Tuy nhiên, Việt Nam chưa được nâng hạng chính thức trong năm 2024, nên kỳ vọng nâng hạng là driver định giá và dòng vốn tương lai, không phải sự kiện đã hoàn tất.",
+"sources": [
+"SSI_BCTN24.pdf",
+"VCBS_BCTN24.pdf"
+],
+"web_sources": [
+"[https://www.ssi.com.vn/upload/files/IR/Reports/SSI_BCTN2024_VN.pdf](https://www.ssi.com.vn/upload/files/IR/Reports/SSI_BCTN2024_VN.pdf)",
+"[https://thoibaotaichinhvietnam.vn/thi-truong-chung-khoan-viet-nam-nam-2024-duy-tri-da-tang-truong-on-dinh-166659.html](https://thoibaotaichinhvietnam.vn/thi-truong-chung-khoan-viet-nam-nam-2024-duy-tri-da-tang-truong-on-dinh-166659.html)",
+"[https://thitruongtaichinhtiente.vn/chinh-thuc-thong-qua-quy-dinh-go-vuong-pre-funding-hieu-luc-thi-hanh-tu-ngay-2-11-62710.html](https://thitruongtaichinhtiente.vn/chinh-thuc-thong-qua-quy-dinh-go-vuong-pre-funding-hieu-luc-thi-hanh-tu-ngay-2-11-62710.html)",
+"[https://www.dnse.com.vn/senses/tin-tuc/cac-cong-ty-chung-khoan-san-sang-cho-san-choi-non-prefunding-34003384](https://www.dnse.com.vn/senses/tin-tuc/cac-cong-ty-chung-khoan-san-sang-cho-san-choi-non-prefunding-34003384)"
+],
+"key_facts": [
+"Giá trị giao dịch bình quân thị trường chứng khoán Việt Nam năm 2024 = khoảng 21.000 tỷ đồng/phiên [SSI BCTN 2024]",
+"Tăng trưởng giá trị giao dịch bình quân năm 2024 = 19% YoY [SSI BCTN 2024]",
+"Giá trị giao dịch bình quân từ đầu năm đến 18/12/2024 = 21.225 tỷ đồng/phiên [Thời báo Tài chính Việt Nam]",
+"Tăng trưởng giá trị giao dịch bình quân từ đầu năm đến 18/12/2024 = 20,7% YoY [Thời báo Tài chính Việt Nam]",
+"Thông tư 68/2024/TT-BTC được thông qua tháng 09/2024 để gỡ vướng pre-funding [Thị trường Tài chính Tiền tệ]",
+"Thông tư 68/2024/TT-BTC có hiệu lực từ đầu tháng 11/2024 [DNSE]",
+"Thông tư 68/2024/TT-BTC bổ sung giao dịch mua cổ phiếu không yêu cầu có đủ tiền khi đặt lệnh đối với nhà đầu tư tổ chức nước ngoài [Thị trường Tài chính Tiền tệ]",
+"Việt Nam chưa được nâng hạng chính thức trong năm 2024 [web review]"
+],
+"negative_facts": [
+"Không nói thị trường chứng khoán Việt Nam đã chính thức được nâng hạng trong năm 2024.",
+"Không nói thanh khoản sụt giảm mạnh cả năm 2024.",
+"Không dùng số SSI margin +41% nếu không đối chiếu được đúng kỳ và đúng chỉ tiêu."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "E-007",
+"question": "Vĩ mô Việt Nam năm 2024: GDP, lạm phát, tỷ giá và lãi suất tạo môi trường thuận lợi hay rủi ro cho thị trường chứng khoán?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"Vietnam_macro",
+"GDP",
+"inflation",
+"exchange_rate",
+"interest_rate"
+],
+"expected_timeframe": "2024",
+"scope": "macro",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Vĩ mô Việt Nam năm 2024 tạo môi trường nhìn chung thuận lợi cho thị trường chứng khoán nhờ tăng trưởng GDP cao và lạm phát trong kiểm soát, nhưng bị kìm hãm bởi áp lực tỷ giá. GDP năm 2024 tăng 7,09%, CPI bình quân tăng 3,63%, tiêu dùng cuối cùng tăng 6,57% và tích lũy tài sản tăng 7,20%, tạo nền tảng cho lợi nhuận doanh nghiệp niêm yết phục hồi. Lãi suất cho vay giảm bình quân 0,59% so với cuối năm 2023, hỗ trợ chi phí vốn và định giá cổ phiếu. Ngược lại, tỷ giá USD tăng hơn 5% trong năm 2024 và lãi suất huy động tăng 0,71% so với cuối năm 2023, gây áp lực lên dòng vốn ngoại và chi phí vốn cuối năm. Kết luận: môi trường nội địa thuận lợi, nhưng rủi ro ngoại biên từ tỷ giá và USD mạnh là yếu tố cản trở VN-Index bứt phá mạnh.",
+"sources": [
+"SSI_BCTN24.pdf",
+"VCB_BCTN24.pdf",
+"TPB_BCTN24.pdf"
+],
+"web_sources": [
+"[https://www.mpi.gov.vn/portal/Pages/2025-1-6/GDP-nam-2024-uoc-tinh-tang-7-09-so-voi-nam-truoc6l8vmy.aspx](https://www.mpi.gov.vn/portal/Pages/2025-1-6/GDP-nam-2024-uoc-tinh-tang-7-09-so-voi-nam-truoc6l8vmy.aspx)",
+"[https://tapchinganhang.gov.vn/nam-2024-nen-kinh-te-viet-nam-dat-muc-tang-truong-709-15095-15095.html](https://tapchinganhang.gov.vn/nam-2024-nen-kinh-te-viet-nam-dat-muc-tang-truong-709-15095-15095.html)",
+"[https://vtv.vn/kinh-te/ty-gia-usd-tang-hon-5-trong-nam-2024-20250107152709366.htm](https://vtv.vn/kinh-te/ty-gia-usd-tang-hon-5-trong-nam-2024-20250107152709366.htm)",
+"[https://thoibaotaichinhvietnam.vn/thi-truong-chung-khoan-viet-nam-nam-2024-duy-tri-da-tang-truong-on-dinh-166659.html](https://thoibaotaichinhvietnam.vn/thi-truong-chung-khoan-viet-nam-nam-2024-duy-tri-da-tang-truong-on-dinh-166659.html)"
+],
+"key_facts": [
+"GDP Việt Nam năm 2024 tăng 7,09% YoY [MPI/GSO]",
+"CPI bình quân năm 2024 tăng 3,63% YoY [GSO/Tạp chí Ngân hàng]",
+"Tiêu dùng cuối cùng năm 2024 tăng 6,57% YoY [MPI/GSO]",
+"Tích lũy tài sản năm 2024 tăng 7,20% YoY [MPI/GSO]",
+"Xuất khẩu hàng hóa và dịch vụ năm 2024 tăng 15,45% YoY [MPI/GSO]",
+"Nhập khẩu hàng hóa và dịch vụ năm 2024 tăng 16,10% YoY [MPI/GSO]",
+"Tỷ giá USD tăng hơn 5% trong năm 2024 [VTV]",
+"Lãi suất huy động năm 2024 tăng 0,71% so với cuối năm 2023 [VTV]",
+"Lãi suất cho vay năm 2024 giảm bình quân 0,59% so với cuối năm 2023 [VTV]",
+"Giá trị giao dịch bình quân thị trường chứng khoán năm 2024 đạt khoảng 21.225 tỷ đồng/phiên, tăng 20,7% YoY [Thời báo Tài chính Việt Nam]"
+],
+"negative_facts": [
+"Không nói tỷ giá USD/VND hoàn toàn ổn định trong năm 2024.",
+"Không nói lãi suất huy động tăng vọt làm tê liệt thị trường chứng khoán.",
+"Không dùng GDP danh nghĩa thay cho tăng trưởng GDP thực 7,09%."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "E-008",
+"question": "Tỷ giá USD/VND năm 2024 gây áp lực như thế nào lên doanh nghiệp nhập khẩu, doanh nghiệp vay ngoại tệ và nhóm xuất khẩu?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"USD/VND",
+"importers",
+"foreign_currency_debt",
+"exporters"
+],
+"expected_timeframe": "2024",
+"scope": "macro",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, USD/VND tăng hơn 5%, tạo tác động phân hóa lên doanh nghiệp. Với doanh nghiệp nhập khẩu, tỷ giá tăng làm chi phí hàng hóa, nguyên vật liệu và máy móc nhập khẩu tăng bằng VND, gây áp lực lên biên lợi nhuận nếu không chuyển được chi phí sang giá bán. Với doanh nghiệp vay ngoại tệ, tỷ giá tăng làm tăng chi phí lãi vay và có thể tạo lỗ chênh lệch tỷ giá khi đánh giá lại dư nợ ngoại tệ cuối kỳ. Với nhóm xuất khẩu, VND yếu hỗ trợ doanh thu quy đổi sang VND và sức cạnh tranh giá, trong bối cảnh xuất khẩu hàng hóa và dịch vụ năm 2024 tăng 15,45%; tuy nhiên lợi ích bị giảm nếu doanh nghiệp phải nhập khẩu nhiều nguyên liệu đầu vào, vì nhập khẩu cũng tăng 16,10%. Vì vậy, tỷ giá 2024 là rủi ro rõ nhất cho nhóm nhập khẩu/vay USD, còn nhóm xuất khẩu hưởng lợi có điều kiện.",
+"sources": [
+"SSI_BCTN24.pdf",
+"TPB_BCTN24.pdf"
+],
+"web_sources": [
+"[https://vtv.vn/kinh-te/ty-gia-usd-tang-hon-5-trong-nam-2024-20250107152709366.htm](https://vtv.vn/kinh-te/ty-gia-usd-tang-hon-5-trong-nam-2024-20250107152709366.htm)",
+"[https://www.mpi.gov.vn/portal/Pages/2025-1-6/GDP-nam-2024-uoc-tinh-tang-7-09-so-voi-nam-truoc6l8vmy.aspx](https://www.mpi.gov.vn/portal/Pages/2025-1-6/GDP-nam-2024-uoc-tinh-tang-7-09-so-voi-nam-truoc6l8vmy.aspx)",
+"[https://tapchinganhang.gov.vn/nam-2024-nen-kinh-te-viet-nam-dat-muc-tang-truong-709-15095-15095.html](https://tapchinganhang.gov.vn/nam-2024-nen-kinh-te-viet-nam-dat-muc-tang-truong-709-15095-15095.html)",
+"[https://baomoi.com/nam-2024-gdp-tang-7-09-cpi-tang-3-63-c51175730.epi](https://baomoi.com/nam-2024-gdp-tang-7-09-cpi-tang-3-63-c51175730.epi)"
+],
+"key_facts": [
+"Tỷ giá USD tăng hơn 5% trong năm 2024 [VTV]",
+"Lãi suất huy động năm 2024 tăng 0,71% so với cuối năm 2023 [VTV]",
+"Lãi suất cho vay năm 2024 giảm bình quân 0,59% so với cuối năm 2023 [VTV]",
+"Xuất khẩu hàng hóa và dịch vụ năm 2024 tăng 15,45% YoY [MPI/GSO]",
+"Nhập khẩu hàng hóa và dịch vụ năm 2024 tăng 16,10% YoY [MPI/GSO]",
+"Doanh nghiệp nhập khẩu chịu áp lực chi phí đầu vào bằng VND khi USD/VND tăng [suy luận từ tỷ giá + nhập khẩu]",
+"Doanh nghiệp vay ngoại tệ chịu rủi ro lỗ chênh lệch tỷ giá khi USD/VND tăng [suy luận từ tỷ giá]",
+"Doanh nghiệp xuất khẩu hưởng lợi doanh thu quy đổi nhưng bị triệt tiêu một phần nếu nhập khẩu nguyên liệu lớn [suy luận từ xuất khẩu + nhập khẩu]"
+],
+"negative_facts": [
+"Không nói doanh nghiệp nhập khẩu hưởng lợi trực tiếp từ tỷ giá USD/VND tăng.",
+"Không nói doanh nghiệp vay ngoại tệ không chịu tác động tiêu cực nào.",
+"Không dùng mức tăng xuất khẩu 14,3% nếu không khớp nguồn GSO đã verify."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "E-009",
+"question": "Lãi suất điều hành và lãi suất huy động năm 2024 ảnh hưởng thế nào đến định giá cổ phiếu và dòng tiền vào thị trường?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"policy_rate",
+"deposit_rate",
+"equity_valuation",
+"market_liquidity"
+],
+"expected_timeframe": "2024",
+"scope": "macro",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, mặt bằng lãi suất nhìn chung vẫn hỗ trợ thị trường chứng khoán, dù lãi suất huy động có nhích tăng về cuối năm. Theo Ngân hàng Nhà nước, lãi suất huy động năm 2024 tăng 0,71% so với cuối năm 2023, trong khi lãi suất cho vay giảm bình quân 0,59% so với cuối năm 2023. Lãi suất cho vay giảm giúp doanh nghiệp giảm chi phí tài chính và hỗ trợ kỳ vọng lợi nhuận, qua đó hỗ trợ định giá cổ phiếu. Lãi suất tiền gửi vẫn ở vùng thấp so với giai đoạn thắt chặt trước đó làm giảm chi phí cơ hội nắm giữ cổ phiếu, góp phần kéo dòng tiền nội vào thị trường; thanh khoản chứng khoán năm 2024 đạt khoảng 21.000-21.225 tỷ đồng/phiên, tăng khoảng 19%-20,7% so với 2023. Tuy nhiên, lãi suất huy động tăng lại cùng áp lực tỷ giá khiến tác động hỗ trợ không tuyệt đối.",
+"sources": [
+"SSI_BCTN24.pdf",
+"VCBS_BCTN24.pdf"
+],
+"web_sources": [
+"[https://vtv.vn/kinh-te/ty-gia-usd-tang-hon-5-trong-nam-2024-20250107152709366.htm](https://vtv.vn/kinh-te/ty-gia-usd-tang-hon-5-trong-nam-2024-20250107152709366.htm)",
+"[https://thoibaotaichinhvietnam.vn/thi-truong-chung-khoan-viet-nam-nam-2024-duy-tri-da-tang-truong-on-dinh-166659.html](https://thoibaotaichinhvietnam.vn/thi-truong-chung-khoan-viet-nam-nam-2024-duy-tri-da-tang-truong-on-dinh-166659.html)",
+"[https://www.ssi.com.vn/upload/files/IR/Reports/SSI_BCTN2024_VN.pdf](https://www.ssi.com.vn/upload/files/IR/Reports/SSI_BCTN2024_VN.pdf)",
+"[https://mekongasean.vn/phan-tich-cac-kenh-dau-tu-cho-nam-2024-11314.html](https://mekongasean.vn/phan-tich-cac-kenh-dau-tu-cho-nam-2024-11314.html)"
+],
+"key_facts": [
+"Lãi suất huy động năm 2024 tăng 0,71% so với cuối năm 2023 [VTV/NHNN]",
+"Lãi suất cho vay năm 2024 giảm bình quân 0,59% so với cuối năm 2023 [VTV/NHNN]",
+"Tỷ giá USD tăng hơn 5% trong năm 2024 [VTV/NHNN]",
+"Giá trị giao dịch bình quân thị trường chứng khoán năm 2024 = khoảng 21.000 tỷ đồng/phiên [SSI BCTN 2024]",
+"Giá trị giao dịch bình quân thị trường chứng khoán từ đầu năm đến 18/12/2024 = 21.225 tỷ đồng/phiên [Thời báo Tài chính Việt Nam]",
+"Tăng trưởng giá trị giao dịch bình quân thị trường chứng khoán năm 2024 = khoảng 19%-20,7% YoY [SSI/Thời báo Tài chính Việt Nam]",
+"Lãi suất cho vay giảm hỗ trợ chi phí tài chính doanh nghiệp và định giá cổ phiếu [suy luận từ NHNN + TTCK]",
+"Lãi suất huy động thấp tương đối hỗ trợ dòng tiền cá nhân vào tài sản rủi ro, nhưng áp lực tỷ giá làm giảm mức hỗ trợ [suy luận từ NHNN + TTCK]"
+],
+"negative_facts": [
+"Không nói lãi suất huy động tăng cao làm dòng tiền rút khỏi chứng khoán trong cả năm 2024.",
+"Không nói định giá cổ phiếu sụt giảm mạnh do chính sách tiền tệ thắt chặt nếu không có dữ liệu P/E.",
+"Không dùng con số VN-Index tăng 12,1% nếu chưa verify trực tiếp trong lượt web này."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "E-010",
+"question": "Giá dầu năm 2024 tác động ra sao đến nhóm dầu khí, điện khí và doanh nghiệp phân phối xăng dầu tại Việt Nam?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"oil_price",
+"oil_gas_sector",
+"gas_power",
+"petroleum_distribution"
+],
+"expected_timeframe": "2024",
+"scope": "macro",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Năm 2024, giá dầu Brent được các tổ chức dự báo/ghi nhận quanh vùng cao 75-85 USD/thùng trong phần lớn năm, tạo tác động phân hóa. Với nhóm dầu khí thượng nguồn và trung nguồn, giá dầu duy trì cao hơn điểm hòa vốn là yếu tố hỗ trợ doanh thu, giá bán khí và động lực đầu tư khai thác, dù vẫn chịu rủi ro suy giảm nguồn khí nội địa và chi phí LNG nhập khẩu. Với điện khí, giá khí/LNG cao làm chi phí phát điện kém cạnh tranh so với thủy điện, than hoặc năng lượng tái tạo trong một số thời điểm; rủi ro lớn là thiếu cơ chế giá LNG ổn định. Với phân phối xăng dầu, doanh nghiệp như PLX hưởng lợi từ nhu cầu giao thông/du lịch phục hồi, nhưng biên lợi nhuận chịu rủi ro biến động giá dầu, tồn kho và chuỗi cung ứng do địa chính trị. Do chưa verify được chính xác giá dầu Brent bình quân cả năm 2024 từ nguồn thống kê chính thức trong lượt này, không dùng số 81 USD/thùng làm key_fact chính xác.",
+"sources": [
+"GAS_BCTN24.pdf",
+"PLX_BCTN24.pdf"
+],
+"web_sources": [
+"[https://nangluongquocte.petrotimes.vn/phan-tich-va-du-bao-gia-dau-brent-moi-nhat-cho-nam-2024-va-2025-718993.html](https://nangluongquocte.petrotimes.vn/phan-tich-va-du-bao-gia-dau-brent-moi-nhat-cho-nam-2024-va-2025-718993.html)",
+"[https://www.psi.vn/uploads/trung-tam-phan-tich/bao-cao/Tai%20lieu%202/BC%20Gi%C3%A1%20d%E1%BA%A7u%2005_2024.pdf](https://www.psi.vn/uploads/trung-tam-phan-tich/bao-cao/Tai%20lieu%202/BC%20Gi%C3%A1%20d%E1%BA%A7u%2005_2024.pdf)",
+"[https://www.pvgas.com.vn/DesktopModules/EasyDNNNews/DocumentDownload.ashx?articleid=13793&documentid=2924&moduleid=574&portalid=0](https://www.pvgas.com.vn/DesktopModules/EasyDNNNews/DocumentDownload.ashx?articleid=13793&documentid=2924&moduleid=574&portalid=0)"
+],
+"key_facts": [
+"EIA tháng 10/2024 dự báo giá Brent Q4/2024 trung bình = 75,97 USD/thùng [Petrotimes/EIA]",
+"EIA tháng 9/2024 từng dự báo giá Brent Q4/2024 trung bình = 81,64 USD/thùng [Petrotimes/EIA]",
+"JPMorgan Chase dự báo giá dầu năm 2024 = 84 USD/thùng trong báo cáo PSI tháng 05/2024 [PSI]",
+"Citigroup dự báo giá dầu năm 2024 = 76 USD/thùng trong báo cáo PSI tháng 05/2024 [PSI]",
+"Bank of America dự báo giá dầu năm 2024 = 86 USD/thùng trong báo cáo PSI tháng 05/2024 [PSI]",
+"Giá dầu cao hỗ trợ hoạt động E&P nếu vượt xa điểm hòa vốn khai thác [PSI]",
+"Nhóm điện khí chịu rủi ro chi phí LNG/khí cao và thiếu cơ chế giá ổn định [tổng hợp PV GAS + PSI]",
+"Doanh nghiệp phân phối xăng dầu chịu rủi ro tồn kho và biến động giá khi giá dầu thế giới biến động [suy luận ngành]"
+],
+"negative_facts": [
+"Không dùng giá dầu Brent trung bình 81 USD/thùng làm số chính xác nếu chưa verify từ nguồn thống kê cả năm.",
+"Không nói nhóm điện khí bùng nổ nhờ LNG cực thấp trong năm 2024.",
+"Không nói giá dầu giảm sâu làm toàn bộ doanh nghiệp dầu khí thua lỗ nặng."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "E-011",
+"question": "Ngành phân bón năm 2024 chịu ảnh hưởng chính từ giá khí đầu vào, giá ure và nhu cầu nông nghiệp như thế nào?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"fertilizer_sector",
+"gas_input_price",
+"urea_price",
+"agriculture_demand"
+],
+"expected_timeframe": "2024",
+"scope": "sector",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "multi_fact",
+"needs_clarification": false,
+"reference_answer": "Ngành phân bón Việt Nam năm 2024 chịu tác động chính từ ba yếu tố. Thứ nhất, giá khí/đầu vào năng lượng vẫn là biến số quan trọng đối với doanh nghiệp sản xuất ure từ khí như DPM/DCM; giá dầu, khí đốt và tỷ giá cao gây áp lực chi phí nhập khẩu và sản xuất. Thứ hai, giá ure năm 2024 ổn định hơn năm 2023 nhưng nhìn chung thấp hơn năm trước: giá ure thế giới bình quân thấp hơn 1%-12% tùy khu vực, trong khi ure Cà Mau/Phú Mỹ nội địa giảm nhẹ khoảng 1% so với 2023. Thứ ba, nhu cầu nông nghiệp phục hồi là yếu tố hỗ trợ quan trọng: nhu cầu phân bón Việt Nam năm 2024 tăng khoảng 16% lên 10,54-10,86 triệu tấn; sản xuất phân bón trong nước tăng khoảng 9% lên 5,75 triệu tấn. Vì vậy, outlook ngành 2024 tích cực nhờ nhu cầu phục hồi, nhưng biên lợi nhuận không bùng nổ vì giá ure không tăng mạnh và chi phí năng lượng/tỷ giá vẫn là rủi ro.",
+"sources": [],
+"web_sources": [
+"[https://dpm.vn/BCTN-DPM-2024/bao-cao-hoat-dong-nam-2024.html](https://dpm.vn/BCTN-DPM-2024/bao-cao-hoat-dong-nam-2024.html)",
+"[https://kirincapital.vn/wp-content/uploads/2024/11/BAO-CAO-NGANH-PHAN-BON-2024.pdf](https://kirincapital.vn/wp-content/uploads/2024/11/BAO-CAO-NGANH-PHAN-BON-2024.pdf)",
+"[https://vneconomy.vn/gia-ure-hoi-phuc-loi-nhuan-nhom-phan-bon-du-bao-tang-manh-trong-nam-2024-co-phieu-thom-tro-lai.htm](https://vneconomy.vn/gia-ure-hoi-phuc-loi-nhuan-nhom-phan-bon-du-bao-tang-manh-trong-nam-2024-co-phieu-thom-tro-lai.htm)",
+"[https://static1.vietstock.vn/edocs/Files/2024/10/07/bao-cao-cap-nhat-nganh-phan-bon_20241007152340.pdf](https://static1.vietstock.vn/edocs/Files/2024/10/07/bao-cao-cap-nhat-nganh-phan-bon_20241007152340.pdf)"
+],
+"key_facts": [
+"Nhu cầu phân bón thế giới năm 2024 = 203,6 triệu tấn, tăng 3% YoY [DPM BCTN 2024/IFA]",
+"Nhu cầu phân đạm N thế giới năm 2024 = 115,6 triệu tấn, tăng 2,2% YoY [DPM BCTN 2024/IFA]",
+"Nhu cầu P2O5 thế giới năm 2024 = 48 triệu tấn, tăng 3% YoY [DPM BCTN 2024/IFA]",
+"Nhu cầu K2O thế giới năm 2024 = 40 triệu tấn, tăng 6% YoY [DPM BCTN 2024/IFA]",
+"Giá ure thế giới bình quân năm 2024 thấp hơn 1%-12% so với năm 2023 tùy khu vực [DPM BCTN 2024]",
+"Giá ure FOB Đông Nam Á bình quân năm 2024 = 349 USD/tấn [DPM BCTN 2024]",
+"Giá ure FOB Hoa Kỳ bình quân năm 2024 = 320 USD/tấn [DPM BCTN 2024]",
+"Tổng nhu cầu phân bón Việt Nam năm 2024 tăng khoảng 16% YoY [DPM BCTN 2024]",
+"Tổng nhu cầu phân bón Việt Nam năm 2024 = khoảng 10,54-10,86 triệu tấn [DPM BCTN 2024]",
+"Sản xuất phân bón Việt Nam năm 2024 = khoảng 5,75 triệu tấn, tăng khoảng 9% YoY [DPM BCTN 2024]",
+"Giá ure Cà Mau/Phú Mỹ tại TP.HCM/Tây Nam Bộ năm 2024 giảm 23-225 đồng/kg, tương đương khoảng -1% so với 2023 [DPM BCTN 2024]",
+"AgroMonitor dự báo tiêu thụ ure Việt Nam năm 2024 tăng khoảng 13% so với niên vụ 2022-2023 [VnEconomy]"
+],
+"negative_facts": [
+"Không nói giá ure năm 2024 tăng mạnh trên mọi thị trường.",
+"Không nói nhu cầu phân bón Việt Nam suy giảm nếu dùng nguồn DPM/IFA đã verify.",
+"Không bỏ qua rủi ro giá khí/tỷ giá với doanh nghiệp sản xuất ure từ khí."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": false
+},
+{
+"id": "E-012",
+"question": "Đầu tư công năm 2024 có tác động lan tỏa thế nào đến các ngành xây dựng, vật liệu, bất động sản khu công nghiệp và ngân hàng?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"public_investment",
+"construction_sector",
+"materials_sector",
+"industrial_real_estate",
+"banking_sector"
+],
+"expected_timeframe": "2024",
+"scope": "macro",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Đầu tư công năm 2024 có tác động lan tỏa tích cực nhưng mức giải ngân chưa đạt kỳ vọng rất cao. Vốn đầu tư thực hiện từ ngân sách nhà nước năm 2024 ước đạt khoảng 529,6 nghìn tỷ đồng, bằng khoảng 77,5% kế hoạch năm và tăng 3,3% so với năm 2023. Tác động trực tiếp nhất nằm ở xây dựng hạ tầng và vật liệu xây dựng: thép, xi măng, đá xây dựng và nhà thầu hưởng lợi từ các dự án giao thông trọng điểm. Đối với bất động sản khu công nghiệp, hạ tầng kết nối tốt hơn giúp tăng sức hấp dẫn quỹ đất và hỗ trợ dòng vốn FDI; vốn FDI thực hiện năm 2024 đạt khoảng 25,35 tỷ USD, mức cao nhất nhiều năm. Đối với ngân hàng, đầu tư công hỗ trợ hấp thụ tín dụng ở nhóm xây dựng, vật liệu, logistics và bất động sản khu công nghiệp; tín dụng toàn nền kinh tế năm 2024 tăng 15,08%. Vì vậy, đầu tư công là driver lan tỏa, nhưng không nên mô tả là giải ngân vượt kế hoạch.",
+"sources": [
+"VIC_BCTN24.pdf",
+"HPG_BCTN24.pdf",
+"VRE_BCTN24.pdf",
+"MBB_BCTN24.pdf"
+],
+"web_sources": [
+"[https://www.nso.gov.vn/bai-top/2025/01/bao-cao-tinh-hinh-kinh-te-xa-hoi-quy-iv-va-nam-2024/](https://www.nso.gov.vn/bai-top/2025/01/bao-cao-tinh-hinh-kinh-te-xa-hoi-quy-iv-va-nam-2024/)",
+"[https://baochinhphu.vn/tang-truong-tin-dung-nam-2024-vuot-15-102250107170736751.htm](https://baochinhphu.vn/tang-truong-tin-dung-nam-2024-vuot-15-102250107170736751.htm)",
+"[https://thitruongtaichinhtiente.vn/ket-thuc-nam-2024-tin-dung-tang-15-08-65089.html](https://thitruongtaichinhtiente.vn/ket-thuc-nam-2024-tin-dung-tang-15-08-65089.html)",
+"[https://vsa.com.vn/tinh-hinh-thi-truong-thep-viet-nam-thang-12-2024-va-ca-nam-2024/](https://vsa.com.vn/tinh-hinh-thi-truong-thep-viet-nam-thang-12-2024-va-ca-nam-2024/)"
+],
+"key_facts": [
+"Vốn đầu tư thực hiện từ ngân sách nhà nước năm 2024 = khoảng 529,6 nghìn tỷ đồng [NSO]",
+"Tỷ lệ thực hiện vốn đầu tư từ ngân sách nhà nước năm 2024 = khoảng 77,5% kế hoạch năm [NSO]",
+"Tăng trưởng vốn đầu tư thực hiện từ ngân sách nhà nước năm 2024 = 3,3% YoY [NSO]",
+"Tăng trưởng tín dụng toàn nền kinh tế đến 31/12/2024 = 15,08% YoY [Báo Chính phủ/NHNN]",
+"Quy mô tín dụng tăng thêm năm 2024 = khoảng 2,1 triệu tỷ đồng [Báo Chính phủ/NHNN]",
+"Sản xuất thép thành phẩm Việt Nam năm 2024 = gần 26,9 triệu tấn, tăng 7,7% YoY [VSA]",
+"Tiêu thụ thép thành phẩm Việt Nam năm 2024 = 26,7 triệu tấn, tăng 13% YoY [VSA]",
+"Sản xuất thép xây dựng năm 2024 = 11,7 triệu tấn, tăng 10,1% YoY [VSA]",
+"Bán hàng thép xây dựng năm 2024 = 11,9 triệu tấn, tăng 9,3% YoY [VSA]",
+"Đầu tư công hỗ trợ trực tiếp nhu cầu vật liệu xây dựng và xây lắp hạ tầng [suy luận từ NSO + VSA]"
+],
+"negative_facts": [
+"Không nói đầu tư công năm 2024 đình trệ, không giải ngân được.",
+"Không nói giải ngân đầu tư công vượt kế hoạch năm 2024.",
+"Không dùng 70% kế hoạch nếu nguồn NSO đã verify mức khoảng 77,5%."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+},
+{
+"id": "E-013",
+"question": "Outlook ngành ngân hàng Việt Nam 2025: tăng trưởng tín dụng, NIM, nợ xấu và áp lực trích lập dự phòng sẽ là driver hay rủi ro chính?",
+"category": "E. Sector/macro",
+"expected_tools": [
+"rag",
+"web_search"
+],
+"expected_entities": [
+"banking_sector",
+"credit_growth",
+"NIM",
+"NPL",
+"provision_expense"
+],
+"expected_timeframe": "outlook 2025",
+"scope": "sector",
+"style": "analyze",
+"persona": "analyst — muốn outlook ngành, driver chính, rủi ro",
+"complexity": "reasoning",
+"needs_clarification": false,
+"reference_answer": "Outlook ngân hàng Việt Nam 2025 có driver chính là tăng trưởng tín dụng cao, nhưng rủi ro lớn nằm ở NIM, nợ xấu và trích lập dự phòng. Ngân hàng Nhà nước định hướng tăng trưởng tín dụng năm 2025 khoảng 16% và có thể điều chỉnh linh hoạt theo lạm phát, ổn định vĩ mô và sức hấp thụ vốn. Đây là động lực tăng quy mô thu nhập lãi. Tuy nhiên, tăng trưởng tín dụng cao có thể tạo áp lực thanh khoản nếu huy động không theo kịp, qua đó gây sức ép lên chi phí vốn và NIM. Chất lượng tài sản vẫn là rủi ro trọng yếu: nợ xấu hệ thống đã ở mức cao trong năm 2024, với nợ xấu nội bảng toàn hệ thống 4,55% cuối tháng 9/2024; sang 2025, xử lý nợ xấu, luật hóa Nghị quyết 42 và trích lập dự phòng tiếp tục là vấn đề quan trọng. Vì vậy, tín dụng là driver, còn NIM, nợ xấu và dự phòng là các rủi ro cần theo dõi.",
+"sources": [
+"ACB_BCTN24.pdf",
+"MBB_BCTN24.pdf",
+"MBB_BCTN25.pdf",
+"VPB_BCTN24.pdf",
+"VPB_BCTN25.pdf",
+"SSI_BCTN24.pdf"
+],
+"web_sources": [
+"[https://baochinhphu.vn/nganh-ngan-hang-nam-2025-tang-toc-tin-dung-gan-voi-kiem-soat-rui-ro-102250211144148725.htm](https://baochinhphu.vn/nganh-ngan-hang-nam-2025-tang-toc-tin-dung-gan-voi-kiem-soat-rui-ro-102250211144148725.htm)",
+"[https://daibieunhandan.vn/dinh-huong-tin-dung-nam-2025-tang-16-10356552.html](https://daibieunhandan.vn/dinh-huong-tin-dung-nam-2025-tang-16-10356552.html)",
+"[https://thoibaotaichinhvietnam.vn/du-bao-tang-truong-tin-dung-toan-nganh-ngan-hang-nam-2025-o-muc-15-166884.html](https://thoibaotaichinhvietnam.vn/du-bao-tang-truong-tin-dung-toan-nganh-ngan-hang-nam-2025-o-muc-15-166884.html)",
+"[https://kinhtevadubao.vn/den-cuoi-thang-92024-ty-le-no-xau-noi-bang-o-muc-455-tang-so-voi-nam-2022-30315.html](https://kinhtevadubao.vn/den-cuoi-thang-92024-ty-le-no-xau-noi-bang-o-muc-455-tang-so-voi-nam-2022-30315.html)"
+],
+"key_facts": [
+"Định hướng tăng trưởng tín dụng năm 2025 của NHNN = 16% [Báo Chính phủ]",
+"NHNN cho biết tăng trưởng tín dụng 2025 có thể điều chỉnh linh hoạt theo tình hình thực tế [Báo Chính phủ]",
+"NHNN nêu nếu lạm phát duy trì thấp có thể tăng tín dụng để kích thích tăng trưởng [Báo Chính phủ]",
+"NHNN nêu nếu có dấu hiệu rủi ro sẽ điều chỉnh chính sách tín dụng để đảm bảo ổn định vĩ mô [Báo Chính phủ]",
+"NHNN ưu tiên xử lý nợ xấu và tái cơ cấu hệ thống ngân hàng trong năm 2025 [Báo Chính phủ]",
+"NHNN mong muốn luật hóa Nghị quyết 42 về xử lý nợ xấu [Báo Chính phủ]",
+"Tỷ lệ nợ xấu nội bảng toàn hệ thống cuối tháng 9/2024 = 4,55% [Kinh tế & Dự báo]",
+"Dự báo tăng trưởng tín dụng toàn ngành ngân hàng năm 2025 = 15% theo một báo cáo thị trường [Thời báo Tài chính Việt Nam]",
+"Dự báo tỷ lệ nợ xấu năm 2025 = 1,5% theo một báo cáo thị trường [Thời báo Tài chính Việt Nam]",
+"Tín dụng cao là driver lợi nhuận, còn NIM, nợ xấu và dự phòng là rủi ro chính năm 2025 [tổng hợp nguồn]"
+],
+"negative_facts": [
+"Không nói NIM toàn ngành chắc chắn tăng đột phá chỉ vì tín dụng tăng nhanh.",
+"Không nói nợ xấu không còn là rủi ro đáng kể năm 2025.",
+"Không dùng mục tiêu 15-16% như số thực hiện nếu chưa hết năm 2025."
+],
+"unanswerable": false,
+"web_enriched": true,
+"web_verified": true,
+"corrected": true
+}
+]

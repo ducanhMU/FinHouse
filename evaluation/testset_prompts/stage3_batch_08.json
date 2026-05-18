@@ -1,0 +1,267 @@
+
+[
+  {
+    "id": "B-054",
+    "question": "DCM 2023 biên lợi nhuận gộp là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "DCM"
+    ],
+    "expected_timeframe": "2023",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-055",
+    "question": "PLX Q1/2024 doanh thu bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "PLX"
+    ],
+    "expected_timeframe": "Q1/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-056",
+    "question": "HCM quý 2/2024 lợi nhuận sau thuế bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "HCM"
+    ],
+    "expected_timeframe": "Q2/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-057",
+    "question": "PNJ Q3/2024 doanh thu thuần là bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "PNJ"
+    ],
+    "expected_timeframe": "Q3/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-058",
+    "question": "DGC quý 4/2024 EPS bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "DGC"
+    ],
+    "expected_timeframe": "Q4/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-059",
+    "question": "VIC Q2/2024 lãi sau thuế bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VIC"
+    ],
+    "expected_timeframe": "Q2/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "B-060",
+    "question": "GAS quý 3/2024 dòng tiền kinh doanh bao nhiêu?",
+    "category": "B. Single-fact lookup",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "GAS"
+    ],
+    "expected_timeframe": "Q3/2024",
+    "scope": "company",
+    "style": "lookup",
+    "persona": "retail — nhà đầu tư cá nhân, hỏi ngắn, thẳng, quan tâm ROE/EPS/cổ tức/P/E",
+    "complexity": "factual",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "C-001",
+    "question": "Phân tích VNM năm 2024 trên các khía cạnh doanh thu, lợi nhuận sau thuế, biên lợi nhuận gộp và mức nợ vay; điểm nào là động lực chính của kết quả năm?",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "VNM"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, Vinamilk (VNM) ghi nhận tổng doanh thu hợp nhất đạt 61.824 tỷ đồng và lợi nhuận sau thuế duy trì ở mức 9.453 tỷ đồng. Về cơ cấu tài chính, tổng dư nợ vay ngắn hạn và dài hạn của công ty ở mức 9.273 tỷ đồng, tăng 9,7% so với năm trước nhằm tối ưu hóa cấu trúc vốn. Tuy nhiên, các báo cáo hiện tại chưa cung cấp đủ số liệu chi tiết về biên lợi nhuận gộp theo từng mảng kinh doanh, do đó chưa thể đánh giá toàn diện đâu là động lực tăng trưởng cốt lõi nhất trong năm.",
+    "sources": [
+      "VNM_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Tổng doanh thu 2024 = 61.824 tỷ đồng",
+      "Lợi nhuận sau thuế = 9.453 tỷ đồng",
+      "Tổng nợ vay = 9.273 tỷ đồng (tăng 9,7%)",
+      "Chưa đủ dữ liệu về biên lợi nhuận gộp"
+    ],
+    "negative_facts": [
+      "Bịa đặt số liệu biên lợi nhuận gộp năm 2024",
+      "Khẳng định sai động lực chính của năm khi chưa có dữ liệu"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "C-002",
+    "question": "Đánh giá chất lượng tăng trưởng của FPT trong năm 2024 dựa trên doanh thu, lợi nhuận, biên lợi nhuận ròng và đóng góp từ các mảng kinh doanh chính.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "FPT"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, chất lượng tăng trưởng của FPT rất tích cực với doanh thu thuần đạt 62.849 tỷ đồng (tăng 19,4% so với cùng kỳ) và lợi nhuận sau thuế đạt 9.427 tỷ đồng,. Nhờ đó, biên lợi nhuận ròng của tập đoàn được duy trì ở mức cao xấp xỉ 15%. Đi sâu vào các mảng kinh doanh, khối Công nghệ tiếp tục là động lực chính khi chiếm 62,2% tổng doanh thu và 47,2% lợi nhuận trước thuế. Trong đó, mảng dịch vụ CNTT nước ngoài đóng góp lớn nhất với 30.952 tỷ đồng doanh thu, tiếp nối bởi lĩnh vực Viễn thông (16.906 tỷ đồng) và CNTT trong nước (8.157 tỷ đồng).",
+    "sources": [
+      "FPT_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Doanh thu thuần 2024 = 62.849 tỷ đồng (tăng 19,4%)",
+      "Lợi nhuận sau thuế = 9.427 tỷ đồng",
+      "Biên lợi nhuận ròng xấp xỉ 15%",
+      "Khối Công nghệ chiếm 62,2% doanh thu và 47,2% LNTT",
+      "Doanh thu CNTT nước ngoài = 30.952 tỷ đồng",
+      "Doanh thu Viễn thông = 16.906 tỷ đồng"
+    ],
+    "negative_facts": [
+      "Tính sai biên lợi nhuận ròng",
+      "Nêu sai tỷ trọng đóng góp của khối Công nghệ"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "C-003",
+    "question": "HPG năm 2024 phục hồi thế nào nếu nhìn vào doanh thu, lợi nhuận sau thuế, biên gộp và cấu trúc nợ?",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "HPG"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Sự phục hồi của Hòa Phát (HPG) trong năm 2024 được thể hiện qua doanh thu thuần đạt 138.855 tỷ đồng, tăng 17% so với năm trước [Conversation History]. Về hiệu quả cốt lõi, giá vốn hàng bán ở mức 120.357 tỷ đồng giúp doanh nghiệp duy trì biên lợi nhuận gộp khả quan, đồng thời tỷ suất EBITDA tiếp tục được duy trì tích cực qua các quý,,. Trong cấu trúc nợ, điểm sáng lớn nhất là HPG đã chủ động giảm mạnh tỷ trọng dư nợ vay bằng USD từ 16% (năm 2023) xuống chỉ còn 3% (năm 2024), qua đó giảm thiểu tối đa rủi ro tỷ giá và áp lực chi phí lãi vay.",
+    "sources": [
+      "HPG_BCTN24.pdf",
+      "Conversation History"
+    ],
+    "key_facts": [
+      "Doanh thu thuần 2024 = 138.855 tỷ đồng (tăng 17%)",
+      "Giá vốn hàng bán = 120.357 tỷ đồng",
+      "Tỷ suất EBITDA duy trì tích cực qua các quý",
+      "Tỷ trọng vay USD giảm mạnh từ 16% xuống 3%"
+    ],
+    "negative_facts": [
+      "Nêu sai doanh thu hoặc giá vốn năm 2024",
+      "Bịa đặt số liệu chi tiết lợi nhuận sau thuế năm 2024",
+      "Nhận định sai về chiến lược quản trị rủi ro tỷ giá của HPG"
+    ],
+    "unanswerable": false
+  }
+]

@@ -1,0 +1,255 @@
+
+[
+  {
+    "id": "C-024",
+    "question": "DCM 2022-2024: phân tích biến động doanh thu, biên lợi nhuận, lợi nhuận ròng và chính sách cổ tức để đánh giá tính chu kỳ của cổ phiếu.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "DCM"
+    ],
+    "expected_timeframe": "2022-2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "C-025",
+    "question": "MWG trong Q1-Q4/2024: xu hướng doanh thu và lợi nhuận theo quý cho thấy quá trình phục hồi diễn ra đều hay chỉ tập trung ở một vài quý?",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "MWG"
+    ],
+    "expected_timeframe": "Q1-Q4/2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "C-026",
+    "question": "HPG Q1-Q4/2024: phân tích theo quý doanh thu, biên gộp, lợi nhuận sau thuế và sản lượng để xác định điểm rơi phục hồi.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "HPG"
+    ],
+    "expected_timeframe": "Q1-Q4/2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "C-027",
+    "question": "TCB trong Q1-Q4/2024: NIM, thu nhập lãi thuần, nợ xấu và lợi nhuận trước thuế biến động ra sao qua từng quý?",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "TCB"
+    ],
+    "expected_timeframe": "Q1-Q4/2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "multi_fact",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "C-028",
+    "question": "ACB Q1-Q4/2024: phân tích diễn biến lợi nhuận trước thuế, NIM, chi phí tín dụng và nợ xấu để đánh giá quý nào chịu áp lực lớn nhất.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "ACB"
+    ],
+    "expected_timeframe": "Q1-Q4/2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "C-029",
+    "question": "PNJ trong Q1-Q4/2024: doanh thu, biên gộp, lợi nhuận ròng và hàng tồn kho theo quý cho thấy sức mua bán lẻ thay đổi thế nào?",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "PNJ"
+    ],
+    "expected_timeframe": "Q1-Q4/2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "C-030",
+    "question": "DPM Q1-Q4/2024: phân tích doanh thu, lợi nhuận sau thuế, biên lợi nhuận và dòng tiền kinh doanh để xem quý nào đóng góp chính vào cả năm.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "DPM"
+    ],
+    "expected_timeframe": "Q1-Q4/2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "C-031",
+    "question": "PLX năm 2024: phân tích doanh thu, lợi nhuận sau thuế, biên lợi nhuận và dòng tiền kinh doanh để đánh giá mức độ phục hồi của mảng xăng dầu.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "PLX"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, Tập đoàn Xăng dầu Việt Nam (PLX) ghi nhận sự phục hồi và tăng trưởng ổn định trong kết quả kinh doanh. Doanh thu thuần hợp nhất đạt 284.017 tỷ đồng, tăng so với mức 273.979 tỷ đồng của năm 2023,. Lợi nhuận sau thuế đạt 3.161 tỷ đồng, tăng nhẹ so với 3.077 tỷ đồng của năm trước,. Về biên lợi nhuận, lợi nhuận gộp đạt 17.351 tỷ đồng, tương ứng biên lợi nhuận gộp được cải thiện lên mức 6,1% (so với 5,5% năm 2023),. Mảng xăng dầu tiếp tục đóng vai trò cốt lõi khi khối xăng dầu thành viên mang lại doanh thu thuần bán ra bên ngoài lên tới 188.953 tỷ đồng,. Tuy kết quả kinh doanh khởi sắc, dòng tiền thuần từ hoạt động kinh doanh trong năm 2024 lại sụt giảm, chỉ đạt 2.372 tỷ đồng so với mức 5.273 tỷ đồng của năm 2023,.",
+    "sources": [
+      "PLX_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Doanh thu thuần 2024 đạt 284.017 tỷ đồng, tăng so với 2023",
+      "Lợi nhuận sau thuế 2024 đạt 3.161 tỷ đồng",
+      "Lợi nhuận gộp đạt 17.351 tỷ đồng, biên gộp khoảng 6,1%",
+      "Dòng tiền thuần từ HĐKD đạt 2.372 tỷ đồng, giảm so với 2023 (5.273 tỷ đồng)",
+      "Khối xăng dầu thành viên có doanh thu thuần bán ra bên ngoài đạt 188.953 tỷ đồng"
+    ],
+    "negative_facts": [
+      "Bịa đặt dòng tiền kinh doanh tăng mạnh",
+      "Cho rằng doanh thu xăng dầu sụt giảm"
+    ],
+    "unanswerable": false
+  },
+  {
+    "id": "C-032",
+    "question": "POW năm 2024 vận hành thế nào nếu xét doanh thu, lợi nhuận sau thuế, biên lợi nhuận và chi phí tài chính?",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "POW"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": [],
+    "negative_facts": [],
+    "unanswerable": true
+  },
+  {
+    "id": "C-033",
+    "question": "GVR năm 2024: đánh giá doanh thu, lợi nhuận ròng, biên gộp và nợ vay để xem kết quả có phụ thuộc nhiều vào yếu tố ngoài hoạt động cốt lõi không.",
+    "category": "C. Multi-fact analyze",
+    "expected_tools": [
+      "database",
+      "rag"
+    ],
+    "expected_entities": [
+      "GVR"
+    ],
+    "expected_timeframe": "2024",
+    "scope": "company",
+    "style": "analyze",
+    "persona": "analyst — chuyên viên phân tích, hỏi sâu, muốn xu hướng multi-period + segment breakdown",
+    "complexity": "reasoning",
+    "needs_clarification": false,
+    "reference_answer": "Năm 2024, Tập đoàn Công nghiệp Cao su Việt Nam (GVR) ghi nhận tổng doanh thu và thu nhập khác hợp nhất đạt 28.739 tỷ đồng (tăng 16,36% so với năm trước), trong đó doanh thu thuần là 22.138 tỷ đồng,. Lợi nhuận sau thuế hợp nhất đạt mức 4.826 tỷ đồng, tăng 43,11% so với năm 2023,. Lợi nhuận gộp từ bán hàng và cung cấp dịch vụ đạt 4.962 tỷ đồng, tương ứng biên lợi nhuận gộp khoảng 22,4%,. Về nợ vay, trong năm GVR ghi nhận chi phí lãi vay là 477,5 tỷ đồng, với dòng tiền thu từ đi vay là 6.577 tỷ đồng và chi trả nợ gốc là 6.118 tỷ đồng,. Phân tích cơ cấu lợi nhuận cho thấy, bên cạnh mảng cốt lõi, GVR ghi nhận doanh thu hoạt động tài chính lên tới 1.114 tỷ đồng và thu nhập khác đạt 1.654 tỷ đồng,. Với tổng lợi nhuận trước thuế hợp nhất là 5.606 tỷ đồng, có thể thấy các khoản thu nhập tài chính và thu nhập khác (nằm ngoài hoạt động cốt lõi) đã đóng góp một tỷ trọng đáng kể vào tổng lợi nhuận của Tập đoàn trong năm 2024,.",
+    "sources": [
+      "GVR_BCTN24.pdf"
+    ],
+    "key_facts": [
+      "Tổng doanh thu và thu nhập khác đạt 28.739 tỷ đồng",
+      "Doanh thu thuần đạt 22.138 tỷ đồng, lợi nhuận gộp 4.962 tỷ đồng (biên gộp ~22,4%)",
+      "Lợi nhuận sau thuế đạt 4.826 tỷ đồng",
+      "Chi phí lãi vay 477,5 tỷ đồng; Thu từ đi vay 6.577 tỷ đồng, trả nợ gốc 6.118 tỷ đồng",
+      "Doanh thu tài chính đạt 1.114 tỷ đồng và thu nhập khác đạt 1.654 tỷ đồng đóng góp lớn vào cơ cấu lợi nhuận"
+    ],
+    "negative_facts": [
+      "Khẳng định lợi nhuận GVR hoàn toàn đến từ hoạt động kinh doanh cốt lõi",
+      "Tính toán sai lệch lớn về tỷ suất biên lợi nhuận gộp"
+    ],
+    "unanswerable": false
+  }
+]
