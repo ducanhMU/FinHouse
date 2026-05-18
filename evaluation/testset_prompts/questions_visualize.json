@@ -1,4 +1,3 @@
-
 [
   {
     "id": "G-001",
@@ -15,7 +14,46 @@
     "style": "analyze",
     "persona": "analyst — muốn visualize trend / share / comparison",
     "complexity": "multi_fact",
-    "needs_clarification": false
+    "needs_clarification": false,
+    "expected_chart": {
+      "chart_type": [
+        "line",
+        "bar"
+      ],
+      "table": "income_statement",
+      "x_column": "year",
+      "y_columns": [
+        "revenue",
+        "net_profit"
+      ],
+      "filters": {
+        "symbol": "VNM",
+        "quarter": 0,
+        "year": "2020-2024"
+      },
+      "order_by": [
+        [
+          "year",
+          "asc"
+        ]
+      ],
+      "expected_n_points": 5
+    },
+    "expected_data_facts": [
+      "VNM doanh thu ~60-61 ngàn tỷ năm 2024",
+      "LNST ~ 8.5-9.5 ngàn tỷ/năm",
+      "có data đủ cho từng năm 2020-2024",
+      "doanh thu đi ngang/tăng nhẹ giai đoạn này"
+    ],
+    "expected_caption_facts": [
+      "đề cập chuỗi 5 năm 2020-2024",
+      "nêu đơn vị (tỷ đồng cho giá trị, % cho biên/ROE)",
+      "có nhận xét xu hướng tăng/giảm",
+      "biên LN ròng (~15%) là % nên tách trục/biểu đồ riêng khỏi giá trị tỷ đồng"
+    ],
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": []
   },
   {
     "id": "G-002",
@@ -32,7 +70,46 @@
     "style": "analyze",
     "persona": "analyst — muốn visualize trend / share / comparison",
     "complexity": "multi_fact",
-    "needs_clarification": false
+    "needs_clarification": false,
+    "expected_chart": {
+      "chart_type": [
+        "line",
+        "bar"
+      ],
+      "table": "income_statement",
+      "x_column": "year",
+      "y_columns": [
+        "revenue",
+        "net_profit"
+      ],
+      "filters": {
+        "symbol": "FPT",
+        "quarter": 0,
+        "year": "2020-2024"
+      },
+      "order_by": [
+        [
+          "year",
+          "asc"
+        ]
+      ],
+      "expected_n_points": 5
+    },
+    "expected_data_facts": [
+      "FPT doanh thu tăng đều ~30k → ~62k tỷ 2020-2024",
+      "LNST tăng đều mỗi năm",
+      "ROE ~25-28% (ở financial_ratios)",
+      "data đủ cho từng năm"
+    ],
+    "expected_caption_facts": [
+      "đề cập chuỗi 5 năm 2020-2024",
+      "nêu đơn vị (tỷ đồng cho giá trị, % cho biên/ROE)",
+      "có nhận xét xu hướng tăng/giảm",
+      "ROE là % ở bảng financial_ratios — chart riêng khỏi doanh thu/LNST"
+    ],
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": []
   },
   {
     "id": "G-003",
@@ -49,7 +126,44 @@
     "style": "analyze",
     "persona": "analyst — muốn visualize trend / share / comparison",
     "complexity": "multi_fact",
-    "needs_clarification": false
+    "needs_clarification": false,
+    "expected_chart": {
+      "chart_type": [
+        "line"
+      ],
+      "table": "income_statement",
+      "x_column": "year",
+      "y_columns": [
+        "revenue",
+        "net_profit"
+      ],
+      "filters": {
+        "symbol": "HPG",
+        "quarter": 0,
+        "year": "2020-2024"
+      },
+      "order_by": [
+        [
+          "year",
+          "asc"
+        ]
+      ],
+      "expected_n_points": 5
+    },
+    "expected_data_facts": [
+      "HPG mang tính chu kỳ: LNST đỉnh 2021 (~34k tỷ), giảm sâu 2022-2023, hồi 2024",
+      "doanh thu thuần dao động theo chu kỳ thép",
+      "data đủ từng năm 2020-2024"
+    ],
+    "expected_caption_facts": [
+      "đề cập chuỗi 5 năm 2020-2024",
+      "nêu đơn vị (tỷ đồng cho giá trị, % cho biên/ROE)",
+      "có nhận xét xu hướng tăng/giảm",
+      "biên gộp (%) ở financial_ratios.gross_margin — tách khỏi giá trị tuyệt đối"
+    ],
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": []
   },
   {
     "id": "G-004",
@@ -66,7 +180,45 @@
     "style": "analyze",
     "persona": "analyst — muốn visualize trend / share / comparison",
     "complexity": "multi_fact",
-    "needs_clarification": false
+    "needs_clarification": false,
+    "expected_chart": {
+      "chart_type": [
+        "bar"
+      ],
+      "table": "income_statement",
+      "x_column": "year",
+      "y_columns": [
+        "revenue",
+        "net_profit",
+        "operating_expenses"
+      ],
+      "filters": {
+        "symbol": "MWG",
+        "quarter": 0,
+        "year": "2020-2024"
+      },
+      "order_by": [
+        [
+          "year",
+          "asc"
+        ]
+      ],
+      "expected_n_points": 5
+    },
+    "expected_data_facts": [
+      "MWG doanh thu tăng tới ~133k tỷ (2022) rồi chững 2023",
+      "LN ròng giảm mạnh 2023",
+      "operating_expenses xấp xỉ chi phí bán hàng (OLAP không tách riêng selling expense)"
+    ],
+    "expected_caption_facts": [
+      "đề cập chuỗi 5 năm 2020-2024",
+      "nêu đơn vị (tỷ đồng cho giá trị, % cho biên/ROE)",
+      "có nhận xét xu hướng tăng/giảm",
+      "dùng biểu đồ cột theo năm như yêu cầu"
+    ],
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": []
   },
   {
     "id": "G-005",
@@ -83,7 +235,44 @@
     "style": "analyze",
     "persona": "analyst — muốn visualize trend / share / comparison",
     "complexity": "multi_fact",
-    "needs_clarification": false
+    "needs_clarification": false,
+    "expected_chart": {
+      "chart_type": [
+        "line",
+        "bar"
+      ],
+      "table": "financial_ratios",
+      "x_column": "year",
+      "y_columns": [
+        "roe"
+      ],
+      "filters": {
+        "symbol": "VCB",
+        "quarter": 0,
+        "year": "2020-2024"
+      },
+      "order_by": [
+        [
+          "year",
+          "asc"
+        ]
+      ],
+      "expected_n_points": 5
+    },
+    "expected_data_facts": [
+      "VCB ROE ~20-22%, cao nhất nhóm NHTM quốc doanh",
+      "data ROE đủ từng năm",
+      "NIM và tỷ lệ nợ xấu KHÔNG có trong schema OLAP → không chart được"
+    ],
+    "expected_caption_facts": [
+      "đề cập chuỗi 5 năm 2020-2024",
+      "nêu đơn vị (tỷ đồng cho giá trị, % cho biên/ROE)",
+      "có nhận xét xu hướng tăng/giảm",
+      "caption nên nêu rõ chỉ chart được ROE; NIM/nợ xấu ngoài phạm vi dữ liệu"
+    ],
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": []
   },
   {
     "id": "G-006",
@@ -100,7 +289,44 @@
     "style": "analyze",
     "persona": "analyst — muốn visualize trend / share / comparison",
     "complexity": "multi_fact",
-    "needs_clarification": false
+    "needs_clarification": false,
+    "expected_chart": {
+      "chart_type": [
+        "line",
+        "bar"
+      ],
+      "table": "income_statement",
+      "x_column": "year",
+      "y_columns": [
+        "profit_before_tax"
+      ],
+      "filters": {
+        "symbol": "BID",
+        "quarter": 0,
+        "year": "2020-2024"
+      },
+      "order_by": [
+        [
+          "year",
+          "asc"
+        ]
+      ],
+      "expected_n_points": 5
+    },
+    "expected_data_facts": [
+      "BID lợi nhuận trước thuế tăng đều 2020-2024",
+      "data đủ từng năm",
+      "NIM và nợ xấu không có trong OLAP → ngoài phạm vi"
+    ],
+    "expected_caption_facts": [
+      "đề cập chuỗi 5 năm 2020-2024",
+      "nêu đơn vị (tỷ đồng cho giá trị, % cho biên/ROE)",
+      "có nhận xét xu hướng tăng/giảm",
+      "caption nêu giới hạn dữ liệu cho NIM/nợ xấu"
+    ],
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": []
   },
   {
     "id": "G-007",
@@ -117,7 +343,45 @@
     "style": "analyze",
     "persona": "analyst — muốn visualize trend / share / comparison",
     "complexity": "multi_fact",
-    "needs_clarification": false
+    "needs_clarification": false,
+    "expected_chart": {
+      "chart_type": [
+        "line",
+        "bar"
+      ],
+      "table": "income_statement",
+      "x_column": "year",
+      "y_columns": [
+        "revenue",
+        "net_profit"
+      ],
+      "filters": {
+        "symbol": "VHM",
+        "quarter": 0,
+        "year": "2020-2024"
+      },
+      "order_by": [
+        [
+          "year",
+          "asc"
+        ]
+      ],
+      "expected_n_points": 5
+    },
+    "expected_data_facts": [
+      "VHM doanh thu biến động mạnh theo tiến độ bàn giao BĐS",
+      "LNST cao, biến động",
+      "nợ vay xấp xỉ liabilities_total ở balance_sheet (bảng khác)"
+    ],
+    "expected_caption_facts": [
+      "đề cập chuỗi 5 năm 2020-2024",
+      "nêu đơn vị (tỷ đồng cho giá trị, % cho biên/ROE)",
+      "có nhận xét xu hướng tăng/giảm",
+      "tool không có 'combo' — line hoặc bar đều chấp nhận"
+    ],
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": []
   },
   {
     "id": "G-008",
@@ -134,7 +398,45 @@
     "style": "analyze",
     "persona": "analyst — muốn visualize trend / share / comparison",
     "complexity": "multi_fact",
-    "needs_clarification": false
+    "needs_clarification": false,
+    "expected_chart": {
+      "chart_type": [
+        "line",
+        "bar"
+      ],
+      "table": "income_statement",
+      "x_column": "year",
+      "y_columns": [
+        "revenue",
+        "net_profit"
+      ],
+      "filters": {
+        "symbol": "VIC",
+        "quarter": 0,
+        "year": "2020-2024"
+      },
+      "order_by": [
+        [
+          "year",
+          "asc"
+        ]
+      ],
+      "expected_n_points": 5
+    },
+    "expected_data_facts": [
+      "VIC doanh thu hợp nhất lớn",
+      "LNST mỏng, một số năm âm",
+      "dòng tiền KD ở cash_flow_statement.net_cash_from_operating_activities (bảng khác)"
+    ],
+    "expected_caption_facts": [
+      "đề cập chuỗi 5 năm 2020-2024",
+      "nêu đơn vị (tỷ đồng cho giá trị, % cho biên/ROE)",
+      "có nhận xét xu hướng tăng/giảm",
+      "dòng tiền kinh doanh phải vẽ từ bảng cash_flow_statement riêng"
+    ],
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": []
   },
   {
     "id": "G-009",
@@ -151,7 +453,44 @@
     "style": "analyze",
     "persona": "analyst — muốn visualize trend / share / comparison",
     "complexity": "multi_fact",
-    "needs_clarification": false
+    "needs_clarification": false,
+    "expected_chart": {
+      "chart_type": [
+        "bar"
+      ],
+      "table": "income_statement",
+      "x_column": "year",
+      "y_columns": [
+        "revenue",
+        "net_profit"
+      ],
+      "filters": {
+        "symbol": "MSN",
+        "quarter": 0,
+        "year": "2020-2024"
+      },
+      "order_by": [
+        [
+          "year",
+          "asc"
+        ]
+      ],
+      "expected_n_points": 5
+    },
+    "expected_data_facts": [
+      "MSN doanh thu hợp nhất tăng 2020-2022 rồi đi ngang",
+      "OLAP KHÔNG có breakdown doanh thu theo mảng → không vẽ được stacked theo segment",
+      "chỉ chart được tổng doanh thu + LNST"
+    ],
+    "expected_caption_facts": [
+      "đề cập chuỗi 5 năm 2020-2024",
+      "nêu đơn vị (tỷ đồng cho giá trị, % cho biên/ROE)",
+      "có nhận xét xu hướng tăng/giảm",
+      "agent nên nêu hạn chế: không có dữ liệu cơ cấu doanh thu theo mảng"
+    ],
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": []
   },
   {
     "id": "G-010",
@@ -168,7 +507,44 @@
     "style": "analyze",
     "persona": "analyst — muốn visualize trend / share / comparison",
     "complexity": "multi_fact",
-    "needs_clarification": false
+    "needs_clarification": false,
+    "expected_chart": {
+      "chart_type": [
+        "line",
+        "bar"
+      ],
+      "table": "financial_ratios",
+      "x_column": "year",
+      "y_columns": [
+        "roe"
+      ],
+      "filters": {
+        "symbol": "TCB",
+        "quarter": 0,
+        "year": "2020-2024"
+      },
+      "order_by": [
+        [
+          "year",
+          "asc"
+        ]
+      ],
+      "expected_n_points": 5
+    },
+    "expected_data_facts": [
+      "TCB ROE cao ~18-22% giai đoạn 2020-2024",
+      "data ROE đủ từng năm",
+      "CASA và NIM không có trong OLAP → ngoài phạm vi"
+    ],
+    "expected_caption_facts": [
+      "đề cập chuỗi 5 năm 2020-2024",
+      "nêu đơn vị (tỷ đồng cho giá trị, % cho biên/ROE)",
+      "có nhận xét xu hướng tăng/giảm",
+      "caption nêu chỉ chart được ROE; CASA/NIM ngoài dữ liệu"
+    ],
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": []
   },
   {
     "id": "G-011",
@@ -185,7 +561,44 @@
     "style": "analyze",
     "persona": "analyst — muốn visualize trend / share / comparison",
     "complexity": "multi_fact",
-    "needs_clarification": false
+    "needs_clarification": false,
+    "expected_chart": {
+      "chart_type": [
+        "line",
+        "bar"
+      ],
+      "table": "income_statement",
+      "x_column": "year",
+      "y_columns": [
+        "profit_before_tax"
+      ],
+      "filters": {
+        "symbol": "ACB",
+        "quarter": 0,
+        "year": "2020-2024"
+      },
+      "order_by": [
+        [
+          "year",
+          "asc"
+        ]
+      ],
+      "expected_n_points": 5
+    },
+    "expected_data_facts": [
+      "ACB lợi nhuận trước thuế tăng đều 2020-2024",
+      "ROE ~24% (ở financial_ratios)",
+      "nợ xấu không có trong OLAP → ngoài phạm vi"
+    ],
+    "expected_caption_facts": [
+      "đề cập chuỗi 5 năm 2020-2024",
+      "nêu đơn vị (tỷ đồng cho giá trị, % cho biên/ROE)",
+      "có nhận xét xu hướng tăng/giảm",
+      "ROE ở bảng financial_ratios; nợ xấu ngoài dữ liệu"
+    ],
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": []
   },
   {
     "id": "G-012",
@@ -202,7 +615,44 @@
     "style": "analyze",
     "persona": "analyst — muốn visualize trend / share / comparison",
     "complexity": "multi_fact",
-    "needs_clarification": false
+    "needs_clarification": false,
+    "expected_chart": {
+      "chart_type": [
+        "line",
+        "bar"
+      ],
+      "table": "income_statement",
+      "x_column": "year",
+      "y_columns": [
+        "profit_before_tax"
+      ],
+      "filters": {
+        "symbol": "MBB",
+        "quarter": 0,
+        "year": "2020-2024"
+      },
+      "order_by": [
+        [
+          "year",
+          "asc"
+        ]
+      ],
+      "expected_n_points": 5
+    },
+    "expected_data_facts": [
+      "MBB lợi nhuận trước thuế tăng mạnh 2020-2024",
+      "data đủ từng năm",
+      "tăng trưởng tín dụng, NIM, nợ xấu không có trong OLAP → ngoài phạm vi"
+    ],
+    "expected_caption_facts": [
+      "đề cập chuỗi 5 năm 2020-2024",
+      "nêu đơn vị (tỷ đồng cho giá trị, % cho biên/ROE)",
+      "có nhận xét xu hướng tăng/giảm",
+      "caption nêu chỉ chart được LNTT; các chỉ tiêu ngân hàng còn lại ngoài dữ liệu"
+    ],
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": []
   },
   {
     "id": "G-013",
@@ -219,7 +669,45 @@
     "style": "analyze",
     "persona": "analyst — muốn visualize trend / share / comparison",
     "complexity": "multi_fact",
-    "needs_clarification": false
+    "needs_clarification": false,
+    "expected_chart": {
+      "chart_type": [
+        "line",
+        "bar"
+      ],
+      "table": "income_statement",
+      "x_column": "year",
+      "y_columns": [
+        "revenue",
+        "net_profit"
+      ],
+      "filters": {
+        "symbol": "SAB",
+        "quarter": 0,
+        "year": "2020-2024"
+      },
+      "order_by": [
+        [
+          "year",
+          "asc"
+        ]
+      ],
+      "expected_n_points": 5
+    },
+    "expected_data_facts": [
+      "SAB doanh thu giảm 2020-2021 (COVID) rồi hồi phục",
+      "LNST cao, biên ròng ~20%+",
+      "data đủ từng năm 2020-2024"
+    ],
+    "expected_caption_facts": [
+      "đề cập chuỗi 5 năm 2020-2024",
+      "nêu đơn vị (tỷ đồng cho giá trị, % cho biên/ROE)",
+      "có nhận xét xu hướng tăng/giảm",
+      "biên LN ròng (%) ở financial_ratios — tách khỏi giá trị tỷ đồng"
+    ],
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": []
   },
   {
     "id": "G-014",
@@ -236,7 +724,44 @@
     "style": "analyze",
     "persona": "analyst — muốn visualize trend / share / comparison",
     "complexity": "multi_fact",
-    "needs_clarification": false
+    "needs_clarification": false,
+    "expected_chart": {
+      "chart_type": [
+        "line"
+      ],
+      "table": "income_statement",
+      "x_column": "year",
+      "y_columns": [
+        "revenue",
+        "net_profit"
+      ],
+      "filters": {
+        "symbol": "GAS",
+        "quarter": 0,
+        "year": "2020-2024"
+      },
+      "order_by": [
+        [
+          "year",
+          "asc"
+        ]
+      ],
+      "expected_n_points": 5
+    },
+    "expected_data_facts": [
+      "GAS doanh thu & LNST biến động theo giá dầu/khí",
+      "2020 giảm sâu, 2022 phục hồi mạnh",
+      "dòng tiền HĐKD ở cash_flow_statement (bảng khác)"
+    ],
+    "expected_caption_facts": [
+      "đề cập chuỗi 5 năm 2020-2024",
+      "nêu đơn vị (tỷ đồng cho giá trị, % cho biên/ROE)",
+      "có nhận xét xu hướng tăng/giảm",
+      "dùng line chart như yêu cầu; dòng tiền KD vẽ từ cash_flow_statement riêng"
+    ],
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": []
   },
   {
     "id": "G-015",
@@ -253,7 +778,45 @@
     "style": "analyze",
     "persona": "analyst — muốn visualize trend / share / comparison",
     "complexity": "multi_fact",
-    "needs_clarification": false
+    "needs_clarification": false,
+    "expected_chart": {
+      "chart_type": [
+        "line",
+        "bar"
+      ],
+      "table": "income_statement",
+      "x_column": "year",
+      "y_columns": [
+        "revenue",
+        "net_profit"
+      ],
+      "filters": {
+        "symbol": "PLX",
+        "quarter": 0,
+        "year": "2020-2024"
+      },
+      "order_by": [
+        [
+          "year",
+          "asc"
+        ]
+      ],
+      "expected_n_points": 5
+    },
+    "expected_data_facts": [
+      "PLX doanh thu rất lớn (~120-300k tỷ) nhưng biên ròng mỏng ~1-2%",
+      "2020 LN thấp/lỗ do COVID + giá dầu",
+      "data đủ từng năm"
+    ],
+    "expected_caption_facts": [
+      "đề cập chuỗi 5 năm 2020-2024",
+      "nêu đơn vị (tỷ đồng cho giá trị, % cho biên/ROE)",
+      "có nhận xét xu hướng tăng/giảm",
+      "biên LN ròng (%) ở financial_ratios — tách trục riêng"
+    ],
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": []
   },
   {
     "id": "G-016",
@@ -270,7 +833,45 @@
     "style": "analyze",
     "persona": "analyst — muốn visualize trend / share / comparison",
     "complexity": "multi_fact",
-    "needs_clarification": false
+    "needs_clarification": false,
+    "expected_chart": {
+      "chart_type": [
+        "line",
+        "bar"
+      ],
+      "table": "income_statement",
+      "x_column": "year",
+      "y_columns": [
+        "revenue",
+        "net_profit"
+      ],
+      "filters": {
+        "symbol": "PNJ",
+        "quarter": 0,
+        "year": "2020-2024"
+      },
+      "order_by": [
+        [
+          "year",
+          "asc"
+        ]
+      ],
+      "expected_n_points": 5
+    },
+    "expected_data_facts": [
+      "PNJ doanh thu & LN ròng tăng trưởng đều (trừ 2021 giảm do giãn cách)",
+      "hàng tồn kho ở balance_sheet.inventory (bảng khác)",
+      "biên gộp ở financial_ratios.gross_margin (bảng khác)"
+    ],
+    "expected_caption_facts": [
+      "đề cập chuỗi 5 năm 2020-2024",
+      "nêu đơn vị (tỷ đồng cho giá trị, % cho biên/ROE)",
+      "có nhận xét xu hướng tăng/giảm",
+      "hàng tồn kho & biên gộp ở bảng khác — vẽ riêng nếu cần"
+    ],
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": []
   },
   {
     "id": "G-017",
@@ -290,7 +891,50 @@
     "style": "compare",
     "persona": "analyst — muốn visualize trend / share / comparison",
     "complexity": "multi_fact",
-    "needs_clarification": false
+    "needs_clarification": false,
+    "expected_chart": {
+      "chart_type": [
+        "bar"
+      ],
+      "table": "financial_ratios",
+      "x_column": "symbol",
+      "y_columns": [
+        "roe",
+        "eps_vnd",
+        "price_to_earnings"
+      ],
+      "filters": {
+        "symbol": [
+          "FPT",
+          "VNM",
+          "MWG",
+          "PNJ"
+        ],
+        "year": 2024,
+        "quarter": 0
+      },
+      "order_by": [
+        [
+          "roe",
+          "desc"
+        ]
+      ],
+      "expected_n_points": 4
+    },
+    "expected_data_facts": [
+      "FPT ROE cao nhất nhóm (~28%)",
+      "P/E khác biệt rõ giữa 4 mã",
+      "đủ data 2024 cho cả 4 mã trong financial_ratios"
+    ],
+    "expected_caption_facts": [
+      "đề cập năm 2024 và các mã được so sánh",
+      "nêu đơn vị của từng chỉ tiêu",
+      "có nhận xét mã nào dẫn đầu / thấp nhất",
+      "ROE/EPS/P/E khác đơn vị → nên normalize hoặc tách biểu đồ"
+    ],
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": []
   },
   {
     "id": "G-018",
@@ -311,7 +955,49 @@
     "style": "compare",
     "persona": "analyst — muốn visualize trend / share / comparison",
     "complexity": "multi_fact",
-    "needs_clarification": false
+    "needs_clarification": false,
+    "expected_chart": {
+      "chart_type": [
+        "bar"
+      ],
+      "table": "financial_ratios",
+      "x_column": "symbol",
+      "y_columns": [
+        "roe"
+      ],
+      "filters": {
+        "symbol": [
+          "VCB",
+          "BID",
+          "TCB",
+          "ACB",
+          "MBB"
+        ],
+        "year": 2024,
+        "quarter": 0
+      },
+      "order_by": [
+        [
+          "roe",
+          "desc"
+        ]
+      ],
+      "expected_n_points": 5
+    },
+    "expected_data_facts": [
+      "VCB/TCB/ACB ROE ~20%+ năm 2024",
+      "data ROE đủ cho 5 mã",
+      "NIM và nợ xấu không có trong OLAP → chỉ so sánh được ROE"
+    ],
+    "expected_caption_facts": [
+      "đề cập năm 2024 và các mã được so sánh",
+      "nêu đơn vị của từng chỉ tiêu",
+      "có nhận xét mã nào dẫn đầu / thấp nhất",
+      "caption nêu chỉ peer-compare được ROE; NIM/nợ xấu ngoài dữ liệu"
+    ],
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": []
   },
   {
     "id": "G-019",
@@ -331,7 +1017,49 @@
     "style": "compare",
     "persona": "analyst — muốn visualize trend / share / comparison",
     "complexity": "multi_fact",
-    "needs_clarification": false
+    "needs_clarification": false,
+    "expected_chart": {
+      "chart_type": [
+        "bar"
+      ],
+      "table": "income_statement",
+      "x_column": "symbol",
+      "y_columns": [
+        "revenue",
+        "net_profit"
+      ],
+      "filters": {
+        "symbol": [
+          "HPG",
+          "DGC",
+          "DCM",
+          "DPM"
+        ],
+        "year": 2024,
+        "quarter": 0
+      },
+      "order_by": [
+        [
+          "revenue",
+          "desc"
+        ]
+      ],
+      "expected_n_points": 4
+    },
+    "expected_data_facts": [
+      "HPG doanh thu lớn nhất nhóm 2024",
+      "DGC biên cao nhất",
+      "biên gộp ở financial_ratios.gross_margin (bảng khác)"
+    ],
+    "expected_caption_facts": [
+      "đề cập năm 2024 và các mã được so sánh",
+      "nêu đơn vị của từng chỉ tiêu",
+      "có nhận xét mã nào dẫn đầu / thấp nhất",
+      "biên gộp (%) ở bảng khác — so sánh riêng"
+    ],
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": []
   },
   {
     "id": "G-020",
@@ -350,6 +1078,46 @@
     "style": "compare",
     "persona": "analyst — muốn visualize trend / share / comparison",
     "complexity": "multi_fact",
-    "needs_clarification": false
+    "needs_clarification": false,
+    "expected_chart": {
+      "chart_type": [
+        "bar"
+      ],
+      "table": "income_statement",
+      "x_column": "symbol",
+      "y_columns": [
+        "net_profit"
+      ],
+      "filters": {
+        "symbol": [
+          "SSI",
+          "VND",
+          "HCM"
+        ],
+        "year": 2024,
+        "quarter": 0
+      },
+      "order_by": [
+        [
+          "net_profit",
+          "desc"
+        ]
+      ],
+      "expected_n_points": 3
+    },
+    "expected_data_facts": [
+      "SSI dẫn đầu về LNST 2024 trong nhóm CTCK",
+      "data 2024 đủ cho 3 mã",
+      "ROE ở financial_ratios, vốn chủ ở balance_sheet.equity_total (bảng khác)"
+    ],
+    "expected_caption_facts": [
+      "đề cập năm 2024 và các mã được so sánh",
+      "nêu đơn vị của từng chỉ tiêu",
+      "có nhận xét mã nào dẫn đầu / thấp nhất",
+      "ROE và vốn chủ sở hữu ở bảng khác — so sánh riêng"
+    ],
+    "reference_answer": null,
+    "sources": [],
+    "key_facts": []
   }
 ]
