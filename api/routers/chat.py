@@ -21,7 +21,7 @@ from datetime import datetime, timezone
 from typing import Optional
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 from sqlalchemy import select, text
@@ -298,6 +298,7 @@ async def _persist_event(
 async def send_message(
     session_id: UUID,
     body: SendRequest,
+    request: Request,
     user_id: int = Depends(get_current_user),
 ):
     """Send a message and stream the assistant response via SSE.
@@ -375,8 +376,27 @@ async def send_message(
 
                 # ── Drain queue → SSE + DB persistence ─────────
                 while True:
-                    if not _active_streams.get(stream_key, False):
-                        log.info(f"[session={session_id}] cancelled by user")
+                    # Two independent stop signals:
+                    #   1. /stop set the flag (UI's abandoned-stream guard,
+                    #      or an explicit cancel) — same-worker only.
+                    #   2. The SSE client (Streamlit) dropped the
+                    #      connection: page refresh, tab close, session
+                    #      switch, or a new message reran the script and
+                    #      abandoned the httpx stream. This covers the
+                    #      cases /stop never reaches (session_state reset
+                    #      on refresh, /stop routed to another worker)
+                    #      because it's observed on the very connection
+                    #      doing the streaming.
+                    cancelled_by_user = not _active_streams.get(stream_key, False)
+                    client_gone = await request.is_disconnected()
+                    if cancelled_by_user or client_gone:
+                        reason = (
+                            "cancelled by user" if cancelled_by_user
+                            else "client disconnected"
+                        )
+                        log.info(
+                            f"[session={session_id}] {reason} — cancelling graph"
+                        )
                         graph_task.cancel()
                         try:
                             await graph_task
