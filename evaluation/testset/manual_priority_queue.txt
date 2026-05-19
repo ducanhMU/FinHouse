@@ -1,0 +1,153 @@
+# FinHouse — HANG DOI UU TIEN (ngoai manual_basic_30.txt)
+# Chay TU TREN XUONG. Dung luc nao cung da phu xong phan gia tri cao nhat.
+# Moi cau: New conversation -> paste 1 dong -> Enter -> doi log persisted -> cau ke.
+# Dong # la chu thich, KHONG paste. Bucket I: paste DUNG token [I-xxx] (replay history).
+
+
+# ==================== TIER 1 — phu kha nang/tool MOI, diem nhieu layer nhat ====================
+
+# --- Bucket C  (e2e+rag+agent)  — DB phan tich da-chi-tieu (sau hon B single-fact) + tong hop  [12 cau] ---
+[C-001] Phân tích VNM năm 2024 trên các khía cạnh doanh thu, lợi nhuận sau thuế, biên lợi nhuận gộp và mức nợ vay; điểm nào là động lực chính của kết quả năm?
+[C-005] Phân tích VCB năm 2024 qua tăng trưởng tín dụng, thu nhập lãi thuần, NIM, nợ xấu và chi phí dự phòng.
+[C-008] Đánh giá VIC năm 2024 dựa trên doanh thu hợp nhất, lỗ/lãi sau thuế, dòng tiền kinh doanh và mức nợ vay.
+[C-012] MBB 2024: nhìn nhanh nhưng đủ sâu về lợi nhuận trước thuế, tăng trưởng tín dụng, NIM, nợ xấu và bộ đệm dự phòng.
+[C-015] PNJ năm 2024 tăng trưởng có bền không khi xét doanh thu, lợi nhuận ròng, biên gộp, hàng tồn kho và dòng tiền kinh doanh?
+[C-019] MWG giai đoạn 2022-2024: phân tích sự thay đổi doanh thu, lợi nhuận, biên ròng và hiệu quả kiểm soát chi phí bán hàng.
+[C-022] MSN 2022-2024: phân tích doanh thu, EBITDA, lợi nhuận ròng và đòn bẩy để đánh giá quá trình tái cơ cấu có hiệu quả không.
+[C-026] HPG Q1-Q4/2024: phân tích theo quý doanh thu, biên gộp, lợi nhuận sau thuế và sản lượng để xác định điểm rơi phục hồi.
+[C-029] PNJ trong Q1-Q4/2024: doanh thu, biên gộp, lợi nhuận ròng và hàng tồn kho theo quý cho thấy sức mua bán lẻ thay đổi thế nào?
+[C-033] GVR năm 2024: đánh giá doanh thu, lợi nhuận ròng, biên gộp và nợ vay để xem kết quả có phụ thuộc nhiều vào yếu tố ngoài hoạt động cốt lõi không.
+[C-036] SSI giai đoạn 2022-2024: phân tích doanh thu hoạt động, lợi nhuận sau thuế, ROE và dư nợ cho vay margin để đánh giá chu kỳ ngành chứng khoán.
+[C-040] SAB Q1-Q4/2024: phân tích doanh thu, lợi nhuận sau thuế, biên gộp và chi phí bán hàng theo quý để nhận diện mùa vụ tiêu thụ bia.
+
+# --- Bucket D  (e2e+agent)  — DB so sanh nhieu doanh nghiep + xep hang (orchestrator multi-task)  [12 cau] ---
+[D-001] So sánh VNM, SAB và MSN năm 2024 theo doanh thu, biên lợi nhuận gộp và lợi nhuận sau thuế; doanh nghiệp nào có chất lượng lợi nhuận tốt nhất?
+[D-005] VHM, VIC và KDH năm 2024: công ty bất động sản nào có đòn bẩy tài chính thấp hơn nhưng vẫn giữ được biên lợi nhuận tốt?
+[D-008] REE, POW và GAS năm 2024: doanh nghiệp nào có hiệu quả sinh lời trên tài sản tốt hơn nếu xét ROA, biên ròng và dòng tiền kinh doanh?
+[D-012] So sánh VCB và BID năm 2024 theo lợi nhuận trước thuế, ROA, ROE và tỷ lệ nợ xấu.
+[D-015] VHM và KDH năm 2024: so sánh biên gộp, tồn kho bất động sản và nợ vay để đánh giá mức độ an toàn bảng cân đối.
+[D-019] MSN và MWG năm 2024: mô hình tiêu dùng nào tạo dòng tiền kinh doanh tốt hơn so với lợi nhuận báo cáo?
+[D-022] So sánh FPT, MWG và PNJ giai đoạn 2022-2024 theo CAGR doanh thu và xu hướng biên lợi nhuận ròng.
+[D-026] SSI, VND và HCM từ 2022 đến 2024: so sánh ROE, lợi nhuận sau thuế và vốn chủ sở hữu để xếp hạng hiệu quả công ty chứng khoán.
+[D-029] DPM, DCM và DGC trong 2022-2024: xếp hạng theo khả năng chuyển lợi nhuận kế toán thành dòng tiền kinh doanh.
+[D-033] HPG và DPM năm 2024: doanh nghiệp chu kỳ nào có biên gộp, lợi nhuận sau thuế và dòng tiền kinh doanh tốt hơn?
+[D-036] MSN và SAB năm 2024: so sánh doanh thu, biên gộp, biên ròng và dòng tiền kinh doanh để xem doanh nghiệp tiêu dùng nào phòng thủ tốt hơn.
+[D-040] POW, REE và GAS giai đoạn 2022-2024: xếp hạng theo mức độ ổn định lợi nhuận sau thuế, ROA và dòng tiền kinh doanh.
+
+# --- Bucket E  (e2e+rag+agent)  — web_search cap NGANH/vi mo (khac F tin tung cong ty)  [12 cau] ---
+[E-001] Ngành ngân hàng Việt Nam năm 2024 chịu tác động thế nào từ lãi suất thấp, tăng trưởng tín dụng và nợ xấu?
+[E-004] Đánh giá ngành bán lẻ năm 2024 qua sức mua tiêu dùng, biên lợi nhuận và xu hướng mở rộng chuỗi.
+[E-006] Ngành chứng khoán năm 2024 hưởng lợi thế nào từ thanh khoản thị trường, margin lending và kỳ vọng nâng hạng?
+[E-009] Lãi suất điều hành và lãi suất huy động năm 2024 ảnh hưởng thế nào đến định giá cổ phiếu và dòng tiền vào thị trường?
+[E-012] Đầu tư công năm 2024 có tác động lan tỏa thế nào đến các ngành xây dựng, vật liệu, bất động sản khu công nghiệp và ngân hàng?
+[E-014] Triển vọng ngành bất động sản nhà ở năm 2025 phụ thuộc nhiều hơn vào pháp lý, lãi suất vay mua nhà hay sức cầu thực?
+[E-017] Ngành công nghệ Việt Nam 2025 có những động lực nào từ AI, chuyển đổi số doanh nghiệp và nhu cầu outsourcing toàn cầu?
+[E-019] Vĩ mô Việt Nam 2025: tăng trưởng GDP, lạm phát, tỷ giá và chính sách tiền tệ sẽ ảnh hưởng ra sao đến triển vọng lợi nhuận doanh nghiệp niêm yết?
+[E-022] Outlook ngành điện 2025: nhu cầu điện, giá nhiên liệu, thủy văn và cơ chế giá ảnh hưởng thế nào đến lợi nhuận các nhóm nhiệt điện, thủy điện và điện khí?
+[E-025] Giai đoạn 2022-2024, ngành ngân hàng Việt Nam thay đổi thế nào về NIM, tăng trưởng tín dụng, nợ xấu và chi phí dự phòng?
+[E-027] Giai đoạn 2022-2024, nhóm thép và vật liệu xây dựng biến động lợi nhuận chủ yếu do nhu cầu, giá bán hay chi phí đầu vào?
+[E-030] Từ 2022 đến 2024, thanh khoản thị trường chứng khoán Việt Nam và mặt bằng lãi suất có mối quan hệ thế nào với lợi nhuận ngành chứng khoán?
+
+# ==================== TIER 2 — hanh vi graph dac biet (khong bucket nao khac test) ====================
+
+# --- Bucket H  (e2e)  — duong CLARIFICATION (cau mo ho -> he thong hoi lai?)  [8 cau] ---
+[H-001] Nó lãi sao?
+[H-002] Doanh thu bao nhiêu?
+[H-004] Năm ngoái công ty này chia cổ tức thế nào?
+[H-005] So với năm trước thì tăng hay giảm?
+[H-006] ROE của mã đó ổn không?
+[H-007] Quý vừa rồi lãi bao nhiêu?
+[H-009] Biên lợi nhuận tốt không?
+[H-010] Tin mới nhất về ngành đó là gì?
+
+# --- Bucket I  (e2e)  — MULTI-TURN: replay lich su curated -> dan TOKEN-ONLY [I-xxx]  [8 cau] ---
+[I-001]
+[I-002]
+[I-004]
+[I-005]
+[I-006]
+[I-007]
+[I-009]
+[I-010]
+
+# ==================== TIER 3 — tang be rong/so mau cac path da co ====================
+
+# --- Bucket C  (e2e+rag+agent)  — them C  [10 cau] ---
+[C-002] Đánh giá chất lượng tăng trưởng của FPT trong năm 2024 dựa trên doanh thu, lợi nhuận, biên lợi nhuận ròng và đóng góp từ các mảng kinh doanh chính.
+[C-006] BID năm 2024: lợi nhuận trước thuế, NIM, tỷ lệ nợ xấu và dự phòng cho thấy chất lượng tài sản đang cải thiện hay xấu đi?
+[C-010] TCB năm 2024: phân tích ROE, CASA, NIM, nợ xấu và lợi nhuận trước thuế để đánh giá sức khỏe ngân hàng.
+[C-014] GAS năm 2024: phân tích doanh thu, lợi nhuận sau thuế, dòng tiền kinh doanh và biên lợi nhuận để đánh giá tính ổn định của kết quả.
+[C-018] HPG từ 2022 đến 2024: chu kỳ ngành thép thể hiện thế nào qua doanh thu, biên gộp, lợi nhuận sau thuế và nợ vay?
+[C-023] DGC giai đoạn 2022-2024: lợi nhuận giảm hay phục hồi theo chu kỳ hóa chất? Phân tích doanh thu, biên gộp, lợi nhuận sau thuế và tiền mặt ròng.
+[C-027] TCB trong Q1-Q4/2024: NIM, thu nhập lãi thuần, nợ xấu và lợi nhuận trước thuế biến động ra sao qua từng quý?
+[C-031] PLX năm 2024: phân tích doanh thu, lợi nhuận sau thuế, biên lợi nhuận và dòng tiền kinh doanh để đánh giá mức độ phục hồi của mảng xăng dầu.
+[C-035] REE năm 2024: phân tích đóng góp từ mảng điện, nước và bất động sản vào doanh thu, lợi nhuận sau thuế và biên lợi nhuận.
+[C-039] MBB trong Q1-Q4/2024: lợi nhuận trước thuế, NIM, CASA và nợ xấu theo quý cho thấy áp lực lợi nhuận nằm ở quý nào?
+
+# --- Bucket D  (e2e+agent)  — them D  [8 cau] ---
+[D-002] Ranking FPT, MWG và PNJ năm 2024 theo tăng trưởng doanh thu và biên lợi nhuận ròng.
+[D-007] So sánh SSI, VND và HCM năm 2024 theo lợi nhuận sau thuế, ROE và quy mô vốn chủ sở hữu.
+[D-013] MWG và PNJ năm 2024: bên nào vận hành bán lẻ hiệu quả hơn nếu xét doanh thu trên tài sản, biên ròng và hàng tồn kho?
+[D-018] SSI và HCM năm 2024: công ty chứng khoán nào có hiệu quả vốn tốt hơn nếu so ROE, EPS và lợi nhuận sau thuế?
+[D-023] VCB, BID, TCB, ACB và MBB giai đoạn 2022-2024: ngân hàng nào cải thiện ROE tốt nhất trong khi vẫn kiểm soát nợ xấu?
+[D-028] SAB, MSN và VNM giai đoạn 2022-2024: so sánh xu hướng biên gộp để đánh giá sức mạnh định giá của nhóm tiêu dùng.
+[D-034] VCB và ACB năm 2024: ngân hàng nào có chất lượng sinh lời tốt hơn nếu so NIM, ROA, ROE và tỷ lệ nợ xấu?
+[D-039] MWG và MSN giai đoạn 2022-2024: so sánh tăng trưởng doanh thu, biên lợi nhuận ròng và dòng tiền kinh doanh để đánh giá mô hình bán lẻ - tiêu dùng nào ổn định hơn.
+
+# --- Bucket E  (e2e+rag+agent)  — them E  [8 cau] ---
+[E-002] Phân tích ngành bất động sản dân cư năm 2024: thanh khoản thị trường, pháp lý dự án và mặt bằng lãi suất ảnh hưởng ra sao đến triển vọng ngành?
+[E-005] Ngành công nghệ thông tin Việt Nam năm 2024 có những driver tăng trưởng chính nào từ chuyển đổi số, xuất khẩu phần mềm và AI?
+[E-010] Giá dầu năm 2024 tác động ra sao đến nhóm dầu khí, điện khí và doanh nghiệp phân phối xăng dầu tại Việt Nam?
+[E-013] Outlook ngành ngân hàng Việt Nam 2025: tăng trưởng tín dụng, NIM, nợ xấu và áp lực trích lập dự phòng sẽ là driver hay rủi ro chính?
+[E-018] Triển vọng ngành chứng khoán 2025: thanh khoản thị trường, hệ thống KRX và câu chuyện nâng hạng có thể tác động thế nào đến lợi nhuận ngành?
+[E-021] Nếu lãi suất duy trì thấp trong năm 2025, nhóm ngành nào trên thị trường Việt Nam có thể hưởng lợi rõ nhất: ngân hàng, bất động sản, chứng khoán hay tiêu dùng?
+[E-026] Từ 2022 đến 2024, chu kỳ bất động sản Việt Nam chịu tác động ra sao từ trái phiếu doanh nghiệp, pháp lý dự án và lãi suất?
+[E-029] Giai đoạn 2022-2024, tiêu dùng nội địa Việt Nam phục hồi ra sao và tác động thế nào đến ngành bán lẻ, thực phẩm đồ uống và hàng xa xỉ?
+
+# --- Bucket B  (e2e+rag+agent)  — them B (db) — pho metric/cong ty khac  [10 cau] ---
+[B-002] EPS của FPT năm 2024 là bao nhiêu?
+[B-007] VHM năm 2024 biên lợi nhuận gộp là bao nhiêu?
+[B-015] PNJ 2024 hàng tồn kho cuối kỳ bao nhiêu?
+[B-020] FPT 2023 ROE là bao nhiêu?
+[B-028] MBB quý 4/2024 ROE là bao nhiêu?
+[B-033] GVR năm 2024 ROE bao nhiêu?
+[B-041] GAS năm 2024 ROA là bao nhiêu?
+[B-046] MBB năm 2024 P/B bao nhiêu?
+[B-054] DCM 2023 biên lợi nhuận gộp là bao nhiêu?
+[B-059] VIC Q2/2024 lãi sau thuế bao nhiêu?
+
+# --- Bucket A  (e2e+rag)  — them A (rag)  [8 cau] ---
+[A-002] Biên lợi nhuận gộp là gì, công thức tính ra sao và nhìn vào MWG thì em nên hiểu ý nghĩa của nó thế nào?
+[A-006] CASA trong ngân hàng nghĩa là gì, và tại sao khi học về TCB người ta hay nói CASA quan trọng?
+[A-009] P/B là gì? Với cổ phiếu ngân hàng như BID hoặc ACB thì chỉ số này thường được hiểu ra sao?
+[A-013] Free cash flow là gì và vì sao nhà đầu tư quan tâm đến dòng tiền tự do?
+[A-018] ROA là gì? Nó khác ROE ở điểm nào khi phân tích doanh nghiệp?
+[A-022] Book value là gì? Với cổ phiếu chứng khoán như SSI hay VND thì giá trị sổ sách có ý nghĩa gì?
+[A-025] Capex là gì? Với doanh nghiệp điện như POW hoặc REE thì chi phí đầu tư này thể hiện điều gì?
+[A-029] Chu kỳ chuyển đổi tiền mặt là gì? Với doanh nghiệp sản xuất như DGC, DCM hoặc DPM thì chỉ số này có ý nghĩa gì?
+
+# --- Bucket F  (e2e+agent)  — them F (web)  [8 cau] ---
+[F-002] FPT trong tháng này có thông báo hợp đồng lớn, thương vụ AI hay tin quốc tế nào nổi bật không?
+[F-006] BID có sự kiện đáng chú ý nào trong năm 2026 về phát hành cổ phiếu, trái phiếu hoặc chiến lược ngân hàng số không?
+[F-009] MSN tuần này có tin gì về Masan Consumer, WinCommerce hoặc thương vụ M&A mới không?
+[F-013] SAB tháng này có tin gì mới về tiêu thụ bia, chính sách thuế tiêu thụ đặc biệt hoặc cổ tức không?
+[F-018] KDH tháng này có tin gì về pháp lý dự án, mở bán mới hoặc giao dịch cổ đông lớn?
+[F-022] Ngành ngân hàng tuần này có tin nóng nào về room tín dụng, nợ xấu hoặc chính sách lãi suất không?
+[F-025] Ngành thép Việt Nam trong tháng này có tin gì về thuế chống bán phá giá, giá thép hoặc xuất khẩu?
+[F-029] Ngành phân bón năm 2026 có tin nóng nào về giá ure, thuế xuất khẩu hoặc nguồn cung khí đầu vào không?
+
+# ==================== TIER 4 — VISUALIZE (de cuoi cung theo yeu cau) ====================
+
+# --- Bucket G  (agent)  — tool visualize / chart  [12 cau] ---
+[G-001] Vẽ biểu đồ đường doanh thu, lợi nhuận sau thuế và biên lợi nhuận ròng của VNM giai đoạn 2020-2024 để nhìn xu hướng tăng trưởng.
+[G-003] Vẽ line chart cho HPG giai đoạn 2020-2024 gồm doanh thu thuần, lợi nhuận sau thuế và biên gộp để thấy chu kỳ ngành thép.
+[G-004] Tạo biểu đồ cột theo năm cho MWG từ 2020-2024: doanh thu, lợi nhuận ròng và chi phí bán hàng.
+[G-006] Cho tôi biểu đồ đường lợi nhuận trước thuế, NIM và nợ xấu của BID trong giai đoạn 2020-2024.
+[G-008] VIC 2020-2024 vẽ giúp biểu đồ doanh thu hợp nhất, lợi nhuận sau thuế và dòng tiền kinh doanh.
+[G-010] Chart trend CASA, NIM và ROE của TCB từ 2020 đến 2024.
+[G-011] Vẽ biểu đồ nhiều đường cho ACB giai đoạn 2020-2024: lợi nhuận trước thuế, ROE và tỷ lệ nợ xấu.
+[G-013] Vẽ biểu đồ doanh thu, lợi nhuận sau thuế và biên lợi nhuận ròng của SAB từ 2020-2024.
+[G-015] Vẽ biểu đồ xu hướng PLX 2020-2024 gồm doanh thu thuần, lợi nhuận sau thuế và biên lợi nhuận ròng.
+[G-017] Vẽ bar chart so sánh ROE, EPS và P/E năm 2024 của FPT, VNM, MWG và PNJ.
+[G-018] Vẽ biểu đồ cột peer comparison năm 2024 cho VCB, BID, TCB, ACB, MBB theo ROE, NIM và tỷ lệ nợ xấu.
+[G-020] Làm biểu đồ so sánh năm 2024 cho SSI, VND và HCM theo lợi nhuận sau thuế, ROE và vốn chủ sở hữu.

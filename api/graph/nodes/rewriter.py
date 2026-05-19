@@ -270,7 +270,13 @@ async def _rewriter_node(state: ChatState, config: RunnableConfig) -> dict:
 
     raw = (result.answer or "").strip()
     parsed = _extract_json(raw)
-    if not parsed:
+    # Some models (e.g. qwen-plus) wrap the object in a 1-element array
+    # `[{...}]`. Unwrap to the first dict; anything that still isn't a
+    # non-empty dict falls through to the safe passthrough below instead
+    # of crashing the whole graph on `.get()` (AttributeError).
+    if isinstance(parsed, list):
+        parsed = next((x for x in parsed if isinstance(x, dict)), None)
+    if not isinstance(parsed, dict) or not parsed:
         log.warning("rewriter output not parseable: %r — passthrough", raw[:200])
         out = _passthrough(state.user_text)
         await emit(config, "query_rewrite", _rewrite_payload(state.user_text, out))
