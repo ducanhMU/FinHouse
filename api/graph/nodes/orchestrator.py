@@ -159,7 +159,12 @@ async def _orchestrator_node(state: ChatState, config: RunnableConfig) -> dict:
     try:
         resp = await llm.chat_sync(
             messages, tools=None,
-            timeout=12.0,
+            # Benchmark (state.bench set): the remote↔cloud hop is slow,
+            # so the tight 12s production bound forces every orchestration
+            # onto a weaker fallback → the benchmark would measure the
+            # wrong brain. Give the configured primary room to answer.
+            # Production path is byte-identical (bench is None → 12.0).
+            timeout=(60.0 if state.bench else 12.0),
             options={
                 "temperature": 0.2,
                 "num_predict": 600,

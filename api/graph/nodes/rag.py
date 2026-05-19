@@ -86,6 +86,13 @@ _WEB_FALLBACK_SNIPPET_CHARS = 600
 # the orchestrator's explicit `timeout=12.0` pattern.
 _EVAL_TIMEOUT_S = 15.0
 _GEN_TIMEOUT_S = 60.0
+# Benchmark mode (state.bench set): the tight production bounds above
+# force evaluator/generator onto a weaker fallback on the slow remote↔
+# cloud hop, so the benchmark would score the wrong brain. Use generous
+# bounds so the configured primary actually answers. Still bounded — the
+# detached bench finalizer caps the whole turn anyway.
+_EVAL_TIMEOUT_BENCH_S = 60.0
+_GEN_TIMEOUT_BENCH_S = 120.0
 
 
 # ── DB precondition (unchanged from the previous retrieval-only node) ─
@@ -180,6 +187,7 @@ async def _evaluate(
     question: str,
     chunks: list[dict],
     session_model: str,
+    bench: bool = False,
 ) -> dict:
     """Ask the evaluator LLM whether retrieval is sufficient.
 
@@ -212,7 +220,7 @@ async def _evaluate(
                 {"role": "system", "content": sys_prompt},
                 {"role": "user",   "content": user_block},
             ],
-            timeout=_EVAL_TIMEOUT_S,
+            timeout=(_EVAL_TIMEOUT_BENCH_S if bench else _EVAL_TIMEOUT_S),
             options={"response_format": {"type": "json_object"}},
         )
     except Exception as e:
@@ -353,6 +361,7 @@ async def _generate(
     keep_idx: list[int],
     web_snippets: list[dict],
     session_model: str,
+    bench: bool = False,
 ) -> tuple[str, dict | None]:
     """Produce the natural-language RAG answer. Sync (non-streamed)."""
     llm = get_llm("rag", session_model)
@@ -379,7 +388,7 @@ async def _generate(
                 {"role": "system", "content": sys_prompt},
                 {"role": "user",   "content": "\n\n".join(user_parts)},
             ],
-            timeout=_GEN_TIMEOUT_S,
+            timeout=(_GEN_TIMEOUT_BENCH_S if bench else _GEN_TIMEOUT_S),
         )
     except Exception as e:
         log.warning("[rag] generator LLM failed: %s", e)
@@ -478,7 +487,9 @@ async def _rag_node(state: ChatState, config: RunnableConfig) -> dict:
 
     # ── 2. Evaluate ────────────────────────────────────────
     t_eval = time.perf_counter()
-    verdict = await _evaluate(rerank_query, chunks, state.session_model)
+    verdict = await _evaluate(
+        rerank_query, chunks, state.session_model, bench=bool(state.bench),
+    )
     eval_ms = int((time.perf_counter() - t_eval) * 1000)
     log.info("[rag] evaluator → %s (useful=%s) in %dms",
              verdict["decision"], verdict["useful_idx"], eval_ms)
@@ -504,6 +515,7 @@ async def _rag_node(state: ChatState, config: RunnableConfig) -> dict:
     t_gen = time.perf_counter()
     rag_answer, gen_usage = await _generate(
         rerank_query, chunks, keep_idx, web_snippets, state.session_model,
+        bench=bool(state.bench),
     )
     gen_ms = int((time.perf_counter() - t_gen) * 1000)
     log.info("[rag] generator len=%d in %dms", len(rag_answer), gen_ms)
