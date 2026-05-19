@@ -50,6 +50,12 @@ MAX_MESSAGE_LENGTH = 32_000
 # NOTE: in-memory per worker. For multi-worker deploys move to Redis pub/sub.
 _active_streams: dict[str, bool] = {}
 
+# Strong refs to detached TEST_MODE capture tasks. A benchmarked turn
+# must finish + persist even if the UI drops the SSE or sends /stop
+# (Streamlit reruns do this within seconds). Holding the ref here keeps
+# the task from being GC'd mid-run; it removes itself when done.
+_bench_tasks: set = set()
+
 
 # ════════════════════════════════════════════════════════════
 # Intent change detection — kept verbatim from the legacy router.
@@ -412,6 +418,53 @@ async def send_message(
 
                 graph_task = asyncio.create_task(_run_graph())
 
+                # ── TEST_MODE: capture survives UI cancellation ───
+                # Streamlit reruns (two-phase submit + abandoned-stream
+                # guard) fire /stop or drop the SSE within seconds — that
+                # must NOT lose a benchmarked turn. So for a test turn,
+                # ownership of graph_task completion + persist is moved to
+                # a DETACHED task not tied to this request/generator
+                # lifecycle: the graph runs to the end and writes
+                # actuals.jsonl regardless of what the browser does.
+                if test_plan:
+                    async def _bench_finalize():
+                        try:
+                            await asyncio.wait_for(graph_task, timeout=600)
+                        except (asyncio.TimeoutError,
+                                asyncio.CancelledError, Exception) as e:
+                            log.warning(
+                                "[session=%s] TEST_MODE graph wait ended: "
+                                "%s", session_id, e,
+                            )
+                        st = final_state_holder.get("state")
+                        if st is None:
+                            log.warning(
+                                "[session=%s] TEST_MODE: no final state — "
+                                "nothing persisted (graph crashed)",
+                                session_id,
+                            )
+                            return
+                        try:
+                            from evaluation.manual import persist_turn
+                            tid = persist_turn(
+                                test_run_dir, st,
+                                latency_ms=int(
+                                    (time.perf_counter() - t0) * 1000
+                                ),
+                            )
+                            log.info(
+                                "[session=%s] TEST_MODE persisted id=%s "
+                                "→ %s", session_id, tid, test_run_dir,
+                            )
+                        except Exception as e:
+                            log.warning(
+                                "[session=%s] TEST_MODE persist failed: "
+                                "%s", session_id, e,
+                            )
+                    _bt = asyncio.create_task(_bench_finalize())
+                    _bench_tasks.add(_bt)
+                    _bt.add_done_callback(_bench_tasks.discard)
+
                 final_answer_text = ""
 
                 # ── Drain queue → SSE + DB persistence ─────────
@@ -434,6 +487,16 @@ async def send_message(
                             "cancelled by user" if cancelled_by_user
                             else "client disconnected"
                         )
+                        if test_plan:
+                            # Benchmarked turn: stop streaming to the
+                            # (gone) client but let the graph finish —
+                            # _bench_finalize owns it and will persist.
+                            log.info(
+                                "[session=%s] %s — TEST_MODE: graph keeps "
+                                "running for offline capture",
+                                session_id, reason,
+                            )
+                            break
                         log.info(
                             f"[session={session_id}] {reason} — cancelling graph"
                         )
@@ -468,35 +531,16 @@ async def send_message(
                     if item.persist is not None:
                         await _persist_event(db, session_id, item.persist)
 
-                # Wait for the graph task to finish if not already
-                if not graph_task.done():
+                # Wait for the graph task to finish if not already.
+                # For a TEST_MODE turn the detached _bench_finalize owns
+                # graph_task completion + persistence, so we must NOT
+                # cancel it here (that was the old bug: a UI /stop killed
+                # the graph 2-5s in, before it could be captured).
+                if not test_plan and not graph_task.done():
                     try:
                         await asyncio.wait_for(graph_task, timeout=2.0)
                     except (asyncio.TimeoutError, Exception):
                         graph_task.cancel()
-
-                # ── Manual benchmark persist ──────────────────
-                # Only when this was a benchmarked turn AND the graph
-                # actually completed (holder empty on crash/cancel).
-                if test_plan and final_state_holder.get("state") is not None:
-                    try:
-                        from evaluation.manual import persist_turn
-                        tid = persist_turn(
-                            test_run_dir,
-                            final_state_holder["state"],
-                            latency_ms=int(
-                                (time.perf_counter() - t0) * 1000
-                            ),
-                        )
-                        log.info(
-                            "[session=%s] TEST_MODE persisted id=%s → %s",
-                            session_id, tid, test_run_dir,
-                        )
-                    except Exception as e:
-                        log.warning(
-                            "[session=%s] TEST_MODE persist failed: %s",
-                            session_id, e,
-                        )
 
                 # Update session turn count + auto-title
                 try:
