@@ -118,11 +118,11 @@ class Settings(BaseSettings):
     #     DB           → qwen3-coder-plus → qwen3.6-plus → qwen2.5-coder-32b-instruct
     #   Tier-B (medium — orchestration / charts / synthesis):
     #     ORCHESTRATOR → qwen3.6-plus  → qwen3.5-plus       → qwen-plus
-    #     VIS          → qwen3.5-plus  → qwen3-coder-flash  → qwen2.5-coder-32b-instruct
-    #     COLLECTOR    → qwen3.6-flash → qwen3.5-flash      → qwen-plus
+    #     VIS          → qwen3.5-plus  → qwen-plus          → qwen2.5-coder-32b-instruct
+    #     COLLECTOR    → qwen3.5-flash → qwen-flash         → qwen-plus
     #   Tier-C (light — JSON extraction / simple ReAct):
     #     REWRITER     → qwen2.5-7b-instruct  → qwen-turbo            → qwen2.5-14b-instruct
-    #     WEB          → qwen3-coder-flash    → qwen2.5-14b-instruct  → qwen-flash
+    #     WEB          → qwen-flash           → qwen2.5-14b-instruct  → qwen-turbo
     REWRITER_AGENT_LLM:     str = ""
     ORCHESTRATOR_AGENT_LLM: str = ""
     WEB_AGENT_LLM:          str = ""
