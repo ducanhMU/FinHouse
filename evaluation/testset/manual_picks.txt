@@ -1,0 +1,57 @@
+# FinHouse — manual benchmark picks
+# Set TEST_MODE=True, then paste ONE line at a time into the UI.
+# The leading [ID] token tags the turn for offline scoring;
+# the rest is sent to the bot as a normal question.
+# For multi-turn (I-xxx) paste just the token, e.g. [I-001],
+# so the testset's curated history is replayed.
+#
+# 30 questions across 9 buckets.
+
+
+# ── Bucket A ───────────────────────────
+[A-001] ROE là gì? Nếu học phân tích cổ phiếu như VNM thì em nên hiểu chỉ số này thế nào?
+[A-011] EBITDA là gì ạ? Em thấy khi phân tích GAS hay PLX có lúc dùng EBITDA thay vì lợi nhuận ròng.
+[A-020] Nợ xấu của ngân hàng là gì? Khi học về MBB thì em nên hiểu tỷ lệ nợ xấu như thế nào?
+[A-030] NAV là gì? Khi đọc tài liệu về doanh nghiệp bất động sản như VHM hoặc KDH thì em nên hiểu NAV thế nào?
+
+# ── Bucket B ───────────────────────────
+[B-001] ROE VNM 2024 là bao nhiêu?
+[B-021] HPG năm 2023 lợi nhuận sau thuế bao nhiêu?
+[B-040] SAB 2024 biên lợi nhuận ròng bao nhiêu?
+[B-060] GAS quý 3/2024 dòng tiền kinh doanh bao nhiêu?
+
+# ── Bucket C ───────────────────────────
+[C-001] Phân tích VNM năm 2024 trên các khía cạnh doanh thu, lợi nhuận sau thuế, biên lợi nhuận gộp và mức nợ vay; điểm nào là động lực chính của kết quả năm?
+[C-014] GAS năm 2024: phân tích doanh thu, lợi nhuận sau thuế, dòng tiền kinh doanh và biên lợi nhuận để đánh giá tính ổn định của kết quả.
+[C-027] TCB trong Q1-Q4/2024: NIM, thu nhập lãi thuần, nợ xấu và lợi nhuận trước thuế biến động ra sao qua từng quý?
+[C-040] SAB Q1-Q4/2024: phân tích doanh thu, lợi nhuận sau thuế, biên gộp và chi phí bán hàng theo quý để nhận diện mùa vụ tiêu thụ bia.
+
+# ── Bucket D ───────────────────────────
+[D-001] So sánh VNM, SAB và MSN năm 2024 theo doanh thu, biên lợi nhuận gộp và lợi nhuận sau thuế; doanh nghiệp nào có chất lượng lợi nhuận tốt nhất?
+[D-021] VIC và VHM năm 2024: so sánh doanh thu hợp nhất, lợi nhuận sau thuế và nợ vay để đánh giá khác biệt rủi ro tài chính.
+[D-040] POW, REE và GAS giai đoạn 2022-2024: xếp hạng theo mức độ ổn định lợi nhuận sau thuế, ROA và dòng tiền kinh doanh.
+
+# ── Bucket E ───────────────────────────
+[E-001] Ngành ngân hàng Việt Nam năm 2024 chịu tác động thế nào từ lãi suất thấp, tăng trưởng tín dụng và nợ xấu?
+[E-015] Ngành thép 2025 có thể bước vào chu kỳ phục hồi rõ hơn không nếu xét nhu cầu nội địa, xuất khẩu và giá nguyên liệu?
+[E-030] Từ 2022 đến 2024, thanh khoản thị trường chứng khoán Việt Nam và mặt bằng lãi suất có mối quan hệ thế nào với lợi nhuận ngành chứng khoán?
+
+# ── Bucket F ───────────────────────────
+[F-001] Tuần này VNM có tin gì mới đáng chú ý liên quan đến kết quả kinh doanh, cổ tức hoặc thay đổi lãnh đạo không?
+[F-015] PLX tuần này có tin mới về giá xăng dầu, nguồn cung hoặc kết quả kinh doanh sơ bộ không?
+[F-030] Thị trường chứng khoán Việt Nam tuần này có sự kiện bất ngờ nào ảnh hưởng mạnh đến nhóm VN30 không?
+
+# ── Bucket G ───────────────────────────
+[G-001] Vẽ biểu đồ đường doanh thu, lợi nhuận sau thuế và biên lợi nhuận ròng của VNM giai đoạn 2020-2024 để nhìn xu hướng tăng trưởng.
+[G-011] Vẽ biểu đồ nhiều đường cho ACB giai đoạn 2020-2024: lợi nhuận trước thuế, ROE và tỷ lệ nợ xấu.
+[G-020] Làm biểu đồ so sánh năm 2024 cho SSI, VND và HCM theo lợi nhuận sau thuế, ROE và vốn chủ sở hữu.
+
+# ── Bucket H ───────────────────────────
+[H-001] Nó lãi sao?
+[H-005] So với năm trước thì tăng hay giảm?
+[H-010] Tin mới nhất về ngành đó là gì?
+
+# ── Bucket I ───────────────────────────
+[I-001] Còn lợi nhuận sau thuế thì sao?
+[I-005] So với BID và MBB thì xếp hạng ra sao?
+[I-010] So với VND thì cao hơn hay thấp hơn?

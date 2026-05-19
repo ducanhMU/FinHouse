@@ -341,25 +341,65 @@ async def send_message(
 
                 history = await _build_history_for_graph(session_id, db, body.text)
 
+                # ── Manual benchmark hook ─────────────────────
+                # When TEST_MODE and the message starts with a test-id
+                # token ("[B-001] ..."), this single turn is logged for
+                # offline scoring. Messages without the token — and any
+                # failure here — fall through to the normal flow.
+                test_plan = None
+                test_run_dir = None
+                graph_user_text = body.text
+                graph_history = history
+                bench = None
+                try:
+                    from config import get_settings
+                    _st = get_settings()
+                    if getattr(_st, "TEST_MODE", False):
+                        from evaluation.manual import prepare_test_turn
+                        test_plan = prepare_test_turn(
+                            body.text, _st.TEST_TESTSET_DIR, _st.TEST_RUN_DIR,
+                        )
+                        if test_plan:
+                            test_run_dir = _st.TEST_RUN_DIR
+                            graph_user_text = test_plan["question"]
+                            graph_history = test_plan["history"] or history
+                            bench = test_plan["bench"]
+                            log.info(
+                                "[session=%s] TEST_MODE turn id=%s "
+                                "known=%s q=%r",
+                                session_id, test_plan["test_id"],
+                                test_plan["known"], graph_user_text[:80],
+                            )
+                except Exception as e:
+                    log.warning("[session=%s] TEST_MODE hook skipped: %s",
+                                session_id, e)
+                    test_plan = None
+
                 state = ChatState(
                     session_id=session_id,
                     user_id=user_id,
                     project_id=session_project_id,
-                    user_text=body.text,
-                    history=history,
+                    user_text=graph_user_text,
+                    history=graph_history,
                     enabled_tools=list(session.tools_used or []),
                     session_model=session.model_used,
+                    bench=bench,
                 )
 
                 queue: asyncio.Queue = asyncio.Queue()
                 graph = get_graph()
 
+                # Captures the final graph state for the TEST_MODE
+                # persist step (only used when test_plan is set).
+                final_state_holder: dict = {}
+
                 async def _run_graph():
                     try:
-                        await graph.ainvoke(
+                        result = await graph.ainvoke(
                             state,
                             config={"configurable": {"sse_queue": queue}},
                         )
+                        final_state_holder["state"] = result
                     except Exception as e:
                         log.error("[session=%s] graph crashed: %s",
                                   session_id, e, exc_info=True)
@@ -434,6 +474,29 @@ async def send_message(
                         await asyncio.wait_for(graph_task, timeout=2.0)
                     except (asyncio.TimeoutError, Exception):
                         graph_task.cancel()
+
+                # ── Manual benchmark persist ──────────────────
+                # Only when this was a benchmarked turn AND the graph
+                # actually completed (holder empty on crash/cancel).
+                if test_plan and final_state_holder.get("state") is not None:
+                    try:
+                        from evaluation.manual import persist_turn
+                        tid = persist_turn(
+                            test_run_dir,
+                            final_state_holder["state"],
+                            latency_ms=int(
+                                (time.perf_counter() - t0) * 1000
+                            ),
+                        )
+                        log.info(
+                            "[session=%s] TEST_MODE persisted id=%s → %s",
+                            session_id, tid, test_run_dir,
+                        )
+                    except Exception as e:
+                        log.warning(
+                            "[session=%s] TEST_MODE persist failed: %s",
+                            session_id, e,
+                        )
 
                 # Update session turn count + auto-title
                 try:

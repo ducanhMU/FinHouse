@@ -270,6 +270,11 @@ services:
       DATA_DIR: /app/data
     volumes:
       - ./data:/app/data:ro
+      # Benchmark harness — not baked into the image (build context is
+      # ./api). Mounted rw so `python -m evaluation.runner` can read the
+      # testset and write results/ back to the host. Run via:
+      #   docker compose exec finhouse-api python -m evaluation.runner ...
+      - ./evaluation:/app/evaluation
     depends_on:
       finhouse-postgres:
         condition: service_healthy

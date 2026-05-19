@@ -370,6 +370,23 @@ class Settings(BaseSettings):
             )
         return v
 
+    # ── Benchmark / manual test mode ────────────────────────
+    # When True, a chat message whose text starts with a test-id token
+    # like "[A-001] ..." switches that single turn into benchmark mode:
+    # the graph emits structured component logs (state.bench), and the
+    # final state + logs are persisted under TEST_RUN_DIR so
+    # `python -m evaluation.score_manual` can score it later. Messages
+    # WITHOUT the token are processed exactly as normal — TEST_MODE is
+    # inert for them. Leave False in real production.
+    TEST_MODE: bool = False
+    # Directory the manual-test artifacts accumulate into (relative to
+    # the api process CWD = /app inside the container; with the
+    # ./evaluation bind-mount this lands back on the host).
+    TEST_RUN_DIR: str = "evaluation/results/manual"
+    # Where the layer testset JSONL files live (for resolving a test-id
+    # to its canonical question + reference answer).
+    TEST_TESTSET_DIR: str = "evaluation/testset"
+
     @property
     def database_url(self) -> str:
         return (

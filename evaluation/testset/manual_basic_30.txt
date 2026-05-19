@@ -1,0 +1,39 @@
+# FinHouse — BASIC 30 (10 RAG + 10 DATABASE + 10 WEB SEARCH)
+# TEST_MODE=True. Dan TUNG DONG mot vao o chat tren UI, doi bot tra loi xong moi dan dong tiep.
+# Dong bat dau bang # la chu thich — KHONG dan vao UI.
+
+# ===== 10 cau RAG (bucket A — dinh nghia, chi dung tool rag) =====
+[A-001] ROE là gì? Nếu học phân tích cổ phiếu như VNM thì em nên hiểu chỉ số này thế nào?
+[A-004] Tỷ lệ nợ vay trên vốn chủ sở hữu là gì và vì sao doanh nghiệp thép như HPG hay được nhắc tới chỉ số này?
+[A-007] Lợi nhuận sau thuế là gì? Nó khác gì với doanh thu khi xem báo cáo của doanh nghiệp như MSN?
+[A-011] EBITDA là gì ạ? Em thấy khi phân tích GAS hay PLX có lúc dùng EBITDA thay vì lợi nhuận ròng.
+[A-014] Hàng tồn kho trong báo cáo tài chính là gì? Với PNJ thì khoản mục này nên được hiểu thế nào?
+[A-017] Cổ tức tiền mặt và cổ tức cổ phiếu khác nhau thế nào? Ví dụ với SAB thì người học nên hiểu ra sao?
+[A-020] Nợ xấu của ngân hàng là gì? Khi học về MBB thì em nên hiểu tỷ lệ nợ xấu như thế nào?
+[A-024] Thanh khoản cổ phiếu là gì? Với HCM thì thanh khoản thường được nhìn qua những yếu tố nào?
+[A-027] Lợi nhuận gộp, lợi nhuận hoạt động và lợi nhuận sau thuế khác nhau như thế nào?
+[A-030] NAV là gì? Khi đọc tài liệu về doanh nghiệp bất động sản như VHM hoặc KDH thì em nên hiểu NAV thế nào?
+
+# ===== 10 cau DATABASE (bucket B — tra so lieu, tool database) =====
+[B-001] ROE VNM 2024 là bao nhiêu?
+[B-008] VIC 2024 tổng tài sản bao nhiêu?
+[B-014] GAS năm 2024 dòng tiền từ hoạt động kinh doanh bao nhiêu?
+[B-021] HPG năm 2023 lợi nhuận sau thuế bao nhiêu?
+[B-027] ACB Q3/2024 EPS bao nhiêu?
+[B-034] KDH 2024 P/E bao nhiêu?
+[B-040] SAB 2024 biên lợi nhuận ròng bao nhiêu?
+[B-047] VHM 2024 lợi nhuận sau thuế thuộc cổ đông công ty mẹ bao nhiêu?
+[B-053] VND năm 2023 P/E bao nhiêu?
+[B-060] GAS quý 3/2024 dòng tiền kinh doanh bao nhiêu?
+
+# ===== 10 cau WEB SEARCH (bucket F — tin tuc, tool web_search) =====
+[F-001] Tuần này VNM có tin gì mới đáng chú ý liên quan đến kết quả kinh doanh, cổ tức hoặc thay đổi lãnh đạo không?
+[F-004] MWG tuần này có tin mới về Bách Hóa Xanh, đóng/mở cửa hàng hoặc biến động lợi nhuận không?
+[F-007] VHM tháng này có tin mới về mở bán dự án, pháp lý dự án hoặc giao dịch lớn nào không?
+[F-011] ACB gần đây có sự kiện gì về đại hội cổ đông, kế hoạch lợi nhuận hoặc chia cổ tức năm 2026?
+[F-014] GAS gần đây có tin gì về giá khí, hợp đồng khí mới hoặc dự án LNG không?
+[F-017] GVR năm 2026 có tin mới nào về giá cao su, thoái vốn hoặc chuyển đổi đất khu công nghiệp không?
+[F-020] SSI gần đây có tin nổi bật nào về kết quả môi giới, tự doanh hoặc kế hoạch tăng vốn không?
+[F-024] Ngành chứng khoán gần đây có tin mới nào về nâng hạng thị trường, hệ thống KRX hoặc thanh khoản đột biến?
+[F-027] Ngành dầu khí gần đây có tin gì về giá dầu, dự án LNG hoặc thay đổi chính sách năng lượng năm 2026?
+[F-030] Thị trường chứng khoán Việt Nam tuần này có sự kiện bất ngờ nào ảnh hưởng mạnh đến nhóm VN30 không?
