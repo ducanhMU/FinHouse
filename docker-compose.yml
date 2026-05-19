@@ -257,6 +257,13 @@ services:
       dockerfile: Dockerfile
     container_name: finhouse-api
     restart: unless-stopped
+    # Override the Dockerfile CMD to drop `--reload`. WatchFiles watches
+    # /app recursively, incl. the ./evaluation bind-mount which grows a
+    # .jsonl per benchmark turn → it (a) blew the open-files limit
+    # ("Too many open files", os error 24) and (b) auto-restarted
+    # uvicorn mid-run every time a turn persisted, killing capture.
+    # --reload is a dev-only convenience; benchmark/prod runs without it.
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
     ports:
       - "18000:8000"
     healthcheck:
